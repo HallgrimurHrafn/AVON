@@ -11,12 +11,15 @@ lengd=0.1 											#notna lengd, hlutfall af tempo.
 FLASH=0.1 											#styllir timalengd led flash i taktmaeli. ATH tempo>=tempo*lengd+FLASH
 tGO=1 												#1 thydir ad trellisWatch er virkt, 0 thydir ovirkt.
 cGO=0 												#-II- fyrir myndavel. tharf ad baeta fleiri breytum sem stjorna hvada parametrum er verid ad breyta.
-mGO=0  												#-II- fyrir hvort modWatch se virkt.
+mwGO=0  											#-II- fyrir hvort modWatch se virkt.
+msGO=0 												#-II- fyrir hvort modstuff se virkt.
 velocity=63 										#50% af max.
 status=8*[8*[0]]									#heldur utan um hvada notur eru merktar sem thekktar.
 mod=8*[8*[0]] 										#mun halda utan um upplysingar hverrar notu sidar.
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 liveplay=0 											#hvort thetta se i liveplay mode eda sequencer mode.
+a=0 												
+b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
 #Startup only end
 
 	
@@ -48,13 +51,6 @@ def modstuff(dalkur):								#dalkurinn sem er verid ad modda
 
 
 
-#modWatch begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig ad fraskyldu velocity. veit ekki hvar vid munum vinna med voice.
-def modWatch(x, y):
-return mod
-#modStuff ends
-
-
-
 #myndavel begins 		--- SINDRI you have been summoned.
 def myndavel ():
 	#hehehe
@@ -68,15 +64,27 @@ def playColumn(dalkur):
 	global tempo  									#tempo er timi milli upphaf notna.
 	global FLASH 									#timalengd thess er taktmaelirinn lysir dalk i takt.
 	global status 									#astands fylki fyrir hvada notur eiga ad vera i gangi.
-	for x in range (0,7):							
-		if status(dalkur,x)==1:
-			NOTEON(voice, x, velocity)
-	taktmaelir(dalkur)
-	time.sleep(tempo-tempo*lengd-FLASH)
-	for x in range (dalkur,7):
-		if status(dalkur,x)==1:
-			NOTEOFF(voice, x, velocity)
-	time.sleep(tempo*lengd)
+	global tGO 										#leyfir okkur ad breyta og lesa tGO.
+	global msGO 									#-II- msGO
+	tGO=0 											#slekkur a trellisWatch.
+	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
+		if status(dalkur,x)==1: 					#spyr hvort nóta með hnitin (dalkur,x) sé virk.
+			midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(dalkur, x, 1)).bytes()) 		
+													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
+													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
+													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
+	msGO=1 											#kveikir á modStuff
+	taktmaelir(dalkur) 								#hérna kemur inn flash frá taktmælir, ath það líður smá tími á meðan sem er táknuð FLASH.
+	time.sleep(tempo-tempo*lengd-FLASH) 			#látum forritið bíða með nótuna í gangi. tempo timi milli upphaf notna. 
+													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
+	msGO=0 											#slekkur a modStuff
+	for x in range (0,7): 						
+		if status(dalkur,x)==1: 					#velur allar notur sem við kveiktum og á og slekkur á þeim.
+			midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
+													#eini munurinn á þessu og síðasta er að message-ið er note_off og velocity er 0.
+													#velocity er valið 0 vegna þess að sum midi hljóðfæri nota ekki message-ið note off heldur bara velocity 0.
+	tGO=1 											#kveikir á trellisWatch.
+	time.sleep(tempo*lengd) 						#tíminn milli lok nótu og upphaf næstu.
 #translate status to tones end
 
 
@@ -110,6 +118,22 @@ def Sequencer():
 	else :
 		Sequencer()
 #SEQUENCER END, BOOOOOOOOOIIII
+
+
+
+#modWatch begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig. veit ekki hvar vid munum vinna med voice.
+def modWatch():
+	global a
+	global b
+
+#modStuff ends
+
+
+
+#livePlay begins 		--- her er megin vinnslan fyrir liveplay partinn.
+def livePlay():
+	blah
+#livePlay ends
 
 
 
