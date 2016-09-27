@@ -15,6 +15,8 @@ mGO=0  							#-II- fyrir hvort modWatch se virkt.
 velocity=63 					#50% af max.
 status=8*[8*[0]]				#heldur utan um hvada notur eru merktar sem thekktar.
 mod=8*[8*[0]] 					#mun halda utan um upplysingar hverrar notu sidar.
+skali=[60, 62, 64, 65, 67, 69, 71, 72] 	#skali, nuna c dur. seinna a ad geta valid.
+liveplay=0 						#hvort thetta se i liveplay mode eda sequencer mode.
 #Startup only end
 
 	
@@ -22,6 +24,7 @@ mod=8*[8*[0]] 					#mun halda utan um upplysingar hverrar notu sidar.
 #trellisWatch begins 	--- fylgist med tokkum a trellis.
 def trellisWatch():
 	global tGO
+	global status
 	if tGO==1:																						#-----------ATHUGA
 		time.sleep(0.03) # bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
 		if trellis.readSwitches():
@@ -39,16 +42,15 @@ return trellisWatch()
 
 
 
-#modWatch begins		--- a bara ad vera i gangi thegar notandi er ad velja mods fyrir akvedna notu.
-def modWatch (x, y):	#x og y eru hnit notunnar.
-return
+#modstuff begins		--- moddar dalkinn on the fly ef notad er 
+def modstuff(dalkur):	#dalkurinn sem er verid ad modda
 #modWatch ends 			--- a augljuslega eftir ad paela betur i hvernig thetta verdur.
 
 
 
-#modStuff begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig ad fraskyldu velocity. veit ekki hvar vid munum vinna med voice.
-def modstuff (dalkur):
-return
+#modWatch begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig ad fraskyldu velocity. veit ekki hvar vid munum vinna med voice.
+def modWatch(x, y):
+return mod
 #modStuff ends
 
 
@@ -56,61 +58,58 @@ return
 #myndavel begins 		--- SINDRI you have been summoned.
 def myndavel ():
 	#hehehe
-return
 #myndavel ends 		--- open cv dot.. vonandi er haegt ad gera thetta allt her, ef ekki tha thurfum vid ad koma med adra
 #								 hugmynd um hvernig forritin tala saman
 
 
 
 #playcolumn begin --- spilar notur i dalk og takt maelinn lika.
-def playColumn (dalkur):
+def playColumn(dalkur):
 	global tempo
 	global FLASH
+	global status
 	for x in range (0,7):
 		if status(dalkur,x)==1:
 			NOTEON(voice, x, velocity)
-	taktmaelir
+	taktmaelir(dalkur)
 	time.sleep(tempo-tempo*lengd-FLASH)
 	for x in range (dalkur,7):
 		if status(dalkur,x)==1:
 			NOTEOFF(voice, x, velocity)
 	time.sleep(tempo*lengd)
-	return
 #translate status to tones end
 
 
 
-#NOTEON begin
-def NOTEON(voice, key, velocity) :
-	####OKKUR VANTAR MIDI LIBRARY
-	return
-#NOTEON end
-
-
-
-#NOTEOFF begin
-def NOTEOFF(voice,key,velocity):
-	######OKKUR VANTAR MIDI LIBRARY
-	return
-##NOTEOFF end
-
-
 #taktmaelir begin
-def taktmaelir :
+def taktmaelir(dalkur) :
 	global FLASH
+	global status
 	for x in range (0,8):
 		trellis.setLED(x)
 	trellis.writeDisplay()
 	time.sleep(FLASH)
 	for x in range (0,8):
 		trellis.clrLED(x)
-	trellis.writeDisplay()
-
-
-	#vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
-
-	return
+	trellis.writeDisplay()		#vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
 #taktmaelir end
+
+
+
+#SEQUENCER LOOP, THIS IS IT YO GUYS:
+def Sequencer():
+	if (livemode == 0 and modmode == 0):
+		for dalkur in range (0,7):
+			playColumn(dalkur)
+			if (if livemode == 1 or modmode == 1):
+				break
+	elif livemode == 1:
+		livePlay()
+	elif modmode == 1:
+		modWatch()
+	else :
+		Sequencer()
+#SEQUENCER END, BOOOOOOOOOIIII
 
 
 
@@ -125,9 +124,6 @@ t3.start()
 
 
 
-#MAIN LOOP begin ---- hvernig geri eg mainloop? geri eg kannski bara endalausa while loopu?
-d=0
-while d==0
-	for x in range (0,7):
-		playColumn (x)
-#MAIN LOOP end
+#MAIN end
+Sequencer()
+#MAIN  end
