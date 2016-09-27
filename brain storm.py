@@ -5,7 +5,7 @@ import time
 
 
 #Startup only begin these should all be global variables.
-trellis.readSwitches()							#man ekki af hverju eg setti thetta hingad. laet etta vera for now.
+trellis.readSwitches()								#man ekki af hverju eg setti thetta hingad. laet etta vera for now.
 tempo=0.5											#tempo, timi milli byrjun notna.
 lengd=0.1 											#notna lengd, hlutfall af tempo.
 FLASH=0.1 											#styllir timalengd led flash i taktmaeli. ATH tempo>=tempo*lengd+FLASH
@@ -15,7 +15,7 @@ mGO=0  												#-II- fyrir hvort modWatch se virkt.
 velocity=63 										#50% af max.
 status=8*[8*[0]]									#heldur utan um hvada notur eru merktar sem thekktar.
 mod=8*[8*[0]] 										#mun halda utan um upplysingar hverrar notu sidar.
-skali=[60, 62, 64, 65, 67, 69, 71, 72] 	#skali, nuna c dur. seinna a ad geta valid.
+skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 liveplay=0 											#hvort thetta se i liveplay mode eda sequencer mode.
 #Startup only end
 
@@ -27,23 +27,23 @@ def trellisWatch():
 	global status									#-II-.
 	if tGO==1:																						#-----------ATHUGA
 		time.sleep(0.03) 							#bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
-		if trellis.readSwitches():				#les hvort thad hafir verid ytt a EINHVERN takka 
-			for x in range (0, 63) 				#63+1 er fjoldi takka:
-				if trellis.justPressed(x): 	#spyr hvort thad hafi verid ytt a takka x.
-					if status[x%8,x//8]==0:		#les i fylkid hvort stadan hafi verid ovirkt adur. 	--- x%8 er gert rad fyrir ad se dalkur og x//8 lina. gaeti verid rangt.
-						status[x%8,x//8]=1    	#setur stoduna sem virkt	--- kannski er thetta 4 en ekki 8 thar sem trellis-in sjalfur er bara 4 a lengd.
-						trellis.setLED(x) 		#kveikir a ljosi a trellis undir takka x.
+		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
+			for x in range (0, 63) 					#63+1 er fjoldi takka:
+				if trellis.justPressed(x): 			#spyr hvort thad hafi verid ytt a takka x.
+					if status[x%8,x//8]==0:			#les i fylkid hvort stadan hafi verid ovirkt adur. 	--- x%8 er gert rad fyrir ad se dalkur og x//8 lina. gaeti verid rangt.
+						status[x%8,x//8]=1    		#setur stoduna sem virkt	--- kannski er thetta 4 en ekki 8 thar sem trellis-in sjalfur er bara 4 a lengd.
+						trellis.setLED(x) 			#kveikir a ljosi a trellis undir takka x.
 					else:
-						status[x%8,x//8]=0 		#her var x virkt svo nuna er thad gert ovirkt
-						trellis.clrLED(x) 		#gert ovirkt svo vid slokkvum a LED-inu
-		trellis.writeDisplay() 					#uppfærir LED svo breytingarnar komi inn.
-return trellisWatch() 							#endurkvaemt fall svo thad heldur endalaust afram.
+						status[x%8,x//8]=0 			#her var x virkt svo nuna er thad gert ovirkt
+						trellis.clrLED(x) 			#gert ovirkt svo vid slokkvum a LED-inu
+		trellis.writeDisplay() 						#uppfærir LED svo breytingarnar komi inn.
+return trellisWatch() 								#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
 
 
 
 #modstuff begins		--- moddar dalkinn on the fly ef notad er 
-def modstuff(dalkur):							#dalkurinn sem er verid ad modda
+def modstuff(dalkur):								#dalkurinn sem er verid ad modda
 #modWatch ends 			--- a augljuslega eftir ad paela betur i hvernig thetta verdur.
 
 
@@ -68,7 +68,7 @@ def playColumn(dalkur):
 	global tempo  									#tempo er timi milli upphaf notna.
 	global FLASH 									#timalengd thess er taktmaelirinn lysir dalk i takt.
 	global status 									#astands fylki fyrir hvada notur eiga ad vera i gangi.
-	for x in range (0,7):
+	for x in range (0,7):							
 		if status(dalkur,x)==1:
 			NOTEON(voice, x, velocity)
 	taktmaelir(dalkur)
@@ -91,7 +91,7 @@ def taktmaelir(dalkur) :
 	time.sleep(FLASH)
 	for x in range (0,8):
 		trellis.clrLED(x)
-	trellis.writeDisplay()		#vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
+	trellis.writeDisplay()							#vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
 #taktmaelir end
 
 
