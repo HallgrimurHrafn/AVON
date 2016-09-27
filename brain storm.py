@@ -26,8 +26,7 @@ b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
    
 #trellisWatch begins 	--- fylgist med tokkum a trellis.
 def trellisWatch():
-	global tGO										#til ad vera ad vinna med global breytu.
-	global status									#-II-.
+	global tGO, status								#global breytur, útskýrðar efst.
 	if tGO==1:																						#-----------ATHUGA
 		time.sleep(0.03) 							#bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
 		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
@@ -61,11 +60,7 @@ def myndavel ():
 
 #playcolumn begin --- spilar notur i dalk og takt maelinn lika.
 def playColumn(dalkur):
-	global tempo  									#tempo er timi milli upphaf notna.
-	global FLASH 									#timalengd thess er taktmaelirinn lysir dalk i takt.
-	global status 									#astands fylki fyrir hvada notur eiga ad vera i gangi.
-	global tGO 										#leyfir okkur ad breyta og lesa tGO.
-	global msGO 									#-II- msGO
+	global tempo, FLASH, status, tGO, msGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
 	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		if status(dalkur,x)==1: 					#spyr hvort nóta með hnitin (dalkur,x) sé virk.
@@ -93,40 +88,37 @@ def playColumn(dalkur):
 
 #taktmaelir begin
 def taktmaelir(dalkur) :
-	global FLASH
-	global status
-	for x in range (0,8):
-		trellis.setLED(x)
-	trellis.writeDisplay()
-	time.sleep(FLASH)
-	for x in range (0,8):
-		trellis.clrLED(x)
-	trellis.writeDisplay()							#vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
-#taktmaelir end
+	global FLASH, status							#global breytur, útskýrðar efst.
+	for x in range (0,8):							#fyrir öll LED í 'dálkur'
+		trellis.setLED(x) 							#kveikja á LED!
+	trellis.writeDisplay() 							#uppfæra led á borði.. VERÐI LJÓS!
+	time.sleep(FLASH) 								#biðtími eftir taktmælis flash.
+	for x in range (0,8): 							#fyrir öll LED í 'dálkur'
+		trellis.clrLED(x) 							#slökkva á LED!
+	trellis.writeDisplay()							#uppfæra led á borði.. VERÐI MYRKUR!
+#taktmaelir end  		--- vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
 
 
 
 #SEQUENCER LOOP, THIS IS IT YO GUYS:
-def Sequencer():
-	if (livemode == 0 and modmode == 0):
-		for dalkur in range (0,7):
-			playColumn(dalkur)
-			if (if livemode == 1 or modmode == 1):
-				break
-	elif livemode == 1:
-		livePlay()
-	elif modmode == 1:
-		modWatch()
-	else :
-		Sequencer()
+def Sequencer():									
+	if (livemode == 0 and modmode == 0): 			#skoðar hvort AVON vinnslurými eigi að vera í sequencer-, live- eða modemode.
+		for dalkur in range (0,7): 					#fyrir alla dálka í sequencer.
+			playColumn(dalkur) 						#spila nótur dálks auk bið og taktmælis.
+			if (if livemode == 1 or modmode == 1): 	#skoðar hvort það hafi verið breyting á hvaða mode er i gangi.
+				break 								#ef svo er, stöðvum við loopuna.
+	elif livemode == 1: 							#ef live mode er 1
+		livePlay() 									#förum við í liveplay, sem er til að spila on the fly.
+	elif modmode == 1: 								#ef modmode er 1
+		modWatch() 									#förum við í modwatch.
+	Sequencer() 									#annars/eftir að spila i gegnum alla dálka, förum við aftur i sequencer. "hala"endurkvæmt fall.
 #SEQUENCER END, BOOOOOOOOOIIII
 
 
 
 #modWatch begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig. veit ekki hvar vid munum vinna med voice.
 def modWatch():
-	global a
-	global b
+	global a, b 									#global breytur, útskýrðar efst
 
 #modStuff ends
 
