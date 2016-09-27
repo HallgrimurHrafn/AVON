@@ -14,7 +14,7 @@ status=8*[8*[0]]
 mod=8*[8*[0]] # mun halda utan um upplysingar hverrar notu sidar.
 #Startup only end
 
-#test 
+
 
 #trellisWatch begin  --- fylgist med tokkum a trellis.
 def trellisWatch:
