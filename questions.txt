@@ -29,3 +29,7 @@ mido.Message('note_on', channel=0, note=60, velocity=115)
 
 á sequencerinn að halda áfram að spila melodíu á meðan við erum í livemode? það væri geggjað en er smá vesen.
 minna vesen ef við myndum setja það á annað voice.
+
+
+
+get ég búið til thread i functioni eða verður það að gerast í main forritinu?

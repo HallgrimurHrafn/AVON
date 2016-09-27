@@ -74,6 +74,8 @@ def playColumn(dalkur):
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
 													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
 	msGO=1 											#kveikir á modStuff
+ 	#ATHUGASEMD, svona er ekki haegt ad breyta 
+ 	#timasetningum fyrir note on eda off einstaklega. -expect some change.
 	taktmaelir(dalkur) 								#hérna kemur inn flash frá taktmælir, ath það líður smá tími á meðan sem er táknuð FLASH.
 	time.sleep(tempo-tempo*lengd-FLASH) 			#látum forritið bíða með nótuna í gangi. tempo timi milli upphaf notna. 
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
