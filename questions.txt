@@ -1,1 +1,31 @@
-questions
+questions 
+ekki vitlaust að skrifa nöfnin ykkar með t.d H:"blablabla" á undan.
+dæmi, hvað er 2+2?
+H:5
+S:ha? það er 4.
+K:haha
+H:sorrý mistype... hehehe
+
+
+
+ER í lagi að það er ekki hægt að nota myndavélina til að modda on the fly á meðan það er verið að breyta styllingum fyrir 
+individual nótur? -flóknara
+
+
+hvað meigum við eiginlega nota marga þræði í einu?
+
+
+hvað gerist ef það kemur sama notan tvisvar i röð án þess að það sé slökkt á henni á milli.
+dæmi: 
+mido.Message('note_on', channel=0, note=60, velocity=100)
+time.sleep(blah)
+mido.Message('note_on', channel=0, note=60, velocity=115)
+
+
+
+á sequencerinn að halda áfram að spila á meðan við erum að breyta styllingum fyrir einstaka nótu?
+
+
+
+á sequencerinn að halda áfram að spila melodíu á meðan við erum í livemode? það væri geggjað en er smá vesen.
+minna vesen ef við myndum setja það á annað voice.
