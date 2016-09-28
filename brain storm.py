@@ -16,7 +16,7 @@ msGO=0 												#-II- fyrir hvort modstuff se virkt.
 velocity=63 										#50% af max.
 voice=0 											#voice=channel. það channel sem er núna í notkun.
 status=8*[8*[0]]									#heldur utan um hvada notur eru merktar sem thekktar.
-mod=8*[8*[0]] 										#mun halda utan um upplysingar hverrar notu sidar.
+mod=8*[8*[8*[0]]]									#mun halda utan um upplysingar hverrar notu sidar.
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 liveplay=0 											#hvort thetta se i liveplay mode eda sequencer mode.
 a=0 												
@@ -28,7 +28,7 @@ b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
    
 #trellisWatch begins 	--- fylgist med tokkum a trellis.
 def trellisWatch():
-	global tGO, status, voice						#global breytur, útskýrðar efst.
+	global tGO, status, voice, a, b					#global breytur, útskýrðar efst.
 	if tGO==1:																						#-----------ATHUGA
 		time.sleep(0.03) 							#bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
 		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
@@ -41,7 +41,17 @@ def trellisWatch():
 						status[x%8,x//8]=0 			#her var x virkt svo nuna er thad gert ovirkt
 						trellis.clrLED(x) 			#gert ovirkt svo vid slokkvum a LED-inu
 		trellis.writeDisplay() 						#uppfærir LED svo breytingarnar komi inn.
-return trellisWatch() 								#endurkvaemt fall svo thad heldur endalaust afram.
+	elif msGO=1:
+		time.sleep(0.03)
+		if trellis.readSwitches():
+			for x in range (0, 63):
+				if trellis.justPressed(x):
+
+
+
+
+
+	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
 
 

@@ -49,3 +49,6 @@ Ef við viljum mikið af voicum i gangi í einu þurfum við að finna góða le
 t.d. ef einn sleppir if stórri if lykkju er hann kominn aðeins á undan.. skiptir engu en getur safnast upp..
 
 
+
+eigum við að hafa individual control fyrir hverja notu i hverju einasta channeli?
+H: geri ráð fyrir því í bili
