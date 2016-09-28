@@ -33,3 +33,19 @@ minna vesen ef við myndum setja það á annað voice.
 
 
 get ég búið til thread i functioni eða verður það að gerast í main forritinu?
+H: held það, væri fáránlegt að geta það ekki.
+
+
+
+viljum við halda utan um allar 16 voices og leyfa þeim að geta verið samhliða?
+
+
+
+auk complete stopp taka viljum við búa til kill voice takka?
+
+
+
+Ef við viljum mikið af voicum i gangi í einu þurfum við að finna góða leið til að láta marga þræði ef til eru vinna samtímis.
+t.d. ef einn sleppir if stórri if lykkju er hann kominn aðeins á undan.. skiptir engu en getur safnast upp..
+
+
