@@ -13,11 +13,12 @@ tGO=1 												#1 thydir ad trellisWatch er virkt, 0 thydir ovirkt.
 cGO=0 												#-II- fyrir myndavel. tharf ad baeta fleiri breytum sem stjorna hvada parametrum er verid ad breyta.
 mwGO=0  											#-II- fyrir hvort modWatch se virkt.
 msGO=0 												#-II- fyrir hvort modstuff se virkt.
+lGO=0 												#-II- fyrir hvort livemode se virkt.
 velocity=63 										#50% af max.
 voice=0 											#voice=channel. það channel sem er núna í notkun.
 status=np.zeros((8,8,16))							#heldur utan um hvada notur eru merktar sem thekktar.
 mod=16*[8*[8*[8*[0]]]]								#mun halda utan um upplysingar hverrar notu sidar.
-tempStatus=np.zeros((8,8,16))						#heldur timabundid um breytur.
+tStatus=np.zeros((8,8,16))					   		#heldur timabundid um breytur. t stendur fyrir temporary.
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 liveplay=0 											#hvort thetta se i liveplay mode eda sequencer mode.
 a=0 												
@@ -27,13 +28,17 @@ b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
 
 	
    
-#trellisWatch begins 	--- fylgist med tokkum a trellis.
+#trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
-	global tGO, status, voice, a, b					#global breytur, útskýrðar efst.
-	if tGO==1:																						#-----------ATHUGA
+	global tGO, status, voice, a, b, tStatus		#global breytur, útskýrðar efst.
+	if tGO==1 and lGO==0:																						#-----------ATHUGA
 		time.sleep(0.03) 							#bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
+													#ef sleep er aukið keyrir loop-an sjaldnar á mínútu sem sparar resources í cpu. auka þetta til að létta keyrslu ef þarf.
+		status=tStatus 								#--------------utskyrt nedar-------
 		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
 			for x in range (0, 63) 					#63+1 er fjoldi takka:
+				if tGO==0 or lGO==1: 				
+					break 							
 				if trellis.justPressed(x): 			#spyr hvort thad hafi verid ytt a takka x.
 					if status[x%8][x//8][voice]==0:	#les i fylkid hvort stadan hafi verid ovirkt adur. 	--- x%8 er gert rad fyrir ad se dalkur og x//8 lina. gaeti verid rangt.
 						status[x%8][x//8][voice]=1 	#setur stoduna sem virkt	--- kannski er thetta 4 en ekki 8 thar sem trellis-in sjalfur er bara 4 a lengd.
@@ -42,15 +47,19 @@ def trellisWatch():
 						status[x%8][x//8][voice]=0 	#her var x virkt svo nuna er thad gert ovirkt
 						trellis.clrLED(x) 			#gert ovirkt svo vid slokkvum a LED-inu
 		trellis.writeDisplay() 						#uppfærir LED svo breytingarnar komi inn.
-	elif msGO=1:
-		time.sleep(0.03)
-		if trellis.readSwitches():
-			for x in range (0, 63):
-				if trellis.justPressed(x):
-					mod
-
-
-
+		tStatus=status 								#------------uutskyring her fyrir nedan.
+	elif tGO==0 and lGO==0: 						#her eru 2 her um bil eins foll. eitt fyrir tStatus og eitt fyrir status.
+		time.sleep(0.03) 							#ef ekki er haegt að setja inn notur i status eins og er þá er það sett í
+		if trellis.readSwitches():					#tStatus í staðinn. kveikt og slökkt er á ljósum sem skyldi.
+			for x in range (0, 63) 					#þegar aftur má setja í status þá veljum við að status=tStatus til að allt sem
+				if trellis.justPressed(x): 			#gerðist á meðan sé inn í kerfinu. í lokin eftir að við höfum verið að fylgjast með
+					if tStatus[x%8][x//8][voice]==0:#status þá styllum við tStatus=status. þetta tryggir að tStatus er alltaf það sama og status
+						tStatus[x%8][x//8][voice]=1 #nema þegar það má ekki breyta status.
+						trellis.setLED(x) 			
+					else:
+						tStatus[x%8][x//8][voice]=0 	
+						trellis.clrLED(x)
+	elif lGO==1:
 
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
@@ -75,8 +84,9 @@ def myndavel ():
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, msGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
+	#time.sleep(0.01)					#kannski þarf til að leyfa trellisWatch að klára for loopu.
 	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
-		for v in range (0,15):
+		for v in range (0,15): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
 				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(v, dalkur, x, 1)).bytes()) 		
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
@@ -90,8 +100,9 @@ def playColumn(dalkur):
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
 	msGO=0 											#slekkur a modStuff
 	for x in range (0,7): 						
-		if status(dalkur,x)==1: 					#velur allar notur sem við kveiktum og á og slekkur á þeim.
-			midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
+		for v in range (0,15):
+			if status[dalkur][x][v]==1:				#velur allar notur sem við kveiktum og á og slekkur á þeim.
+				midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
 													#eini munurinn á þessu og síðasta er að message-ið er note_off og velocity er 0.
 													#velocity er valið 0 vegna þess að sum midi hljóðfæri nota ekki message-ið note off heldur bara velocity 0.
 	tGO=1 											#kveikir á trellisWatch.
@@ -103,16 +114,17 @@ def playColumn(dalkur):
 
 #taktmaelir begins
 def taktmaelir(dalkur) :
-	global FLASH, status							#global breytur, útskýrðar efst.
+	global FLASH, status, voice						#global breytur, útskýrðar efst.
 	for x in range (0,8):							#fyrir öll LED í 'dálkur'
-		trellis.setLED(x) 							#kveikja á LED!
+		if status[dalkur][x][voice]==0:				#gert svo við séum bara að kveikja a led-um sem var slökkt á fyrir.
+			trellis.setLED(x) 						#kveikja á LED!
 	trellis.writeDisplay() 							#uppfæra led á borði.. VERÐI LJÓS!
 	time.sleep(FLASH) 								#biðtími eftir taktmælis flash.
 	for x in range (0,8): 							#fyrir öll LED í 'dálkur'
-		trellis.clrLED(x) 							#slökkva á LED!
+		if status[dalkur][x][voice]==0: 			#gert svo við séum bara að slökkva á led-um sem ekki var kveikt á fyrir "taktmaelir".
+			trellis.clrLED(x) 						#slökkva á LED!
 	trellis.writeDisplay()							#uppfæra led á borði.. VERÐI MYRKUR!
-#taktmaelir end  		--- vantar ad kveikja a ljosum aftur sem voru tharna fyrir. eda excluda thau.
-#						--- öllu helst að bua til fylki LED sem heldur utanum hvaða ljos eiga að vera i gangi currently.
+#taktmaelir end  		
 
 
 
@@ -125,7 +137,7 @@ def Sequencer():
 			if (livemode == 1 or modmode == 1 			#skoðar hvort það hafi verið breyting á hvaða mode er i gangi.
 			or stop == 1) 								#a ad stodva allt?
 				break 									#ef svo er, stöðvum við loopuna.
-			sequencer() 								#förum aftur i sequencer. byrjun fallsins finnur ut hvort þurfi að flytja vinnslusvæðið.
+		sequencer() 								#förum aftur i sequencer. byrjun fallsins finnur ut hvort þurfi að flytja vinnslusvæðið.
 	elif livemode == 1: 							#ef live mode er 1
 		livePlay() 									#förum við í liveplay, sem er til að spila on the fly.
 	elif modmode == 1: 								#ef modmode er 1
