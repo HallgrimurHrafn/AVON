@@ -1,7 +1,7 @@
 
 from threading import thread
 import time
-
+import numpy as np 									#erum við ekki örugglega með numpy a pi? annars þurfum við að bæta þvi við.
 
 
 #Startup only begin these should all be global variables.
@@ -15,8 +15,9 @@ mwGO=0  											#-II- fyrir hvort modWatch se virkt.
 msGO=0 												#-II- fyrir hvort modstuff se virkt.
 velocity=63 										#50% af max.
 voice=0 											#voice=channel. það channel sem er núna í notkun.
-status=8*[8*[0]]									#heldur utan um hvada notur eru merktar sem thekktar.
-mod=8*[8*[8*[0]]]									#mun halda utan um upplysingar hverrar notu sidar.
+status=np.zeros((8,8,16))							#heldur utan um hvada notur eru merktar sem thekktar.
+mod=16*[8*[8*[8*[0]]]]								#mun halda utan um upplysingar hverrar notu sidar.
+tempStatus=np.zeros((8,8,16))						#heldur timabundid um breytur.
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 liveplay=0 											#hvort thetta se i liveplay mode eda sequencer mode.
 a=0 												
@@ -34,11 +35,11 @@ def trellisWatch():
 		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
 			for x in range (0, 63) 					#63+1 er fjoldi takka:
 				if trellis.justPressed(x): 			#spyr hvort thad hafi verid ytt a takka x.
-					if status[x%8,x//8]==0:			#les i fylkid hvort stadan hafi verid ovirkt adur. 	--- x%8 er gert rad fyrir ad se dalkur og x//8 lina. gaeti verid rangt.
-						status[x%8,x//8]=1    		#setur stoduna sem virkt	--- kannski er thetta 4 en ekki 8 thar sem trellis-in sjalfur er bara 4 a lengd.
+					if status[x%8][x//8][voice]==0:	#les i fylkid hvort stadan hafi verid ovirkt adur. 	--- x%8 er gert rad fyrir ad se dalkur og x//8 lina. gaeti verid rangt.
+						status[x%8][x//8][voice]=1 	#setur stoduna sem virkt	--- kannski er thetta 4 en ekki 8 thar sem trellis-in sjalfur er bara 4 a lengd.
 						trellis.setLED(x) 			#kveikir a ljosi a trellis undir takka x.
 					else:
-						status[x%8,x//8]=0 			#her var x virkt svo nuna er thad gert ovirkt
+						status[x%8][x//8][voice]=0 	#her var x virkt svo nuna er thad gert ovirkt
 						trellis.clrLED(x) 			#gert ovirkt svo vid slokkvum a LED-inu
 		trellis.writeDisplay() 						#uppfærir LED svo breytingarnar komi inn.
 	elif msGO=1:
@@ -46,7 +47,7 @@ def trellisWatch():
 		if trellis.readSwitches():
 			for x in range (0, 63):
 				if trellis.justPressed(x):
-
+					mod
 
 
 
@@ -75,8 +76,9 @@ def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, msGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
 	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
-		if status(dalkur,x)==1: 					#spyr hvort nóta með hnitin (dalkur,x) sé virk.
-			midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(dalkur, x, 1)).bytes()) 		
+		for v in range (0,15):
+			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(v, dalkur, x, 1)).bytes()) 		
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
 													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
