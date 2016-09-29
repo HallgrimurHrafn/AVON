@@ -24,6 +24,7 @@ mod=16*[8*[8*[8*[0]]]]np.zeros((8,8,16,8))			#mun halda utan um upplysingar hver
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 a=0 												
 b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
+
 #Startup only end  		--- þarf sennilega að breyta status í 8x8x16 fylki til að halda utan um voices.
 #						--- Þarf sennilega amk 8x8x8 fyrir mod lika til að halda utan um nægar upplysingar. x,y hnit og z mod factor. fylki með gildum ekki 1 og 0.
 
@@ -31,7 +32,7 @@ b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
    
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
-	global tGO, status, voice, a, b, tStatus		#global breytur, útskýrðar efst.
+	global tGO, status, voice, a, b, tStatus
 	if tGO==1 and lGO==0:																						#-----------ATHUGA
 		time.sleep(0.03) 							#bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
 													#ef sleep er aukið keyrir loop-an sjaldnar á mínútu sem sparar resources í cpu. auka þetta til að létta keyrslu ef þarf.
@@ -61,7 +62,11 @@ def trellisWatch():
 						tStatus[x%8][x//8][voice]=0 	
 						trellis.clrLED(x)
 	elif lGO==1:
-		livePlay() 									#trelliswatch þráðurinn fer yfir í livePlay ef 
+		livePlay() 									#trellisWatch þráðurinn fer yfir í livePlay ef 
+	elif clV==1:
+		clearVoice()
+	elif clA==1:
+		clearAll()
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
 
@@ -75,7 +80,11 @@ def modColumn(dalkur):								#dalkurinn sem er verid ad modda
 
 #myndavel begins 		--- SINDRI you have been summoned.
 def myndavel ():
-	#hehehe
+	if cGO==1:
+		#STUFF
+	else:
+		time.sleep(1)								#lata forritið checka á 1 sekundu fresti hvort það sé kveikt. lengri start tími eeen
+													#sparar cpu alveg massift.
 #myndavel ends 		--- open cv dot.. vonandi er haegt ad gera thetta allt her, ef ekki tha thurfum vid ad koma med adra
 #								 hugmynd um hvernig forritin tala saman
 
@@ -108,24 +117,23 @@ def playColumn(dalkur):
 													#velocity er valið 0 vegna þess að sum midi hljóðfæri nota ekki message-ið note off heldur bara velocity 0.
 	tGO=1 											#kveikir á trellisWatch.
 	time.sleep(tempo*lengd) 						#tíminn milli lok nótu og upphaf næstu.
-#playColumn ends 		--- þarf að breyta status i 8x8x16 og deala við það. 
-# 						--- finna út hvernig á að deala við mismunandi takta nótna.
+#playColumn ends		--- finna út hvernig á að deala við mismunandi takta nótna.
 
 
 
 #taktmaelir begins
 def taktmaelir(dalkur) :
 	global FLASH, status, voice						#global breytur, útskýrðar efst.
-	for x in range (0,8):							#fyrir öll LED í 'dálkur'
+	for x in range (0,7):							#fyrir öll LED í 'dálkur'
 		if status[dalkur][x][voice]==0:				#gert svo við séum bara að kveikja a led-um sem var slökkt á fyrir.
-			trellis.setLED(x) 						#kveikja á LED!
+			trellis.setLED(x*8+dalkur)				#kveikja á LED!
 	trellis.writeDisplay() 							#uppfæra led á borði.. VERÐI LJÓS!
 	time.sleep(FLASH) 								#biðtími eftir taktmælis flash.
-	for x in range (0,8): 							#fyrir öll LED í 'dálkur'
+	for x in range (0,7): 							#fyrir öll LED í 'dálkur'
 		if status[dalkur][x][voice]==0: 			#gert svo við séum bara að slökkva á led-um sem ekki var kveikt á fyrir "taktmaelir".
-			trellis.clrLED(x) 						#slökkva á LED!
+			trellis.clrLED(x*8+dalkur) 				#slökkva á LED!
 	trellis.writeDisplay()							#uppfæra led á borði.. VERÐI MYRKUR!
-#taktmaelir end  		
+#taktmaelir end
 
 
 
@@ -139,20 +147,35 @@ def Sequencer():
 	elif (stop == 1): 								#ef sequencerinn var stoppaður er enginn ástæða til að drepa örgjörvan. setjum sleep til að 
 		time.sleep(0.2)								#eyða minna afli örgjörvans.
 	Sequencer() 									#annars/eftir að spila i gegnum alla dálka, förum við aftur i sequencer. "hala"endurkvæmt fall.
-#SEQUENCER END, BOOOOOOOOOIIII
+#SEQUENCER END, BOOOOOOOOOIIII	 			--- hér þarf ekkert time.sleep því það er nóg af því í playcolumn svo við bræðum ekki kerfið.
 
 
 
 #clearVoice begins 		--- það voice sem er currently í gangi er eytt.
 def clearVoice():
-	global voice, status, mod
-	
+	global voice, status, mod 						
+	for x in range (0,63):
+		status[x%8][x//8][voice]=0
+							#her þarf að stylla innri gildin 8 á normal fyrir mod. þurfum því að ákveða þau fyrst.
+							#kannski búum við til lítið fylki sem innheldur bara 8 normal breyturnar og normalize er bara að setja
+							#mod[dalk][lina][voice]=normalized... veit ekki hvort þetta meigi samt.
+		trellis.clrLED(x)
+	trellisWatch()
 #clearVoice ends
 
 
 
 #clearAll begins 		--- eyðir öllum voice-um.
 def clearAll():
+	global status, mod
+	for v in range (0,15):
+		for dalkur in range (0, 7):
+			for lina in range (0,7):
+				status[dalkur][lina][v]=0
+				#normalize(dalkur,lina,v)
+	for x in range (0,63):
+		trellis.clrLED(x)
+	trellisWatch()
 #clearAll ends
 
 
@@ -166,6 +189,14 @@ def modWatch():
 
 #livePlay begins 		--- her er megin vinnslan fyrir liveplay partinn.
 def livePlay():
+	global voice, skali
+	if trellis.readSwitches():
+		for x in range (0, 63):
+			if trellis.justPressed(x):
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes()) 
+			if trellis.justReleased(x):
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes()) 
+
 #livePlay ends  		--- vantar allt
 
 
