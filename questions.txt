@@ -52,3 +52,7 @@ t.d. ef einn sleppir if stórri if lykkju er hann kominn aðeins á undan.. skip
 
 eigum við að hafa individual control fyrir hverja notu i hverju einasta channeli?
 H: geri ráð fyrir því í bili
+
+
+ef gert er clearVoice, eða clearAll eigum við ekki að gera ráð fyrir því að allar mod upplýsingar um þær nótur séu eyddar.
+H: geri ráð fyrir því í augnablikinu.

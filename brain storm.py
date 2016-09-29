@@ -12,15 +12,16 @@ FLASH=0.1 											#styllir timalengd led flash i taktmaeli. ATH tempo>=tempo*
 tGO=1 												#1 thydir ad trellisWatch er virkt, 0 thydir ovirkt.
 cGO=0 												#-II- fyrir myndavel. tharf ad baeta fleiri breytum sem stjorna hvada parametrum er verid ad breyta.
 mwGO=0  											#-II- fyrir hvort modWatch se virkt.
-msGO=0 												#-II- fyrir hvort modstuff se virkt.
-lGO=0 												#-II- fyrir hvort livemode se virkt.
+mcGO=0 												#-II- fyrir hvort modColumn se virkt.
+lGO=0 												#-II- fyrir hvort liveplay se virkt.
 velocity=63 										#50% af max.
 voice=0 											#voice=channel. það channel sem er núna í notkun.
 status=np.zeros((8,8,16))							#heldur utan um hvada notur eru merktar sem thekktar.
-mod=16*[8*[8*[8*[0]]]]								#mun halda utan um upplysingar hverrar notu sidar.
 tStatus=np.zeros((8,8,16))					   		#heldur timabundid um breytur. t stendur fyrir temporary.
+#dalkur,lina,channel.
+mod=16*[8*[8*[8*[0]]]]np.zeros((8,8,16,8))			#mun halda utan um upplysingar hverrar notu sidar.
+#dalkur,lina,channel,gildi.
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
-liveplay=0 											#hvort thetta se i liveplay mode eda sequencer mode.
 a=0 												
 b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
 #Startup only end  		--- þarf sennilega að breyta status í 8x8x16 fylki til að halda utan um voices.
@@ -60,15 +61,15 @@ def trellisWatch():
 						tStatus[x%8][x//8][voice]=0 	
 						trellis.clrLED(x)
 	elif lGO==1:
-
+		livePlay() 									#trelliswatch þráðurinn fer yfir í livePlay ef 
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
 
 
 
-#modstuff begins		--- moddar dalkinn on the fly ef notad er 
-def modstuff(dalkur):								#dalkurinn sem er verid ad modda
-#modWatch ends 			--- a augljuslega eftir ad paela betur i hvernig thetta verdur.
+#modColumn begins		--- moddar dalkinn on the fly ef notad er 
+def modColumn(dalkur):								#dalkurinn sem er verid ad modda
+#modColumn ends			--- a augljuslega eftir ad paela betur i hvernig thetta verdur.
 
 
 
@@ -82,23 +83,23 @@ def myndavel ():
 
 #playcolumn begins --- spilar notur i dalk og takt maelinn lika.
 def playColumn(dalkur):
-	global tempo, FLASH, status, tGO, msGO			#global breytur, útskýrðar efst.
+	global tempo, FLASH, status, tGO, mcGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
 	#time.sleep(0.01)					#kannski þarf til að leyfa trellisWatch að klára for loopu.
 	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,15): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
-				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(v, dalkur, x, 1)).bytes()) 		
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(dalkur, x, v, 0)).bytes()) 		
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
 													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
-	msGO=1 											#kveikir á modStuff
+	mcGO=1 											#kveikir á modColumn
  	#ATHUGASEMD, svona er ekki haegt ad breyta 
  	#timasetningum fyrir note on eda off einstaklega. -expect some change.
 	taktmaelir(dalkur) 								#hérna kemur inn flash frá taktmælir, ath það líður smá tími á meðan sem er táknuð FLASH.
 	time.sleep(tempo-tempo*lengd-FLASH) 			#látum forritið bíða með nótuna í gangi. tempo timi milli upphaf notna. 
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
-	msGO=0 											#slekkur a modStuff
+	mcGO=0 											#slekkur a modColumn
 	for x in range (0,7): 						
 		for v in range (0,15):
 			if status[dalkur][x][v]==1:				#velur allar notur sem við kveiktum og á og slekkur á þeim.
@@ -130,28 +131,22 @@ def taktmaelir(dalkur) :
 
 #SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():									
-	if (livemode == 0 and modmode == 0  			#skoðar hvort AVON vinnslurými eigi að vera í sequencer-, live- eða modemode.
-	    	and stop == 0):	
-		for dalkur in range (0,7): 						#fyrir alla dálka í sequencer.
-			playColumn(dalkur) 							#spila nótur dálks auk bið og taktmælis.
-			if (livemode == 1 or modmode == 1 			#skoðar hvort það hafi verið breyting á hvaða mode er i gangi.
-			or stop == 1) 								#a ad stodva allt?
-				break 									#ef svo er, stöðvum við loopuna.
-		sequencer() 								#förum aftur i sequencer. byrjun fallsins finnur ut hvort þurfi að flytja vinnslusvæðið.
-	elif livemode == 1: 							#ef live mode er 1
-		livePlay() 									#förum við í liveplay, sem er til að spila on the fly.
-	elif modmode == 1: 								#ef modmode er 1
-		modWatch() 									#förum við í modwatch.
-	elif stop == 1:									#effectively drepur sequencerinn.
-		pass 										#þvi pass gerir ekkert og þráðurinn endar eftir þetta.
-	else:	
-		Sequencer() 									#annars/eftir að spila i gegnum alla dálka, förum við aftur i sequencer. "hala"endurkvæmt fall.
+	if (stop == 0):									#ef ýtt var á stopp þá leyfum við sequencer-inum ekki að spila.
+		for dalkur in range (0,7): 					#fyrir alla dálka í sequencer.
+			playColumn(dalkur) 						#spila nótur dálks auk bið og taktmælis.
+			if (stop == 1) 							#a ad stodva allt?
+				break 								#ef svo er, stöðvum við loopuna.
+	elif (stop == 1): 								#ef sequencerinn var stoppaður er enginn ástæða til að drepa örgjörvan. setjum sleep til að 
+		time.sleep(0.2)								#eyða minna afli örgjörvans.
+	Sequencer() 									#annars/eftir að spila i gegnum alla dálka, förum við aftur i sequencer. "hala"endurkvæmt fall.
 #SEQUENCER END, BOOOOOOOOOIIII
 
 
 
-#clearVoice begins 		--- það voice sem er í gangi er eytt út.
-def clearVoice(voice):
+#clearVoice begins 		--- það voice sem er currently í gangi er eytt.
+def clearVoice():
+	global voice, status, mod
+	
 #clearVoice ends
 
 
@@ -165,7 +160,7 @@ def clearAll():
 #modWatch begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig. veit ekki hvar vid munum vinna med voice.
 def modWatch():
 	global a, b 									#global breytur, útskýrðar efst	
-#modStuff ends    		--- vantar allt! .... nema a og b :)
+#modWatch ends    		--- vantar allt! .... nema a og b :)
 
 
 
