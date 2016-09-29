@@ -69,7 +69,7 @@ def trellisWatch():
 		clearAll()
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
-
+	
 
 
 #modColumn begins		--- moddar dalkinn on the fly ef notad er 
