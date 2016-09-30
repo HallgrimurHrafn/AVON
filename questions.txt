@@ -21,38 +21,48 @@ mido.Message('note_on', channel=0, note=60, velocity=100)
 time.sleep(blah)
 mido.Message('note_on', channel=0, note=60, velocity=115)
 
+K: ekki viss. spilum demo lag á MicroKORG sem fyrst og gerum tilraun. Til í að gera þetta næsta viku :) Ég held að þetta er eitthvað sem hljóðfærið ræður, hvort það sé monophonic patch eða poly.  Við kannski þurfum ekki að stjórna því.
+
 
 
 á sequencerinn að halda áfram að spila á meðan við erum að breyta styllingum fyrir einstaka nótu?
+K: ef hægt, já! 
 
 
 
 á sequencerinn að halda áfram að spila melodíu á meðan við erum í livemode? það væri geggjað en er smá vesen.
 minna vesen ef við myndum setja það á annað voice.
+K: held að við þurfum ekki að svara þessu þangað til við erum búnir með sequencer mode.
 
 
 
 get ég búið til thread i functioni eða verður það að gerast í main forritinu?
 H: held það, væri fáránlegt að geta það ekki.
+K: þarf að læra upp á Python :) 
 
 
 
 viljum við halda utan um allar 16 voices og leyfa þeim að geta verið samhliða?
+K: Já, ef þetta er MIDI sequencer. En byrjum með OMNI út.
 
 
 
 auk complete stopp taka viljum við búa til kill voice takka?
+K: Tvísvar á stopp hratt ≈ kill all voices.  Virkar svona á MPC-1000, mjög intúitívt.
 
 
 
 Ef við viljum mikið af voicum i gangi í einu þurfum við að finna góða leið til að láta marga þræði ef til eru vinna samtímis.
 t.d. ef einn sleppir if stórri if lykkju er hann kominn aðeins á undan.. skiptir engu en getur safnast upp..
+K: Ekki viss hvað þú meinar, tölum meira saman um þetta.
 
 
 
 eigum við að hafa individual control fyrir hverja notu i hverju einasta channeli?
 H: geri ráð fyrir því í bili
+K: like
 
 
 ef gert er clearVoice, eða clearAll eigum við ekki að gera ráð fyrir því að allar mod upplýsingar um þær nótur séu eyddar.
 H: geri ráð fyrir því í augnablikinu.
+K: Af hverju myndi notandinn velja "clearVoice"? Hef ekki skoðað þetta í kóðann en er ekki pointið með sequencer að geta slökkt á einstakar nótur virkilega hratt með því að ýta á lýsaða takka til að aflýsa þá?
