@@ -24,5 +24,6 @@ mod=16*[8*[8*[8*[0]]]]np.zeros((8,8,16,8))			#mun halda utan um upplysingar hver
 skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
 a=0 												
 b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
-
+cVA=0												#ef cVA=1 þá er öllu eytt.
+SAVE=0												#hvort eigi að save-a...
 #Startup only end  
