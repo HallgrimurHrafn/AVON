@@ -63,8 +63,6 @@ def trellisWatch():
 						trellis.clrLED(x)
 	elif lGO==1:
 		livePlay() 									#trellisWatch þráðurinn fer yfir í livePlay ef 
-	elif clV==1:
-		clearVoice()
 	elif clA==1:
 		clearAll()
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
@@ -151,20 +149,6 @@ def Sequencer():
 
 
 
-#clearVoice begins 		--- það voice sem er currently í gangi er eytt.
-def clearVoice():
-	global voice, status, mod 						
-	for x in range (0,63):
-		status[x%8][x//8][voice]=0
-							#her þarf að stylla innri gildin 8 á normal fyrir mod. þurfum því að ákveða þau fyrst.
-							#kannski búum við til lítið fylki sem innheldur bara 8 normal breyturnar og normalize er bara að setja
-							#mod[dalk][lina][voice]=normalized... veit ekki hvort þetta meigi samt.
-		trellis.clrLED(x)
-	trellisWatch()
-#clearVoice ends
-
-
-
 #clearAll begins 		--- eyðir öllum voice-um.
 def clearAll():
 	global status, mod
@@ -210,12 +194,10 @@ def menuWatch():
 #multithread starts		--- partur af main.
 t1=thread(target=trellisWatch)
 t2=thread(target=myndavel)
-t3=thread(target=modWatch)
-t4=thread(target=menuWatch)
+t3=thread(target=menuWatch)
 t1.start()
 t2.start()
 t3.start()
-t4.start()
 #multithread ends    --- breyta i function með if skilyrðum hvort þráður sé dauður eða ekki.
 
 
