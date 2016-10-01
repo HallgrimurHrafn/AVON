@@ -2,6 +2,6 @@
 
 cd ~/avon
 git add .
-git commit -m "test"
+git commit -m "Updated through script"
 pause
 git push origin master
