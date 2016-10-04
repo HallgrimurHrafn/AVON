@@ -92,7 +92,7 @@ def myndavel ():
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
-	#time.sleep(0.01)					#kannski þarf til að leyfa trellisWatch að klára for loopu.
+	#time.sleep(0.01)								#kannski þarf til að leyfa trellisWatch að klára for loopu.
 	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,15): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
@@ -100,12 +100,14 @@ def playColumn(dalkur):
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
 													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
+	tGO=1
 	mcGO=1 											#kveikir á modColumn
  	#ATHUGASEMD, svona er ekki haegt ad breyta 
  	#timasetningum fyrir note on eda off einstaklega. -expect some change.
 	taktmaelir(dalkur) 								#hérna kemur inn flash frá taktmælir, ath það líður smá tími á meðan sem er táknuð FLASH.
 	time.sleep(tempo-tempo*lengd-FLASH) 			#látum forritið bíða með nótuna í gangi. tempo timi milli upphaf notna. 
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
+	tGO=0
 	mcGO=0 											#slekkur a modColumn
 	for x in range (0,7): 						
 		for v in range (0,15):
