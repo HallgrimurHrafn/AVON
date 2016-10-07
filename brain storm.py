@@ -14,7 +14,7 @@ cGO=0 												#-II- fyrir myndavel. tharf ad baeta fleiri breytum sem stjorn
 mwGO=0  											#-II- fyrir hvort modWatch se virkt.
 mcGO=0 												#-II- fyrir hvort modColumn se virkt.
 lGO=0 												#-II- fyrir hvort liveplay se virkt.
-velocity=63 										#50% af max.
+velocity=100 										#50% af max.
 voice=0 											#voice=channel. það channel sem er núna í notkun.
 status=np.zeros((8,8,16))							#heldur utan um hvada notur eru merktar sem thekktar.
 tStatus=np.zeros((8,8,16))					   		#heldur timabundid um breytur. t stendur fyrir temporary.
