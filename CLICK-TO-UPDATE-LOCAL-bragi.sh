@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cd ~/documents/AVON
-git fetch upstream
+git fetch origin
 git checkout master
-git merge upstream/master
+git merge origin/master
