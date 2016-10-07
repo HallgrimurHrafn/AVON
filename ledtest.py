@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-led = 8
+led = 14
 
 GPIO.setup(led,GPIO.OUT)
 print("Light on")
