@@ -1,0 +1,18 @@
+
+
+breyta status svo það haldi ekki utan um 1 og 0 heldur
+0 upp í 8. auto er 4 þegar nótu er bætt við. 
+mod fylkið heldur því ekki utan um lengd nótunar heldur status.
+
+bua til fylki NowPlaying. NowPlaying inn heldur nótu (midi tölu
+fyrir nótu þ.e.), channel og tölu frá 0 upp í 8.
+
+þegar nóta með lengdar gildi 4 er spiluð er fært 4 inn í NowPlaying.
+8 forlykkjur keyra í röð á millibili háð lengd nótna. 
+lykkjurnar kveikja og slökkva á nótum fyrir NowPlaying.
+
+ef til er gildi í NowPlaying sem er t.d. 4
+þá eftir fyrstu forlykkju er nótan spiluð
+
+eftir það er gildið minnkað um 1 þar til gildið er 0.
+Þá er slökkt á nótunni.
