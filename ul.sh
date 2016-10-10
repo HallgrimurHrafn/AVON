@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ~/avon
-git debase
+git rebase
 git add .
 git commit -m "Updated through script"
 git push origin master
