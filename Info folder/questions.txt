@@ -1,4 +1,4 @@
-﻿questions 
+questions 
 ekki vitlaust að skrifa nöfnin ykkar með t.d H:"blablabla" á undan.
 dæmi, hvað er 2+2?
 H:5
@@ -22,28 +22,20 @@ K: tvöfalt meikir sens. Svo 1 ljós = 32undu parts, 2 ljós = 16undu parts, 3=8
 
 Hver á stysta nótan að vera? 16undu parts? eða 32 parts? þá er base-nótan 4ðu parts hlutfallslega.
 B: er ekki 32 svolítið stutt?
-<<<<<<< HEAD
 H: jú, en það væri notanlegt ef einher myndi zooma inn.. gefur líka möguleikann á að
-=======
-K: 
->>>>>>> origin/master
 
 
 
 varðandi "seina" nótur, eigum við að hafa 0 ljós sem on queue og allt seinna er meira og meira late? Léttara.
 eða eigum við að láta það byrja i miðjunni og fyrir neðan þýðir "snemma" nóta og ofan "sein"? töluvert erfiðara að forrita.
 B: ertu ekki yfirleitt að seinka þeim frekar en að flýta henni?
-K: Já, ekki leyfa notandann að gera eitthvað "snemma." Ímynda að reyna að forrita tilvik þar sem slag #1 er snemma. (=Ö_Ö=) 
 
 
 Eigum við að láta resolution fara upp í max hvað? 16undu parts? 32 parts?
 B: skil ekki alveg
-<<<<<<< HEAD
-H: hversu 
+H: hversu mikið millibil má minnst vera milli ´nótna.. hugsaðu að zooma inn. 8unda parts er tvöfalt hraðara 
+H: en 4ðu parts. svo ef þú zoomar þangað geturu spilað 2falt fleiri nótur á sek.
 
-=======
-K: zoom = stretch goal, eyðum tíma á zoom seinna?
->>>>>>> origin/master
 
 
 
@@ -51,6 +43,9 @@ K: zoom = stretch goal, eyðum tíma á zoom seinna?
 ER í lagi að það er ekki hægt að nota myndavélina til að modda on the fly á meðan það er verið að breyta styllingum fyrir 
 individual nótur? -flóknara
 B: sindri?
+
+
+
 
 hvað gerist ef það kemur sama notan tvisvar i röð án þess að það sé slökkt á henni á milli.
 dæmi: 
@@ -99,7 +94,6 @@ H: kannski myndi hann vera pirraður og vilja starta frá scratch á þessari vo
 
 ef ég breyti einstaklings styllingum fyrir nótu en slekk síðar á henni. á að vista styllingarnar samt eða normalize-a nótuna aftur?
 (normalize er að setja standard settings á hana)
-K: vista. gæti verið vesen að missa sérhannaðar stillingar óvart. doh. ef Jói Notandi kann að fínstilla, þá kann hann að undo-a það. Jói getur alltaf farið á nýtt rás til að núllstilla allar nótur. 
 
 
 
