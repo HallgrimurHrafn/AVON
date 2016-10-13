@@ -1,4 +1,4 @@
-questions 
+﻿questions 
 ekki vitlaust að skrifa nöfnin ykkar með t.d H:"blablabla" á undan.
 dæmi, hvað er 2+2?
 H:5
@@ -9,27 +9,27 @@ H:sorrý mistype... hehehe
 
 
 eigum við að bæta við mute this voice feature? halda inni stop takkanum kannski?
-
+B: Það væri alveg sniðugt option, spurning hvernig er best að útfæra þaðþ
 
 
 
 Fyrir lengd nótunnar... á hvert ljós lóðrétt að þýða tvöfalt lengri nóta?
-
+B: Myndi frekar segja það væri 1/4 ? kannski
 
 
 
 Hver á stysta nótan að vera? 16undu parts? eða 32 parts? þá er base-nótan 4ðu parts hlutfallslega.
-
+B: er ekki 32 svolítið stutt?
 
 
 
 varðandi "seina" nótur, eigum við að hafa 0 ljós sem on queue og allt seinna er meira og meira late? Léttara.
 eða eigum við að láta það byrja i miðjunni og fyrir neðan þýðir "snemma" nóta og ofan "sein"? töluvert erfiðara að forrita.
-
+B: ertu ekki yfirleitt að seinka þeim frekar en að flýta henni?
 
 
 Eigum við að láta resolution fara upp í max hvað? 16undu parts? 32 parts?
-
+B: skil ekki alveg
 
 
 
@@ -37,7 +37,7 @@ Eigum við að láta resolution fara upp í max hvað? 16undu parts? 32 parts?
 
 ER í lagi að það er ekki hægt að nota myndavélina til að modda on the fly á meðan það er verið að breyta styllingum fyrir 
 individual nótur? -flóknara
-
+B: sindri?
 
 hvað gerist ef það kemur sama notan tvisvar i röð án þess að það sé slökkt á henni á milli.
 dæmi: 
