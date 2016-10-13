@@ -10,6 +10,7 @@ ser = serial.Serial(
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
     timeout=1)
+var counter =0
 while 1:
 	ser.write('Write counter: %d \n'%(counter))
 	time.sleep(1)
