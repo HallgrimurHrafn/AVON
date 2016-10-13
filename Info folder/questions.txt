@@ -9,12 +9,14 @@ H:sorrý mistype... hehehe
 
 
 eigum við að bæta við mute this voice feature? halda inni stop takkanum kannski?
-B: Það væri alveg sniðugt option, spurning hvernig er best að útfæra þaðþ
+B: Það væri alveg sniðugt option, spurning hvernig er best að útfæra það
+K: Já, kannski bara fyrir þessa útgáfu. Síðar (næsta önn) gætum við gert view eins og MPC-1000 þar sem hvert trakk er lýstur hnappi innan fyrsta 16 Trellis-hnappa. (top-left button indicates track 1, lit if there is an active pattern on that track, dark if muted or if there is no pattern.)
 
 
 
 Fyrir lengd nótunnar... á hvert ljós lóðrétt að þýða tvöfalt lengri nóta?
 B: Myndi frekar segja það væri 1/4 ? kannski
+K: tvöfalt meikir sens. Svo 1 ljós = 32undu parts, 2 ljós = 16undu parts, 3=8parts, byrjar default á 4 ljós = 4unda parts. Fer up í whole note.
 
 
 
