@@ -94,7 +94,8 @@ H: kannski myndi hann vera pirraður og vilja starta frá scratch á þessari vo
 
 ef ég breyti einstaklings styllingum fyrir nótu en slekk síðar á henni. á að vista styllingarnar samt eða normalize-a nótuna aftur?
 (normalize er að setja standard settings á hana)
-
+K: ´já.
+H: alveg sama.
 
 
 Hey ef myndavélin er t.d. að modda pitch á hún að modda allar voices eða bara þá sem er currently á borðinu?
