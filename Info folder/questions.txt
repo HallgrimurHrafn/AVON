@@ -22,6 +22,7 @@ K: tvöfalt meikir sens. Svo 1 ljós = 32undu parts, 2 ljós = 16undu parts, 3=8
 
 Hver á stysta nótan að vera? 16undu parts? eða 32 parts? þá er base-nótan 4ðu parts hlutfallslega.
 B: er ekki 32 svolítið stutt?
+H: jú, en það væri notanlegt ef einher myndi zooma inn.. gefur líka möguleikann á að
 
 
 
@@ -32,6 +33,7 @@ B: ertu ekki yfirleitt að seinka þeim frekar en að flýta henni?
 
 Eigum við að láta resolution fara upp í max hvað? 16undu parts? 32 parts?
 B: skil ekki alveg
+H: hversu 
 
 
 
