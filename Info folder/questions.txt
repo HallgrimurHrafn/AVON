@@ -94,7 +94,7 @@ H: kannski myndi hann vera pirraður og vilja starta frá scratch á þessari vo
 
 ef ég breyti einstaklings styllingum fyrir nótu en slekk síðar á henni. á að vista styllingarnar samt eða normalize-a nótuna aftur?
 (normalize er að setja standard settings á hana)
-K: ´já.
+K: vista. gæti verið vesen að missa sérhannaðar stillingar óvart. doh. ef Jói Notandi kann að fínstilla, þá kann hann að undo-a það. Jói getur alltaf farið á nýtt rás til að núllstilla allar nótur. 
 H: alveg sama.
 
 
