@@ -192,10 +192,10 @@ def trellisWatch():
 	if clA==1:
 		clearAll()									
 				 									#endurkvaemt fall svo thad heldur endalaust afram.
-#trellisWatch ends 
+trellisWatch ends 
 
-#t=threading.Thread(target=multithread)
-#t.start()
+t=threading.Thread(target=multithread)
+t.start()
 print('running buddy')
 
 
@@ -203,7 +203,7 @@ print('running buddy')
 #	status[x][x][0]=1
 #	print(status[x][x][0],x)
 
-#Sequencer()
+
 
 
 
@@ -228,5 +228,4 @@ def my_callback(channel):
 GPIO.add_event_detect(pin, GPIO.RISING, callback=my_callback, bouncetime=300) #bouncetime.. lesa https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/
 
 # you can continue doing other stuff here
-while True:
-    pass
+Sequencer()
