@@ -170,8 +170,8 @@ print('still running buddy')
 
 
 
-for x in range (0,8):
-	status[x][x][0]=1
-	print(status[x][x][0],x)
+#for x in range (0,8):
+#	status[x][x][0]=1
+#	print(status[x][x][0],x)
 
 Sequencer()
