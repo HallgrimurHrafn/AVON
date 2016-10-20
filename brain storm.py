@@ -21,7 +21,7 @@ tStatus=np.zeros((8,8,16))					   		#heldur timabundid um breytur. t stendur fyr
 #dalkur,lina,channel.
 mod=16*[8*[8*[8*[0]]]]np.zeros((8,8,16,8))			#mun halda utan um upplysingar hverrar notu sidar.
 #dalkur,lina,channel,gildi.
-skali=[60, 62, 64, 65, 67, 69, 71, 72] 				#skali, nuna c dur. seinna a ad geta valid.
+skali=np.array([60,62,64,65,67,69,71,72]) 			#skali, nuna c dur. seinna a ad geta valid.
 a=0 												
 b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
 
@@ -96,7 +96,7 @@ def playColumn(dalkur):
 	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,16): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
-				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(dalkur, x, v, 0)).bytes()) 		
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali[x], velocity=mod(dalkur, x, v, 0)).bytes()) 		
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
 													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
@@ -112,7 +112,7 @@ def playColumn(dalkur):
 	for x in range (0,8): 						
 		for v in range (0,16):
 			if status[dalkur][x][v]==1:				#velur allar notur sem við kveiktum og á og slekkur á þeim.
-				midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
+				midiout.send_message(mido.Message('note_off', channel=voice, note=skali[x], velocity=0).bytes()) 		
 													#eini munurinn á þessu og síðasta er að message-ið er note_off og velocity er 0.
 													#velocity er valið 0 vegna þess að sum midi hljóðfæri nota ekki message-ið note off heldur bara velocity 0.
 	tGO=1 											#kveikir á trellisWatch.
