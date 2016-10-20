@@ -191,7 +191,7 @@ def multithread ():
 
 
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
-def trellisWatch():
+def trellisWatch(channel):
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
 	time.sleep(0.015)
 
@@ -213,7 +213,7 @@ def trellisWatch():
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
 		clearAll()	
-
+	GPIO.remove_event_detect(37)
 	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)				
 #trellisWatch ends --------------------------------------
 
