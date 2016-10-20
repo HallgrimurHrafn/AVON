@@ -36,6 +36,26 @@ stop=0
 
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO,lengd	#global breytur, utskyrdar efst.
+	 												
+	t1=threading.Thread(target=NOTEON, args=dalkur)
+	t1.start()				
+
+	 										#herna kemur inn flash fra taktmaelir, ath thad lidur sma timi a medan sem er taknud FLASH.
+	
+
+	time.sleep(tempo-tempo*lengd) 			#latum forritid bida med notuna i gangi. tempo timi milli upphaf notna. 
+													#tempo*lengd er timinn sem notan lifir og FLASH er timinn sem taktmaelirinn notar.
+	t3=threading.Thread(target=NOTEOFF, args=dalkur)
+	t3.start()
+
+	time.sleep(tempo*lengd) 						#timinn milli lok notu og upphaf naestu.
+#playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
+
+
+
+#NOTEON begins
+def NOTEON(dalkur):
+	global tGO,skali,status,mcGo 					#global breytur, utskyrdar efst.
 	tGO=0 											#slekkur a trellisWatch.
 	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,16): 						#gera forlykkju svo vid spilum allar voices (channels).
@@ -47,13 +67,16 @@ def playColumn(dalkur):
 													#ef svo er tha er sent midi-message gegnum midi pakkan mido med channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) thar sem (x,y) er 
 													#hnit notunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
-	tGO=1
+	tGO=1 											#kveikir a trellisWatch.
 	mcGO=1 											#kveikir a modColumn
- 	#ATHUGASEMD, svona er ekki haegt ad breyta 
- 	#timasetningum fyrir note on eda off einstaklega. -expect some change.
-	taktmaelir(dalkur) 								#herna kemur inn flash fra taktmaelir, ath thad lidur sma timi a medan sem er taknud FLASH.
-	time.sleep(tempo-tempo*lengd-FLASH) 			#latum forritid bida med notuna i gangi. tempo timi milli upphaf notna. 
-													#tempo*lengd er timinn sem notan lifir og FLASH er timinn sem taktmaelirinn notar.
+	taktmaelir(dalkur)
+#NOTEON ends
+
+
+
+#NOTEON begins
+def NOTEOFF(dalkur):
+	global tGO,skali,status,mcGO
 	tGO=0
 	mcGO=0 											#slekkur a modColumn
 	for x in range (0,8): 						
@@ -65,12 +88,12 @@ def playColumn(dalkur):
 				pass	
 													#eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
 													#velocity er valid 0 vegna thess ad sum midi hljodfaeri nota ekki message-id note off heldur bara velocity 0.
-	tGO=1 											#kveikir a trellisWatch.
-	time.sleep(tempo*lengd) 						#timinn milli lok notu og upphaf naestu.
-#playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
+	tGO=1 											#kveikir a trellisWatch. 
+#NOTEON ends
 
 
 
+#taktmaelir begins
 def taktmaelir(dalkur) :
 	global FLASH, status, voice						#global breytur, utskyrdar efst.
 	for x in range (0,8):							#fyrir oll LED i 'dalkur'
@@ -89,7 +112,6 @@ def taktmaelir(dalkur) :
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'off')
 	trellis.writeDisplay()							#uppfaera led a bordi.. VERDI MYRKUR!
 #taktmaelir end
-
 
 
 
