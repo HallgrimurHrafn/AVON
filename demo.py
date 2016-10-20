@@ -27,7 +27,7 @@ tempo=0.5
 FLASH=0.1
 lengd=0.1
 status=np.zeros((8,8,16))
-tstatus=np.zeros((8,8,16))
+tStatus=np.zeros((8,8,16))
 skali=np.array([60,62,64,65,67,69,71,72])
 voice=0
 stop=0
@@ -78,7 +78,7 @@ def taktmaelir(dalkur) :
 	for x in range (0,8):							#fyrir oll LED i 'dalkur'
 		if status[dalkur][x][voice]==0:				#gert svo vid seum bara ad kveikja a led-um sem var slokkt a fyrir.
 			x=x
-			print('flash',skali[x])
+			
 			trellis.setLED(tfOut(x*8+dalkur))				#kveikja a LED!
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
 	trellis.writeDisplay() 							#uppfaera led a bordi.. VERDI LJOS!
@@ -154,43 +154,42 @@ def multithread ():
 	t1=threading.Thread(target=trellisWatch)
 	#t2=threading.Thread(target=myndavel)
 	#t3=threading.Thread(target=menuWatch)
-	print('test1')
+	
 	t1.start()
 	#t2.start()
 	#t3.start()
-	print('test2')
+	
 	t1.join()
 	#t2.join()
 	#t3.join()
-	
+	multithread()
 #multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
 
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
-	time.sleep(0.03)
+	#time.sleep(0.03)
 
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
-			if trellis.justPressed(tfin(x)): 	
-				if tStatus[x%8][x//8][voice]==0:
-					tStatus[x%8][x//8][voice]=1 
-					trellis.setLED(tfOut(x)) 			
+			if trellis.justPressed(x):
+				y=tfIn(x) 	
+				if tStatus[y%8][y//8][voice]==0:
+					tStatus[y%8][y//8][voice]=1 
+					trellis.setLED(x) 			
 				else:
 					tStatus[x%8][x//8][voice]=0 	
-					trellis.clrLED(tfOut(x))
+					trellis.clrLED(x)
 		if tGO==1:
-			status=tstatus
+			status=tStatus
 	if mwGO==1:
 		modWatch()
 	if lGO==1:
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
-		clearAll()
-	if load==1:										#load verdur fall til ad load inn gomlu status og mod.
-		Load()										
-	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
+		clearAll()									
+				 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends 
 
 t=threading.Thread(target=multithread)
