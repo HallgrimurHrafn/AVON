@@ -209,16 +209,10 @@ print('running buddy')
 
 pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
 
-if GPIO.input(pin):
-    print('Input was HIGH')
-else:
-    print('Input was LOW')
-
-
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-if GPIO.input(pin):
+if GPIO.input(37):
     print('Input was HIGH')
 else:
     print('Input was LOW')
