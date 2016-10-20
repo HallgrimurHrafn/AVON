@@ -173,9 +173,10 @@ def trellisWatch():
 
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
-			if trellis.justPressed(x): 	
-				if tStatus[tfIn(x)%8][tfIn(x)//8][voice]==0:
-					tStatus[tfIn(x)%8][tfIn(x)//8][voice]=1 
+			if trellis.justPressed(x):
+				y=tfIn(x) 	
+				if tStatus[y%8][y//8][voice]==0:
+					tStatus[y%8][y//8][voice]=1 
 					trellis.setLED(x) 			
 				else:
 					tStatus[x%8][x//8][voice]=0 	
