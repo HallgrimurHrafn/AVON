@@ -29,18 +29,14 @@ def tfOut (a):
 		if f<2:
 			b=8*f+4*l+d
 		else:
-			b=16*f+4*l+d
-	#	b=4*l+d+(1+f//2)*8*f
+			if f==2:
+				b=32+4*l+d
+			else:
+				b=40+d+4*l
 	else:
 		if f%2==1:
 			b=16*(f+1)+d-4*(3-l)
 		else:
 			b=16*(f+1)+d-4*(3-l)+8
-	#	b=16*(f+1)+d-4*(3-l)+(1-f%2)*8
 	return b
-	#b=d+4*l+(d//4)*(16*(f+1)+(1-f%2)*8-12)+(1-d//4)1+f//2)*8*f 		#gaeti verid betra ad nota if heldur en svona stora jofnu.
 #tfOut ends
-
-for x in range (0,3):
-
-	print(x)

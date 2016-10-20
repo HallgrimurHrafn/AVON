@@ -1,7 +1,7 @@
 #SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():									
 	if (stop == 0):									#ef ýtt var á stopp þá leyfum við sequencer-inum ekki að spila.
-		for dalkur in range (0,7): 					#fyrir alla dálka í sequencer.
+		for dalkur in range (0,8): 					#fyrir alla dálka í sequencer.
 			playColumn(dalkur) 						#spila nótur dálks auk bið og taktmælis.
 			if (stop == 1) 							#a ad stodva allt?
 				break 								#ef svo er, stöðvum við loopuna.

@@ -3,8 +3,8 @@ def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
 	#time.sleep(0.01)								#kannski þarf til að leyfa trellisWatch að klára for loopu.
-	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
-		for v in range (0,15): 						#gera forlykkju svo við spilum allar voices (channels).
+	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
+		for v in range (0,16): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
 				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(dalkur, x, v, 0)).bytes()) 		
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
@@ -19,8 +19,8 @@ def playColumn(dalkur):
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
 	tGO=0
 	mcGO=0 											#slekkur a modColumn
-	for x in range (0,7): 						
-		for v in range (0,15):
+	for x in range (0,8): 						
+		for v in range (0,16):
 			if status[dalkur][x][v]==1:				#velur allar notur sem við kveiktum og á og slekkur á þeim.
 				midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
 													#eini munurinn á þessu og síðasta er að message-ið er note_off og velocity er 0.
