@@ -219,9 +219,7 @@ def trellisWatch():
 
 
 
-t=threading.Thread(target=multithread)
-t.start()
-print('running buddy')
+
 
 
 #for x in range (0,8):
@@ -237,16 +235,11 @@ pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn u
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-if GPIO.input(37):
-    print('Input was HIGH')
-else:
-    print('Input was LOW')
+print('press trellis to start')
 while GPIO.input(37) == GPIO.HIGH:
     time.sleep(0.01)
-
-print('low')
-
-GPIO.add_event_detect(pin, GPIO.FALLING, callback=trellisWatch, bouncetime=300)
-
+t=threading.Thread(target=multithread)
+t.start()
+print('its running, boooooiiiiii!')
 # you can continue doing other stuff here
 Sequencer()
