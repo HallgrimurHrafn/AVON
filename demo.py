@@ -170,7 +170,7 @@ def multithread ():
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
-	time.sleep(0.01)
+	time.sleep(0.015)
 
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
