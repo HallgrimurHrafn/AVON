@@ -211,14 +211,15 @@ print('running buddy')
 pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
 
 GPIO.setmode(GPIO.BOARD)
+GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 if GPIO.input(37):
     print('Input was HIGH')
 else:
     print('Input was LOW')
-    
 while GPIO.input(channel) == GPIO.LOW:
     time.sleep(0.01)
+
 print('high')
 # you can continue doing other stuff here
 Sequencer()
