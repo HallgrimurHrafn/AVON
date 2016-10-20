@@ -210,7 +210,7 @@ print('running buddy')
 pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
 def my_callback(channel):
