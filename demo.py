@@ -217,7 +217,7 @@ if GPIO.input(37):
     print('Input was HIGH')
 else:
     print('Input was LOW')
-while GPIO.input(channel) == GPIO.LOW:
+while GPIO.input(37) == GPIO.LOW:
     time.sleep(0.01)
 
 print('high')
