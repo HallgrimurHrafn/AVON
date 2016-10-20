@@ -36,7 +36,6 @@ stop=0
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO,lengd	#global breytur, utskyrdar efst.
 	tGO=0 											#slekkur a trellisWatch.
-	# time.sleep(0.01)								#kannski tharf til ad leyfa trellisWatch ad klara for loopu.
 	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,16): 						#gera forlykkju svo vid spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nota med hnitin (dalkur,x) se virk.
@@ -170,7 +169,7 @@ def multithread ():
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
-	time.sleep(0.03)
+	#time.sleep(0.03)
 
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
