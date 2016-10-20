@@ -84,7 +84,7 @@ def taktmaelir(dalkur) :
 			trellis.clrLED(tfOut(x*8+dalkur)) 				#slokkva a LED!
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'off')
 	trellis.writeDisplay()							#uppfaera led a bordi.. VERDI MYRKUR!
-taktmaelir end
+#taktmaelir end
 
 
 
