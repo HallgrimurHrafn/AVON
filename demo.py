@@ -235,7 +235,7 @@ def trellisWatch(channel):
 
 
 
-
+print('starting up')
 
 pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
 
