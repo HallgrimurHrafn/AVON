@@ -168,14 +168,6 @@ def multithread ():
 
 
 
-#tw er hjalparfall fyrir trelliswatch.
-def tw():
-	while True:
-
-# endar
-
-
-
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
