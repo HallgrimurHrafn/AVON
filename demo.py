@@ -180,7 +180,7 @@ def trellisWatch():
 					tStatus[y%8][y//8][voice]=1 
 					trellis.setLED(x) 			
 				else:
-					tStatus[x%8][x//8][voice]=0 	
+					tStatus[y%8][y//8][voice]=0 	
 					trellis.clrLED(x)
 		if tGO==1:
 			status=tStatus
