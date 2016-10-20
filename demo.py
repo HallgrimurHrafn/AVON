@@ -3,6 +3,20 @@
 import time
 import threading
 import numpy as np 
+import Adafruit_Trellis
+
+
+matrix0 = Adafruit_Trellis.Adafruit_Trellis()
+matrix1 = Adafruit_Trellis.Adafruit_Trellis()
+matrix2 = Adafruit_Trellis.Adafruit_Trellis()
+matrix3 = Adafruit_Trellis.Adafruit_Trellis()
+
+
+trellis = Adafruit_Trellis.Adafruit_TrellisSet(matrix0, matrix1, matrix2, matrix3)
+
+I2C_BUS = 1
+
+trellis.begin((0x70,  I2C_BUS), (0x71, I2C_BUS), (0x72, I2C_BUS), (0x73, I2C_BUS))
 
 tGo=0
 mcGo=0
@@ -17,14 +31,14 @@ stop=0
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO,lengd	#global breytur, utskyrdar efst.
 	tGO=0 											#slekkur a trellisWatch.
-	#time.sleep(0.01)								#kannski tharf til ad leyfa trellisWatch ad klara for loopu.
+	time.sleep(0.01)								#kannski tharf til ad leyfa trellisWatch ad klara for loopu.
 	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,16): 						#gera forlykkju svo vid spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nota med hnitin (dalkur,x) se virk.
-				#midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=60).bytes())  #velocity=mod(dalkur, x, v, 0)		
-				print('on','channel er', v, 
+				#midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=100).bytes())  #velocity=mod(dalkur, x, v, 0)		
+				#print('on','channel er', v, 
 					'notan er', skali[x], 'velocity er'
-					, 60)
+					, 100)
 													#ef svo er tha er sent midi-message gegnum midi pakkan mido med channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) thar sem (x,y) er 
 													#hnit notunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
@@ -41,7 +55,7 @@ def playColumn(dalkur):
 		for v in range (0,16):
 			if status[dalkur][x][v]==1:				#velur allar notur sem vid kveiktum a og slekkur a theim.
 				#midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
-				print('off','channel er', v,
+				#print('off','channel er', v,
 					'notan er', skali[x], 'velocity er'
 					, 0)
 													#eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
@@ -57,18 +71,18 @@ def taktmaelir(dalkur) :
 	for x in range (0,8):							#fyrir oll LED i 'dalkur'
 		if status[dalkur][x][voice]==0:				#gert svo vid seum bara ad kveikja a led-um sem var slokkt a fyrir.
 			x=x
-			#print('flash',skali[x])
-			#trellis.setLED(tfOut(x*8+dalkur))				#kveikja a LED!
+			print('flash',skali[x])
+			trellis.setLED(tfOut(x*8+dalkur))				#kveikja a LED!
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
-	#trellis.writeDisplay() 							#uppfaera led a bordi.. VERDI LJOS!
+	trellis.writeDisplay() 							#uppfaera led a bordi.. VERDI LJOS!
 	time.sleep(FLASH) 								#bidtimi eftir taktmaelis flash.
 	for x in range (0,8): 							#fyrir oll LED i 'dalkur'
 		if status[dalkur][x][voice]==0: 			#gert svo vid seum bara ad slokkva a led-um sem ekki var kveikt a fyrir "taktmaelir".
 			x=x
-			#trellis.clrLED(tfOut(x*8+dalkur)) 				#slokkva a LED!
+			trellis.clrLED(tfOut(x*8+dalkur)) 				#slokkva a LED!
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'off')
-	#trellis.writeDisplay()							#uppfaera led a bordi.. VERDI MYRKUR!
-#taktmaelir end
+	trellis.writeDisplay()							#uppfaera led a bordi.. VERDI MYRKUR!
+taktmaelir end
 
 
 
@@ -141,7 +155,7 @@ def multithread ():
 	t1.join()
 	#t2.join()
 	#t3.join()
-	multithread()
+	
 #multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
 def trellisWatch ():
