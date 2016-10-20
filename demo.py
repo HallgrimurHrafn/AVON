@@ -217,9 +217,9 @@ if GPIO.input(37):
     print('Input was HIGH')
 else:
     print('Input was LOW')
-while GPIO.input(37) == GPIO.LOW:
+while GPIO.input(37) == GPIO.HIGH:
     time.sleep(0.01)
 
-print('high')
+print('low')
 # you can continue doing other stuff here
 Sequencer()
