@@ -24,7 +24,7 @@ mwGO=0
 clA=0
 tGO=0
 mcGo=0
-tempo=0.25
+tempo=0.1
 FLASH=0.05
 lengd=0.1
 status=np.zeros((8,8,16))
@@ -35,7 +35,7 @@ stop=0
 
 
 def playColumn(dalkur):
-	global tempo, FLASH, status, tGO, mcGO,lengd	#global breytur, utskyrdar efst.
+	global tempo, FLASH,lengd	#global breytur, utskyrdar efst.
 	 												
 	t1=threading.Thread(target=NOTEON, args=(dalkur,))
 	t1.start()				
