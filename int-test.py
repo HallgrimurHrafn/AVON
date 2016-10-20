@@ -11,7 +11,7 @@ def my_callback(channel):
     print("UPDate!")
 
                                     # stop detection for 0.1 sec
-    GPIO.remove_event_detect(pin)     # þessum 2 linum ma mögulega sleppa. ef forritid virkar. prufa ad komenta ut linur
+    GPIO.remove_event_detect(pin)     # thessum 2 linum ma mögulega sleppa. ef forritid virkar. prufa ad komenta ut linur
     sleep(0.1)                        # 14-16 og sja hvort thad virki enn.
     GPIO.add_event_detect(pin, GPIO.RISING, callback=my_callback, bouncetime=300)
 
