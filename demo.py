@@ -218,6 +218,10 @@ else:
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
+if GPIO.input(pin):
+    print('Input was HIGH')
+else:
+    print('Input was LOW')
 
 def my_callback(channel):
     print("UPDate!")
