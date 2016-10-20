@@ -1,7 +1,7 @@
 from time import sleep
 import RPi.GPIO as GPIO
 
-pin =7  #ma stilla a flest allt held eg. endilega prufa. þetta er int vírinn úr trellis.
+pin =37  #ma stilla a flest allt held eg. endilega prufa. þetta er int vírinn úr trellis.
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)

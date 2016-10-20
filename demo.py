@@ -151,25 +151,35 @@ def Sequencer():
 
 #multithread starts		--- partur af main.
 def multithread ():
-	t1=threading.Thread(target=trellisWatch)
-	#t2=threading.Thread(target=myndavel)
-	#t3=threading.Thread(target=menuWatch)
+	while True:
+		t1=threading.Thread(target=trellisWatch)
+		#t2=threading.Thread(target=myndavel)
+		#t3=threading.Thread(target=menuWatch)
 	
-	t1.start()
-	#t2.start()
-	#t3.start()
+		t1.start()
+		#t2.start()
+		#t3.start()
 	
-	t1.join()
-	#t2.join()
-	#t3.join()
-	multithread()
+		t1.join()
+		#t2.join()
+		#t3.join()
+	
 #multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
+
+
+
+#tw er hjalparfall fyrir trelliswatch.
+def tw():
+	while True:
+
+# endar
+
 
 
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
-	time.sleep(1)
+	#time.sleep(0.03)
 
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
