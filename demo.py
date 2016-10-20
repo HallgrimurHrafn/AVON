@@ -18,15 +18,20 @@ I2C_BUS = 1
 
 trellis.begin((0x70,  I2C_BUS), (0x71, I2C_BUS), (0x72, I2C_BUS), (0x73, I2C_BUS))
 
+lGO=0
+mwGO=0
+clA=0
 tGo=0
 mcGo=0
 tempo=0.5
 FLASH=0.1
 lengd=0.1
 status=np.zeros((8,8,16))
+tstatus=np.zeros((8,8,16))
 skali=np.array([60,62,64,65,67,69,71,72])
 voice=0
 stop=0
+
 
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO,lengd	#global breytur, utskyrdar efst.
@@ -160,9 +165,33 @@ def multithread ():
 	
 #multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
-def trellisWatch ():
-	print('aftur')
-	time.sleep(4)
+
+#trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
+def trellisWatch():
+	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
+	time.sleep(0.03)
+
+	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
+		for x in range (0,64):				
+			if trellis.justPressed(tfin(x)): 	
+				if tStatus[x%8][x//8][voice]==0:
+					tStatus[x%8][x//8][voice]=1 
+					trellis.setLED(tfOut(x)) 			
+				else:
+					tStatus[x%8][x//8][voice]=0 	
+					trellis.clrLED(tfOut(x))
+		if tGO==1:
+			status=tstatus
+	if mwGO==1:
+		modWatch()
+	if lGO==1:
+		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
+	if clA==1:
+		clearAll()
+	if load==1:										#load verdur fall til ad load inn gomlu status og mod.
+		Load()										
+	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
+#trellisWatch ends 
 
 t=threading.Thread(target=multithread)
 t.start()
