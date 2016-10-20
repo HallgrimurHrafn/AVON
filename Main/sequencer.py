@@ -1,11 +1,12 @@
 #SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():									
-	if (stop == 0):									#ef ýtt var á stopp þá leyfum við sequencer-inum ekki að spila.
-		for dalkur in range (0,8): 					#fyrir alla dálka í sequencer.
-			playColumn(dalkur) 						#spila nótur dálks auk bið og taktmælis.
-			if (stop == 1) 							#a ad stodva allt?
-				break 								#ef svo er, stöðvum við loopuna.
-	elif (stop == 1): 								#ef sequencerinn var stoppaður er enginn ástæða til að drepa örgjörvan. setjum sleep til að 
-		time.sleep(0.2)								#eyða minna afli örgjörvans.
-	Sequencer() 									#annars/eftir að spila i gegnum alla dálka, förum við aftur i sequencer. "hala"endurkvæmt fall.
-#SEQUENCER END, BOOOOOOOOOIIII	 			--- hér þarf ekkert time.sleep því það er nóg af því í playcolumn svo við bræðum ekki kerfið.
+	if stop == 0:									#ef ytt var a stopp tha leyfum vid sequencer-inum ekki ad spila.
+		for dalkur in range (0,8): 					#fyrir alla dalka i sequencer.
+			playColumn(dalkur) 						#spila notur dalks auk bid og taktmaelis.
+			if stop == 1: 							#a ad stodva allt?
+				break 								#ef svo er, stodvum vid loopuna.
+	elif stop == 1: 								#ef sequencerinn var stoppadur er enginn astaeda til ad drepa orgjorvan. setjum sleep til ad 
+		time.sleep(0.2)								#eyda minna afli orgjorvans.
+		#BETRA ad gera event her.
+	Sequencer() 									#annars/eftir ad spila i gegnum alla dalka, forum vid aftur i sequencer. "hala"endurkvaemt fall.
+#SEQUENCER END, BOOOOOOOOOIIII	 			--- her tharf ekkert time.sleep thvi thad er nog af thvi i playcolumn svo vid braedum ekki kerfid.
