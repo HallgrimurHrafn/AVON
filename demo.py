@@ -27,7 +27,7 @@ tempo=0.5
 FLASH=0.1
 lengd=0.1
 status=np.zeros((8,8,16))
-tstatus=np.zeros((8,8,16))
+tStatus=np.zeros((8,8,16))
 skali=np.array([60,62,64,65,67,69,71,72])
 voice=0
 stop=0
@@ -181,7 +181,7 @@ def trellisWatch():
 					tStatus[x%8][x//8][voice]=0 	
 					trellis.clrLED(x)
 		if tGO==1:
-			status=tstatus
+			status=tStatus
 	if mwGO==1:
 		modWatch()
 	if lGO==1:
