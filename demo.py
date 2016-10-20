@@ -174,7 +174,7 @@ def Sequencer():
 #multithread starts		--- partur af main.
 def multithread ():
 	
-	t1=threading.Thread(target=trellisWatch)
+	t1=threading.Thread(target=tw)
 	#t2=threading.Thread(target=myndavel)
 	#t3=threading.Thread(target=menuWatch)
 	
@@ -187,6 +187,13 @@ def multithread ():
 	#t3.join()
 	
 #multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
+
+
+
+#
+def tw():
+	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
+#
 
 
 
