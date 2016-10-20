@@ -173,18 +173,18 @@ def Sequencer():
 
 #multithread starts		--- partur af main.
 def multithread ():
-	while True:
-		t1=threading.Thread(target=trellisWatch)
-		#t2=threading.Thread(target=myndavel)
-		#t3=threading.Thread(target=menuWatch)
 	
-		t1.start()
-		#t2.start()
-		#t3.start()
+	t1=threading.Thread(target=trellisWatch)
+	#t2=threading.Thread(target=myndavel)
+	#t3=threading.Thread(target=menuWatch)
 	
-		t1.join()
-		#t2.join()
-		#t3.join()
+	t1.start()
+	#t2.start()
+	#t3.start()
+	
+
+	#t2.join()
+	#t3.join()
 	
 #multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
@@ -212,7 +212,9 @@ def trellisWatch():
 	if lGO==1:
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
-		clearAll()					
+		clearAll()	
+
+	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)				
 #trellisWatch ends --------------------------------------
 
 
@@ -243,5 +245,8 @@ while GPIO.input(37) == GPIO.HIGH:
     time.sleep(0.01)
 
 print('low')
+
+GPIO.add_event_detect(pin, GPIO.FALLING, callback=trellisWatch, bouncetime=300)
+
 # you can continue doing other stuff here
 Sequencer()
