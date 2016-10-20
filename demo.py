@@ -221,7 +221,7 @@ def trellisWatch(channel):
 	if clA==1:
 		clearAll()	
 	GPIO.remove_event_detect(37)
-	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch, bouncetime=150)				
+	multithread()				
 #trellisWatch ends --------------------------------------
 
 
