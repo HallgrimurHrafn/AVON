@@ -76,10 +76,10 @@ def playColumn(dalkur):
 def taktmaelir(dalkur) :
 	global FLASH, status, voice						#global breytur, utskyrdar efst.
 	for x in range (0,8):							#fyrir oll LED i 'dalkur'
-		if status[dalkur][x][voice]==0:				#gert svo vid seum bara ad kveikja a led-um sem var slokkt a fyrir.
-			x=x
+		#if status[dalkur][x][voice]==0:				#gert svo vid seum bara ad kveikja a led-um sem var slokkt a fyrir.
 			
-			trellis.setLED(tfOut(x*8+dalkur))				#kveikja a LED!
+			
+		trellis.setLED(tfOut(x*8+dalkur))				#kveikja a LED!
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
 	trellis.writeDisplay() 							#uppfaera led a bordi.. VERDI LJOS!
 	time.sleep(FLASH) 								#bidtimi eftir taktmaelis flash.
