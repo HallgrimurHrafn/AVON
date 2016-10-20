@@ -1,6 +1,7 @@
 #playcolumn begins --- spilar notur i dalk og takt maelinn lika.
 
 import time
+import threading
 import numpy as np 
 
 tGo=0
@@ -124,6 +125,32 @@ def Sequencer():
 		#BETRA ad gera event her.
 	Sequencer() 									#annars/eftir ad spila i gegnum alla dalka, forum vid aftur i sequencer. "hala"endurkvaemt fall.
 #SEQUENCER END, BOOOOOOOOOIIII	 			--- her tharf ekkert time.sleep thvi thad er nog af thvi i playcolumn svo vid braedum ekki kerfid.
+
+
+
+#multithread starts		--- partur af main.
+def multithread ():
+	t1=threading.Thread(target=trellisWatch)
+	#t2=threading.Thread(target=myndavel)
+	#t3=threading.Thread(target=menuWatch)
+	print('test1')
+	t1.start()
+	#t2.start()
+	#t3.start()
+	print('test2')
+	t1.join()
+	#t2.join()
+	#t3.join()
+	multithread()
+#multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
+
+def trellisWatch ():
+	print('aftur')
+	time.sleep(2)
+
+t=threading.Thread(target=multithread)
+t.start()
+print('still running buddy')
 
 
 
