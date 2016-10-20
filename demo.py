@@ -78,7 +78,7 @@ def taktmaelir(dalkur) :
 	for x in range (0,8):							#fyrir oll LED i 'dalkur'
 		if status[dalkur][x][voice]==0:				#gert svo vid seum bara ad kveikja a led-um sem var slokkt a fyrir.
 			x=x
-			print('flash',skali[x])
+			
 			trellis.setLED(tfOut(x*8+dalkur))				#kveikja a LED!
 		#print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
 	trellis.writeDisplay() 							#uppfaera led a bordi.. VERDI LJOS!
@@ -187,9 +187,7 @@ def trellisWatch():
 	if lGO==1:
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
-		clearAll()
-	if load==1:										#load verdur fall til ad load inn gomlu status og mod.
-		Load()										
+		clearAll()									
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends 
 
