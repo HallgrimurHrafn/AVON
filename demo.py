@@ -146,7 +146,7 @@ def multithread ():
 
 def trellisWatch ():
 	print('aftur')
-	time.sleep(2)
+	time.sleep(4)
 
 t=threading.Thread(target=multithread)
 t.start()
