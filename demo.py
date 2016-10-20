@@ -28,7 +28,7 @@ FLASH=0.05
 lengd=0.1
 status=np.zeros((8,8,16))
 tStatus=np.zeros((8,8,16))
-skali=np.array([60,62,64,65,67,69,71,72])
+skali=np.array([72,71,69,67,65,64,62,60])
 voice=0
 stop=0
 
