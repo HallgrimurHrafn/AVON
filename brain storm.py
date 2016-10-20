@@ -38,7 +38,7 @@ def trellisWatch():
 													#ef sleep er aukið keyrir loop-an sjaldnar á mínútu sem sparar resources í cpu. auka þetta til að létta keyrslu ef þarf.
 		status=tStatus 								#--------------utskyrt nedar-------
 		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
-			for x in range (0, 63) 					#63+1 er fjoldi takka:
+			for x in range (0, 64) 					#64 er fjoldi takka:
 				if tGO==0 or lGO==1: 				
 					break 							
 				if trellis.justPressed(x): 			#spyr hvort thad hafi verid ytt a takka x.
@@ -53,7 +53,7 @@ def trellisWatch():
 	elif tGO==0 and lGO==0: 						#her eru 2 her um bil eins foll. eitt fyrir tStatus og eitt fyrir status.
 		time.sleep(0.03) 							#ef ekki er haegt að setja inn notur i status eins og er þá er það sett í
 		if trellis.readSwitches():					#tStatus í staðinn. kveikt og slökkt er á ljósum sem skyldi.
-			for x in range (0, 63) 					#þegar aftur má setja í status þá veljum við að status=tStatus til að allt sem
+			for x in range (0, 64) 					#þegar aftur má setja í status þá veljum við að status=tStatus til að allt sem
 				if trellis.justPressed(x): 			#gerðist á meðan sé inn í kerfinu. í lokin eftir að við höfum verið að fylgjast með
 					if tStatus[x%8][x//8][voice]==0:#status þá styllum við tStatus=status. þetta tryggir að tStatus er alltaf það sama og status
 						tStatus[x%8][x//8][voice]=1 #nema þegar það má ekki breyta status.
@@ -93,8 +93,8 @@ def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO			#global breytur, útskýrðar efst.
 	tGO=0 											#slekkur a trellisWatch.
 	#time.sleep(0.01)								#kannski þarf til að leyfa trellisWatch að klára for loopu.
-	for x in range (0,7):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
-		for v in range (0,15): 						#gera forlykkju svo við spilum allar voices (channels).
+	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
+		for v in range (0,16): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
 				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=mod(dalkur, x, v, 0)).bytes()) 		
 													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
@@ -109,8 +109,8 @@ def playColumn(dalkur):
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
 	tGO=0
 	mcGO=0 											#slekkur a modColumn
-	for x in range (0,7): 						
-		for v in range (0,15):
+	for x in range (0,8): 						
+		for v in range (0,16):
 			if status[dalkur][x][v]==1:				#velur allar notur sem við kveiktum og á og slekkur á þeim.
 				midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
 													#eini munurinn á þessu og síðasta er að message-ið er note_off og velocity er 0.
@@ -124,12 +124,12 @@ def playColumn(dalkur):
 #taktmaelir begins
 def taktmaelir(dalkur) :
 	global FLASH, status, voice						#global breytur, útskýrðar efst.
-	for x in range (0,7):							#fyrir öll LED í 'dálkur'
+	for x in range (0,8):							#fyrir öll LED í 'dálkur'
 		if status[dalkur][x][voice]==0:				#gert svo við séum bara að kveikja a led-um sem var slökkt á fyrir.
 			trellis.setLED(x*8+dalkur)				#kveikja á LED!
 	trellis.writeDisplay() 							#uppfæra led á borði.. VERÐI LJÓS!
 	time.sleep(FLASH) 								#biðtími eftir taktmælis flash.
-	for x in range (0,7): 							#fyrir öll LED í 'dálkur'
+	for x in range (0,8): 							#fyrir öll LED í 'dálkur'
 		if status[dalkur][x][voice]==0: 			#gert svo við séum bara að slökkva á led-um sem ekki var kveikt á fyrir "taktmaelir".
 			trellis.clrLED(x*8+dalkur) 				#slökkva á LED!
 	trellis.writeDisplay()							#uppfæra led á borði.. VERÐI MYRKUR!
@@ -140,7 +140,7 @@ def taktmaelir(dalkur) :
 #SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():									
 	if (stop == 0):									#ef ýtt var á stopp þá leyfum við sequencer-inum ekki að spila.
-		for dalkur in range (0,7): 					#fyrir alla dálka í sequencer.
+		for dalkur in range (0,8): 					#fyrir alla dálka í sequencer.
 			playColumn(dalkur) 						#spila nótur dálks auk bið og taktmælis.
 			if (stop == 1) 							#a ad stodva allt?
 				break 								#ef svo er, stöðvum við loopuna.
@@ -154,12 +154,12 @@ def Sequencer():
 #clearAll begins 		--- eyðir öllum voice-um.
 def clearAll():
 	global status, mod
-	for v in range (0,15):
-		for dalkur in range (0, 7):
-			for lina in range (0,7):
+	for v in range (0,16):
+		for dalkur in range (0, 8):
+			for lina in range (0,8):
 				status[dalkur][lina][v]=0
 				#normalize(dalkur,lina,v)
-	for x in range (0,63):
+	for x in range (0,64):
 		trellis.clrLED(x)
 	trellisWatch()
 #clearAll ends
@@ -177,7 +177,7 @@ def modWatch():
 def livePlay():
 	global voice, skali
 	if trellis.readSwitches():
-		for x in range (0, 63):
+		for x in range (0, 64):
 			if trellis.justPressed(x):
 				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes()) 
 			if trellis.justReleased(x):

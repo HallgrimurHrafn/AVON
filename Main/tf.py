@@ -1,4 +1,4 @@
-#Her verda tvö föll. Varpa úr trellis formati og varpa í trellis format.
+#Her verda tvo foll. Varpa ur trellis formati og varpa i trellis format.
 #allt prufad i matlab svo thad mun virka.
 
 
@@ -31,12 +31,16 @@ def tfOut (a):
 		else:
 			b=16*f+4*l+d
 	#	b=4*l+d+(1+f//2)*8*f
-	else
+	else:
 		if f%2==1:
 			b=16*(f+1)+d-4*(3-l)
 		else:
 			b=16*(f+1)+d-4*(3-l)+8
 	#	b=16*(f+1)+d-4*(3-l)+(1-f%2)*8
-
+	return b
 	#b=d+4*l+(d//4)*(16*(f+1)+(1-f%2)*8-12)+(1-d//4)1+f//2)*8*f 		#gaeti verid betra ad nota if heldur en svona stora jofnu.
 #tfOut ends
+
+for x in range (0,3):
+
+	print(x)
