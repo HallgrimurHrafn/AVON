@@ -39,6 +39,7 @@ def playColumn(dalkur):
 				#print('on','channel er', v, 
 					#'notan er', skali[x], 'velocity er'
 					#, 100)
+				v=v
 													#ef svo er tha er sent midi-message gegnum midi pakkan mido med channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) thar sem (x,y) er 
 													#hnit notunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
@@ -58,6 +59,7 @@ def playColumn(dalkur):
 				#print('off','channel er', v,
 					#'notan er', skali[x], 'velocity er'
 					#, 0)
+					v=v
 													#eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
 													#velocity er valid 0 vegna thess ad sum midi hljodfaeri nota ekki message-id note off heldur bara velocity 0.
 	tGO=1 											#kveikir a trellisWatch.
