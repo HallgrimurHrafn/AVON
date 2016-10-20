@@ -22,7 +22,7 @@ trellis.begin((0x70,  I2C_BUS), (0x71, I2C_BUS), (0x72, I2C_BUS), (0x73, I2C_BUS
 lGO=0
 mwGO=0
 clA=0
-tGo=0
+tGO=0
 mcGo=0
 tempo=0.5
 FLASH=0.05
