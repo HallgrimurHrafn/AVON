@@ -37,7 +37,7 @@ stop=0
 def playColumn(dalkur):
 	global tempo, FLASH, status, tGO, mcGO,lengd	#global breytur, utskyrdar efst.
 	 												
-	t1=threading.Thread(target=NOTEON, args=(dalkur))
+	t1=threading.Thread(target=NOTEON, args=(dalkur,))
 	t1.start()				
 
 	 										#herna kemur inn flash fra taktmaelir, ath thad lidur sma timi a medan sem er taknud FLASH.
@@ -45,7 +45,7 @@ def playColumn(dalkur):
 
 	time.sleep(tempo-tempo*lengd) 			#latum forritid bida med notuna i gangi. tempo timi milli upphaf notna. 
 													#tempo*lengd er timinn sem notan lifir og FLASH er timinn sem taktmaelirinn notar.
-	t3=threading.Thread(target=NOTEOFF, args=(dalkur))
+	t3=threading.Thread(target=NOTEOFF, args=(dalkur,))
 	t3.start()
 
 	time.sleep(tempo*lengd) 						#timinn milli lok notu og upphaf naestu.
