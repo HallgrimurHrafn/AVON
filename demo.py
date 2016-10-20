@@ -4,6 +4,7 @@ import time
 import threading
 import numpy as np 
 import Adafruit_Trellis
+import RPi.GPIO as GPIO
 
 
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
@@ -193,14 +194,35 @@ def trellisWatch():
 				 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends 
 
-t=threading.Thread(target=multithread)
-t.start()
-print('still running buddy')
-
+#t=threading.Thread(target=multithread)
+#t.start()
+print('running buddy')
 
 
 #for x in range (0,8):
 #	status[x][x][0]=1
 #	print(status[x][x][0],x)
 
-Sequencer()
+#Sequencer()
+
+
+
+pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+
+def my_callback(channel):
+    print("UPDate!")
+
+                                    # stop detection for 0.1 sec
+    GPIO.remove_event_detect(pin)     # thessum 2 linum ma mogulega sleppa. ef forritid virkar. prufa ad komenta ut linur
+    sleep(0.1)                        # 14-16 og sja hvort thad virki enn.
+    GPIO.add_event_detect(pin, GPIO.RISING, callback=my_callback, bouncetime=300)
+
+GPIO.add_event_detect(pin, GPIO.RISING, callback=my_callback, bouncetime=300) #bouncetime.. lesa https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/
+
+# you can continue doing other stuff here
+while True:
+    pass
