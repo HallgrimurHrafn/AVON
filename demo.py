@@ -190,9 +190,10 @@ def trellisWatch():
 	if lGO==1:
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
-		clearAll()									
-				 									#endurkvaemt fall svo thad heldur endalaust afram.
-trellisWatch ends 
+		clearAll()					
+#trellisWatch ends --------------------------------------
+
+
 
 t=threading.Thread(target=multithread)
 t.start()
