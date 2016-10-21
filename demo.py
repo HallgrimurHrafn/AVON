@@ -321,7 +321,7 @@ def ledshow():
 			for v in range (0,4):
 				trellis.clrLED(v+16)
 				trellis.clrLED(v+60)
-				trellis.clrLED(v+4)
+				trellis.clrLED(v+44)
 				trellis.clrLED(v+0)
 			for v in range (0,3):
 				y=4*v
