@@ -228,7 +228,7 @@ def trellisWatch(channel):
 
 
 	GPIO.remove_event_detect(37)
-	trelliswatch(channel)
+	trellisWatch(channel)
 	#GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=50)				
 #trellisWatch ends --------------------------------------
 
