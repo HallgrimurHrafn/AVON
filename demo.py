@@ -215,9 +215,10 @@ def trellisWatch(channel):
 					trellis.clrLED(x)
 					print('off')
 		trellis.writeDisplay()
-		trellis.readSwitches()
 		if tGO==1:
 			status=tStatus
+		time.sleep(0.015)
+		trellis.readSwitches()
 	if mwGO==1:
 		modWatch()
 	if lGO==1:
