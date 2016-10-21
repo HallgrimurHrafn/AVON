@@ -8,8 +8,7 @@ GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 while True:
     time.sleep(0.01)
-	if GPIO.input(37) == GPIO.HIGH:
+	if (GPIO.input(37) == GPIO.HIGH):
 		print('high')
 	if GPIO.input(37) == GPIO.LOW:
 		print('low')
-    
