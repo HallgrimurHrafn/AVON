@@ -19,7 +19,7 @@ trellis.begin((0x70,  I2C_BUS), (0x71, I2C_BUS), (0x72, I2C_BUS), (0x73, I2C_BUS
 pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def blah():
 	time.sleep(0.01)
