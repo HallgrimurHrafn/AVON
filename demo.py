@@ -192,7 +192,7 @@ def multithread ():
 
 #
 def tw():
-	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch, bouncetime=150)
+	GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=150)
 #
 
 
