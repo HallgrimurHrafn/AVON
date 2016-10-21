@@ -239,7 +239,7 @@ def trellisWatch(channel):
 
 print('starting up')
 
-trellis.readSwitches():
+trellis.readSwitches()
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
