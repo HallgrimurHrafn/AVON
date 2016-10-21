@@ -241,96 +241,96 @@ def trellisWatch(channel):
 #
 def ledshow():
 	for x in range (0,6):
-	if x==1:
-		trellis.setLED(15)
-		trellis.setLED(35)
-		trellis.setLED(48)
-		trellis.setLED(28)
-		trellis.writeDisplay()
-		time.sleep(0.2)
-	if x==2:
-		for v in range (0,2):
-			trellis.setLED(v+24)
-			trellis.setLED(v+52)
-			trellis.setLED(v+38)
-			trellis.setLED(v+10)
-		trellis.setLED(29)
-		trellis.setLED(49)
-		trellis.setLED(34)
-		trellis.setLED(14)
-		trellis.writeDisplay()
-		time.sleep(0.2)
+		if x==1:
+			trellis.setLED(15)
+			trellis.setLED(35)
+			trellis.setLED(48)
+			trellis.setLED(28)
+			trellis.writeDisplay()
+			time.sleep(0.2)
+		if x==2:
+			for v in range (0,2):
+				trellis.setLED(v+24)
+				trellis.setLED(v+52)
+				trellis.setLED(v+38)
+				trellis.setLED(v+10)
+			trellis.setLED(29)
+			trellis.setLED(49)
+			trellis.setLED(34)
+			trellis.setLED(14)
+			trellis.writeDisplay()
+			time.sleep(0.2)
 
-	if x==3:
-		trellis.clrLED(15)
-		trellis.clrLED(35)
-		trellis.clrLED(28)
-		trellis.clrLED(48)
-		for v in range (0,3):
-			trellis.setLED(v+20)
-			trellis.setLED(v+56)
-			trellis.setLED(v+41)
-			trellis.setLED(v+5)
-		for v in range (0,2):
-			y=4*v
-			trellis.setLED(26+y)
-			trellis.setLED(50+y)
-			trellis.setLED(9+y)
-			trellis.setLED(33+y)
-		trellis.writeDisplay()
-		time.sleep(0.2)
-	if x==4:
-		for v in range (0,2):
-			trellis.clrLED(v+24)
-			trellis.clrLED(v+52)
-			trellis.clrLED(v+38)
-			trellis.clrLED(v+10)
-		trellis.clrLED(29)
-		trellis.clrLED(49)
-		trellis.clrLED(34)
-		trellis.clrLED(14)
-		for v in range (0,4):
-			trellis.setLED(v+16)
-			trellis.setLED(v+60)
-			trellis.setLED(v+4)
-			trellis.setLED(v+0)
-		for v in range (0,3):
-			y=4*v
-			trellis.setLED(23+y)
-			trellis.setLED(51+y)
-			trellis.setLED(4+y)
-			trellis.setLED(32+y)
-		trellis.writeDisplay()
-		time.sleep(0.2)
-	if x==5:
-		for v in range (0,3):
-			trellis.clrLED(v+20)
-			trellis.clrLED(v+56)
-			trellis.clrLED(v+41)
-			trellis.clrLED(v+5)
-		for v in range (0,2):
-			y=4*v
-			trellis.clrLED(26+y)
-			trellis.clrLED(50+y)
-			trellis.clrLED(9+y)
-			trellis.clrLED(33+y)
-		trellis.writeDisplay()
-		time.sleep(0.2)
+		if x==3:
+			trellis.clrLED(15)
+			trellis.clrLED(35)
+			trellis.clrLED(28)
+			trellis.clrLED(48)
+			for v in range (0,3):
+				trellis.setLED(v+20)
+				trellis.setLED(v+56)
+				trellis.setLED(v+41)
+				trellis.setLED(v+5)
+			for v in range (0,2):
+				y=4*v
+				trellis.setLED(26+y)
+				trellis.setLED(50+y)
+				trellis.setLED(9+y)
+				trellis.setLED(33+y)
+			trellis.writeDisplay()
+			time.sleep(0.2)
+		if x==4:
+			for v in range (0,2):
+				trellis.clrLED(v+24)
+				trellis.clrLED(v+52)
+				trellis.clrLED(v+38)
+				trellis.clrLED(v+10)
+			trellis.clrLED(29)
+			trellis.clrLED(49)
+			trellis.clrLED(34)
+			trellis.clrLED(14)
+			for v in range (0,4):
+				trellis.setLED(v+16)
+				trellis.setLED(v+60)
+				trellis.setLED(v+4)
+				trellis.setLED(v+0)
+			for v in range (0,3):
+				y=4*v
+				trellis.setLED(23+y)
+				trellis.setLED(51+y)
+				trellis.setLED(4+y)
+				trellis.setLED(32+y)
+			trellis.writeDisplay()
+			time.sleep(0.2)
+		if x==5:
+			for v in range (0,3):
+				trellis.clrLED(v+20)
+				trellis.clrLED(v+56)
+				trellis.clrLED(v+41)
+				trellis.clrLED(v+5)
+			for v in range (0,2):
+				y=4*v
+				trellis.clrLED(26+y)
+				trellis.clrLED(50+y)
+				trellis.clrLED(9+y)
+				trellis.clrLED(33+y)
+			trellis.writeDisplay()
+			time.sleep(0.2)
 
-	if x==6:
-		for v in range (0,4):
-			trellis.setLED(v+16)
-			trellis.setLED(v+60)
-			trellis.setLED(v+4)
-			trellis.setLED(v+0)
-		for v in range (0,3):
-			y=4*v
-			trellis.setLED(23+y)
-			trellis.setLED(51+y)
-			trellis.setLED(4+y)
-			trellis.setLED(32+y)
-		trellis.writeDisplay()
-		time.sleep(0.2)
+		if x==6:
+			for v in range (0,4):
+				trellis.setLED(v+16)
+				trellis.setLED(v+60)
+				trellis.setLED(v+4)
+				trellis.setLED(v+0)
+			for v in range (0,3):
+				y=4*v
+				trellis.setLED(23+y)
+				trellis.setLED(51+y)
+				trellis.setLED(4+y)
+				trellis.setLED(32+y)
+			trellis.writeDisplay()
+			time.sleep(0.2)
 #
 
 
