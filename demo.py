@@ -247,7 +247,7 @@ def ledshow():
 			trellis.setLED(48)
 			trellis.setLED(28)
 			trellis.writeDisplay()
-			time.sleep(0.2)
+			time.sleep(0.1)
 		if x==2:
 			for v in range (0,2):
 				trellis.setLED(v+24)
@@ -259,7 +259,7 @@ def ledshow():
 			trellis.setLED(34)
 			trellis.setLED(14)
 			trellis.writeDisplay()
-			time.sleep(0.2)
+			time.sleep(0.1)
 
 		if x==3:
 			trellis.clrLED(15)
@@ -278,7 +278,7 @@ def ledshow():
 				trellis.setLED(9+y)
 				trellis.setLED(33+y)
 			trellis.writeDisplay()
-			time.sleep(0.2)
+			time.sleep(0.1)
 		if x==4:
 			for v in range (0,2):
 				trellis.clrLED(v+24)
@@ -301,7 +301,7 @@ def ledshow():
 				trellis.setLED(4+y)
 				trellis.setLED(32+y)
 			trellis.writeDisplay()
-			time.sleep(0.2)
+			time.sleep(0.1)
 		if x==5:
 			for v in range (0,3):
 				trellis.clrLED(v+20)
@@ -315,7 +315,7 @@ def ledshow():
 				trellis.clrLED(9+y)
 				trellis.clrLED(33+y)
 			trellis.writeDisplay()
-			time.sleep(0.2)
+			time.sleep(0.1)
 
 		if x==6:
 			for v in range (0,4):
@@ -330,7 +330,7 @@ def ledshow():
 				trellis.clrLED(4+y)
 				trellis.clrLED(32+y)
 			trellis.writeDisplay()
-			time.sleep(0.2)
+			time.sleep(0.1)
 #
 
 
