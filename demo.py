@@ -238,7 +238,8 @@ def trellisWatch(channel):
 
 
 print('starting up')
-
+for x in range (0,64):
+	trellis.clrLED(x)
 trellis.readSwitches()
 
 GPIO.setmode(GPIO.BOARD)
@@ -247,6 +248,8 @@ GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 print('press trellis to start')
 while GPIO.input(37) == GPIO.HIGH:
     time.sleep(0.01)
+time.sleep(0.015)
+trellis.readSwitches()
 t=threading.Thread(target=multithread)
 t.start()
 print('its running, boooooiiiiii!')
