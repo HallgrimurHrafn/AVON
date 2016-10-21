@@ -258,7 +258,7 @@ GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 for x in range (0,5):
 	if x==1:
-		trellis.setLed(15,35,48,28)
+		trellis.setLED(15,35,48,28)
 
 
 t=threading.Thread(target=multithread)
