@@ -203,7 +203,7 @@ def tw():
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch(channel):
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
-	time.sleep(0.015)
+	time.sleep(1)
 	print(GPIO.input(37))
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
