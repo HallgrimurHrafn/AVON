@@ -220,7 +220,7 @@ def trellisWatch(channel):
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
 		clearAll()	
-	GPIO.remove_event_detect(37)
+	#GPIO.remove_event_detect(37)
 	GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=50)				
 #trellisWatch ends --------------------------------------
 
