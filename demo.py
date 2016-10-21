@@ -201,7 +201,7 @@ def tw():
 def trellisWatch(channel):
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
 	time.sleep(0.03)
-
+	print(GPIO.input(37))
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
 			if trellis.justPressed(x):
@@ -209,7 +209,7 @@ def trellisWatch(channel):
 				if tStatus[y%8][y//8][voice]==0:
 					tStatus[y%8][y//8][voice]=1 
 					trellis.setLED(x)
-					print(GPIO.input(37),'on') 			
+					#print(GPIO.input(37),'on') 			
 				else:
 					tStatus[y%8][y//8][voice]=0 	
 					trellis.clrLED(x)
