@@ -6,16 +6,10 @@ pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn u
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-
-def my_callback(channel):
-    print("UPDate!")
-
-                                    # stop detection for 0.1 sec
-    GPIO.remove_event_detect(pin)     # thessum 2 linum ma mogulega sleppa. ef forritid virkar. prufa ad komenta ut linur
-    GPIO.add_event_detect(pin, GPIO.RISING, callback=my_callback, bouncetime=300)
-
-GPIO.add_event_detect(pin, GPIO.RISING, callback=my_callback, bouncetime=300) #bouncetime.. lesa https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/
-
-# you can continue doing other stuff here
 while True:
-    pass
+	if GPIO.input(37) == GPIO.HIGH:
+		print('high')
+	if GPIO.input(37) == GPIO.LOW:
+		print('low')
+		
+    time.sleep(0.01)
