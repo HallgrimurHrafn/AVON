@@ -214,6 +214,7 @@ def trellisWatch(channel):
 					tStatus[y%8][y//8][voice]=0 	
 					trellis.clrLED(x)
 					print('off')
+		trellis.writeDisplay()
 		if tGO==1:
 			status=tStatus
 	if mwGO==1:
@@ -238,9 +239,10 @@ def trellisWatch(channel):
 
 
 print('starting up')
+trellis.readSwitches()
 for x in range (0,64):
 	trellis.clrLED(x)
-trellis.readSwitches()
+trellis.writeDisplay()
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
