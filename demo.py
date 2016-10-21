@@ -24,7 +24,7 @@ mwGO=0
 clA=0
 tGO=0
 mcGo=0
-tempo=0.05 		#0.075 er min.
+tempo=0.05 		#0.05 er min.
 FLASH=0.025
 lengd=0.1
 status=np.zeros((8,8,16))
@@ -200,7 +200,7 @@ def tw():
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch(channel):
 	global tGO, status, voice, a, b, tStatus,clA,lGO,mwGO
-	time.sleep(0.015)
+	time.sleep(0.03)
 
 	if trellis.readSwitches():						#gerir alveg thad sama og gamla forritid i styttri koda.
 		for x in range (0,64):				
@@ -224,8 +224,11 @@ def trellisWatch(channel):
 	if lGO==1:
 		livePlay() 									#trellisWatch thradurinn fer yfir i livePlay ef 
 	if clA==1:
-		clearAll()	
-	#GPIO.remove_event_detect(37)
+		clearAll()
+
+
+	GPIO.remove_event_detect(37)
+	trelliswatch(channel)
 	#GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=50)				
 #trellisWatch ends --------------------------------------
 
