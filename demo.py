@@ -238,6 +238,57 @@ def trellisWatch(channel):
 
 
 
+#
+def ledshow():
+	for x in range (0,5):
+	if x==1:
+		trellis.setLED(15)
+		trellis.setLED(35)
+		trellis.setLED(15)
+		trellis.setLED(15)
+		trellis.writeDisplay()
+		time.sleep(0.2)
+	if x=2:
+		for v in range (0,2):
+			trellis.setLED(v+24)
+			trellis.setLED(v+52)
+			trellis.setLED(v+38)
+			trellis.setLED(v+10)
+		trellis.setLED(29)
+		trellis.setLED(49)
+		trellis.setLED(34)
+		trellis.setLED(14)
+		trellis.writeDisplay()
+		time.sleep(0.2)
+
+	if x=3:
+		trellis.clrLED(15)
+		trellis.clrLED(35)
+		trellis.clrLED(15)
+		trellis.clrLED(15)
+		for v in range (0,3):
+			trellis.setLED(v+19)
+			trellis.setLED(55+v)
+			trellis.setLED(v+40)
+			trellis.setLED(v+4)
+		for v in range (0,2):
+			trellis.setLED(22+):
+
+
+	if x=4:
+		for v in range (0,2):
+			trellis.clrLED(v+24)
+			trellis.clrLED(v+52)
+			trellis.clrLED(v+38)
+			trellis.clrLED(v+10)
+		trellis.clrLED(29)
+		trellis.clrLED(49)
+		trellis.clrLED(34)
+		trellis.clrLED(14)
+		
+
+
+#
 
 
 
@@ -256,10 +307,8 @@ trellis.writeDisplay()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-for x in range (0,5):
-	if x==1:
-		trellis.setLED(15,35,48,28)
 
+ledshow()
 
 t=threading.Thread(target=multithread)
 t.start()
