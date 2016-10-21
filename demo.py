@@ -350,7 +350,7 @@ trellis.writeDisplay()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-for x in range (0,4):
+for x in range (0,3):
 	ledshow()
 
 for x in range (0,64):
