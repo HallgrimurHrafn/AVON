@@ -256,11 +256,11 @@ trellis.writeDisplay()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-print('press trellis to start')
-while GPIO.input(37) == GPIO.HIGH:
-    time.sleep(0.01)
-time.sleep(0.015)
-trellis.readSwitches()
+for x in range (0,5):
+	if x==1:
+		trellis.setLed(15,35,48,28)
+
+
 t=threading.Thread(target=multithread)
 t.start()
 print('its running, boooooiiiiii!')
