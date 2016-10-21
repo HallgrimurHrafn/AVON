@@ -248,6 +248,6 @@ while GPIO.input(37) == GPIO.HIGH:
 t=threading.Thread(target=multithread)
 t.start()
 print('its running, boooooiiiiii!')
-GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=50)
+
 # you can continue doing other stuff here
 Sequencer()
