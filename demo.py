@@ -195,7 +195,7 @@ def tw():
 	#while True:
 	#	trellisWatch(37)
 
-	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch, bouncetime=50)
+	GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 #
 
 
