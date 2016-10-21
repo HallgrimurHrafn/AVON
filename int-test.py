@@ -22,9 +22,12 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def blah():
-	if GPIO.input(37) == GPIO.LOW:
+	if GPIO.input(37) != GPIO.LOW:
+
+	else:
 		print('high')
 		bleh()
+		
 
 def bleh():	
 	if GPIO.input(37) == GPIO.HIGH:
