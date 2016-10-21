@@ -240,7 +240,7 @@ def trellisWatch(channel):
 
 #
 def ledshow():
-	for x in range (0,6):
+	for x in range (0,7):
 		if x==1:
 			trellis.setLED(15)
 			trellis.setLED(35)
@@ -352,6 +352,11 @@ GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 for x in range (0,4):
 	ledshow()
+
+for x in range (0,64):
+	trellis.clrLED(x)
+trellis.writeDisplay()
+
 
 t=threading.Thread(target=multithread)
 t.start()
