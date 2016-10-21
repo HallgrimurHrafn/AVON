@@ -39,4 +39,4 @@ def bleh():
 
 
 while True:
-	blah()
+	bleh()
