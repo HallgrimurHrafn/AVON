@@ -216,8 +216,8 @@ def trellisWatch(channel):
 				else:
 					tStatus[y%8][y//8][voice]=0 	
 					trellis.clrLED(x)
-					trellis.readSwitches()
 					print(GPIO.input(37),'off')
+					trellis.readSwitches()
 		trellis.writeDisplay()
 		if tGO==1:
 			status=tStatus
