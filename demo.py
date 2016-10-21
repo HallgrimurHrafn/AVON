@@ -209,7 +209,7 @@ def trellisWatch(channel):
 				if tStatus[y%8][y//8][voice]==0:
 					tStatus[y%8][y//8][voice]=1 
 					trellis.setLED(x)
-					print('on') 			
+					print(GPIO.input(37)) 			
 				else:
 					tStatus[y%8][y//8][voice]=0 	
 					trellis.clrLED(x)
