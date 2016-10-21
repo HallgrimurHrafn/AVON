@@ -192,7 +192,10 @@ def multithread ():
 
 #
 def tw():
-	GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=150)
+	while True:
+		trellisWatch(37)
+
+	#GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=150)
 #
 
 
@@ -227,8 +230,8 @@ def trellisWatch(channel):
 		clearAll()
 
 
-	GPIO.remove_event_detect(37)
-	trellisWatch(channel)
+	#GPIO.remove_event_detect(37)
+	#trellisWatch(channel)
 	#GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=50)				
 #trellisWatch ends --------------------------------------
 
