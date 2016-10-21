@@ -1,4 +1,4 @@
-from time import sleep
+import time
 import RPi.GPIO as GPIO
 
 pin =37  #ma stilla a flest allt held eg. endilega prufa. thetta er int virinn ur trellis.
