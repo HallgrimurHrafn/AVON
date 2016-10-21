@@ -61,8 +61,8 @@ def NOTEON(dalkur):
 		for v in range (0,16): 						#gera forlykkju svo vid spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nota med hnitin (dalkur,x) se virk.
 				#midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x), velocity=100).bytes())  #velocity=mod(dalkur, x, v, 0)		
-				print('on','channel er', v, 
-					'notan er', skali[x], 'velocity er', 100)
+				#print('on','channel er', v, 
+				#	'notan er', skali[x], 'velocity er', 100)
 				pass
 													#ef svo er tha er sent midi-message gegnum midi pakkan mido med channel, 
 													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) thar sem (x,y) er 
@@ -83,8 +83,8 @@ def NOTEOFF(dalkur):
 		for v in range (0,16):
 			if status[dalkur][x][v]==1:				#velur allar notur sem vid kveiktum a og slekkur a theim.
 				#midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes()) 		
-				print('off','channel er', v,
-					'notan er', skali[x], 'velocity er', 0)
+				#print('off','channel er', v,
+				#	'notan er', skali[x], 'velocity er', 0)
 				pass	
 													#eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
 													#velocity er valid 0 vegna thess ad sum midi hljodfaeri nota ekki message-id note off heldur bara velocity 0.
@@ -209,11 +209,11 @@ def trellisWatch(channel):
 				if tStatus[y%8][y//8][voice]==0:
 					tStatus[y%8][y//8][voice]=1 
 					trellis.setLED(x)
-					#print(GPIO.input(37)) 			
+					print(GPIO.input(37),'on') 			
 				else:
 					tStatus[y%8][y//8][voice]=0 	
 					trellis.clrLED(x)
-					#print('off')
+					print(GPIO.input(37),'off')
 		trellis.writeDisplay()
 		if tGO==1:
 			status=tStatus
