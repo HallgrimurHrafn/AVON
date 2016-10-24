@@ -234,11 +234,10 @@ def ledshow(fylki):
             trellis.writeDisplay()
             time.sleep(0.1)
         if x == 3:
-
-            trellis.clrLED(15)
-            trellis.clrLED(35)
-            trellis.clrLED(28)
-            trellis.clrLED(48)
+            ledhelp(15, fylki)
+            ledhelp(35, fylki)
+            ledhelp(28, fylki)
+            ledhelp(48, fylki)
             for v in range(0, 3):
                 trellis.setLED(v + 20)
                 trellis.setLED(v + 56)
@@ -254,14 +253,13 @@ def ledshow(fylki):
             time.sleep(0.1)
         if x == 4:
             for v in range(0, 2):
-                trellis.clrLED(v + 24)
-                trellis.clrLED(v + 52)
-                trellis.clrLED(v + 38)
-                trellis.clrLED(v + 10)
-            trellis.clrLED(29)
-            trellis.clrLED(49)
-            trellis.clrLED(34)
-            trellis.clrLED(14)
+                y=v*
+                ledhelp(v+24, fylki)
+                ledhelp(v+52, fylki)
+                ledhelp(v+38, fylki)
+                ledhelp(v+10, fylki)
+                ledhelp(29+y, fylki)
+                ledhelp(14+y, fylki)
             for v in range(0, 4):
                 trellis.setLED(v + 16)
                 trellis.setLED(v + 60)
@@ -277,34 +275,43 @@ def ledshow(fylki):
             time.sleep(0.1)
         if x == 5:
             for v in range(0, 3):
-                trellis.clrLED(v + 20)
-                trellis.clrLED(v + 56)
-                trellis.clrLED(v + 41)
-                trellis.clrLED(v + 5)
+                ledhelp(v+20, fylki)
+                ledhelp(v+56, fylki)
+                ledhelp(v+41, fylki)
+                ledhelp(v+5, fylki)
             for v in range(0, 2):
                 y = 4 * v
-                trellis.clrLED(26 + y)
-                trellis.clrLED(50 + y)
-                trellis.clrLED(9 + y)
-                trellis.clrLED(33 + y)
+                ledhelp(26+y, fylki)
+                ledhelp(50+y, fylki)
+                ledhelp(9+y, fylki)
+                ledhelp(33+y, fylki)
             trellis.writeDisplay()
             time.sleep(0.1)
 
         if x == 6:
             for v in range(0, 4):
-                trellis.clrLED(v + 16)
-                trellis.clrLED(v + 60)
-                trellis.clrLED(v + 44)
-                trellis.clrLED(v + 0)
+                ledhelp(v+16, fylki)
+                ledhelp(v+60 fylki)
+                ledhelp(v+44, fylki)
+                ledhelp(v, fylki)
             for v in range(0, 3):
                 y = 4 * v
-                trellis.clrLED(23 + y)
-                trellis.clrLED(51 + y)
-                trellis.clrLED(4 + y)
-                trellis.clrLED(32 + y)
+                ledhelp(23+y, fylki)
+                ledhelp(51+y, fylki)
+                ledhelp(4+y, fylki)
+                ledhelp(32+y, fylki)
             trellis.writeDisplay()
             time.sleep(0.1)
-#
+#ledshow ends
+
+# ledhelp begins    --- tekur gildi og fylki. ef gildi fylkisins er 0 i x
+def ledhelp(x, fylki):      #tha slokkvum vid a thvi. annars ekki
+    y=tfIn(x)
+    if fylki[y % 8][y // 8] ==0:
+        trellis.clrLED(x)
+#lehelp ends
+
+
 
 print('starting up')
 trellis.readSwitches()
