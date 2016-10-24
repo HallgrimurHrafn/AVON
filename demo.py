@@ -3,140 +3,116 @@
 import time
 import threading
 import numpy as np
-import Adafruit_Trellis
 import RPi.GPIO as GPIO
 
-
+import Adafruit_Trellis         #trellis config
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
 matrix1 = Adafruit_Trellis.Adafruit_Trellis()
 matrix2 = Adafruit_Trellis.Adafruit_Trellis()
 matrix3 = Adafruit_Trellis.Adafruit_Trellis()
-
-
 trellis = Adafruit_Trellis.Adafruit_TrellisSet(
-    matrix0, matrix1, matrix2, matrix3)
-
+matrix0, matrix1, matrix2, matrix3)
 I2C_BUS = 1
-
 trellis.begin((0x70,  I2C_BUS), (0x71, I2C_BUS),
-              (0x72, I2C_BUS), (0x73, I2C_BUS))
+(0x72, I2C_BUS), (0x73, I2C_BUS))
 
-lGO = 0
-mwGO = 0
-clA = 0
-tGO = 0
-mcGo = 0
-tempo = 0.5  # 0.05 er min.
-FLASH = 0.9 * tempo
-lengd = 0.1
-status = np.zeros((8, 8, 16))
-tStatus = np.zeros((8, 8, 16))
-skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])
-voice = 0
-stop = 0
+#nonmenu config
+mwGO = 0                        #hvort vid erum i modwatch eda ekki
+tGO = 0                         #hvort breyta megi status eda ekki
+mcGo = 0                        #hvort modda megi med myndavel eda ekki
+status = np.zeros((8, 8, 16))   #status notna fylkid okkar
+tStatus = np.zeros((8, 8, 16))  #tStatus, temporarystatus. notad thegar
+                                #tgo=0 svo vid missum ekki af notum
+
+#menu
+clA = 0                         #ef clA=1 tha gerum vid clearAll
+lGO = 0                         #ef lgo=1 tha erum vid i life mode.
+voice = 0                       #hvada voice er i notkun
+stop = 0                        #eigum vid ad stoppa
+skali = np.array([72, 71, 69, 67, 65, 64, 62, 60]) #skali, segir sig sjalfur.. tharf ad vera i minnkandi rod!.
+#save og loada skala :S
+tempo = 0.5  # 0.05 er min.     #tempo
+FLASH = 0.9 * tempo             #hlutfallsleg lengd af tempo fyrir taktmaeli
+lengd = 0.1                     #hlutfall tempo, bil milli enda og byrjunar notna i samliggjandi dalkum.
+#save einhvern veginn
+#load einhvern veginn
 
 
 def playColumn(dalkur):
-    global tempo, FLASH, lengd  # global breytur, utskyrdar efst.
+    global tempo, FLASH, lengd                              # global breytur, utskyrdar efst.
+    t1 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
+    t1.start()                                              # thannig er taktmaelirinn nakvaemari
 
-    t1 = threading.Thread(target=NOTEON, args=(dalkur,))
-    t1.start()
+    time.sleep(tempo - tempo * lengd)                       #tempo*lengd er hve mikill timi er eftir thegar notan klarast
 
-    # herna kemur inn flash fra taktmaelir, ath thad lidur sma timi a medan
-    # sem er taknud FLASH.
-
-    # latum forritid bida med notuna i gangi. tempo timi milli upphaf notna.
-    time.sleep(tempo - tempo * lengd)
-    # tempo*lengd er timinn sem notan lifir og FLASH er timinn sem
-    # taktmaelirinn notar.
-    t3 = threading.Thread(target=NOTEOFF, args=(dalkur,))
+    t3 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # það sama fyrir NOTEOFF
     t3.start()
 
-    time.sleep(tempo * lengd)  # timinn milli lok notu og upphaf naestu.
+    time.sleep(tempo * lengd)                               # timinn milli lok notu og upphaf naestu.
 # playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
 
 
 # NOTEON begins
 def NOTEON(dalkur):
-    global tGO, skali, status, mcGo  # global breytur, utskyrdar efst.
-    tGO = 0  # slekkur a trellisWatch.
-    # keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
+    global tGO, skali, status, mcGo                         # global breytur, utskyrdar efst.
+    tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
-        # gera forlykkju svo vid spilum allar voices (channels).
-        for v in range(0, 16):
-            # spyr hvort nota med hnitin (dalkur,x) se virk.
+        for v in range(0, 16):                              # fyrir allar notur dalksins spilum..
             if status[dalkur][x][v] == 1:
                 # midiout.send_message(mido.Message('note_on', channel=voice,
                 # note=skali(x), velocity=100).bytes())  #velocity=mod(dalkur,
                 # x, v, 0)
                 print('on', 'channel er', v,
-                      'notan er', skali[x], 'velocity er', 100)
-                pass
-                # ef svo er tha er sent midi-message gegnum midi pakkan mido med channel,
-                # notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) thar sem (x,y) er
-                # hnit notunnar en z=1 heldur utan um velocity. svo (x,y,1) er
-                # velocity notunnar (x,y)
-    tGO = 1  # kveikir a trellisWatch.
-    mcGO = 1  # kveikir a modColumn
-    taktmaelir(dalkur)
+                'notan er', skali[x], 'velocity er', 100)
+    tGO = 1                                                 # tGO=1, trelliswatch ma breyta status
+    mcGO = 1                                                # mcGO=1, her ma modda notur
+    taktmaelir(dalkur)                                      # forum i taktmaelinn.
 # NOTEON ends
 
 
 # NOTEON begins
 def NOTEOFF(dalkur):
     global tGO, skali, status, mcGO
-    tGO = 0
-    mcGO = 0  # slekkur a modColumn
+    tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
+    mcGO = 0                                                # slekkur a modColumn, bannad ad modda notur
     for x in range(0, 8):
-        for v in range(0, 16):
-            # velur allar notur sem vid kveiktum a og slekkur a theim.
+        for v in range(0, 16):                              # slokkvum a notunum sem vid kveiktum a adan.
             if status[dalkur][x][v] == 1:
                 #midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes())
                 print('off', 'channel er', v,
                       'notan er', skali[x], 'velocity er', 0)
                 pass
-                # eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
-                # velocity er valid 0 vegna thess ad sum midi hljodfaeri nota
-                # ekki message-id note off heldur bara velocity 0.
-    tGO = 1  # kveikir a trellisWatch.
+                                                            # eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
+                                                            # velocity er valid 0 vegna thess ad sum midi hljodfaeri nota
+                                                            # ekki message-id note off heldur bara velocity 0.
+    tGO = 1                                                 # kveikir a trellisWatch.
 # NOTEON ends
 
 
 # taktmaelir begins
 def taktmaelir(dalkur):
-    global FLASH, status, voice  # global breytur, utskyrdar efst.
-    for x in range(0, 8):  # fyrir oll LED i 'dalkur'
-        # if status[dalkur][x][voice]==1:				#gert svo vid seum bara ad kveikja a led-um sem var slokkt a fyrir.
-            # trellis.clrLED(tfOut(x*8+dalkur))
-        # else:
-        trellis.setLED(tfOut(x * 8 + dalkur))  # kveikja a LED!
+    global FLASH, status, voice                             # global breytur, utskyrdar efst.
+    for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
+        trellis.setLED(tfOut(x * 8 + dalkur))               # kveikja a LED!,tfout varpar i trellisformat.
         #print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
-    trellis.writeDisplay()  # uppfaera led a bordi.. VERDI LJOS!
-    time.sleep(FLASH)  # bidtimi eftir taktmaelis flash.
-    for x in range(0, 8):  # fyrir oll LED i 'dalkur'
-        # gert svo vid seum bara ad slokkva a led-um sem ekki var kveikt a
-        # fyrir "taktmaelir".
-        if status[dalkur][x][voice] == 0:
+    trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI LJOS!
+    time.sleep(FLASH)                                       # bidtimi eftir taktmaelis flash.
+    for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
+        if status[dalkur][x][voice] == 0:                   # slokkvum a theim ljosum sem eru ekki a bordinu fyrir.
             trellis.clrLED(tfOut(x * 8 + dalkur))
-        # else:
-        #	trellis.clrLED(tfOut(x*8+dalkur)) 		#slokkva a LED!
-        #print(x*8+dalkur,tfOut(x*8+dalkur), 'off')
-    trellis.writeDisplay()  # uppfaera led a bordi.. VERDI MYRKUR!
+    trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI MYRKUR!
 # taktmaelir end
 
 
 # tfIn begins 		--- varpar ur trellis i okkar format.
 def tfIn(a):
-    f = a // 16
-    d = (a % 16) % 4
+    f = a // 16                                             # thetta er bara sma formula sem varpar
+    d = (a % 16) % 4                                        # fylki ur trellis formati i status format.
     l = (a % 16) // 4
     if f % 2 == 0:
         b = 16 * f + 8 * l + d
     else:
-        #	#b=16*(f+1)-1-(3-l)*8-3+d
         b = 16 * (f + 1) - (3 - l) * 8 + d - 4
-
-    #b=16*(f+f%2)+8*l+d -28*(f%2)
     return b
 # tfIn ends
 
@@ -144,8 +120,8 @@ def tfIn(a):
 # tfOut begins 		--- varpar ur okkar formati i trellis.
 def tfOut(a):
     f = a // 16
-    d = (a % 16) % 8
-    l = (a % 16) // 8
+    d = (a % 16) % 8                                        # thetta er bara sma formula sem varpar
+    l = (a % 16) // 8                                       # fylki ur status formati i trellis format.
     if d < 4:
         if f < 2:
             b = 8 * f + 4 * l + d
@@ -166,26 +142,21 @@ def tfOut(a):
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
     while True:
-        # ef ytt var a stopp tha leyfum vid sequencer-inum ekki ad spila.
-        if stop == 0:
-            for dalkur in range(0, 8):  # fyrir alla dalka i sequencer.
-                playColumn(dalkur)  # spila notur dalks auk bid og taktmaelis.
-                if stop == 1:  # a ad stodva allt?
-                    break  # ef svo er, stodvum vid loopuna.
-        elif stop == 1:  # ef sequencerinn var stoppadur er enginn astaeda til ad drepa orgjorvan. setjum sleep til ad
-            time.sleep(0.2)  # eyda minna afli orgjorvans.
-        # BETRA ad gera event her.
-            # annars/eftir ad spila i gegnum alla dalka, forum vid aftur i sequencer. "hala"endurkvaemt fall.
+        if stop == 0:                                       # ef ytt var a stopp tha leyfum vid sequencer-inum ekki ad spila.
+            for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
+                playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
+                if stop == 1:                               # a ad stodva allt?
+                    break                                   # ef svo er, stodvum vid loopuna.
+        elif stop == 1:                                     # ef sequencerinn var stoppadur er enginn astaeda til ad drepa orgjorvan. setjum sleep til ad
+            time.sleep(0.2)                                 # eyda minna afli orgjorvans.
+                                                            # BETRA ad gera event her.!!!
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
-# ekkert time.sleep thvi thad er nog af thvi i playcolumn svo vid braedum
-# ekki kerfid.
 
 
 # multithread starts		--- partur af main.
 def multithread():
-
-    t1 = threading.Thread(target=tw)
-    # t2=threading.Thread(target=myndavel)
+    t1 = threading.Thread(target=tw)                        # her buum vid til alla non main thraedina og
+    # t2=threading.Thread(target=myndavel)                  # reynum ad halda utan um tha.
     # t3=threading.Thread(target=menuWatch)
 
     t1.start()
@@ -195,13 +166,15 @@ def multithread():
     # t2.join()
     # t3.join()
 
-# multithread ends    --- breyta i function med if skilyrdum hvort thradur
-# se daudur eda ekki.
+# multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
 
 #
 def tw():
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
+
+    #thetta function er bara til ad bua til event fyrir trelliswatch
+    #kannski kemur timamaeling hingad lika.
 #
 
 
@@ -210,40 +183,36 @@ def tw():
 def trellisWatch(channel):
     global tGO, status, voice, a, b, tStatus, clA, lGO, mwGO
     time.sleep(0.015)
-    # print(GPIO.input(37))
-    if trellis.readSwitches():  # gerir alveg thad sama og gamla forritid i styttri koda.
-        for x in range(0, 64):
-            if trellis.justPressed(x):
-                y = tfIn(x)
-                if tStatus[y % 8][y // 8][voice] == 0:
-                    tStatus[y % 8][y // 8][voice] = 1
-                    trellis.setLED(x)
-                    # print(GPIO.input(37),'on')
-                else:
-                    tStatus[y % 8][y // 8][voice] = 0
-                    trellis.clrLED(x)
+    # print(GPIO.input(37))                             #sma debug daemi
+    if trellis.readSwitches():                          #ef ytt var a takka/uppfaerum database.
+        for x in range(0, 64):                          #fyrir alla takka
+            if trellis.justPressed(x):                  #var ytt a thennan takka?
+                y = tfIn(x)                             #vorpum i status format.
+                if tStatus[y % 8][y // 8][voice] == 0:  #ef thad var slokkt a notu
+                    tStatus[y % 8][y // 8][voice] = 1   #tha er nuna kveikt a notu
+                    trellis.setLED(x)                   #somuleidis med LED.
+                    # print(GPIO.input(37),'on')        #debug dot
+                else:                                   #ef ekki slokkt a notu
+                    tStatus[y % 8][y // 8][voice] = 0   #slokkvum a notu
+                    trellis.clrLED(x)                   #led lika
                     # print(GPIO.input(37),'off')
-                    trellis.readSwitches()
-        trellis.writeDisplay()
-        if tGO == 1:
-            status = tStatus
-        time.sleep(0.015)
-        trellis.readSwitches()
-    if mwGO == 1:
-        modWatch()
-    if lGO == 1:
-        livePlay()  # trellisWatch thradurinn fer yfir i livePlay ef
-    if clA == 1:
-        clearAll()
-
-    # GPIO.remove_event_detect(37)
-    # trellisWatch(channel)
-    #GPIO.add_event_detect(37, GPIO.BOTH, callback=trellisWatch, bouncetime=50)
+                    trellis.readSwitches()              #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
+        trellis.writeDisplay()                          #uppfaerum led
+        if tGO == 1:                                    #meigum vid breyta status
+            status = tStatus                            #ef ja, vistum tstatus i status.
+        time.sleep(0.015)                               #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
+        trellis.readSwitches()                          #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
+    if mwGO == 1:                                       #ef mwGO=1
+        modWatch()                                      #forum i modwatch :)
+    if lGO == 1:                                        #ef lGO=1
+        livePlay()                                      #forum i liveplay :D
+    if clA == 1:                                        #ef clA=1
+        clearAll()                                      #skemmum allt :'(
 # trellisWatch ends --------------------------------------
 
 
-#
-def ledshow():
+#ledshow begins     --- tekur inn fylki af gerdinni 8x8 og flassar fra midju ut en skilur eftir ljos fylkisins.
+def ledshow(fylki):
     for x in range(0, 7):
         if x == 1:
             trellis.setLED(15)
@@ -264,8 +233,8 @@ def ledshow():
             trellis.setLED(14)
             trellis.writeDisplay()
             time.sleep(0.1)
-
         if x == 3:
+
             trellis.clrLED(15)
             trellis.clrLED(35)
             trellis.clrLED(28)
@@ -337,12 +306,6 @@ def ledshow():
             time.sleep(0.1)
 #
 
-
-# for x in range (0,8):
-#	status[x][x][0]=1
-#	print(status[x][x][0],x)
-
-
 print('starting up')
 trellis.readSwitches()
 for x in range(0, 64):
@@ -353,7 +316,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 for x in range(0, 3):
-    ledshow()
+    ledshow(np.zeros((8, 8)))
 
 for x in range(0, 64):
     trellis.clrLED(x)
@@ -364,5 +327,4 @@ t = threading.Thread(target=multithread)
 t.start()
 print('its running, boooooiiiiii!')
 
-# you can continue doing other stuff here
 Sequencer()
