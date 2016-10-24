@@ -211,6 +211,8 @@ def trellisWatch(channel):
 # trellisWatch ends --------------------------------------
 
 
+#Notkun : fylkid er 8x8, ef taka a status sem er 8x8x16 tharf ad velja eitt voice og gera
+#ledshow(status[:,:,voice])svipad fyrir mod fylkid ur modwatch.
 #ledshow begins     --- tekur inn fylki af gerdinni 8x8 og flassar fra midju ut en skilur eftir ljos fylkisins.
 def ledshow(fylki):
     for x in range(0, 7):
