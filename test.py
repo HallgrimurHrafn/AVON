@@ -12,7 +12,7 @@ ser = serial.Serial(
     timeout=1)
 counter =0
 while 1:
-	#ser.write('Write counter: %d \n'%(counter))
 	time.sleep(1)
+	ser.write('Write counter: %d \n'%(counter))
 	counter += 1
-	print(counter)
+	#print(counter)
