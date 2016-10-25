@@ -22,7 +22,8 @@ ser = serial.Serial(
 
 
 message = [0, 0, 0]
-while 1:i = 0
+while True:
+    i = 0
     while i < 3:
         data = ord(ser.read(1)) # read a byte
         if data >> 7 != 0:  
