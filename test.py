@@ -2,6 +2,7 @@
 import time
 import serial
 import pygame
+import struct
 
 ser = serial.Serial(
     port='/dev/serial1', #eda sys0 eda hvad sem hinn var.
