@@ -22,7 +22,7 @@ ser = serial.Serial(
 #    #print(counter)
 
 
-message = [0, 0, 0]
+message = [90, 3C, 80]
 while True:
     i = 0
     while i < 3:
