@@ -13,6 +13,8 @@ ser = serial.Serial(
 counter =0
 while 1:
 	time.sleep(1)
-	ser.write('Write counter: %d \n'%(counter))
+    ser.write(note_on(60, velocity=50, channel = 0))
+    time.sleep(1)
+    ser.write(note_off(60, velocity=None, channel = 0))
 	counter += 1
 	#print(counter)
