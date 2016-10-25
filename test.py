@@ -14,8 +14,8 @@ ser = serial.Serial(
 counter =0
 while 1:
     time.sleep(1)
-    ser.write(struct.pack(hex("\x80\x3C\x64")))
+    ser.write(struct.pack("\x80\x3C\x64"))
     time.sleep(1)
-    ser.write(struct.pack(hex("\x90\x3C\x00")))
+    ser.write(struct.pack("\x90\x3C\x00"))
     counter += 1
     #print(counter)
