@@ -13,10 +13,12 @@ ser = serial.Serial(
 counter =0
 while 1:
     time.sleep(1)
-    stri="80\3C\64"
-    ser.write(stri)
+    ser.write(80)
+    ser.write(3C)
+    ser.write(64)
     time.sleep(1)
-    stri="90\3C\0"
-    ser.write(stri)
+    ser.write(90)
+    ser.write(3C)
+    ser.write(0)
     counter += 1
     #print(counter)
