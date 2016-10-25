@@ -13,12 +13,12 @@ ser = serial.Serial(
 counter =0
 while 1:
     time.sleep(1)
-    ser.write(128)
-    ser.write(60)
-    ser.write(100)
+    ser.write(struct.pack(128))
+    ser.write(struct.pack(60))
+    ser.write(struct.pack(100))
     time.sleep(1)
-    ser.write(144)
-    ser.write(60)
-    ser.write(0)
+    ser.write(struct.pack(144))
+    ser.write(struct.pack(60))
+    ser.write(struct.pack(0))
     counter += 1
     #print(counter)
