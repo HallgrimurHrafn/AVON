@@ -14,12 +14,8 @@ ser = serial.Serial(
 counter =0
 while 1:
     time.sleep(1)
-    ser.write(struct.pack("128"))
-    ser.write(struct.pack("60"))
-    ser.write(struct.pack("100"))
+    ser.write(struct.pack("\x128\x60\x100"))
     time.sleep(1)
-    ser.write(struct.pack("144"))
-    ser.write(struct.pack("60"))
-    ser.write(struct.pack("0"))
+    ser.write(struct.pack("\x144\x60\x0"))
     counter += 1
     #print(counter)
