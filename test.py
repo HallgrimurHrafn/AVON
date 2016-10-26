@@ -16,8 +16,8 @@ ser = serial.Serial(
 #counter =0
 while 1:
     time.sleep(1)
-    ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).bin())
-    print(mido.Message('note_on', channel=0, note=60, velocity=100).bin())
+    ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).bytes())
+    print(mido.Message('note_on', channel=0, note=60, velocity=100).bytes())
     time.sleep(1)
-    ser.write(mido.Message('note_off', channel=0, note=60, velocity=0).bin())
-    print(mido.Message('note_off', channel=0, note=60, velocity=0).bin())
+    ser.write(mido.Message('note_off', channel=0, note=60, velocity=0).bytes())
+    print(mido.Message('note_off', channel=0, note=60, velocity=0).bytes())
