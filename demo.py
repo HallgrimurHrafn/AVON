@@ -322,6 +322,8 @@ def clearleds():
     trellis.writeDisplay()
 #clearleds ends
 
+
+
 print('starting up')
 trellis.readSwitches()
 for x in range(0, 64):
