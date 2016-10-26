@@ -322,7 +322,7 @@ def clearleds():
     trellis.writeDisplay()
 #clearleds ends
 
-
+#test
 
 print('starting up')
 trellis.readSwitches()
