@@ -332,9 +332,9 @@ for x in range (0,8):
 for x in range(0, 1):
     ledshow(fylki)
 
-for x in range(0, 64):
-    trellis.clrLED(x)
-trellis.writeDisplay()
+#for x in range(0, 64):
+#    trellis.clrLED(x)
+#trellis.writeDisplay()
 
 
 t = threading.Thread(target=multithread)
