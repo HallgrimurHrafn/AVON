@@ -315,6 +315,13 @@ def ledhelp(x, fylki):      #tha slokkvum vid a thvi. annars ekki
 
 
 
+#clearleds starts       ---hreinsar ut oll ljos.
+def clearleds():
+    for x in range(0, 64):
+        trellis.clrLED(x)
+    trellis.writeDisplay()
+#clearleds ends
+
 print('starting up')
 trellis.readSwitches()
 for x in range(0, 64):
@@ -325,16 +332,12 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 fylki=np.zeros((8, 8))
-for x in range (0,8):
-    fylki[x][x]=1
-
-
 for x in range(0, 1):
     ledshow(fylki)
 
-#for x in range(0, 64):
-#    trellis.clrLED(x)
-#trellis.writeDisplay()
+for x in range(0, 64):
+    trellis.clrLED(x)
+trellis.writeDisplay()
 
 
 t = threading.Thread(target=multithread)
