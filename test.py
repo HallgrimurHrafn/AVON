@@ -6,7 +6,7 @@ import mido
 import struct
 
 ser = serial.Serial(
-    port='/dev/ttySYS0', #eda sys0 eda hvad sem hinn var.
+    port='/dev/ttyAMA0', #eda sys0 eda hvad sem hinn var.
     baudrate = 38400,
     #parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
