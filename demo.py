@@ -255,7 +255,7 @@ def ledshow(fylki):
             time.sleep(0.1)
         if x == 4:
             for v in range(0, 2):
-                y=v
+                y=v*20
                 ledhelp(v+24, fylki)
                 ledhelp(v+52, fylki)
                 ledhelp(v+38, fylki)
