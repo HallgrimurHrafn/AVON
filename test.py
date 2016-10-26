@@ -15,6 +15,11 @@ ser = serial.Serial(
     )
 #counter =0
 
+  if ser.isOpen():
+    print "Port already open"
+    return True
+  else:
+    print "Opening Port:"
 
 while 1:
     time.sleep(1)
