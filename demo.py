@@ -324,8 +324,13 @@ trellis.writeDisplay()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-for x in range(0, 3):
-    ledshow(np.zeros((8, 8)))
+fylki=np.zeros((8, 8))
+for x in range (0,8):
+    fylki[x][x]=1
+
+
+for x in range(0, 1):
+    ledshow(fylki)
 
 for x in range(0, 64):
     trellis.clrLED(x)
