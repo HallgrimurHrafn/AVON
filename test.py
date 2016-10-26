@@ -9,9 +9,9 @@ ser = serial.Serial(
     port='/dev/serial1', #eda sys0 eda hvad sem hinn var.
     baudrate = 38400,
     parity=serial.PARITY_NONE,
-    stopbits=serial.STOPBITS_ONE,
+    stopbits=serial.STOPBITS_TWO,
     bytesize=serial.EIGHTBITS,
-    timeout=1
+    timeout=0
     )
 #counter =0
 
