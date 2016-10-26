@@ -293,7 +293,7 @@ def ledshow(fylki):
         if x == 6:
             for v in range(0, 4):
                 ledhelp(v+16, fylki)
-                ledhelp(v+60 fylki)
+                ledhelp(v+60, fylki)
                 ledhelp(v+44, fylki)
                 ledhelp(v, fylki)
             for v in range(0, 3):
