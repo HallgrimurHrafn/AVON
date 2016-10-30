@@ -4,23 +4,15 @@ GPIO.setmode(GPIO.BCM)
 
 time_stamp = time.time() # used for debouncing and tap timing
 
-tempo = 120
 
 # Set up 16, 20, and 21 as inputs. 
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
 GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
 
-# run whenever TAP is pressed. tempo detection doesn't quite work yet.
+# run whenever TAP is pressed
 def callback_tap(channel):
-    global time_stamp, tempo
-    time_now = time.time()
-    period = time_stamp - time_now
-    if (time_now - time_stamp) <= 2.0:
-	tempo = 60//(time_now - time_stamp)
-	print ('tempo =', tempo) 
-    else:
-        print('TAP')
+    print('TAP')
 
 # run when STOP is pressed
 def callback_stop(channel):
