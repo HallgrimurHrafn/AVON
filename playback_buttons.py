@@ -16,7 +16,7 @@ def callback_tap(channel):
     global time_stamp, tempo
     print('TAP')
     time_now = time.time()
-    print 'time_now =', time_now)
+    print 'time_now =', time_now
     period = time_stamp - time_now
     print("period =", period)
     if (time_now - time_stamp) <= 2.0:
