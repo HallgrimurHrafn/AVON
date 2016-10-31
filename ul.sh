@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/avon
+cd ~/AVON
 git add .
 git commit -m "Updated through script"
 git push origin master
