@@ -22,6 +22,7 @@ trellis.begin(
     )
 
 # nonmenu config
+tkt=False                       # hvort ljosin fra taktmaelinum seu i gangi.
 dlk=0                           # hvada dalkur er i spilun.
 voice = 0                       # hvada voice er i notkun
 mwGO = 0                        # hvort vid erum i modwatch eda ekki
@@ -99,7 +100,8 @@ def NOTEOFF(dalkur):
 
 # taktmaelir begins
 def taktmaelir(dalkur):
-    global FLASH, status, voice                             # global breytur, utskyrdar efst.
+    global FLASH, status, voice, tkt                        # global breytur, utskyrdar efst.
+    tkt = True
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
         trellis.setLED(tfOut(x * 8 + dalkur))               # kveikja a LED!,tfout varpar i trellisformat.
         #print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
@@ -109,6 +111,7 @@ def taktmaelir(dalkur):
         if status[dalkur][x][voice] == 0:                   # slokkvum a theim ljosum sem eru ekki a bordinu fyrir.
             trellis.clrLED(tfOut(x * 8 + dalkur))
     trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI MYRKUR!
+    tkt=False
 # taktmaelir end
 
 
@@ -333,13 +336,21 @@ def clearleds():
 #clearleds ends
 
 
+# ChannelChange starts          --- slekkur a þáverandi led m.v. voice og kveikir a núverandi.
 def ChannelChange():
+    global tkt, v, voice
     if v != voice:
-        if stop==0:
-            pass
-            #klara seinna...
-
-
+        clearleds()
+        if tkt:
+            for x in range(0, 8):                                   # fyrir oll LED i 'dlk'
+                trellis.setLED(tfOut(x * 8 + dlk))                  # kveikja a LED!,tfout varpar i trellisformat.
+        voice=v
+        for x in range (0, 64):
+            y = tfIn(x)
+            if status[y % 8][y // 8][voice] == 1:
+                trellis.setLED(x)
+        trellis.writeDisplay()
+# ChannelChange ends.
 
 
 
