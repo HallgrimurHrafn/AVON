@@ -5,37 +5,45 @@ import threading
 import numpy as np
 import RPi.GPIO as GPIO
 
-import Adafruit_Trellis         #trellis config
+import Adafruit_Trellis         # trellis config
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
 matrix1 = Adafruit_Trellis.Adafruit_Trellis()
 matrix2 = Adafruit_Trellis.Adafruit_Trellis()
 matrix3 = Adafruit_Trellis.Adafruit_Trellis()
 trellis = Adafruit_Trellis.Adafruit_TrellisSet(
-matrix0, matrix1, matrix2, matrix3)
+    matrix0, matrix1, matrix2, matrix3
+    )
 I2C_BUS = 1
-trellis.begin((0x70,  I2C_BUS), (0x71, I2C_BUS),
-(0x72, I2C_BUS), (0x73, I2C_BUS))
+trellis.begin(
+    (0x70,  I2C_BUS),
+    (0x71, I2C_BUS),
+    (0x72, I2C_BUS),
+    (0x73, I2C_BUS)
+    )
 
-#nonmenu config
-mwGO = 0                        #hvort vid erum i modwatch eda ekki
-tGO = 0                         #hvort breyta megi status eda ekki
-mcGo = 0                        #hvort modda megi med myndavel eda ekki
-status = np.zeros((8, 8, 16))   #status notna fylkid okkar
-tStatus = np.zeros((8, 8, 16))  #tStatus, temporarystatus. notad thegar
-                                #tgo=0 svo vid missum ekki af notum
+# nonmenu config
+dlk=0                           # hvada dalkur er i spilun.
+voice = 0                       # hvada voice er i notkun
+mwGO = 0                        # hvort vid erum i modwatch eda ekki
+tGO = 0                         # hvort breyta megi status eda ekki
+mcGo = 0                        # hvort modda megi med myndavel eda ekki
+status = np.zeros((8, 8, 16))   # status notna fylkid okkar
+tStatus = np.zeros((8, 8, 16))  # tStatus, temporarystatus. notad thegar
+                                # tgo=0 svo vid missum ekki af notum
+#
 
-#menu
-clA = 0                         #ef clA=1 tha gerum vid clearAll
-lGO = 0                         #ef lgo=1 tha erum vid i life mode.
-voice = 0                       #hvada voice er i notkun
-stop = 0                        #eigum vid ad stoppa
-skali = np.array([72, 71, 69, 67, 65, 64, 62, 60]) #skali, segir sig sjalfur.. tharf ad vera i minnkandi rod!.
-#save og loada skala :S
+# menu
+v=0                             # styring fyrir hvada voice vid aetlum a fara i.
+clA = 0                         # ef clA=1 tha gerum vid clearAll
+lGO = 0                         # ef lgo=1 tha erum vid i life mode.
+stop = 0                        # eigum vid ad stoppa
+skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
+# save og loada skala :S                        tharf ad vera i minnkandi rod!.
 tempo = 0.5  # 0.05 er min.     #tempo
-FLASH = 0.9 * tempo             #hlutfallsleg lengd af tempo fyrir taktmaeli
-lengd = 0.1                     #hlutfall tempo, bil milli enda og byrjunar notna i samliggjandi dalkum.
-#save einhvern veginn
-#load einhvern veginn
+FLASH = 0.9 * tempo             # hlutfallsleg lengd af tempo fyrir taktmaeli
+lengd = 0.1                     # hlutfall tempo, bil milli enda og byrjunar
+# save einhvern veginn              notna i samliggjandi dalkum.
+# load einhvern veginn
 
 
 def playColumn(dalkur):
@@ -141,9 +149,11 @@ def tfOut(a):
 
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
+    global dlk                                              # til ad halda utanum hvar vid erum.
     while True:
         if stop == 0:                                       # ef ytt var a stopp tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
+                dlk=dalkur                                  #uppfaerum dlk
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:                               # a ad stodva allt?
                     break                                   # ef svo er, stodvum vid loopuna.
@@ -180,7 +190,7 @@ def tw():
 
 # trellisWatch begins     --- fylgist med tokkum a trellis. fyrir allt
 # nema live mode, eins og er.
-def trellisWatch(channel):
+def trellisWatch(channel):                              # ignore channel...
     global tGO, status, voice, a, b, tStatus, clA, lGO, mwGO
     time.sleep(0.015)
     # print(GPIO.input(37))                             #sma debug daemi
@@ -211,9 +221,9 @@ def trellisWatch(channel):
 # trellisWatch ends --------------------------------------
 
 
-#Notkun : fylkid er 8x8, ef taka a status sem er 8x8x16 tharf ad velja eitt voice og gera
-#ledshow(status[:,:,voice])svipad fyrir mod fylkid ur modwatch.
-#ledshow begins     --- tekur inn fylki af gerdinni 8x8 og flassar fra midju ut en skilur eftir ljos fylkisins.
+# Notkun : fylkid er 8x8, ef taka a status sem er 8x8x16 tharf ad velja eitt voice og gera
+# ledshow(status[:,:,voice])svipad fyrir mod fylkid ur modwatch.
+# ledshow begins     --- tekur inn fylki af gerdinni 8x8 og flassar fra midju ut en skilur eftir ljos fylkisins.
 def ledshow(fylki):
     for x in range(0, 7):
         if x == 1:
@@ -322,7 +332,16 @@ def clearleds():
     trellis.writeDisplay()
 #clearleds ends
 
-#test
+
+def ChannelChange():
+    if v != voice:
+        if stop==0:
+            pass
+            #klara seinna...
+
+
+
+
 
 print('starting up')
 trellis.readSwitches()
