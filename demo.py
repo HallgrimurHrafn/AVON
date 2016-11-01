@@ -325,18 +325,19 @@ def liveplay():
         time.sleep(0.03)
         if trellis.readSwitches():
             for x in range(0, 64):
+                y = tfIn(x)
                 time.sleep(0.001)
                 if trellis.justPressed(x):
                     # print(
                     #     'on, channel er', v,
                     #     'notan er', skali[x], 'velocity er', 100)
-                    print mido.Message('note_on', channel=voice, note=x, velocity=100).bytes()
+                    print mido.Message('note_on', channel=voice, note=skali[y%8], velocity=100).bytes()
                     trellis.setLED(x)
                 if trellis.justReleased(x):
                     # print(
                     #     'off, channel er', v,
                     #     'notan er', skali[x], 'velocity er', 0)
-                    print mido.Message('note_off', channel=voice, note=x, velocity=0).bytes()
+                    print mido.Message('note_off', channel=voice, note=skali[y%8], velocity=0).bytes()
                     trellis.clrLED(x)
             trellis.writeDisplay()
 #
