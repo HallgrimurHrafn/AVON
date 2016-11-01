@@ -246,7 +246,7 @@ def trellisWatch(channel):                              # ignore channel...
             time.sleep(0.015)                           #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
             trellis.readSwitches()                      #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         else:
-            # time.sleep(0.015)
+            time.sleep(0.015)
             # trellis.readSwitches()
             trellisWatch(channel)
 # trellisWatch ends --------------------------------------
