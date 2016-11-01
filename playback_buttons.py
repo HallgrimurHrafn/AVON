@@ -32,6 +32,8 @@ def calculate_tempo(tap, period, tempo):
                                  # last 2 taps erase all but last tap
                                  # time and do not alter tempo.
         tap = [tap[-1]]
+        period=[]                # ef svo langt lidur milli tappa tha taemum vid
+                                 # period fylkid.
         return tempo
 
     elif tap_count == 2:
@@ -45,8 +47,13 @@ def calculate_tempo(tap, period, tempo):
 
     # if len(period) > 3: period = period[-3:] # use only the last three periods to take an average.
     # avg_period = sum(period) / len(period)
+    if tap_count == 3:
+        avg_period = (period[-1]+period[-2]) / 2
+    elif tap_count == 4:
+        avg_period = (period[-1]+period[-2]+period[-3]) / 3
+    else:
+        avg_period = (period[-1]+period[-2]+period[-3]+period[-3]) / 4
 
-    avg_period = (period[-1]+period[-2]) / 2
 
     # new tempo in bpm = 60 sec / avg of last 2, rounded to nearest integer.
     new_tempo = int(round(60/avg_period))
