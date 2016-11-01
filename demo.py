@@ -210,7 +210,7 @@ def tw():
     GPIO.remove_event_detect(37)
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
-    ledshow(status[:][voice][:])
+    ledshow(status[voice][:][:])
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
 
@@ -334,6 +334,7 @@ def liveplay(channel):
 # ledshow(status[:,:,voice])svipad fyrir mod fylkid ur modwatch.
 # ledshow begins     --- tekur inn fylki af gerdinni 8x8 og flassar fra midju ut en skilur eftir ljos fylkisins.
 def ledshow(fylki):
+    print fylki
     for x in range(0, 7):
         if x == 1:
             trellis.setLED(15)
