@@ -324,6 +324,7 @@ def liveplay():
         time.sleep(0.03)
         if trellis.readSwitches():
             for x in range(0, 64):
+                time.sleep(0.001)
                 print x
                 if trellis.justPressed(x):
                     print(
