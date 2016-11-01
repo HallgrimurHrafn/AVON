@@ -180,9 +180,15 @@ def multithread():
     GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
     GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
     t1.start()
+    test = threading.Thread(target=tester)
+    test.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
-
+def tester(): 
+    time.sleep(10)
+    liveSet()
+    time.sleep(10)
+    tw()
 
 # styring fyrir playpause
 def playpause(channel):
