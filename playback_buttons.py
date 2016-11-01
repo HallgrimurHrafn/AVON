@@ -32,8 +32,6 @@ def calculate_tempo(tap, period, tempo):
                                  # last 2 taps erase all but last tap
                                  # time and do not alter tempo.
         tap = [tap[-1]]
-        period=[]                # ef svo langt lidur milli tappa tha taemum vid
-                                 # period fylkid.
         return tempo
 
     elif tap_count == 2:
