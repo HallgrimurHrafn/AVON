@@ -182,9 +182,6 @@ def multithread():
 
 # styring fyrir playpause
 def pp():
-    global pause
-    GPIO.wait_for_edge(40, GPIO.FALLING)
-    pause = 0
     GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
 def playpause(channel):
     global pause
