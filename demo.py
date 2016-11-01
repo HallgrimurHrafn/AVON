@@ -166,7 +166,7 @@ def Sequencer():
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
-                timi = 60/tempo
+            timi = 60/tempo
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
