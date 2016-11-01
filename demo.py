@@ -157,17 +157,14 @@ def Sequencer():
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
+                while pause == 1:
+                    time.sleep(0.1)
                 dlk=dalkur                                  #uppfaerum dlk
-                if pause == 1:
-                    pass
-                    While (pause == 1) :
-                        time.sleep(0.1)
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
-        if pause == 1:
-            while pause == 1:
-                time.sleep(0.1)
+        while pause == 1:
+            time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
 
 
