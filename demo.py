@@ -4,6 +4,7 @@ import time
 import threading
 import numpy as np
 import RPi.GPIO as GPIO
+import mido
 
 import Adafruit_Trellis         # trellis config
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
@@ -327,15 +328,16 @@ def liveplay():
                 time.sleep(0.001)
                 print x
                 if trellis.justPressed(x):
-                    print(
-                        'on, channel er', v,
-                        'notan er', skali[x], 'velocity er', 100)
-
+                    # print(
+                    #     'on, channel er', v,
+                    #     'notan er', skali[x], 'velocity er', 100)
+                    print(mido.Message('note_on', channel=voice, note=skali(x), velocity=100).bytes())
                     trellis.setLED(x)
                 if trellis.justReleased(x):
-                    print(
-                        'off, channel er', v,
-                        'notan er', skali[x], 'velocity er', 0)
+                    # print(
+                    #     'off, channel er', v,
+                    #     'notan er', skali[x], 'velocity er', 0)
+                    print(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes())
                     trellis.clrLED(x)
             trellis.writeDisplay()
 #
