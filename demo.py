@@ -245,7 +245,7 @@ def trellisWatch(channel):                              # ignore channel...
             trellis.readSwitches()                      #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         else:
             time.sleep(0.015)
-            # trellis.readSwitches()
+            trellis.readSwitches()
             trellisWatch(channel)
 # trellisWatch ends --------------------------------------
 
@@ -338,10 +338,9 @@ def liveplay(channel):
                 'notan er', skali[x], 'velocity er', 0)
                 trellis.clrLED(x)
         trellis.writeDisplay()
-
-
-
-
+    time.sleep(0.015)
+    trellis.readSwitches()
+#
 
 
 
