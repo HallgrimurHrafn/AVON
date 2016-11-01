@@ -331,17 +331,17 @@ def liveplay(channel):
     global skali, voice, nowPlaying
     time.sleep(0.015)
     if trellis.readSwitches():
-        for x in range(0, 63):
+        for x in range(0, 64):
             y=tfIn(x)
             if trellis.justPressed(x):
                 if nowPlaying[y%8][y//8] == 0:
                     nowPlaying[y%8][y//8]=1
-                    print ('on', 'channel er', voice, 'notan er', skali[x], 'velocity er', 100)
+                    #print ('on', 'channel er', voice, 'notan er', skali[x], 'velocity er', 100)
                     trellis.setLED(x)
             if trellis.justReleased(x):
                 if nowPlaying[y%8][y//8] == 1:
                     nowPlaying[y%8][y//8] = 0
-                    print ('off', 'channel er', voice, 'notan er', skali[x], 'velocity er', 0)
+                    #print ('off', 'channel er', voice, 'notan er', skali[x], 'velocity er', 0)
                     trellis.clrLED(x)
         trellis.writeDisplay()
     time.sleep(0.015)
