@@ -161,13 +161,13 @@ def Sequencer():
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
+                timi = 60/float(tempo)/partur
                 while pause == 1:
                     time.sleep(0.1)
                 dlk=dalkur                                  #uppfaerum dlk
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
-                timi = 60/float(tempo)/partur
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
@@ -180,7 +180,19 @@ def multithread():
     GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
     GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
     t1.start()
+    testhread = threading.Thread(target=testy)
+    testhread.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
+
+
+def testy():
+    time.sleep(10)
+    global v
+    v = 1
+    ChannelChange()
+    time.sleep(15)
+    v=0
+    ChannelChange()
 
 
 
