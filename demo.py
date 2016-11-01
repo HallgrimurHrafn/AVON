@@ -320,7 +320,7 @@ def liveSet():
     global status, tStatus, boice
     GPIO.remove_event_detect(37)
     tStatus=status
-    status[voice][:][:]
+    print status[voice][:][:]
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
