@@ -323,10 +323,11 @@ def liveSet():
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
     ledshow(np.zeros((8, 8)))
-    GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay, bouncetime=20)  # kannski tharf thetta ad vera gpio.both
+    GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
 # done
 def liveplay(channel):
     global skali, voice
+    time.sleep(0.015)
     if trellis.readSwitches():
         for x in range(0, 64):
             if trellis.justPressed(x):
