@@ -215,9 +215,13 @@ def tw():
     global voice, status, tStatus
     GPIO.remove_event_detect(37)
     print status[voice][:][:]
+    print
     status=tStatus
     ledshow(status[voice][:][:])
     print status[voice][:][:]
+    print
+
+    print tStatus[voice][:][:]
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
 
@@ -320,12 +324,12 @@ def liveSet():
     global status, tStatus, voice
     GPIO.remove_event_detect(37)
     tStatus=status
-    print status[voice][:][:]
-    print 
+    print tStatus[voice][:][:]
+    print
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
-    print status[voice][:][:]
+    print tStatus[voice][:][:]
     print
     ledshow(np.zeros((8, 8)))
     GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
