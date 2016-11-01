@@ -476,6 +476,8 @@ GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 for x in range(0, 64):
     trellis.clrLED(x)
 trellis.writeDisplay()
+trellis.readSwitches()
+
 
 status[voice][0][0]=1
 status[voice][1][1]=1
