@@ -40,7 +40,7 @@ period = []
 partur = 2                      # 1= 4du part, 2 = 8 parts, 4=16 parts.
 v=0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
-lGO = 0                         # ef lgo=1 tha erum vid i life mode.
+lGO = 1                         # ef lgo=1 tha erum vid i life mode.
 pause = 1                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
@@ -176,10 +176,11 @@ def Sequencer():
 
 # multithread starts		--- partur af main.
 def multithread():
-    t1 = threading.Thread(target=liveSet)                        # her buum vid til alla non main thraedina og
-    GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
-    GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
-    GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
+    GPIO.remove_event_detect(37)
+    if lGO == 1:
+        t1 = threading.Thread(target=liveSet)
+    else:
+        t1 = threading.Thread(target=tw)
     t1.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
@@ -208,7 +209,6 @@ def stopper(channel):
 # tw begins           --- byr til event fyrir trelliswatch.
 def tw():
     global voice, status, tStatus
-    GPIO.remove_event_detect(37)
     status=tStatus.copy()
     ledshow(status[voice][:][:])
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
@@ -238,10 +238,6 @@ def trellisWatch(channel):                              # ignore channel...
         trellis.writeDisplay()                          #uppfaerum led
         if tGO == 1:                                    #meigum vid breyta status
             status = tStatus.copy()                     #ef ja, vistum tStatus i status.
-            print status[voice][:][:]
-            print
-            print tStatus[voice][:][:]
-            print
             time.sleep(0.015)                           #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
             trellis.readSwitches()                      #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         else:
@@ -313,15 +309,12 @@ def callback_tap(channel):
 
 # setjum upp fyrir liveplay
 def liveSet():
-    global status, tStatus, voice, nowPlaying
-    nowPlaying=np.zeros((8,8))
-    GPIO.remove_event_detect(37)
+    global status, tStatus, voice,
     tStatus=status.copy()
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
     ledshow(np.zeros((8, 8)))
-    # GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)
     liveplay()
 # done
 def liveplay():
@@ -339,7 +332,6 @@ def liveplay():
             trellis.writeDisplay()
         if lGO==0:
             break
-    tw()
 #
 
 
@@ -472,6 +464,20 @@ def ChannelChange():
 # ChannelChange ends.
 
 
+#
+def tester():
+    time.sleep(3)
+    lGO=0
+    multithread()
+    time.sleep(3)
+    lGO=1
+    multithread()
+    time.sleep(3)
+    lGO=0
+    multithread()
+
+#
+
 
 print('starting up')
 trellis.readSwitches()
@@ -485,6 +491,9 @@ GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
 GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
 GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 
+GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
+GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
+GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
 
 for x in range(0, 64):
     trellis.clrLED(x)
@@ -500,6 +509,9 @@ status[voice][4][4]=1
 tStatus=status.copy()
 ledshow(np.zeros((8, 8)))
 ledshow(np.zeros((8, 8)))
+
+test = threading.Thread(target=tester)
+test.start()
 
 t = threading.Thread(target=multithread)
 t.start()
