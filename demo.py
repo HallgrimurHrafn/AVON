@@ -327,12 +327,12 @@ def liveplay():
                 y=tfIn(x)
                 if trellis.justPressed(x):
                     print('on', 'channel er', v,
-                          'notan er', skali[x], 'velocity er', 100)
+                        'notan er', skali[x], 'velocity er', 100)
 
                     trellis.setLED(x)
                 if trellis.justReleased(x):
                     print('off', 'channel er', v,
-                          'notan er', skali[x], 'velocity er', 0)
+                        'notan er', skali[x], 'velocity er', 0)
                     trellis.clrLED(x)
             trellis.writeDisplay()
 #
