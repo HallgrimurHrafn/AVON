@@ -320,7 +320,7 @@ def liveSet():
 # done
 def liveplay():
     global skali, voice, nowPlaying
-    while True:
+    while lGO==1:
         time.sleep(0.03)
         if trellis.readSwitches():
             for x in range(0, 64):
@@ -331,9 +331,6 @@ def liveplay():
                 if trellis.justReleased(x):
                     trellis.clrLED(x)
             trellis.writeDisplay()
-        if lGO==0:
-            break
-    multithread()
 #
 
 
@@ -474,12 +471,14 @@ def tester():
     t.start()
     time.sleep(5)
     lGO=0
+    t.start()
     time.sleep(3)
     lGO=1
-    t2 = threading.Thread(target=multithread)
-    t2.start()
+    t.start()
+    # t2 = threading.Thread(target=multithread)
     time.sleep(5)
     lGO=0
+    t.start()
 
 #
 
