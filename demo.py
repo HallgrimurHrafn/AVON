@@ -214,8 +214,10 @@ def stopper(channel):
 def tw():
     global voice, status, tStatus
     GPIO.remove_event_detect(37)
+    print status[voice][:][:]
     status=tStatus
     ledshow(status[voice][:][:])
+    print status[voice][:][:]
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
 
@@ -317,6 +319,7 @@ def callback_tap(channel):
 def liveSet():
     GPIO.remove_event_detect(37)
     tStatus=status
+    status[voice][:][:]
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
