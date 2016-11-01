@@ -36,6 +36,7 @@ period = []
 #
 
 # menu
+partur = 2                      # 1= 4du part, 2 = 8 parts, 4=16 parts.
 v=0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
@@ -156,7 +157,7 @@ def tfOut(a):
 
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
-    global dlk, pause, stop, timi, tempo                    # til ad halda utanum hvar vid erum.
+    global dlk, pause, stop, timi, tempo, partur                    # til ad halda utanum hvar vid erum.
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
@@ -166,7 +167,7 @@ def Sequencer():
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
-                timi = 60/float(tempo)
+                timi = 60/float(tempo)/partur
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
