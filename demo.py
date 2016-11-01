@@ -156,7 +156,7 @@ def tfOut(a):
 
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
-    global dlk, pause, stop                                 # til ad halda utanum hvar vid erum.
+    global dlk, pause, stop, timi, tempo                    # til ad halda utanum hvar vid erum.
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
@@ -166,6 +166,7 @@ def Sequencer():
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
+            timi = 60/tempo
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
@@ -298,7 +299,7 @@ def callback_tap(channel):
 
     tempo = calculate_tempo(tap, period, tempo)
     print 'tempo =', tempo, 'bpm'
-    timi = 60/tempo
+
 
 
 
