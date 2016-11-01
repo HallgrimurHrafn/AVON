@@ -246,8 +246,8 @@ def trellisWatch(channel):                              # ignore channel...
         trellis.writeDisplay()                          #uppfaerum led
         if tGO == 1:                                    #meigum vid breyta status
             status = tStatus                            #ef ja, vistum tstatus i status.
-        time.sleep(0.015)                               #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
-        trellis.readSwitches()                          #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
+        #time.sleep(0.015)                               #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
+        #trellis.readSwitches()                          #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
 # trellisWatch ends --------------------------------------
 
 
