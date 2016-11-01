@@ -317,11 +317,11 @@ def callback_tap(channel):
 
 # setjum upp fyrir liveplay
 def liveSet():
-    global status, tStatus, boice
+    global status, tStatus, voice
     GPIO.remove_event_detect(37)
     tStatus=status
     print status[voice][:][:]
-    print
+    print 
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
