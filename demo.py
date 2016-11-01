@@ -184,7 +184,7 @@ def multithread():
     test.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
-def tester(): 
+def tester():
     time.sleep(10)
     liveSet()
     time.sleep(10)
@@ -212,8 +212,9 @@ def stopper(channel):
 
 # tw begins           --- byr til event fyrir trelliswatch.
 def tw():
-    global voice, status
+    global voice, status, tStatus
     GPIO.remove_event_detect(37)
+    status=tStatus
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
     ledshow(status[voice][:][:])
@@ -313,6 +314,10 @@ def callback_tap(channel):
 # setjum upp fyrir liveplay
 def liveSet():
     GPIO.remove_event_detect(37)
+    tStatus=status
+    for x in range (0, 64):
+        y=tfIn(x)
+        status[voice][y % 8][y // 8]=0
     ledshow(np.zeros((8, 8)))
     GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
 # done
