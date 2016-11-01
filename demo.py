@@ -344,7 +344,7 @@ def liveplay(channel):
                     #print ('off', 'channel er', voice, 'notan er', skali[x], 'velocity er', 0)
                     trellis.clrLED(x)
         trellis.writeDisplay()
-    time.sleep(0.015)
+    #time.sleep(0.015)
     trellis.readSwitches()
 #
 
