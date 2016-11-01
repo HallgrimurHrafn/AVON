@@ -159,7 +159,7 @@ def Sequencer():
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 dlk=dalkur                                  #uppfaerum dlk
                 if pause == 1:
-                    While pause == 1:
+                    While (pause == 1):
                         time.sleep(0.1)
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
