@@ -387,9 +387,9 @@ trellis.writeDisplay()
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
-GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
-GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
-GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
+GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
+GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
+GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 
 fylki=np.zeros((8, 8))
 for x in range(0, 1):
