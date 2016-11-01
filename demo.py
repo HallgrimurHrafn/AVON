@@ -321,19 +321,22 @@ def liveSet():
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
     ledshow(np.zeros((8, 8)))
-    GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)
+    # GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)
+    liveplay()
 # done
-def liveplay(channel):
+def liveplay():
     global skali, voice, nowPlaying
-    time.sleep(0.03)
-    if trellis.readSwitches():
-        for x in range(0, 64):
-            y=tfIn(x)
-            if trellis.justReleased(x):
-                #print ('on', 'channel er', voice, 'notan er', skali[x], 'velocity er', 100)
-                trellis.setLED(x)
-        trellis.writeDisplay()
-    trellis.readSwitches()
+    while True:
+        time.sleep(0.03)
+        if trellis.readSwitches():
+            for x in range(0, 64):
+                y=tfIn(x)
+                if trellis.justPressed(x):
+                    #print ('on', 'channel er', voice, 'notan er', skali[x], 'velocity er', 100)
+                    trellis.setLED(x)
+                if trellis.justReleased(x):
+                    trellis.clrLED(x)
+            trellis.writeDisplay()
 #
 
 
