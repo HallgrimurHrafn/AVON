@@ -294,10 +294,11 @@ def calculate_tempo(tap, period, tempo):
 # After: tempo = average tempo of last three taps.
 def callback_tap(channel):
 
-    global tap, period, tempo
+    global tap, period, tempo, timi
 
     tempo = calculate_tempo(tap, period, tempo)
     print 'tempo =', tempo, 'bpm'
+    timi = 60/tempo
 
 
 
