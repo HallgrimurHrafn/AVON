@@ -484,6 +484,7 @@ status[voice][1][1]=1
 status[voice][2][2]=1
 status[voice][3][3]=1
 status[voice][4][4]=1
+tStatus=status
 
 
 print status[voice][:][:]
