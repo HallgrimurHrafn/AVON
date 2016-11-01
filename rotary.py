@@ -8,6 +8,6 @@ GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 def test(channel):
     print('yeei')
 
-GPIO.add_event_detect(35, GPIO.RISING, callback=test)
+GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 while True:
     time.sleep(10)
