@@ -31,6 +31,7 @@ mcGo = 0                        # hvort modda megi med myndavel eda ekki
 status = np.zeros((16, 8, 8))   # status notna fylkid okkar
 tStatus = np.zeros((16, 8, 8))  # tStatus, timirarystatus. notad thegar
                                 # tgo=0 svo vid missum ekki af notum
+nowPlaying=np.zeros((8,8))      # fyrir livemode.
 tap = []
 period = []
 #
@@ -312,7 +313,8 @@ def callback_tap(channel):
 
 # setjum upp fyrir liveplay
 def liveSet():
-    global status, tStatus, voice
+    global status, tStatus, voice, nowPlaying
+    nowPlaying=np.zeros((8,8))
     GPIO.remove_event_detect(37)
     tStatus=status.copy()
     print status[voice][:][:]
@@ -326,18 +328,23 @@ def liveSet():
     GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
 # done
 def liveplay(channel):
-    global skali, voice
+    global skali, voice, nowPlaying
     time.sleep(0.015)
     if trellis.readSwitches():
         for x in range(0, 64):
+            y=tfIn(x)
             if trellis.justPressed(x):
-                print('on', 'channel er', voice,
-                'notan er', skali[x], 'velocity er', 100)
-                trellis.setLED(x)
+                if nowPlaying[y%8][y//8] == 0:
+                    nowPlaying[y%8][y//8]=1
+                    print('on', 'channel er', voice,
+                    'notan er', skali[x], 'velocity er', 100)
+                    trellis.setLED(x)
             if trellis.justReleased(x):
-                print('off', 'channel er', voice,
-                'notan er', skali[x], 'velocity er', 0)
-                trellis.clrLED(x)
+                if nowPlaying[y%8][y//8] == 1:
+                    nowPlaying[y%8][y//8] = 0
+                    print('off', 'channel er', voice,
+                    'notan er', skali[x], 'velocity er', 0)
+                    trellis.clrLED(x)
         trellis.writeDisplay()
     time.sleep(0.015)
     trellis.readSwitches()
