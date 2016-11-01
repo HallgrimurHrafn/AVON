@@ -37,6 +37,7 @@ tStatus = np.zeros((8, 8, 16))  # tStatus, temporarystatus. notad thegar
 v=0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
+pause = 1                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
@@ -152,43 +153,65 @@ def tfOut(a):
 
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
-    global dlk                                              # til ad halda utanum hvar vid erum.
+    global dlk, pause, stop                                 # til ad halda utanum hvar vid erum.
     while True:
-        if stop == 0:                                       # ef ytt var a stopp tha leyfum vid sequencer-inum ekki ad spila.
+        if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
+                While pause == 1:
+                    time.sleep(0.1)
                 dlk=dalkur                                  #uppfaerum dlk
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
-                if stop == 1:                               # a ad stodva allt?
-                    break                                   # ef svo er, stodvum vid loopuna.
-        elif stop == 1:                                     # ef sequencerinn var stoppadur er enginn astaeda til ad drepa orgjorvan. setjum sleep til ad
-            time.sleep(0.2)                                 # eyda minna afli orgjorvans.
-                                                            # BETRA ad gera event her.!!!
+                if stop == 1:
+                    break
+        while pause == 1:
+            time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
 
 
 # multithread starts		--- partur af main.
 def multithread():
     t1 = threading.Thread(target=tw)                        # her buum vid til alla non main thraedina og
-    # t2=threading.Thread(target=myndavel)                  # reynum ad halda utan um tha.
-    # t3=threading.Thread(target=menuWatch)
-
+    t2 = threading.Thread(target=pp)
+    t3 = threading.Thread(target=st)
     t1.start()
-    # t2.start()
-    # t3.start()
-
-    # t2.join()
-    # t3.join()
-
+    t2.start()
+    t3.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
 
-#
+
+# styring fyrir playpause
+def pp():
+    global pause
+    GPIO.wait_for_edge(21, GPIO.FALLING)
+    pause = 0
+    GPIO.add_event_detect(21, GPIO.FALLING, callback=playpause, bouncetime=200)
+def playpause(channel):
+    global pause
+    if pause == 0:
+        pause = 1
+    else:
+        pause = 0
+# lokid
+
+
+# styring fyrir stop
+def st():
+    GPIO.add_event_detect(20, GPIO.FALLING, callback=stopper, bouncetime=200)
+def stopper(channel):
+    global stop, pause, tempo
+    if stop == 0:
+        stop = 1
+        pause = 1
+        time.sleep(tempo)
+        stop = 0  
+# lokid
+
+# tw begins           --- byr til event fyrir trelliswatch.
 def tw():
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
+# tw ends.
 
-    #thetta function er bara til ad bua til event fyrir trelliswatch
-    #kannski kemur timamaeling hingad lika.
-#
 
 
 # trellisWatch begins     --- fylgist med tokkum a trellis. fyrir allt
@@ -222,6 +245,8 @@ def trellisWatch(channel):                              # ignore channel...
     if clA == 1:                                        #ef clA=1
         clearAll()                                      #skemmum allt :'(
 # trellisWatch ends --------------------------------------
+
+
 
 
 # Notkun : fylkid er 8x8, ef taka a status sem er 8x8x16 tharf ad velja eitt voice og gera
@@ -361,7 +386,9 @@ for x in range(0, 64):
 trellis.writeDisplay()
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
+GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
 
 fylki=np.zeros((8, 8))
 for x in range(0, 1):
