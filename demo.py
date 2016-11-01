@@ -53,8 +53,8 @@ lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 
 def playColumn(dalkur):
     global timi, FLASH, lengd                              # global breytur, utskyrdar efst.
-    t1 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
-    t1.start()                                              # thannig er taktmaelirinn nakvaemari
+    t10 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
+    t10.start()                                              # thannig er taktmaelirinn nakvaemari
 
     time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
 
