@@ -193,8 +193,6 @@ def playpause(channel):
 
 
 # styring fyrir stop
-def st():
-
 def stopper(channel):
     global stop, pause, timi
     if stop == 0:
