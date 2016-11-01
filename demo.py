@@ -468,12 +468,15 @@ def ChannelChange():
 def tester():
     time.sleep(3)
     lGO=0
+    time.sleep(0.015)
     multithread()
     time.sleep(3)
     lGO=1
+    time.sleep(0.015)
     multithread()
     time.sleep(3)
     lGO=0
+    time.sleep(0.015)
     multithread()
 
 #
