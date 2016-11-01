@@ -167,6 +167,7 @@ def Sequencer():
                 if stop == 1:
                     break
             timi = 60/tempo
+            print (timi)
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
