@@ -317,10 +317,6 @@ def liveSet():
     nowPlaying=np.zeros((8,8))
     GPIO.remove_event_detect(37)
     tStatus=status.copy()
-    print status[voice][:][:]
-    print
-    print tStatus[voice][:][:]
-    print
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
@@ -329,7 +325,7 @@ def liveSet():
 # done
 def liveplay(channel):
     global skali, voice, nowPlaying
-    # time.sleep(0.015)
+    time.sleep(0.005)
     if trellis.readSwitches():
         for x in range(0, 64):
             y=tfIn(x)
@@ -344,7 +340,7 @@ def liveplay(channel):
                     #print ('off', 'channel er', voice, 'notan er', skali[x], 'velocity er', 0)
                     trellis.clrLED(x)
         trellis.writeDisplay()
-    #time.sleep(0.015)
+    time.sleep(0.005)
     trellis.readSwitches()
 #
 
