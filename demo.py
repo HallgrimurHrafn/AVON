@@ -28,8 +28,8 @@ voice = 0                       # hvada voice er i notkun
 mwGO = 0                        # hvort vid erum i modwatch eda ekki
 tGO = 0                         # hvort breyta megi status eda ekki
 mcGo = 0                        # hvort modda megi med myndavel eda ekki
-status = np.zeros((8, 8, 16))   # status notna fylkid okkar
-tStatus = np.zeros((8, 8, 16))  # tStatus, timirarystatus. notad thegar
+status = np.zeros((16, 8, 8))   # status notna fylkid okkar
+tStatus = np.zeros((16, 8, 8))  # tStatus, timirarystatus. notad thegar
                                 # tgo=0 svo vid missum ekki af notum
 tap = []
 period = []
@@ -72,7 +72,7 @@ def NOTEON(dalkur):
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
         for v in range(0, 16):                              # fyrir allar notur dalksins spilum..
-            if status[dalkur][x][v] == 1:
+            if status[v][dalkur][x] == 1:
                 # midiout.send_message(mido.Message('note_on', channel=voice,
                 # note=skali(x), velocity=100).bytes())  #velocity=mod(dalkur,
                 # x, v, 0)
@@ -91,7 +91,7 @@ def NOTEOFF(dalkur):
     mcGO = 0                                                # slekkur a modColumn, bannad ad modda notur
     for x in range(0, 8):
         for v in range(0, 16):                              # slokkvum a notunum sem vid kveiktum a adan.
-            if status[dalkur][x][v] == 1:
+            if status[v][dalkur][x] == 1:
                 #midiout.send_message(mido.Message('note_off', channel=voice, note=skali(x), velocity=0).bytes())
                 print('off', 'channel er', v,
                       'notan er', skali[x], 'velocity er', 0)
@@ -113,7 +113,7 @@ def taktmaelir(dalkur):
     trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI LJOS!
     time.sleep(FLASH*timi)                                  # bidtimi eftir taktmaelis flash.
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
-        if status[dalkur][x][voice] == 0:                   # slokkvum a theim ljosum sem eru ekki a bordinu fyrir.
+        if status[voice][dalkur][x] == 0:                   # slokkvum a theim ljosum sem eru ekki a bordinu fyrir.
             trellis.clrLED(tfOut(x * 8 + dalkur))
     trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI MYRKUR!
     tkt=False
@@ -210,7 +210,7 @@ def tw():
     GPIO.remove_event_detect(37)
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
-    ledshow(status[:][:][voice])
+    ledshow(status[voice][:][:])
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
 
@@ -227,12 +227,12 @@ def trellisWatch(channel):                              # ignore channel...
         for x in range(0, 64):                          #fyrir alla takka
             if trellis.justPressed(x):                  #var ytt a thennan takka?
                 y = tfIn(x)                             #vorpum i status format.
-                if tStatus[y % 8][y // 8][voice] == 0:  #ef thad var slokkt a notu
-                    tStatus[y % 8][y // 8][voice] = 1   #tha er nuna kveikt a notu
+                if tStatus[voice][y % 8][y // 8] == 0:  #ef thad var slokkt a notu
+                    tStatus[voice][y % 8][y // 8] = 1   #tha er nuna kveikt a notu
                     trellis.setLED(x)                   #somuleidis med LED.
                     # print(GPIO.input(37),'on')        #debug dot
                 else:                                   #ef ekki slokkt a notu
-                    tStatus[y % 8][y // 8][voice] = 0   #slokkvum a notu
+                    tStatus[voice][y % 8][y // 8] = 0   #slokkvum a notu
                     trellis.clrLED(x)                   #led lika
                     # print(GPIO.input(37),'off')
                     trellis.readSwitches()              #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
@@ -453,7 +453,7 @@ def ChannelChange():
         voice=v
         for x in range (0, 64):
             y = tfIn(x)
-            if status[y % 8][y // 8][voice] == 1:
+            if status[voice][y % 8][y // 8] == 1:
                 trellis.setLED(x)
         trellis.writeDisplay()
 # ChannelChange ends.
@@ -477,14 +477,14 @@ for x in range(0, 64):
     trellis.clrLED(x)
 trellis.writeDisplay()
 
-status[0][0][voice]=1
-status[1][1][voice]=1
-status[2][2][voice]=1
-status[3][3][voice]=1
-status[4][4][voice]=1
+status[voice][0][0]=1
+status[voice][1][1]=1
+status[voice][2][2]=1
+status[voice][3][3]=1
+status[voice][4][4]=1
 
-for i in range (0,16):
-    print status[i][:][:]
+
+print status[voice][:][:]
 
 t = threading.Thread(target=multithread)
 t.start()
