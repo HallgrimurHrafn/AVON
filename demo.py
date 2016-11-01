@@ -472,28 +472,28 @@ def ChannelChange():
 #
 def tester():
     global lGO, v
-    time.sleep(3)
-    lGO=1
+    # time.sleep(3)
+    lGO = 1
     t = threading.Thread(target=multithread)
     t.start()
-    time.sleep(5)
-    lGO=0
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(3)
-    v=1
-    ChannelChange()
-    time.sleep(5)
-    lGO=1
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(3)
-    lGO=0
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(3)
-    v=0
-    ChannelChange()
+    # time.sleep(5)
+    # lGO=0
+    # t = threading.Thread(target=multithread)
+    # t.start()
+    # time.sleep(3)
+    # v=1
+    # ChannelChange()
+    # time.sleep(5)
+    # lGO=1
+    # t = threading.Thread(target=multithread)
+    # t.start()
+    # time.sleep(3)
+    # lGO=0
+    # t = threading.Thread(target=multithread)
+    # t.start()
+    # time.sleep(3)
+    # v=0
+    # ChannelChange()
 #
 
 
