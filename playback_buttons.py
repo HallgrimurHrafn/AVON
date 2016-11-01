@@ -50,8 +50,7 @@ def calculate_tempo(tap, period, tempo):
 
     # new tempo in bpm = 60 sec / avg of last 2, rounded to nearest integer.
     new_tempo = int(round(60/avg_period))
-
-	return new_tempo
+    return new_tempo
 
 
 # Usage: callback_tap(channel). runs whenever TAP button pressed.
