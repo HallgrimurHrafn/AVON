@@ -309,7 +309,7 @@ def callback_tap(channel):
 
 # setjum upp fyrir liveplay
 def liveSet():
-    global status, tStatus, voice,
+    global status, tStatus, voice
     tStatus=status.copy()
     for x in range (0, 64):
         y=tfIn(x)
