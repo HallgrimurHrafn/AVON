@@ -331,7 +331,7 @@ def liveplay(channel):
     global skali, voice, nowPlaying
     time.sleep(0.015)
     if trellis.readSwitches():
-        for x in range(0, 64):
+        for x in range(0, 63):
             y=tfIn(x)
             if trellis.justPressed(x):
                 if nowPlaying[y%8][y//8] == 0:
