@@ -474,6 +474,7 @@ def tester():
     lGO=0
     t = threading.Thread(target=multithread)
     t.start()
+    time.sleep(3)
     v=1
     ChannelChange()
     time.sleep(5)
