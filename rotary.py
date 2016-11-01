@@ -15,7 +15,7 @@ def right(channel):
     print('right')
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
-GPIO.add_event_detect(33, GPIO.RISING, callback=left, bouncetime=100)
+GPIO.add_event_detect(33, GPIO.FALLING, callback=left, bouncetime=100)
 GPIO.add_event_detect(31, GPIO.RISING, callback=right, bouncetime=100)
 
 
