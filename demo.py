@@ -216,15 +216,15 @@ def tw():
     GPIO.remove_event_detect(37)
     print status[voice][:][:]
     print
-    status=tStatus
+    status=tStatus.copy()
     ledshow(status[voice][:][:])
     print status[voice][:][:]
     print
 
     print tStatus[voice][:][:]
+    print
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
-
 
 
 
@@ -249,7 +249,7 @@ def trellisWatch(channel):                              # ignore channel...
                     trellis.readSwitches()              #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         trellis.writeDisplay()                          #uppfaerum led
         if tGO == 1:                                    #meigum vid breyta status
-            status = tStatus                            #ef ja, vistum tstatus i status.
+            status = tStatus.copy()                     #ef ja, vistum tstatus i status.
             time.sleep(0.015)                           #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
             trellis.readSwitches()                      #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         else:
@@ -323,7 +323,7 @@ def callback_tap(channel):
 def liveSet():
     global status, tStatus, voice
     GPIO.remove_event_detect(37)
-    tStatus=status
+    tStatus=status.copy()
     print tStatus[voice][:][:]
     print
     for x in range (0, 64):
@@ -508,7 +508,7 @@ status[voice][1][1]=1
 status[voice][2][2]=1
 status[voice][3][3]=1
 status[voice][4][4]=1
-tStatus=status
+tStatus=status.copy()
 ledshow(np.zeros((8, 8)))
 ledshow(np.zeros((8, 8)))
 
