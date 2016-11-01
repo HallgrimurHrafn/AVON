@@ -334,7 +334,6 @@ def liveplay(channel):
 # ledshow(status[:,:,voice])svipad fyrir mod fylkid ur modwatch.
 # ledshow begins     --- tekur inn fylki af gerdinni 8x8 og flassar fra midju ut en skilur eftir ljos fylkisins.
 def ledshow(fylki):
-    print fylki
     for x in range(0, 7):
         if x == 1:
             trellis.setLED(15)
@@ -483,6 +482,10 @@ status[1][1][voice]=1
 status[2][2][voice]=1
 status[3][3][voice]=1
 status[4][4][voice]=1
+
+print status[:][:][voice]
+print status[:][voice][:]
+print status[voice][:][:]
 
 t = threading.Thread(target=multithread)
 t.start()
