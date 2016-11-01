@@ -177,6 +177,7 @@ def Sequencer():
 # multithread starts		--- partur af main.
 def multithread():
     GPIO.remove_event_detect(37)
+    time.sleep(0.015)
     if lGO == 1:
         t1 = threading.Thread(target=liveSet)
     else:
@@ -468,15 +469,12 @@ def ChannelChange():
 def tester():
     time.sleep(3)
     lGO=0
-    time.sleep(0.015)
     multithread()
     time.sleep(3)
     lGO=1
-    time.sleep(0.015)
     multithread()
     time.sleep(3)
     lGO=0
-    time.sleep(0.015)
     multithread()
 
 #
