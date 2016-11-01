@@ -40,7 +40,7 @@ period = []
 partur = 2                      # 1= 4du part, 2 = 8 parts, 4=16 parts.
 v = 0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
-lGO = 0                         # ef lgo=1 tha erum vid i life mode.
+lGO = 1                         # ef lgo=1 tha erum vid i life mode.
 pause = 1                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
@@ -474,9 +474,9 @@ def ChannelChange():
 def tester():
     global lGO, v
     # time.sleep(3)
-    lGO = 1
-    t = threading.Thread(target=multithread)
-    t.start()
+    # lGO = 1
+    # t = threading.Thread(target=multithread)
+    # t.start()
     # time.sleep(5)
     # lGO=0
     # t = threading.Thread(target=multithread)
