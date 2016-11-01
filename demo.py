@@ -216,6 +216,7 @@ def tw():
 
 
 
+
 # trellisWatch begins     --- fylgist med tokkum a trellis. fyrir allt
 # nema live mode, eins og er.
 def trellisWatch(channel):                              # ignore channel...
