@@ -317,6 +317,7 @@ def callback_tap(channel):
 
 # setjum upp fyrir liveplay
 def liveSet():
+    global status, tStatus, boice
     GPIO.remove_event_detect(37)
     tStatus=status
     status[voice][:][:]
