@@ -322,10 +322,10 @@ def liveSet():
 def liveplay():
     global skali, voice, nowPlaying
     while lGO==1:
+        time.sleep(0.03)
         if trellis.readSwitches():
             for x in range(0, 64):
                 y = tfIn(x)
-                time.sleep(0.001)
                 if trellis.justPressed(x):
                     print(
                         'on, channel er', v,
