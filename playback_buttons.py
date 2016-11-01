@@ -8,7 +8,7 @@ tap = []
 period = []
 tempo = 120
 
-# Set up 16, 20, and 21 as inputs. 
+# Set up 16, 20, and 21 as inputs.
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
 GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
@@ -23,7 +23,7 @@ def calculate_tempo(tap, period, tempo):
     tap.append(current_time)
 
     tap_count = len(tap)
-    
+
 
     if tap_count == 1: # not enough taps yet, so don't alter tempo.
         return tempo
@@ -36,24 +36,24 @@ def calculate_tempo(tap, period, tempo):
 
     elif tap_count == 2:
         # add a new period (time between taps) but don't adjust tempo.
-	period.append(tap[-1]-tap[-2])
-	return tempo
-    
-    else: # tap_count > 2:
+	    period.append(tap[-1]-tap[-2])
+	    return tempo
+
+    # else: # tap_count > 2:
         # add a new period and calculate tempo in bpm.
-	period.append(tap[-1]-tap[-2])
+    period.append(tap[-1]-tap[-2])
 
         #       if len(period) > 3: period = period[-3:] # use only the last three periods to take an average.
         #       avg_period = sum(period) / len(period)
 
-        avg_period = (period[-1]+period[-2]) / 2
-        
+    avg_period = (period[-1]+period[-2]) / 2
+
         # new tempo in bpm = 60 sec / avg of last 2, rounded to nearest integer.
 	new_tempo = int(round(60/avg_period))
 
 	return new_tempo
 
-    
+
 # Usage: callback_tap(channel). runs whenever TAP button pressed.
 # Before: global variable tempo is an integer.
 # After: tempo = average tempo of last three taps.
@@ -73,19 +73,18 @@ def callback_stop(channel):
 def callback_start(channel):
     print('START')
 
-# monitor inputs 16, 20, and 21 for button presses, 
+# monitor inputs 16, 20, and 21 for button presses,
 # disregard button "bounces" or presses faster than 100 ms
 GPIO.add_event_detect(16, GPIO.FALLING, callback=callback_tap, bouncetime=200)
 GPIO.add_event_detect(20, GPIO.FALLING, callback=callback_stop, bouncetime=200)
 GPIO.add_event_detect(21, GPIO.FALLING, callback=callback_start, bouncetime=200)
 
 
-# Keep this test program running until forced to quit. 
+# Keep this test program running until forced to quit.
 try:
     while True:
         time.sleep(10)
 except KeyboardInterrupt:
-    GPIO.cleanup()       # clean up GPIO on CTRL+C exit 
+    GPIO.cleanup()       # clean up GPIO on CTRL+C exit
 
-#GPIO.cleanup()           # clean up GPIO on normal exit  
-
+#GPIO.cleanup()           # clean up GPIO on normal exit
