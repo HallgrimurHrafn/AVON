@@ -321,7 +321,8 @@ def liveSet():
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
     ledshow(np.zeros((8, 8)))
-    GPIO.add_event_detect(37, GPIO.BOTH, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
+    GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
+    GPIO.add_event_detect(37, GPIO.RISING, callback=liveplay2)  # kannski tharf thetta ad vera gpio.both
 # done
 def liveplay(channel):
     global skali, voice, nowPlaying
@@ -332,6 +333,16 @@ def liveplay(channel):
             if trellis.justPressed(x):
                 #print ('on', 'channel er', voice, 'notan er', skali[x], 'velocity er', 100)
                 trellis.setLED(x)
+        trellis.writeDisplay()
+    time.sleep(0.015)
+    trellis.readSwitches()
+#
+def liveplay2(channel):
+    global skali, voice, nowPlaying
+    time.sleep(0.015)
+    if trellis.readSwitches():
+        for x in range(0, 64):
+            y=tfIn(x)
             if trellis.justReleased(x):
                 #print ('off', 'channel er', voice, 'notan er', skali[x], 'velocity er', 0)
                 trellis.clrLED(x)
@@ -339,7 +350,6 @@ def liveplay(channel):
     time.sleep(0.015)
     trellis.readSwitches()
 #
-
 
 
 # Notkun : fylkid er 8x8, ef taka a status sem er 8x8x16 tharf ad velja eitt voice og gera
