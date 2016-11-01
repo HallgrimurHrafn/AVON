@@ -177,7 +177,7 @@ def multithread():
     t1 = threading.Thread(target=tw)                        # her buum vid til alla non main thraedina og
     GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
     GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
-    GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=200)
+    GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
     t1.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
