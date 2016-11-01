@@ -337,6 +337,9 @@ def liveplay():
                 if trellis.justReleased(x):
                     trellis.clrLED(x)
             trellis.writeDisplay()
+        if lGO==0:
+            break
+    tw()
 #
 
 
