@@ -317,6 +317,10 @@ def liveSet():
     global status, tStatus, voice
     GPIO.remove_event_detect(37)
     tStatus=status.copy()
+    print status[voice][:][:]
+    print
+    print tStatus[voice][:][:]
+    print
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
