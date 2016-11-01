@@ -321,9 +321,12 @@ def liveSet():
     GPIO.remove_event_detect(37)
     tStatus=status
     print status[voice][:][:]
+    print
     for x in range (0, 64):
         y=tfIn(x)
         status[voice][y % 8][y // 8]=0
+    print status[voice][:][:]
+    print
     ledshow(np.zeros((8, 8)))
     GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
 # done
