@@ -185,7 +185,7 @@ def multithread():
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
 def tester():
-    time.sleep(3)
+    time.sleep(6)
     liveSet()
     time.sleep(3)
     tw()
