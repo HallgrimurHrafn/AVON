@@ -45,7 +45,7 @@ skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
 timi = 0.5  # 0.05 er min.     #timi
 tempo = 120
-FLASH = 0.9 * timi             # hlutfallsleg lengd af timi fyrir taktmaeli
+FLASH = 0.9                     # hlutfallsleg lengd af timi fyrir taktmaeli
 lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 # save einhvern veginn              notna i samliggjandi dalkum.
 # load einhvern veginn
@@ -104,13 +104,13 @@ def NOTEOFF(dalkur):
 
 # taktmaelir begins
 def taktmaelir(dalkur):
-    global FLASH, status, voice, tkt                        # global breytur, utskyrdar efst.
+    global FLASH, status, voice, tkt, timi                  # global breytur, utskyrdar efst.
     tkt = True
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
         trellis.setLED(tfOut(x * 8 + dalkur))               # kveikja a LED!,tfout varpar i trellisformat.
         #print(x*8+dalkur,tfOut(x*8+dalkur), 'on')
     trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI LJOS!
-    time.sleep(FLASH)                                       # bidtimi eftir taktmaelis flash.
+    time.sleep(FLASH*timi)                                  # bidtimi eftir taktmaelis flash.
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
         if status[dalkur][x][voice] == 0:                   # slokkvum a theim ljosum sem eru ekki a bordinu fyrir.
             trellis.clrLED(tfOut(x * 8 + dalkur))
