@@ -206,6 +206,11 @@ def stopper(channel):
 
 # tw begins           --- byr til event fyrir trelliswatch.
 def tw():
+    global voice
+    GPIO.remove_event_detect(37)
+    ledshow(np.zeros((8, 8)))
+    ledshow(np.zeros((8, 8)))
+    ledshow(status[:][:][voice])
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
 
@@ -235,12 +240,6 @@ def trellisWatch(channel):                              # ignore channel...
             status = tStatus                            #ef ja, vistum tstatus i status.
         time.sleep(0.015)                               #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         trellis.readSwitches()                          #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
-    if mwGO == 1:                                       #ef mwGO=1
-        modWatch()                                      #forum i modwatch :)
-    if lGO == 1:                                        #ef lGO=1
-        livePlay()                                      #forum i liveplay :D
-    if clA == 1:                                        #ef clA=1
-        clearAll()                                      #skemmum allt :'(
 # trellisWatch ends --------------------------------------
 
 
@@ -300,6 +299,31 @@ def callback_tap(channel):
 
     tempo = calculate_tempo(tap, period, tempo)
     print 'tempo =', tempo, 'bpm'
+
+
+
+
+# setjum upp fyrir liveplay
+def liveSet():
+    GPIO.remove_event_detect(37)
+    ledshow(np.zeros((8, 8)))
+    GPIO.add_event_detect(37, GPIO.FALLING, callback=liveplay)  # kannski tharf thetta ad vera gpio.both
+# done
+def liveplay(channel):
+    global skali, voice
+    if trellis.readSwitches():
+        for x in range(0, 64):
+            if trellis.justPressed(x):
+                print('on', 'channel er', voice,
+                'notan er', skali[x], 'velocity er', 100)
+                trellis.setLED(x)
+            if trellis.justReleased(x):
+                print('off', 'channel er', voice,
+                'notan er', skali[x], 'velocity er', 0)
+                trellis.clrLED(x)
+        trellis.writeDisplay()
+
+
 
 
 
