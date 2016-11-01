@@ -465,6 +465,7 @@ def ChannelChange():
 
 #
 def tester():
+    global lGO
     time.sleep(3)
     lGO=1
     t = threading.Thread(target=multithread)
@@ -475,10 +476,12 @@ def tester():
     t.start()
     time.sleep(3)
     lGO=1
+    t = threading.Thread(target=multithread)
     t.start()
     # t2 = threading.Thread(target=multithread)
     time.sleep(5)
     lGO=0
+    t = threading.Thread(target=multithread)
     t.start()
 
 #
