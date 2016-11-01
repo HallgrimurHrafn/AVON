@@ -210,7 +210,7 @@ def tw():
     GPIO.remove_event_detect(37)
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
-    ledshow(status[:][:][voice])
+    ledshow(status[:][voice][:])
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
 
