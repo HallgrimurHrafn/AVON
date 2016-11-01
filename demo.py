@@ -392,7 +392,7 @@ GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
 GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 
 fylki=np.zeros((8, 8))
-for x in range(0, 1):
+for x in range(0, 3):
     ledshow(fylki)
 
 for x in range(0, 64):
