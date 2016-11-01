@@ -331,7 +331,7 @@ def liveplay():
                     # print(
                     #     'on, channel er', v,
                     #     'notan er', skali[x], 'velocity er', 100)
-                    print mido.Message('note_on', channel=voice, note=skali[y%8], velocity=100).bytes()
+                    print mido.Message('note_on', channel=2, note=skali[y%8], velocity=100).bytes()
                     trellis.setLED(x)
                 if trellis.justReleased(x):
                     # print(
