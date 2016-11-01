@@ -180,19 +180,7 @@ def multithread():
     GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
     GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
     t1.start()
-    testhread = threading.Thread(target=testy)
-    testhread.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
-
-
-def testy():
-    time.sleep(10)
-    global v
-    v = 1
-    ChannelChange()
-    time.sleep(15)
-    v=0
-    ChannelChange()
 
 
 
