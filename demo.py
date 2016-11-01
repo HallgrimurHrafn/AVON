@@ -215,8 +215,6 @@ def tw():
     global voice, status, tStatus
     GPIO.remove_event_detect(37)
     status=tStatus
-    ledshow(np.zeros((8, 8)))
-    ledshow(np.zeros((8, 8)))
     ledshow(status[voice][:][:])
     GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch)
 # tw ends.
@@ -496,9 +494,8 @@ status[voice][2][2]=1
 status[voice][3][3]=1
 status[voice][4][4]=1
 tStatus=status
-
-
-print status[voice][:][:]
+ledshow(np.zeros((8, 8)))
+ledshow(np.zeros((8, 8)))
 
 t = threading.Thread(target=multithread)
 t.start()
