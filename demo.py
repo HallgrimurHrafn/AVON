@@ -468,22 +468,23 @@ def tester():
     global lGO
     time.sleep(3)
     lGO=1
+    time.sleep(5)
+    lGO=0
     t = threading.Thread(target=multithread)
     t.start()
+    v=1
+    ChannelChange()
     time.sleep(5)
+    lGO=1
+    t = threading.Thread(target=multithread)
+    t.start()
+    time.sleep(3)
     lGO=0
     t = threading.Thread(target=multithread)
     t.start()
     time.sleep(3)
-    lGO=1
-    t = threading.Thread(target=multithread)
-    t.start()
-    # t2 = threading.Thread(target=multithread)
-    time.sleep(5)
-    lGO=0
-    t = threading.Thread(target=multithread)
-    t.start()
-
+    v=0
+    ChannelChange()
 #
 
 
