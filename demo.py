@@ -58,8 +58,8 @@ def playColumn(dalkur):
 
     time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
 
-    t3 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
-    t3.start()
+    t11 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
+    t11.start()
 
     time.sleep(timi * lengd)                               # timinn milli lok notu og upphaf naestu.
 # playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
