@@ -477,13 +477,13 @@ for x in range(0, 64):
     trellis.clrLED(x)
 trellis.writeDisplay()
 
-status[0][0][voice]=1
-status[1][1][voice]=1
-status[2][2][voice]=1
-status[3][3][voice]=1
-status[4][4][voice]=1
+status[voice][0][0]=1
+status[voice][1][1]=1
+status[voice][2][2]=1
+status[voice][3][3]=1
+status[voice][4][4]=1
 
-print status[:][:][:]
+print status
 
 t = threading.Thread(target=multithread)
 t.start()
