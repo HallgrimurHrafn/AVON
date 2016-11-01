@@ -29,8 +29,10 @@ mwGO = 0                        # hvort vid erum i modwatch eda ekki
 tGO = 0                         # hvort breyta megi status eda ekki
 mcGo = 0                        # hvort modda megi med myndavel eda ekki
 status = np.zeros((8, 8, 16))   # status notna fylkid okkar
-tStatus = np.zeros((8, 8, 16))  # tStatus, temporarystatus. notad thegar
+tStatus = np.zeros((8, 8, 16))  # tStatus, timirarystatus. notad thegar
                                 # tgo=0 svo vid missum ekki af notum
+tap = []
+period = []
 #
 
 # menu
@@ -41,24 +43,25 @@ pause = 1                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
-tempo = 0.5  # 0.05 er min.     #tempo
-FLASH = 0.9 * tempo             # hlutfallsleg lengd af tempo fyrir taktmaeli
-lengd = 0.1                     # hlutfall tempo, bil milli enda og byrjunar
+timi = 0.5  # 0.05 er min.     #timi
+tempo = 120
+FLASH = 0.9 * timi             # hlutfallsleg lengd af timi fyrir taktmaeli
+lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 # save einhvern veginn              notna i samliggjandi dalkum.
 # load einhvern veginn
 
 
 def playColumn(dalkur):
-    global tempo, FLASH, lengd                              # global breytur, utskyrdar efst.
+    global timi, FLASH, lengd                              # global breytur, utskyrdar efst.
     t1 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
     t1.start()                                              # thannig er taktmaelirinn nakvaemari
 
-    time.sleep(tempo - tempo * lengd)                       #tempo*lengd er hve mikill timi er eftir thegar notan klarast
+    time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
 
     t3 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
     t3.start()
 
-    time.sleep(tempo * lengd)                               # timinn milli lok notu og upphaf naestu.
+    time.sleep(timi * lengd)                               # timinn milli lok notu og upphaf naestu.
 # playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
 
 
@@ -171,18 +174,15 @@ def Sequencer():
 # multithread starts		--- partur af main.
 def multithread():
     t1 = threading.Thread(target=tw)                        # her buum vid til alla non main thraedina og
-    t2 = threading.Thread(target=pp)
-    t3 = threading.Thread(target=st)
+    GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
+    GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
+    GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=200)
     t1.start()
-    t2.start()
-    t3.start()
 # multithread ends    --- breyta i function med if skilyrdum hvort thradur se daudur eda ekki.
 
 
 
 # styring fyrir playpause
-def pp():
-    GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
 def playpause(channel):
     global pause
     if pause == 0:
@@ -194,13 +194,13 @@ def playpause(channel):
 
 # styring fyrir stop
 def st():
-    GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
+
 def stopper(channel):
-    global stop, pause, tempo
+    global stop, pause, timi
     if stop == 0:
         stop = 1
         pause = 1
-        time.sleep(tempo)
+        time.sleep(timi)
         stop = 0
 # lokid
 
@@ -242,6 +242,64 @@ def trellisWatch(channel):                              # ignore channel...
     if clA == 1:                                        #ef clA=1
         clearAll()                                      #skemmum allt :'(
 # trellisWatch ends --------------------------------------
+
+
+
+
+# Usage: tempo = calculate_tempo(tap)
+# Before: tap is a nonempty list of floating point values, representing seconds.
+# After: tempo contains the average bpm between the last two values in tap. For example, if tap = [
+def calculate_tempo(tap, period, tempo):
+
+    # add the newest tap time to the tap[] list.
+    current_time = time.time()
+    tap.append(current_time)
+
+    tap_count = len(tap)
+
+
+    if tap_count == 1: # not enough taps yet, so don't alter tempo.
+        return tempo
+
+    elif tap[-1] - tap[-2] >= 3: # if 3 seconds have passed between
+                                 # last 2 taps erase all but last tap
+                                 # time and do not alter tempo.
+        tap = [tap[-1]]
+        return tempo
+
+    elif tap_count == 2:
+        # add a new period (time between taps) but don't adjust tempo.
+	    period.append(tap[-1]-tap[-2])
+	    return tempo
+
+    # else: # tap_count > 2:
+    # add a new period and calculate tempo in bpm.
+    period.append(tap[-1]-tap[-2])
+
+    # if len(period) > 3: period = period[-3:] # use only the last three periods to take an average.
+    # avg_period = sum(period) / len(period)
+    if tap_count == 3:
+        avg_period = (period[-1]+period[-2]) / 2
+    elif tap_count == 4:
+        avg_period = (period[-1]+period[-2]+period[-3]) / 3
+    else:
+        avg_period = (period[-1]+period[-2]+period[-3]+period[-3]) / 4
+
+
+    # new tempo in bpm = 60 sec / avg of last 2, rounded to nearest integer.
+    new_tempo = int(round(60/avg_period))
+    return new_tempo
+
+
+# Usage: callback_tap(channel). runs whenever TAP button pressed.
+# Before: global variable tempo is an integer.
+# After: tempo = average tempo of last three taps.
+def callback_tap(channel):
+
+    global tap, period, tempo
+
+    tempo = calculate_tempo(tap, period, tempo)
+    print 'tempo =', tempo, 'bpm'
 
 
 
@@ -387,6 +445,7 @@ GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
 GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
 GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
 GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
+
 
 fylki=np.zeros((8, 8))
 for x in range(0, 3):
