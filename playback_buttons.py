@@ -40,16 +40,16 @@ def calculate_tempo(tap, period, tempo):
 	    return tempo
 
     # else: # tap_count > 2:
-        # add a new period and calculate tempo in bpm.
+    # add a new period and calculate tempo in bpm.
     period.append(tap[-1]-tap[-2])
 
-        #       if len(period) > 3: period = period[-3:] # use only the last three periods to take an average.
-        #       avg_period = sum(period) / len(period)
+    # if len(period) > 3: period = period[-3:] # use only the last three periods to take an average.
+    # avg_period = sum(period) / len(period)
 
     avg_period = (period[-1]+period[-2]) / 2
 
-        # new tempo in bpm = 60 sec / avg of last 2, rounded to nearest integer.
-	new_tempo = int(round(60/avg_period))
+    # new tempo in bpm = 60 sec / avg of last 2, rounded to nearest integer.
+    new_tempo = int(round(60/avg_period))
 
 	return new_tempo
 
