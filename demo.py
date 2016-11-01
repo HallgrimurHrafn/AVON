@@ -53,13 +53,13 @@ lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 
 def playColumn(dalkur):
     global timi, FLASH, lengd                              # global breytur, utskyrdar efst.
-    t10 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
-    t10.start()                                              # thannig er taktmaelirinn nakvaemari
+    p1 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
+    p1.start()                                              # thannig er taktmaelirinn nakvaemari
 
     time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
 
-    t11 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
-    t11.start()
+    p2 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
+    p2.start()
 
     time.sleep(timi * lengd)                               # timinn milli lok notu og upphaf naestu.
 # playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
@@ -166,7 +166,7 @@ def Sequencer():
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
-            timi = 60/tempo
+                timi = 60/tempo
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
