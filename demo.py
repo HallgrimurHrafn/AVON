@@ -361,7 +361,7 @@ def clearleds():
 #clearleds ends
 
 
-# ChannelChange starts          --- slekkur a þáverandi led m.v. voice og kveikir a núverandi.
+# ChannelChange starts          --- slekkur a thaverandi led m.v. voice og kveikir a naverandi.
 def ChannelChange():
     global tkt, v, voice
     if v != voice:
