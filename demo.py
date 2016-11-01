@@ -313,7 +313,7 @@ def callback_tap(channel):
 
 # setjum upp fyrir liveplay
 def liveSet():
-    global status, tStatus, voice, nowPlaying, skali
+    global status, tStatus, voice, nowPlaying
     nowPlaying=np.zeros((8,8))
     GPIO.remove_event_detect(37)
     tStatus=status.copy()
@@ -336,13 +336,13 @@ def liveplay(channel):
             if trellis.justPressed(x):
                 if nowPlaying[y%8][y//8] == 0:
                     nowPlaying[y%8][y//8]=1
-                    print('on', 'channel er', voice,
+                    print ('on', 'channel er', voice,
                     'notan er', skali[x], 'velocity er', 100)
                     trellis.setLED(x)
             if trellis.justReleased(x):
                 if nowPlaying[y%8][y//8] == 1:
                     nowPlaying[y%8][y//8] = 0
-                    print('off', 'channel er', voice,
+                    print ('off', 'channel er', voice,
                     'notan er', skali[x], 'velocity er', 0)
                     trellis.clrLED(x)
         trellis.writeDisplay()
