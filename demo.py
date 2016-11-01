@@ -484,7 +484,7 @@ status[3][3][voice]=1
 status[4][4][voice]=1
 
 for i in range (0,16):
-    print status[:][:][i]
+    print status[:][i][i]
 
 t = threading.Thread(target=multithread)
 t.start()
