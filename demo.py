@@ -465,7 +465,7 @@ def ChannelChange():
 
 #
 def tester():
-    global lGO
+    global lGO, v
     time.sleep(3)
     lGO=1
     time.sleep(5)
