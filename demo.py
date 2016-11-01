@@ -22,8 +22,8 @@ trellis.begin(
     )
 
 # nonmenu config
-tkt=False                       # hvort ljosin fra taktmaelinum seu i gangi.
-dlk=0                           # hvada dalkur er i spilun.
+tkt = False                       # hvort ljosin fra taktmaelinum seu i gangi.
+dlk = 0                           # hvada dalkur er i spilun.
 voice = 0                       # hvada voice er i notkun
 mwGO = 0                        # hvort vid erum i modwatch eda ekki
 tGO = 1                         # hvort breyta megi status eda ekki
@@ -31,14 +31,14 @@ mcGo = 0                        # hvort modda megi med myndavel eda ekki
 status = np.zeros((16, 8, 8))   # status notna fylkid okkar
 tStatus = np.zeros((16, 8, 8))  # tStatus, timirarystatus. notad thegar
                                 # tgo=0 svo vid missum ekki af notum
-nowPlaying=np.zeros((8,8))      # fyrir livemode.
+nowPlaying = np.zeros((8, 8))      # fyrir livemode.
 tap = []
 period = []
 #
 
 # menu
 partur = 2                      # 1= 4du part, 2 = 8 parts, 4=16 parts.
-v=0                             # styring fyrir hvada voice vid aetlum a fara i.
+v = 0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 1                       # eigum vid ad pause-a
@@ -311,10 +311,10 @@ def callback_tap(channel):
 # setjum upp fyrir liveplay
 def liveSet():
     global status, tStatus, voice
-    tStatus=status.copy()
-    for x in range (0, 64):
-        y=tfIn(x)
-        status[voice][y % 8][y // 8]=0
+    tStatus = status.copy()
+    for x in range(0, 64):
+        y = tfIn(x)
+        status[voice][y % 8][y // 8] = 0
     ledshow(np.zeros((8, 8)))
     liveplay()
 # done
@@ -324,14 +324,15 @@ def liveplay():
         time.sleep(0.03)
         if trellis.readSwitches():
             for x in range(0, 64):
-                y=tfIn(x)
                 if trellis.justPressed(x):
-                    print('on, channel er', v,
-                        'notan er', skali[x], 'velocity er', 100)
+                    print(
+                        'on, channel er', v, 'notan er',
+                        skali[x], 'velocity er', 100)
 
                     trellis.setLED(x)
                 if trellis.justReleased(x):
-                    print('off, channel er', v,
+                    print(
+                        'off, channel er', v,
                         'notan er', skali[x], 'velocity er', 0)
                     trellis.clrLED(x)
             trellis.writeDisplay()
