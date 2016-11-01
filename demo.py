@@ -333,6 +333,7 @@ def liveplay():
             trellis.writeDisplay()
         if lGO==0:
             break
+    multithread()
 #
 
 
@@ -469,13 +470,11 @@ def ChannelChange():
 def tester():
     time.sleep(3)
     lGO=0
-    multithread()
     time.sleep(3)
     lGO=1
     multithread()
     time.sleep(3)
     lGO=0
-    multithread()
 
 #
 
