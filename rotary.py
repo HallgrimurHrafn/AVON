@@ -21,13 +21,13 @@ def test(channel):
     print('yeei')
 def rotary(channel):
     global x, left, right, cl, cr, lock
+    lock.acquire()
     if cl ==GPIO.input(left) and cr==GPIO.input(right):
         return
     elif GPIO.input(right)==GPIO.input(left):
         return
     cl=GPIO.input(left)
     cr=GPIO.input(right)
-    lock.acquire()
     if GPIO.input(left)>GPIO.input(right):
         print 'left'
     elif GPIO.input(right)>GPIO.input(left):
