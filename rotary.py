@@ -48,7 +48,7 @@ def rotary(channel):
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 # GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
-GPIO.add_event_detect(right_or_left, GPIO.FALLING, callback=rotary, bouncetime=25)
+GPIO.add_event_detect([left, right], GPIO.FALLING, callback=rotary, bouncetime=25)
 
 
 while True:
