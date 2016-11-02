@@ -26,7 +26,8 @@ def rotary(channel):
     elif GPIO.input(right)>GPIO.input(left):
         print 'right'
     elif GPIO.input(right)==0:
-        print 'baedi 0'
+        # print 'baedi 0'
+        return
     else:
         print 'baedi 1'
 
