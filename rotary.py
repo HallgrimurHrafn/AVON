@@ -7,8 +7,8 @@ left = 33
 right = 31
 
 GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
-GPIO.setup(left, GPIO.IN) # rotary left
-GPIO.setup(right, GPIO.IN) # rotary right
+GPIO.setup(left, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
+GPIO.setup(right, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 
 def test(channel):
     print('yeei')
