@@ -37,9 +37,11 @@ def rotary(channel):
         lock.release()
         return
     if GPIO.input(left)>GPIO.input(right):
-        print 'left'
+        # print 'left'
+        print channel
     elif GPIO.input(right)>GPIO.input(left):
-        print 'right'
+        # print 'right'
+        print channel
     # GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
     # GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
     lock.release()
