@@ -29,7 +29,8 @@ def rotary(channel):
         # print 'baedi 0'
         return
     else:
-        print 'baedi 1'
+        # print 'baedi 1'
+        return
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=200)
