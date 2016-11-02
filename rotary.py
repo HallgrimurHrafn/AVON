@@ -13,7 +13,9 @@ GPIO.setup(right, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 def test(channel):
     print('yeei')
 def rotary(left_or_right):
-    print(left_or_right)
+    print left
+    print
+    print right
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=75)
