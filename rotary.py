@@ -19,6 +19,8 @@ def rotary(channel):
     global x, left, right, cl, cr
     if cl ==GPIO.input(left) and cr==GPIO.input(right):
         return
+    if GPIO.input(left)==GPIO.input(right):
+        return
     cl=GPIO.input(left)
     cr=GPIO.input(right)
     print GPIO.input(left), GPIO.input(right)
