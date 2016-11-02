@@ -16,8 +16,8 @@ def test(channel):
     print('yeei')
 def rotary(channel):
     global x, left, right
-    x=(GPIO.input(left) and not GPIO.input(right)) and (GPIO.input(right) and not GPIO.input(left))
-    print x
+    # x=(GPIO.input(left) and not GPIO.input(right)) and (GPIO.input(right) and not GPIO.input(left))
+    print GPIO.input(left), GPIO.input(right)
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=20)
