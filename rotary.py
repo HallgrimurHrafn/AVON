@@ -11,7 +11,7 @@ cl=0
 cr=0
 x=False
 
-lock=threading.lock()
+lock=threading.Lock()
 
 GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 GPIO.setup(left, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
