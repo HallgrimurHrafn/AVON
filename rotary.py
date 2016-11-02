@@ -20,8 +20,8 @@ def rotary(channel):
     print GPIO.input(left), GPIO.input(right)
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
-GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=20)
-GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=20)
+GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=50)
+GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=50)
 
 
 while True:
