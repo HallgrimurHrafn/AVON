@@ -9,6 +9,8 @@ cl=0
 cr=0
 x=False
 
+lock=threading.lock()
+
 GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 GPIO.setup(left, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
 GPIO.setup(right, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
@@ -16,21 +18,19 @@ GPIO.setup(right, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 def test(channel):
     print('yeei')
 def rotary(channel):
-    global x, left, right, cl, cr
+    global x, left, right, cl, cr, lock
     if cl ==GPIO.input(left) and cr==GPIO.input(right):
+        return
+    elif GPIO.input(right)==GPIO.input(left):
         return
     cl=GPIO.input(left)
     cr=GPIO.input(right)
+    lock.aquire()
     if GPIO.input(left)>GPIO.input(right):
         print 'left'
     elif GPIO.input(right)>GPIO.input(left):
         print 'right'
-    elif GPIO.input(right)==0:
-        # print 'baedi 0'
-        return
-    else:
-        # print 'baedi 1'
-        return
+    lock.release()
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary)
