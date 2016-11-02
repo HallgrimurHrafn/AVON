@@ -1,28 +1,21 @@
-import RPi.GPIO as GPIO
-import time
 
-GPIO.setmode(GPIO.BOARD)
+import gaugette.rotary_encoder
+import gaugette.switch
 
-GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
-GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
-GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+A_PIN  = 7
+B_PIN  = 9
+SW_PIN = 8
 
-def test(channel):
-    print('yeei')
-def left(channel):
-    GPIO.remove_event_detect(31)
-    print('left')
-    GPIO.add_event_detect(31, GPIO.FALLING, callback=right, bouncetime=100)
-
-def right(channel):
-    GPIO.remove_event_detect(33)
-    print('right')
-    GPIO.add_event_detect(33, GPIO.FALLING, callback=left, bouncetime=100)
-
-GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
-GPIO.add_event_detect(33, GPIO.FALLING, callback=left, bouncetime=100)
-GPIO.add_event_detect(31, GPIO.FALLING, callback=right, bouncetime=100)
-
+encoder = gaugette.rotary_encoder.RotaryEncoder(A_PIN, B_PIN)
+switch = gaugette.switch.Switch(SW_PIN)
+last_state = None
 
 while True:
-    time.sleep(10)
+    delta = encoder.get_delta()
+    if delta!=0:
+        print "rotate %d" % delta
+
+    sw_state = switch.get_state()
+    if sw_state != last_state:
+        print "switch %d" % sw_state
+        last_state = sw_state
