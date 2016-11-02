@@ -21,26 +21,28 @@ def test(channel):
     print('yeei')
 def rotary(channel):
     global x, left, right, cl, cr, lock
+    lock.acquire()
     GPIO.remove_event_detect(left)
     GPIO.remove_event_detect(right)
     if cl ==GPIO.input(left) and cr==GPIO.input(right):
         GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
         GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
+        lock.release()
         return
     cl=GPIO.input(left)
     cr=GPIO.input(right)
     if GPIO.input(right)==GPIO.input(left):
         GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
         GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
+        lock.release()
         return
-    # lock.acquire()
     if GPIO.input(left)>GPIO.input(right):
         print 'left'
     elif GPIO.input(right)>GPIO.input(left):
         print 'right'
     GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
     GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
-    # lock.release()
+    lock.release()
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
 GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
