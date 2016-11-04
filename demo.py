@@ -69,7 +69,7 @@ def playColumn(dalkur):
 
 
 # NOTEON begins
-def NOTEON(dalkur):
+def x(dalkur):
     global tGO, skali, status, mcGo                         # global breytur, utskyrdar efst.
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
@@ -166,6 +166,8 @@ def Sequencer():
                 timi = 60/float(tempo)/partur
                 while pause == 1:
                     time.sleep(0.1)
+                    if stop == 1:
+                        break
                 dlk=dalkur                                  #uppfaerum dlk
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
