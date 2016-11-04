@@ -29,6 +29,7 @@ voice = 0                       # hvada voice er i notkun
 mwGO = 0                        # hvort vid erum i modwatch eda ekki
 tGO = 1                         # hvort breyta megi status eda ekki
 mcGo = 0                        # hvort modda megi med myndavel eda ekki
+mod=np.zeros((8,8,16,8))    	#mun halda utan um upplysingar hverrar notu sidar.
 status = np.zeros((16, 8, 8))   # status notna fylkid okkar
 tStatus = np.zeros((16, 8, 8))  # tStatus, timirarystatus. notad thegar
                                 # tgo=0 svo vid missum ekki af notum
@@ -56,7 +57,7 @@ lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 
 def playColumn(dalkur):
     global timi, FLASH, lengd                              # global breytur, utskyrdar efst.
-    p1 = threading.Thread(target=NOTEON, args=(dalkur,))    # buum til thrad til ad og keyrum NOTEON
+    p1 = threading.Thread(target=NOTEON, args=(dalkur, True))    # buum til thrad til ad og keyrum NOTEON
     p1.start()                                              # thannig er taktmaelirinn nakvaemari
 
     time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
@@ -69,7 +70,7 @@ def playColumn(dalkur):
 
 
 # NOTEON begins
-def NOTEON(dalkur):
+def NOTEON(dalkur, cd):
     global tGO, skali, status, mcGo                         # global breytur, utskyrdar efst.
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
@@ -82,7 +83,8 @@ def NOTEON(dalkur):
                 'notan er', skali[x], 'velocity er', 100)
     tGO = 1                                                 # tGO=1, trelliswatch ma breyta status
     mcGO = 1                                                # mcGO=1, her ma modda notur
-    taktmaelir(dalkur)                                      # forum i taktmaelinn.
+    if cd:
+        taktmaelir(dalkur)                                      # forum i taktmaelinn.
 # NOTEON ends
 
 

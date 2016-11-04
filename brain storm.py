@@ -19,17 +19,17 @@ voice=0 											#voice=channel. það channel sem er núna í notkun.
 status=np.zeros((8,8,16))							#heldur utan um hvada notur eru merktar sem thekktar.
 tStatus=np.zeros((8,8,16))					   		#heldur timabundid um breytur. t stendur fyrir temporary.
 #dalkur,lina,channel.
-mod=16*[8*[8*[8*[0]]]]np.zeros((8,8,16,8))			#mun halda utan um upplysingar hverrar notu sidar.
+mod=np.zeros((8,8,16,8))							#mun halda utan um upplysingar hverrar notu sidar.
 #dalkur,lina,channel,gildi.
 skali=np.array([60,62,64,65,67,69,71,72]) 			#skali, nuna c dur. seinna a ad geta valid.
-a=0 												
+a=0
 b=0 												#global breyturnar a og b eru hnit fyrir notu i modWatch.
 
 #Startup only end  		--- þarf sennilega að breyta status í 8x8x16 fylki til að halda utan um voices.
 #						--- Þarf sennilega amk 8x8x8 fyrir mod lika til að halda utan um nægar upplysingar. x,y hnit og z mod factor. fylki með gildum ekki 1 og 0.
 
-	
-   
+
+
 #trellisWatch begins 	--- fylgist med tokkum a trellis. fyrir allt nema live mode, eins og er.
 def trellisWatch():
 	global tGO, status, voice, a, b, tStatus
@@ -37,10 +37,10 @@ def trellisWatch():
 		time.sleep(0.03) 							#bid sem var alltaf i synidaemum og gaeti kannski thurft ad auka.
 													#ef sleep er aukið keyrir loop-an sjaldnar á mínútu sem sparar resources í cpu. auka þetta til að létta keyrslu ef þarf.
 		status=tStatus 								#--------------utskyrt nedar-------
-		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka 
+		if trellis.readSwitches():					#les hvort thad hafir verid ytt a EINHVERN takka
 			for x in range (0, 64) 					#64 er fjoldi takka:
-				if tGO==0 or lGO==1: 				
-					break 							
+				if tGO==0 or lGO==1:
+					break
 				if trellis.justPressed(x): 			#spyr hvort thad hafi verid ytt a takka x.
 					if status[x%8][x//8][voice]==0:	#les i fylkid hvort stadan hafi verid ovirkt adur. 	--- x%8 er gert rad fyrir ad se dalkur og x//8 lina. gaeti verid rangt.
 						status[x%8][x//8][voice]=1 	#setur stoduna sem virkt	--- kannski er thetta 4 en ekki 8 thar sem trellis-in sjalfur er bara 4 a lengd.
@@ -57,20 +57,20 @@ def trellisWatch():
 				if trellis.justPressed(x): 			#gerðist á meðan sé inn í kerfinu. í lokin eftir að við höfum verið að fylgjast með
 					if tStatus[x%8][x//8][voice]==0:#status þá styllum við tStatus=status. þetta tryggir að tStatus er alltaf það sama og status
 						tStatus[x%8][x//8][voice]=1 #nema þegar það má ekki breyta status.
-						trellis.setLED(x) 			
+						trellis.setLED(x)
 					else:
-						tStatus[x%8][x//8][voice]=0 	
+						tStatus[x%8][x//8][voice]=0
 						trellis.clrLED(x)
 	elif lGO==1:
-		livePlay() 									#trellisWatch þráðurinn fer yfir í livePlay ef 
+		livePlay() 									#trellisWatch þráðurinn fer yfir í livePlay ef
 	elif clA==1:
 		clearAll()
 	trellisWatch() 									#endurkvaemt fall svo thad heldur endalaust afram.
 #trellisWatch ends
-	
 
 
-#modColumn begins		--- moddar dalkinn on the fly ef notad er 
+
+#modColumn begins		--- moddar dalkinn on the fly ef notad er
 def modColumn(dalkur):								#dalkurinn sem er verid ad modda
 #modColumn ends			--- a augljuslega eftir ad paela betur i hvernig thetta verdur.
 
@@ -96,23 +96,23 @@ def playColumn(dalkur):
 	for x in range (0,8):							#keyrir forlykkju fyrir allar mogulegar notur i gefnum dalki.
 		for v in range (0,16): 						#gera forlykkju svo við spilum allar voices (channels).
 			if status[dalkur][x][v]==1: 			#spyr hvort nóta með hnitin (dalkur,x) sé virk.
-				midiout.send_message(mido.Message('note_on', channel=voice, note=skali[x], velocity=mod(dalkur, x, v, 0)).bytes()) 		
-													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel, 
-													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er 
-													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y) 
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali[x], velocity=mod(dalkur, x, v, 0)).bytes())
+													#ef svo er þá er sent midi-message gegnum midi pakkan mido með channel,
+													#notan er valin ur skala, og velocity ur fylkinu mod sem heldur utan um (x,y,z) þar sem (x,y) er
+													#hnit nótunnar en z=1 heldur utan um velocity. svo (x,y,1) er velocity notunnar (x,y)
 	tGO=1
 	mcGO=1 											#kveikir á modColumn
- 	#ATHUGASEMD, svona er ekki haegt ad breyta 
+ 	#ATHUGASEMD, svona er ekki haegt ad breyta
  	#timasetningum fyrir note on eda off einstaklega. -expect some change.
 	taktmaelir(dalkur) 								#hérna kemur inn flash frá taktmælir, ath það líður smá tími á meðan sem er táknuð FLASH.
-	time.sleep(tempo-tempo*lengd-FLASH) 			#látum forritið bíða með nótuna í gangi. tempo timi milli upphaf notna. 
+	time.sleep(tempo-tempo*lengd-FLASH) 			#látum forritið bíða með nótuna í gangi. tempo timi milli upphaf notna.
 													#tempo*lengd er tíminn sem nótan lifir og FLASH er tíminn sem taktmælirinn notar.
 	tGO=0
 	mcGO=0 											#slekkur a modColumn
-	for x in range (0,8): 						
+	for x in range (0,8):
 		for v in range (0,16):
 			if status[dalkur][x][v]==1:				#velur allar notur sem við kveiktum og á og slekkur á þeim.
-				midiout.send_message(mido.Message('note_off', channel=voice, note=skali[x], velocity=0).bytes()) 		
+				midiout.send_message(mido.Message('note_off', channel=voice, note=skali[x], velocity=0).bytes())
 													#eini munurinn á þessu og síðasta er að message-ið er note_off og velocity er 0.
 													#velocity er valið 0 vegna þess að sum midi hljóðfæri nota ekki message-ið note off heldur bara velocity 0.
 	tGO=1 											#kveikir á trellisWatch.
@@ -138,13 +138,13 @@ def taktmaelir(dalkur) :
 
 
 #SEQUENCER LOOP, THIS IS IT YO GUYS:
-def Sequencer():									
+def Sequencer():
 	if (stop == 0):									#ef ýtt var á stopp þá leyfum við sequencer-inum ekki að spila.
 		for dalkur in range (0,8): 					#fyrir alla dálka í sequencer.
 			playColumn(dalkur) 						#spila nótur dálks auk bið og taktmælis.
 			if (stop == 1) 							#a ad stodva allt?
 				break 								#ef svo er, stöðvum við loopuna.
-	elif (stop == 1): 								#ef sequencerinn var stoppaður er enginn ástæða til að drepa örgjörvan. setjum sleep til að 
+	elif (stop == 1): 								#ef sequencerinn var stoppaður er enginn ástæða til að drepa örgjörvan. setjum sleep til að
 		time.sleep(0.2)								#eyða minna afli örgjörvans.
 	Sequencer() 									#annars/eftir að spila i gegnum alla dálka, förum við aftur i sequencer. "hala"endurkvæmt fall.
 #SEQUENCER END, BOOOOOOOOOIIII	 			--- hér þarf ekkert time.sleep því það er nóg af því í playcolumn svo við bræðum ekki kerfið.
@@ -168,7 +168,7 @@ def clearAll():
 
 #modWatch begins 		--- her kemur mod vinnsla fyrir hverja notu fyrir sig. veit ekki hvar vid munum vinna med voice.
 def modWatch():
-	global a, b 									#global breytur, útskýrðar efst	
+	global a, b 									#global breytur, útskýrðar efst
 #modWatch ends    		--- vantar allt! .... nema a og b :)
 
 
@@ -179,9 +179,9 @@ def livePlay():
 	if trellis.readSwitches():
 		for x in range (0, 64):
 			if trellis.justPressed(x):
-				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes()) 
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes())
 			if trellis.justReleased(x):
-				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes()) 
+				midiout.send_message(mido.Message('note_on', channel=voice, note=skali(x%8), velocity=60).bytes())
 
 #livePlay ends  		--- vantar allt
 
@@ -192,7 +192,7 @@ def menuWatch():
 #menuWatch ends
 
 
-	
+
 #multithread starts		--- partur af main.
 t1=thread(target=trellisWatch)
 t2=thread(target=myndavel)
