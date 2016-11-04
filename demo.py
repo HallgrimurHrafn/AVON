@@ -169,9 +169,9 @@ def Sequencer():
                     if stop == 1:
                         break
                 dlk=dalkur                                  #uppfaerum dlk
-                playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
                 if stop == 1:
                     break
+                playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
