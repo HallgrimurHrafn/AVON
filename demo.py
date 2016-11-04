@@ -69,7 +69,7 @@ def playColumn(dalkur):
 
 
 # NOTEON begins
-def x(dalkur):
+def NOTEON(dalkur):
     global tGO, skali, status, mcGo                         # global breytur, utskyrdar efst.
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
@@ -86,7 +86,7 @@ def x(dalkur):
 # NOTEON ends
 
 
-# NOTEON begins
+# NOTEOFF begins
 def NOTEOFF(dalkur):
     global tGO, skali, status, mcGO
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
@@ -102,7 +102,7 @@ def NOTEOFF(dalkur):
                                                             # velocity er valid 0 vegna thess ad sum midi hljodfaeri nota
                                                             # ekki message-id note off heldur bara velocity 0.
     tGO = 1                                                 # kveikir a trellisWatch.
-# NOTEON ends
+# NOTEOFF ends
 
 
 # taktmaelir begins
