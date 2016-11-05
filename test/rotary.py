@@ -5,50 +5,55 @@ import threading
 
 GPIO.setmode(GPIO.BOARD)
 
-left = 33
-right = 31
+# rotary haegri tengt i gpio 33 og vinstri i 31.
+
+# Clockwise:
+# 0,0 : state 0
+# 1,0 : state 1
+# 1,1 : state 2
+# 0,1 : state 3
+# 0,0 : state 0  hrin er lokid her
+
+
 cl=0
 cr=0
-x=False
-
-lock=threading.Lock()
+state=0
+fstate=0  # former state. sidasta astand semsagt.
 
 GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
-GPIO.setup(left, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
-GPIO.setup(right, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
+GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 
 def test(channel):
     print('yeei')
 def rotary(channel):
-    global x, left, right, cl, cr, lock
-    lock.acquire()
-    # GPIO.remove_event_detect(left)
-    # GPIO.remove_event_detect(right)
-    if cl ==GPIO.input(left) and cr==GPIO.input(right):
-        # GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
-        # GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
-        lock.release()
+    global x, 33, 31, cl, cr, lock
+    if cl ==GPIO.input(33) and cr==GPIO.input(31):  # erum vid i sama state-i?
         return
-    cl=GPIO.input(left)
-    cr=GPIO.input(right)
-    if GPIO.input(right)==GPIO.input(left):
-        # GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
-        # GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
-        lock.release()
+    cl = GPIO.input(33)     # ef ekki uppfaerum
+    cr = GPIO.input(31)
+    fstate = state          # uppfaerum gamla astand.
+    if cl==1 and cr==0:     # uppfaerum astand og haettum ef astand er ekki 0.
+        state=1
         return
-    if GPIO.input(left)>GPIO.input(right):
-        # print 'left'
-        print channel
-    elif GPIO.input(right)>GPIO.input(left):
-        # print 'right'
-        print channel
-    # GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
-    # GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
-    lock.release()
+    elif cl==1 and cr==1:
+        state=2
+        return
+    elif cl==0 and cr==1:
+        state=3
+        return
+    state=0
+    if fstate=1:
+        print 'right';
+    elif fstate=3:
+        print 'left';
+    else:
+        print 'eitthvad for urskeidis.'
+
 
 GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
-# GPIO.add_event_detect(left, GPIO.FALLING, callback=rotary, bouncetime=25)
-GPIO.add_event_detect(right, GPIO.FALLING, callback=rotary, bouncetime=25)
+GPIO.add_event_detect(33, GPIO.FALLING, callback=rotary)
+GPIO.add_event_detect(31, GPIO.FALLING, callback=rotary)
 
 
 while True:
