@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Fyrir sindra
+#cd ~/documents/skólinn/honnuntolva/AVON
 cd ~/AVON
 git fetch origin
 git checkout master

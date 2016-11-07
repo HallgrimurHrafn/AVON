@@ -78,14 +78,23 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 
 	cv::findContours(temp, contours, hierarchy, CV_RETR_TREE , CV_CHAIN_APPROX_NONE);
 
-	cv::drawContours(frame, contours, -1, cv::Scalar(0,0,255), 1, 8, hierarchy);
+	if (hierarchy.size() > 0) {
+		int numObjects = hierarchy.size();
+		for (int i=0; i>=0; i = hierarchy[i][0]){
+			cv:Moments moment = cv::moments((cv::Mat)contours[i]);
+			Z = moment.m00;
+
+			X = moment.m10/Z;
+			Y = moment.m01/Z;
+		}
+	}
 }
 
 int main(int argc, char **argv) {
 	raspicam::RaspiCam_Cv Camera;
 
 	cv::Mat img;
-	cv::Mat frame, equ, hsv, mask;
+	cv::Mat equ, hsv, mask;
 
 	Camera.set(CV_CAP_PROP_FORMAT, CV_8UC3 ); // For color
 	Camera.set(CV_CAP_PROP_FRAME_WIDTH, 320);
@@ -112,6 +121,7 @@ int main(int argc, char **argv) {
 		cv::cvtColor(img,img,CV_BGR2RGB);
 		colorIsolation(img, hsv, mask);
 		morphOps(mask);
+		trackMarker(mask, img);
 
 		// Display image
 		cv::imshow("Tracker", img);
