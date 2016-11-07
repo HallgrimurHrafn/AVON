@@ -43,9 +43,9 @@ def rotary(channel):
         state=3
         return
     state=0
-    if fstate=1:
+    if fstate==1:
         print 'right';
-    elif fstate=3:
+    elif fstate==3:
         print 'left';
     else:
         print 'eitthvad for urskeidis.'
