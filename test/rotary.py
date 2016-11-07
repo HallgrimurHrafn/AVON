@@ -27,7 +27,7 @@ GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 def test(channel):
     print('yeei')
 def rotary(channel):
-    global x, 33, 31, cl, cr, lock
+    global x, cl, cr, lock
     if cl ==GPIO.input(33) and cr==GPIO.input(31):  # erum vid i sama state-i?
         return
     cl = GPIO.input(33)     # ef ekki uppfaerum
