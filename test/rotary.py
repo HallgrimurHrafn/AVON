@@ -51,7 +51,7 @@ def rotary(channel):
         print 'eitthvad for urskeidis.'
 
 
-GPIO.add_event_detect(35, GPIO.RISING, callback=test, bouncetime=100)
+GPIO.add_event_detect(35, GPIO.FALLING, callback=test, bouncetime=100)
 GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary)
 
