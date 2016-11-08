@@ -25,7 +25,7 @@ while 1:
     time.sleep(1)
     # til oryggist taemum inputtid
     ser.flushInput()
-    # ser.write skilar fjolda bytes svo x er að sja hvort það se ekki verið að senda
+    # ser.write skilar fjolda bytes svo x er ad sja hvort thad se ekki verid ad senda
     # rettan fjolda bita. endar a .hex til ad koda thetta i formati fyrir serial.
     # lika haegt ad prufa .bin(), prufa ad sleppa, og mogulega bytearray. oll foll sem skila
     # a byte formati.
