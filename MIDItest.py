@@ -58,3 +58,6 @@ while 1:
     # portid a raspberry vaeri [u'Midi Through Port-0'] sem meikar 0 sense.
 
     # annad en thetta tha veit eg ekki hvad gaeti verid malid :S.
+
+
+    # lika haegt ad reyna ad leita ad odrum leidum til ad senda outputtid ut. hef hinsvegar ekkert fundid.
