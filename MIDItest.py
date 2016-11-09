@@ -6,7 +6,7 @@ import mido   # info fyrir mido. https://mido.readthedocs.io/en/latest/ports.htm
 import struct
 
 ser = serial.Serial(
-    port='/dev/ttyUSB0', # thetta er serialportid a raspberry.
+    port='/dev/serial0', # thetta er serialportid a raspberry.
     baudrate = 115200,
     parity=serial.PARITY_NONE,       # latum RS3232 sja um thetta.
     stopbits=serial.STOPBITS_ONE,
