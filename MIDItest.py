@@ -30,7 +30,7 @@ while 1:
     # a byte formati.
     # docs segir til um thetta og margt tengt thessu, maeli med thvi ad lesa hann til hlidsjonar.
     # docs fyrir serial https://pythonhosted.org/pyserial/pyserial_api.html?highlight=serial.write#serial.Serial.write
-    x=ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).bin())
+    x=ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).hex())
     ser.flush()  # hreinsum aftur
     # debug, hvert var message-id adur en thad for i ser.write
     # prentar lika x fyrir debug
