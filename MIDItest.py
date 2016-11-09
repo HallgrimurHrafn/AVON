@@ -7,7 +7,7 @@ import struct
 
 ser = serial.Serial(
     port='/dev/ttyAMA0', # thetta er serialportid a raspberry.
-    baudrate = 31250,
+    baudrate = 38400,
     parity=serial.PARITY_NONE,       # latum RS3232 sja um thetta.
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
