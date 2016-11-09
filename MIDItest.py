@@ -18,10 +18,6 @@ ser = serial.Serial(
     )
 #counter =0
 
-if ser.isOpen():                            #sjaum hvort portid se opid
-    print "Port already open"
-else:                                       #annars opnar thetta thad
-    print "Opening Port:"
 
 while 1:
     # thurfum ekki ad senda output relentlessly
@@ -34,7 +30,7 @@ while 1:
     # a byte formati.
     # docs segir til um thetta og margt tengt thessu, maeli med thvi ad lesa hann til hlidsjonar.
     # docs fyrir serial https://pythonhosted.org/pyserial/pyserial_api.html?highlight=serial.write#serial.Serial.write
-    x=ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).hex())
+    x=ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).bin())
     ser.flush()  # hreinsum aftur
     # debug, hvert var message-id adur en thad for i ser.write
     # prentar lika x fyrir debug
