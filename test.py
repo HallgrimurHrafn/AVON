@@ -19,6 +19,6 @@ ser = serial.Serial(
 #counter =0
 
 t=time.time()
-for x in range (0,100):
+while True:
     ser.write(hex(5))
 print time.time()-t
