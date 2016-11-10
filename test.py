@@ -21,7 +21,7 @@ ser = serial.Serial(
 
 while 1:
         # thurfum ekki ad senda output relentlessly
-    time.sleep(0.00001)
+    # time.sleep(0.00001)
         # til oryggist taemum inputtid
     # ser.flushInput()
         # ser.write skilar fjolda bytes svo x er ad sja hvort thad se ekki verid ad senda
