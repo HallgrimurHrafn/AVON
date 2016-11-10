@@ -20,6 +20,5 @@ ser = serial.Serial(
 
 t=time.time()
 for x in range (0,100):
-    time.sleep(0.05)
     ser.write(hex(5))
 print time.time()-t
