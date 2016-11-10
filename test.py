@@ -21,12 +21,4 @@ ser = serial.Serial(
 t=time.time()
 while True:
 
-    ser.write(hex(112))
-    ser.write(hex(60))
-    ser.write(hex(100))
-    print hex(112), hex(60), hex(100)
-    time.sleep(0.5)
-    ser.write(hex(128))
-    ser.write(hex(60))
-    ser.write(hex(0))
-    print hex(128), hex(60), hex(0)
+    ser.write(hex(5))
