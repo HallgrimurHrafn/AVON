@@ -503,7 +503,7 @@ def tester():
     ChannelChange()
 
 
-
+init1()
 print('starting up')
 trellis.readSwitches()
 for x in range(0, 64):
