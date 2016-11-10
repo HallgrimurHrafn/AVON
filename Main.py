@@ -7,21 +7,21 @@ import RPi.GPIO as GPIO
 import mido
 
 import Adafruit_Trellis         # trellis config
-def init1():
-    matrix0 = Adafruit_Trellis.Adafruit_Trellis()
-    matrix1 = Adafruit_Trellis.Adafruit_Trellis()
-    matrix2 = Adafruit_Trellis.Adafruit_Trellis()
-    matrix3 = Adafruit_Trellis.Adafruit_Trellis()
-    trellis = Adafruit_Trellis.Adafruit_TrellisSet(
-        matrix0, matrix1, matrix2, matrix3
-        )
-    I2C_BUS = 1
-    trellis.begin(
-        (0x70,  I2C_BUS),
-        (0x71, I2C_BUS),
-        (0x72, I2C_BUS),
-        (0x73, I2C_BUS)
-        )
+
+matrix0 = Adafruit_Trellis.Adafruit_Trellis()
+matrix1 = Adafruit_Trellis.Adafruit_Trellis()
+matrix2 = Adafruit_Trellis.Adafruit_Trellis()
+matrix3 = Adafruit_Trellis.Adafruit_Trellis()
+trellis = Adafruit_Trellis.Adafruit_TrellisSet(
+    matrix0, matrix1, matrix2, matrix3
+    )
+I2C_BUS = 1
+trellis.begin(
+    (0x70,  I2C_BUS),
+    (0x71, I2C_BUS),
+    (0x72, I2C_BUS),
+    (0x73, I2C_BUS)
+    )
 
 # nonmenu config
 tkt = False                       # hvort ljosin fra taktmaelinum seu i gangi.
@@ -502,44 +502,43 @@ def tester():
     v=0
     ChannelChange()
 
+def init():
+    print('starting up')
+    trellis.readSwitches()
+    for x in range(0, 64):
+        trellis.clrLED(x)
+    trellis.writeDisplay()
 
-init1()
-print('starting up')
-trellis.readSwitches()
-for x in range(0, 64):
-    trellis.clrLED(x)
-trellis.writeDisplay()
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
+    GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
+    GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
+    GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
-GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
-GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
-GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
+    GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
+    GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
+    GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
 
-GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
-GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
-GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=100)
-
-for x in range(0, 64):
-    trellis.clrLED(x)
-trellis.writeDisplay()
-trellis.readSwitches()
+    for x in range(0, 64):
+        trellis.clrLED(x)
+    trellis.writeDisplay()
+    trellis.readSwitches()
 
 
-status[voice][0][0]=1
-status[voice][1][1]=1
-status[voice][2][2]=1
-status[voice][3][3]=1
-status[voice][4][4]=1
-tStatus=status.copy()
-ledshow(np.zeros((8, 8)))
-ledshow(np.zeros((8, 8)))
+    status[voice][0][0]=1
+    status[voice][1][1]=1
+    status[voice][2][2]=1
+    status[voice][3][3]=1
+    status[voice][4][4]=1
+    tStatus=status.copy()
+    ledshow(np.zeros((8, 8)))
+    ledshow(np.zeros((8, 8)))
 
-test = threading.Thread(target=tester)
-test.start()
+    test = threading.Thread(target=tester)
+    test.start()
 
-t = threading.Thread(target=multithread)
-t.start()
-print('its running, boooooiiiiii!')
+    t = threading.Thread(target=multithread)
+    t.start()
+    print('its running, boooooiiiiii!')
 
-Sequencer()
+    Sequencer()
