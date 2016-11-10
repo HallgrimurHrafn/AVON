@@ -7,20 +7,21 @@ import RPi.GPIO as GPIO
 import mido
 
 import Adafruit_Trellis         # trellis config
-matrix0 = Adafruit_Trellis.Adafruit_Trellis()
-matrix1 = Adafruit_Trellis.Adafruit_Trellis()
-matrix2 = Adafruit_Trellis.Adafruit_Trellis()
-matrix3 = Adafruit_Trellis.Adafruit_Trellis()
-trellis = Adafruit_Trellis.Adafruit_TrellisSet(
-    matrix0, matrix1, matrix2, matrix3
-    )
-I2C_BUS = 1
-trellis.begin(
-    (0x70,  I2C_BUS),
-    (0x71, I2C_BUS),
-    (0x72, I2C_BUS),
-    (0x73, I2C_BUS)
-    )
+def init1():
+    matrix0 = Adafruit_Trellis.Adafruit_Trellis()
+    matrix1 = Adafruit_Trellis.Adafruit_Trellis()
+    matrix2 = Adafruit_Trellis.Adafruit_Trellis()
+    matrix3 = Adafruit_Trellis.Adafruit_Trellis()
+    trellis = Adafruit_Trellis.Adafruit_TrellisSet(
+        matrix0, matrix1, matrix2, matrix3
+        )
+    I2C_BUS = 1
+    trellis.begin(
+        (0x70,  I2C_BUS),
+        (0x71, I2C_BUS),
+        (0x72, I2C_BUS),
+        (0x73, I2C_BUS)
+        )
 
 # nonmenu config
 tkt = False                       # hvort ljosin fra taktmaelinum seu i gangi.
