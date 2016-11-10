@@ -21,7 +21,7 @@ ser = serial.Serial(
 
 while 1:
         # thurfum ekki ad senda output relentlessly
-    time.sleep(0.001)
+    time.sleep(0.00001)
         # til oryggist taemum inputtid
     # ser.flushInput()
         # ser.write skilar fjolda bytes svo x er ad sja hvort thad se ekki verid ad senda
@@ -30,15 +30,15 @@ while 1:
         # a byte formati.
         # docs segir til um thetta og margt tengt thessu, maeli med thvi ad lesa hann til hlidsjonar.
         # docs fyrir serial https://pythonhosted.org/pyserial/pyserial_api.html?highlight=serial.write#serial.Serial.write
-    x=ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).hex())
+    ser.write(mido.Message('note_on', channel=0, note=60, velocity=100).hex())
     # ser.flush()  # hreinsum aftur
     # ser.flushInput()
     # ser.write(mido.Message('note_on', channel=1, note=60, velocity=100).hex())
     # ser.flush()
         # debug, hvert var message-id adur en thad for i ser.write
         # prentar lika x fyrir debug
-    print(mido.Message('note_on', channel=0, note=60, velocity=100).hex())
-    print(x)
+    # print(mido.Message('note_on', channel=0, note=60, velocity=100).hex())
+    # print(x)
         # in case ad thetta virkadi endurtokum nema vid slokkvum a notunni. hun lifir i sekundu
     # time.sleep(1)
     # ser.flushInput()
