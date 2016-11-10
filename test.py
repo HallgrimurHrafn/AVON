@@ -20,5 +20,5 @@ ser = serial.Serial(
 
 t=time.time()
 while True:
-    ser.write(hex(85))
+    ser.write(hex(5))
 print time.time()-t
