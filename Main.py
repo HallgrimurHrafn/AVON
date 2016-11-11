@@ -40,6 +40,7 @@ period = []
 #
 
 # menu
+taptemp = 1                     # hvort taptempo se virkt
 partur = 2                      # 1= 4du part, 2 = 8 parts, 4=16 parts.
 v = 0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
@@ -306,8 +307,9 @@ def calculate_tempo(tap, period, tempo):
 # After: tempo = average tempo of last three taps.
 def callback_tap(channel):
 
-    global tap, period, tempo, timi
-
+    global tap, period, tempo, timi, taptemp
+    if taptemp==0:
+        return
     tempo = calculate_tempo(tap, period, tempo)
     print 'tempo =', tempo, 'bpm'
 
