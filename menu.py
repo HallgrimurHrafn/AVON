@@ -14,15 +14,25 @@ nav=np.zeros(('x','y'))     # x og y placeholder fyrir max fjolda optiona.
 
 
 def initNav():
-    nav[0][0]="channelchange(val)"        # svona getum vid baett vid functions :D
-    nav[0][1]="tempchange(val, 10)"
-    nav[0][3]="livechange()"
-    nav[0][4]="camerachange()"
-    nav[0][5]="lengdChange(val)"
-    nav[0][6]="FLASHchange(val)"
+    nav[0][0]="globalRelated()"
+    nav[0][1]="channelRelated()"
 
-    nav[1][0]="tempchange(val, navz)"
-    nav[1][1]="skalichange(val,navz)"
+    # globalRelated layer 1
+    nav[1][0]="channelchange(val)"        # svona getum vid baett vid functions :D
+    nav[1][1]="tempchange(val, 10)"
+    nav[1][3]="livechange()"
+    nav[1][4]="camerachange()"
+    nav[1][5]="lengdChange(val)"
+    nav[1][6]="FLASHchange(val)"
+
+    # globalRelated layer 2
+    nav[2][0]="tempchange(val, navz)"
+    nav[2][1]="skalichange(val,navz)"
+
+    # ChannelRelated layer 1
+    # nav[3][0]=
+    # nav[3][1]=
+    # nav[3][2]=
 
 
 def move(i, val):
