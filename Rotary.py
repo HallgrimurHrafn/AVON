@@ -45,7 +45,8 @@ def rotary(channel):
     else:
         cd=False
     if cd:
-        print "yeii", i        # click kom. af rotary <i>.
+        # print "yeii", i        # click kom. af rotary <i>.
+        menu.click(i)
     global cl, cr, lock, fstate, state
     if cl[i] ==GPIO.input(33) and cr[i]==GPIO.input(31):  # erum vid i sama state-i?
         return
@@ -64,8 +65,10 @@ def rotary(channel):
     state[i]=0
     if fstate[i]==1:
         print 'right', i
+        menu.move(i, 1)
     elif fstate[i]==3:
         print 'left', i
+        menu.move(i, -1)
     else:
         print 'eitthvad for urskeidis.', i
 
