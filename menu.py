@@ -26,7 +26,6 @@ fScrollMap[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
 fScrollMap[0][3]="livechange()"
 fScrollMap[0][4]="camerachange()"
 fScrollMap[0][5]="nodelengdChange(val)"
-fScrollMap[0][6]="FLASHchange(val)"
 
 
 # tempchange
@@ -122,10 +121,10 @@ def nodelengdChange(val): # tharf ad adlaga fyrir prosentu
         Main.lengd=Main.lengd+val
         Render.Render()
 
-def FLASHchange(val): # tharf ad adlaga fyrir prosentu
-    if 0<Main.FLASH+val<1:
-        Main.FLASH=Main.FLASH+val
-        Render.Render()
+# def FLASHchange(val): # tharf ad adlaga fyrir prosentu
+#     if 0<Main.FLASH+val<1:
+#         Main.FLASH=Main.FLASH+val
+#         Render.Render()
 
 def skalichange(val,i):
     if 0<i<15:
