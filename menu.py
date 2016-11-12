@@ -20,23 +20,25 @@ fClickMap[:][:]="pass"
 #fScrollMap er map fyrir functions eftir thvi hvar vid erum i menu-inu. scrollfunctions
 fScrollMap=np.chararray((4,8), itemsize=25)
 fScrollMap[:][:]="pass"
-
 fScrollMap[0][0]="tempchange(val, 1)"
 fScrollMap[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
 fScrollMap[0][3]="livechange()"
 fScrollMap[0][4]="camerachange()"
 fScrollMap[0][5]="nodelengdChange(val)"
 
-
 # tempchange
-fScrollMap[2][0]="tempchange(val, 100)"
-fScrollMap[2][1]="tempchange(val, 10)"
-fScrollMap[2][2]="tempchange(val, 1)"
+fScrollMap[1][0]="tempchange(val, 100)"
+fScrollMap[1][1]="tempchange(val, 10)"
+fScrollMap[1][2]="tempchange(val, 1)"
 
-# skalichange
+# skali
+fScrollMap[2][0]="skalarChange(val,1)"
+fScrollMap[2][1]="skalarChange(val,0)"
+
+# customskali
 for x in range (0,8):
-    fScrollMap[3][x]="skalichange(val,"
-    fScrollMap[3][x]+=str(7-x)+")"
+    fScrollMap[4][x]="skalichange(val,"
+    fScrollMap[4][x]+=str(7-x)+")"
 
 # ChannelRelated layer 1
 # fScrollMap[4][0]=
@@ -132,14 +134,5 @@ def skalichange(val,i):
             Main.skali[i]=Main.skali[i]+val
             Render.Render()
 
-# sma documentation
-# um hvad tharf ad gera til ad breyta sumum hlutum i
-# main fallinu til ad fa effect.
-
-
-# stylla lengd notu, prosenta af 1. hversu lengi notan lifir yfir 1 slag.
-# 1.)   Main.lengd=<value>          # 0<value<1.
-#                                   # 0.1 thydir ad notan lifi 90% af timanum.
-
-# stylla lengdina a taktmaelis flashi.
-# 1.)   Main.FLASH=<value>          # 0<value<1, i hlutfalli vid tempo.
+def skalarChange(val,x):
+    pass
