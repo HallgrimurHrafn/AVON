@@ -21,7 +21,7 @@ disp.clear((255,255,255))
 
 # Load and image
 print('Loading image')
-image = Image.open('avon.png')
+image = Image.open('test.png')
 
 # Resize and rotate
 image = image.rotate(90).resize((240,320))
