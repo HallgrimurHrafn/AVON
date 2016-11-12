@@ -2,37 +2,46 @@ import numpy as np
 import Render
 
 # navigation tools.
-navx=0          # visar sem benda a hvar vid erum i nav
+navx=0          # visar sem benda a hvar vid erum
 navy=0
-navz=0          # visir fyrir foll innan i nav.
-navmax_z=np.zeros(('x', 'y'))     # x og y placeholder fyrir max fjolda optiona.
-navmax_x=np.array([3, 2, 5])      # fylki fyrir max x, navmax_x.length=navmax_y
-navmax_y=3                  # max dyppt y. 3 er placeholder.
-nav=np.zeros(('x','y'))     # x og y placeholder fyrir max fjolda optiona.
+
+#fClickMap er map fyrir functions eftir thvi hvar vid erum i menu-inu ef klikkad er.
+fClickMap=np.chararray((4,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
+fClickMap[:][:]="pass"
+
+# multiple lines fyrir exec.
+# x= """
+# blah
+# blah
+# """.
 
 
 
+#fScrollMap er map fyrir functions eftir thvi hvar vid erum i menu-inu. scrollfunctions
+fScrollMap=np.chararray((4,8), itemsize=25)
+fScrollMap[:][:]="pass"
+# globalRelated change
+fScrollMap[1][0]="channelchange(val)"   # svona getum vid baett vid functions :D
+fScrollMap[1][1]="tempchange(val, 5)"
+fScrollMap[1][3]="livechange()"
+fScrollMap[1][4]="camerachange()"
+fScrollMap[1][5]="lengdChange(val)"
+fScrollMap[1][6]="FLASHchange(val)"
 
-def initNav():
-    nav[0][0]="globalRelated()"
-    nav[0][1]="channelRelated()"
+# tempchange
+fScrollMap[2][0]="tempchange(val, 100)"
+fScrollMap[2][1]="tempchange(val, 10)"
+fScrollMap[2][2]="tempchange(val, 1)"
 
-    # globalRelated layer 1
-    nav[1][0]="channelchange(val)"        # svona getum vid baett vid functions :D
-    nav[1][1]="tempchange(val, 10)"
-    nav[1][3]="livechange()"
-    nav[1][4]="camerachange()"
-    nav[1][5]="lengdChange(val)"
-    nav[1][6]="FLASHchange(val)"
+# skalichange
+for x in range (0,8):
+    fScrollMap[3][x]="skalichange(val,"
+    fScrollMap[3][x]+=str(7-x)+")"
 
-    # globalRelated layer 2
-    nav[2][0]="tempchange(val, navz)"
-    nav[2][1]="skalichange(val,navz)"
-
-    # ChannelRelated layer 1
-    # nav[3][0]=
-    # nav[3][1]=
-    # nav[3][2]=
+# ChannelRelated layer 1
+# fScrollMap[4][0]=
+# fScrollMap[4][1]=
+# fScrollMap[4][2]=
 
 
 def move(i, val):
@@ -43,11 +52,11 @@ def move(i, val):
 
 
 def moveHorizontal(val):
-    global navx, navmax_x, navy, navz
+    global navx, navy
     if
 
 def moveVertical(val):
-    global navx, navz,
+    global navx
 
 def click(i):
     if i==1:
@@ -56,22 +65,22 @@ def click(i):
         moveup()
 
 def movedown():
-    global navmax_y, navy
-    if not (navy+1>navmax_y):
-        navy+=1
-        Render.Render()
+    global fClickMap
+    kort(fClickMap)
 
 def moveup():
-    global navy
+    global navx
     if navy-1>0:
-        navy+=1
+        navy-=1
+        navx=oldnavx
         Render.Render()
 
 
-def kort():
-    global navy, navx, nav, navz
-    exec nav(navy, navx)                    # ur nav er fall i streng,
-#                                           # exec breytir i koda og keyrir fallid.
+def kort(matrix):
+    global navy, navx               # matrix er annad hvort nav eda
+    exec matrix[navy][navx]
+    #                               # exec breytir i koda og keyrir fallid.
+
 
 def channelchange(val):
     if 0<=Main.v+val<=15:
@@ -80,8 +89,8 @@ def channelchange(val):
         Render.Render()
 
 
-def tempchange(val):
-    if 0<=Main.tempo+val<=600:
+def tempchange(val, x):
+    if 0<=Main.tempo+val*x<=600:
         Main.taptemp=0
         time.sleep(0.01)
         Main.tempo=Main.tempo+val
