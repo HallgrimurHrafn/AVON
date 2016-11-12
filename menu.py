@@ -20,13 +20,14 @@ fClickMap[:][:]="pass"
 #fScrollMap er map fyrir functions eftir thvi hvar vid erum i menu-inu. scrollfunctions
 fScrollMap=np.chararray((4,8), itemsize=25)
 fScrollMap[:][:]="pass"
-# globalRelated change
-fScrollMap[1][0]="channelchange(val)"   # svona getum vid baett vid functions :D
-fScrollMap[1][1]="tempchange(val, 5)"
-fScrollMap[1][3]="livechange()"
-fScrollMap[1][4]="camerachange()"
-fScrollMap[1][5]="lengdChange(val)"
-fScrollMap[1][6]="FLASHchange(val)"
+
+fScrollMap[0][0]="tempchange(val, 1)"
+fScrollMap[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
+fScrollMap[0][3]="livechange()"
+fScrollMap[0][4]="camerachange()"
+fScrollMap[0][5]="nodelengdChange(val)"
+fScrollMap[0][6]="FLASHchange(val)"
+
 
 # tempchange
 fScrollMap[2][0]="tempchange(val, 100)"
@@ -116,7 +117,7 @@ def camerachange():
     Render.Render()
 
 
-def lengdChange(val): # tharf ad adlaga fyrir prosentu
+def nodelengdChange(val): # tharf ad adlaga fyrir prosentu
     if 0<Main.lengd+val<1:
         Main.lengd=Main.lengd+val
         Render.Render()
