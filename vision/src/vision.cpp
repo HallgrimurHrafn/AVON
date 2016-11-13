@@ -82,10 +82,21 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 		int numObjects = hierarchy.size();
 		for (int i=0; i>=0; i = hierarchy[i][0]){
 			cv:Moments moment = cv::moments((cv::Mat)contours[i]);
-			Z = moment.m00;
-
-			X = moment.m10/Z;
-			Y = moment.m01/Z;
+			int t = moment.m00;
+			if (t > 200) {
+				detected = true;
+				detectCounter = 10;
+				Z = t;
+				X = moment.m10/Z;
+				Y = moment.m01/Z;
+			}
+		}
+	}
+	if (detected) {
+		detectCounter = detectCounter--;
+		if (detectCounter <= 0) {
+			detected = false;
+			detectCounter = 0;
 		}
 	}
 }
