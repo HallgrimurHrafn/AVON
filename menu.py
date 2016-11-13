@@ -100,12 +100,7 @@ def initClick():
     oldnavx=navx
     navx=0
     navy=4 """
-    fClickMap[2][0]="""
-    oldnavx=navx
-    navx=0
-    navy=3
-    """
-    fClickMap[2][1]=fClickMap[2][0]
+    fClickMap[2][1]=
 
 def move(i, val):
     if i==1:
