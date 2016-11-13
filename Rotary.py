@@ -34,6 +34,8 @@ GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 # GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
 # GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 
+
+
 def rotary(channel):
     if channel==31 or channel==33 or channel==35:  # hvada rotary er ad senda.
         i=0

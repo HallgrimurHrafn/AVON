@@ -7,16 +7,19 @@ navx=0
 navy=0
 oldnavx=0
 
+#
+
+
 #fClickMap er function map fyrir click.
-fClickMap=np.chararray((4,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
+fClickMap=np.chararray((5,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
 fClickMap[:][:]="pass"
 
 #fScrollMapY er function map fyrir scroll y
-fScrollMapY=np.chararray((4,8), itemsize=25)
+fScrollMapY=np.chararray((5,8), itemsize=25)
 fScrollMapY[:][:]="pass"
 
 #fScrollMapX er function map fyrir scroll x
-fScrollMapX=np.chararray((4,8), itemsize=25)
+fScrollMapX=np.chararray((5,8), itemsize=25)
 fScrollMapX[:][:]="pass"
 
 
