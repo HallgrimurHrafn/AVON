@@ -1,13 +1,21 @@
 import numpy as np
 import Render
 
-# navigation tools.
-navx=0          # visar sem benda a hvar vid erum
+# navigation tools. navx og navy eru stadsetningarnar okkar i function maps.
+navx=0
 navy=0
 
-#fClickMap er map fyrir functions eftir thvi hvar vid erum i menu-inu ef klikkad er.
+#fClickMap er function map fyrir click.
 fClickMap=np.chararray((4,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
 fClickMap[:][:]="pass"
+
+#fScrollMapY er function map fyrir scroll y
+fScrollMapY=np.chararray((4,8), itemsize=25)
+fScrollMapY[:][:]="pass"
+
+#fScrollMapX er function map fyrir scroll x
+fScrollMapX=np.chararray((4,8), itemsize=25)
+fScrollMapX[:][:]="pass"
 
 # multiple lines fyrir exec.
 # x= """
@@ -15,35 +23,36 @@ fClickMap[:][:]="pass"
 # blah
 # """.
 
+def initScrollY():
+    fScrollMapY[0][0]="tempchange(val, 1)"
+    fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
+    fScrollMapY[0][3]="livechange()"
+    fScrollMapY[0][4]="camerachange()"
+    fScrollMapY[0][5]="nodelengdChange(val)"
+    fScrollMapY[0][6]="barChange(val)"
+
+    # tempchange
+    fScrollMapY[1][0]="tempchange(val, 100)"
+    fScrollMapY[1][1]="tempchange(val, 10)"
+    fScrollMapY[1][2]="tempchange(val, 1)"
+
+    # skali
+    fScrollMapY[2][0]="skalarChange(val,1)"
+    fScrollMapY[2][1]="skalarChange(val,0)"
+
+    # customskali
+    for x in range (0,8):
+        fScrollMapY[3][x]="skalichange(val,"
+        fScrollMapY[3][x]+=str(7-x)+")"
 
 
-#fScrollMap er map fyrir functions eftir thvi hvar vid erum i menu-inu. scrollfunctions
-fScrollMap=np.chararray((4,8), itemsize=25)
-fScrollMap[:][:]="pass"
-fScrollMap[0][0]="tempchange(val, 1)"
-fScrollMap[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
-fScrollMap[0][3]="livechange()"
-fScrollMap[0][4]="camerachange()"
-fScrollMap[0][5]="nodelengdChange(val)"
+    fScrollMapY[4][0]="camerablah"
 
-# tempchange
-fScrollMap[1][0]="tempchange(val, 100)"
-fScrollMap[1][1]="tempchange(val, 10)"
-fScrollMap[1][2]="tempchange(val, 1)"
 
-# skali
-fScrollMap[2][0]="skalarChange(val,1)"
-fScrollMap[2][1]="skalarChange(val,0)"
+def initScrollX():
 
-# customskali
-for x in range (0,8):
-    fScrollMap[4][x]="skalichange(val,"
-    fScrollMap[4][x]+=str(7-x)+")"
 
-# ChannelRelated layer 1
-# fScrollMap[4][0]=
-# fScrollMap[4][1]=
-# fScrollMap[4][2]=
+def initClick():
 
 
 def move(i, val):
@@ -135,4 +144,7 @@ def skalichange(val,i):
             Render.Render()
 
 def skalarChange(val,x):
+    pass
+
+def barChange(val):
     pass
