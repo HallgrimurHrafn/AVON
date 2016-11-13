@@ -17,6 +17,7 @@ skalar=np.chararray(3, itemsize=10)
 skalar[0]="Main.skali=np.array([note+12, note+11, note+9, note+7, note+5, note+4, note+2,note])"
 skalar[1]="Main.skali=np.array([note+12, note+10, note+8, note+7, note+5, note+3, note+2,note])"
 skalar[2]="Main.skali=np.array([note+17, note+15, note+12, note+10, note+7, note+5, note+3, note])"
+skalar[3]="pass"   # custom skali
 custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
 cs=[]
 #fClickMap er function map fyrir click.
@@ -64,11 +65,15 @@ def initScrollY():
 def initScrollX():
     low="""
     if val==1:
-        navx+=val """
+        navx+=val
+        Render.Render()"""
     high="""
     if val==-1:
-        navx+=val """
-    default="navx+=val"
+        navx+=val
+        Render.Render()"""
+    default="""
+    navx+=val
+    Render.Render()"""
     fScrollMapX[0][0]=low
     fScrollMapX[0][1]=default
     fScrollMapX[0][2]=default
@@ -103,18 +108,19 @@ def initClick():
     fClickMap[0][0]="""
     oldnavx=navx
     navx=0
-    navy=1 """
+    navy=1
+    Render.Render()"""
     fClickMap[0][2]="""
     oldnavx=navx
     navx=0
-    navy=2 """
+    navy=2
+    Render.Render()"""
     fClickMap[0][4]="""
     oldnavx=navx
     navx=0
-    navy=4 """
-    fClickMap[2][1]="""
-
-    """
+    navy=4
+    Render.Render()"""
+    fClickMap[2][1]="customsetup()"
 
 def move(i, val):
     global fScrollMapX, fScrollMapY
@@ -143,7 +149,7 @@ def moveup():
 
 
 def kort(matrix,val):
-    global navy, navx, oldnavx               # matrix er annad hvort nav eda
+    global navy, navx, oldnavx     # matrix er annad hvort nav eda
     exec matrix[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
 
@@ -187,6 +193,7 @@ def camera(val, xyz):
         pass
     elif xyz==2:    # z
         pass
+    Render.Render()
 
 def nodelengdChange(val):
     val=float(val/20)
@@ -200,18 +207,17 @@ def nodelengdChange(val):
 #         Render.Render()
 
 
-def editskali(val,i):
-
-    pass
-
-
 #create new custom scale.
 def nyrskali():
     global note, es, cs, custom, skalar
     note=custom[7]
     for i in range (0,7):
         custom[i]=custom[i]-note
-    cs=np.append(cs,custom.copy())
+    if es !=0:
+        # cs=np.append(cs[:es*8].copy(), custom.copy(), cs[es*8+8:].copy())
+        es=0
+    else:
+        cs=np.append(cs, custom.copy())
     v=""
     for i in range (0,7):
         v+="note + "+str(custom[i])+", "
@@ -232,8 +238,19 @@ def skalarChange(val,x):
             note+=value
     elif x==0:
         currentscale=(currentscale+val)%skalar.size
-    exec skalar[currentscale]
+    if currentscale!=2:
+        exec skalar[currentscale]
     Render.Render()
+
+def customsetup():
+    global currentscale, es, navy, navx, oldnavx, custom, skalar
+    if currentscale>2:
+        es=currentscale-3
+        navy=3
+        oldnavx=navx
+        navx=0
+        if es>0:
+            custom=cs[(es-1)*8:(es-1)*8+8]
 
 def barChange(val):
     x=math.pow(2,val)
