@@ -1,5 +1,6 @@
 import numpy as np
 import Render
+import Main
 
 # navigation tools. navx og navy eru stadsetningarnar okkar i function maps.
 navx=0
@@ -18,15 +19,11 @@ fScrollMapY[:][:]="pass"
 fScrollMapX=np.chararray((4,8), itemsize=25)
 fScrollMapX[:][:]="pass"
 
-# multiple lines fyrir exec.
-# x= """
-# blah
-# blah
-# """.
 
 def initScrollY():
     fScrollMapY[0][0]="tempchange(val, 1)"
     fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
+    fScrollMapX[0][2]="pass"  #skali
     fScrollMapY[0][3]="livechange()"
     fScrollMapY[0][4]="camerachange()"
     fScrollMapY[0][5]="nodelengdChange(val)"
@@ -51,7 +48,7 @@ def initScrollY():
     fScrollMapY[4][1]="cameraMode(val,1)"
     fScrollMapY[4][2]="cameraMode(val,2)"
 
-
+# fScrollMapX initialization starts
 def initScrollX():
     low="""
     if val==1:
@@ -85,11 +82,30 @@ def initScrollX():
     fScrollMapX[3][7]=high
 
     fScrollMapX[4][0]=low
+    fScrollMapX[4][0]=default
     fScrollMapX[4][0]=high
+# fScrollMapX initialization ends
 
 
 def initClick():
-
+    fClickMap[0][0]="""
+    oldnavx=navx
+    navx=0
+    navy=1 """
+    fClickMap[0][2]="""
+    oldnavx=navx
+    navx=0
+    navy=2 """
+    fClickMap[0][4]="""
+    oldnavx=navx
+    navx=0
+    navy=4 """
+    fClickMap[2][0]="""
+    oldnavx=navx
+    navx=0
+    navy=3
+    """
+    fClickMap[2][1]=fClickMap[2][0]
 
 def move(i, val):
     if i==1:
@@ -123,7 +139,7 @@ def moveup():
 
 
 def kort(matrix,val):
-    global navy, navx               # matrix er annad hvort nav eda
+    global navy, navx, oldnavx               # matrix er annad hvort nav eda
     exec matrix[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
 
