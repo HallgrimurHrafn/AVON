@@ -4,6 +4,7 @@ import Render
 # navigation tools. navx og navy eru stadsetningarnar okkar i function maps.
 navx=0
 navy=0
+oldnavx=0
 
 #fClickMap er function map fyrir click.
 fClickMap=np.chararray((4,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
@@ -46,10 +47,45 @@ def initScrollY():
         fScrollMapY[3][x]+=str(7-x)+")"
 
 
-    fScrollMapY[4][0]="camerablah"
+    fScrollMapY[4][0]="cameraMode(val,0)"
+    fScrollMapY[4][1]="cameraMode(val,1)"
+    fScrollMapY[4][2]="cameraMode(val,2)"
 
 
 def initScrollX():
+    low="""
+    if val==1:
+        navx+=val """
+    high="""
+    if val==-1:
+        navx+=val """
+    default="navx+=val"
+    fScrollMapX[0][0]=low
+    fScrollMapX[0][1]=default
+    fScrollMapX[0][2]=default
+    fScrollMapX[0][3]=default
+    fScrollMapX[0][4]=default
+    fScrollMapX[0][5]=default
+    fScrollMapX[0][6]=high
+
+    fScrollMapX[1][0]=low
+    fScrollMapX[1][2]=default
+    fScrollMapX[1][3]=high
+
+    fScrollMapX[2][0]=low
+    fScrollMapX[2][1]=high
+
+    fScrollMapX[3][0]=low
+    fScrollMapX[3][1]=default
+    fScrollMapX[3][2]=default
+    fScrollMapX[3][3]=default
+    fScrollMapX[3][4]=default
+    fScrollMapX[3][5]=default
+    fScrollMapX[3][6]=default
+    fScrollMapX[3][7]=high
+
+    fScrollMapX[4][0]=low
+    fScrollMapX[4][0]=high
 
 
 def initClick():
@@ -63,31 +99,30 @@ def move(i, val):
 
 
 def moveHorizontal(val):
-    global navx, navy
-    if
+    global navx, navy, nav
+    if navx+val>=0:
+        if nav[navy][navx+val]
 
 def moveVertical(val):
     global navx
 
 def click(i):
+    global fClickMap
     if i==1:
-        movedown()
+        kort(fClickMap,0)
     else:
         moveup()
 
-def movedown():
-    global fClickMap
-    kort(fClickMap)
 
 def moveup():
-    global navx
+    global navx, oldnavx
     if navy-1>0:
         navy-=1
         navx=oldnavx
         Render.Render()
 
 
-def kort(matrix):
+def kort(matrix,val):
     global navy, navx               # matrix er annad hvort nav eda
     exec matrix[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
