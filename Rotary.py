@@ -25,14 +25,14 @@ l=np.array([33, "placeholder"])    # vantar gpio channel fyrir rotary 2.
 r=np.array([31, "placeholder"])
 
 # rotary 1
-GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
-GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
-GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
+GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 # rotary 2
-# GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
-# GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
-# GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
+GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 
 

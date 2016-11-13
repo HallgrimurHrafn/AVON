@@ -7,9 +7,14 @@ navx=0
 navy=0
 oldnavx=0
 
-#
-
-
+# skalar related
+note=60
+currentscale=0      #0= dur, 1=moll, 2=penta, 3,4,5.... =customs 1,2,3....
+skalar=np.chararray(3, itemsize=10)
+skalar[0]="Main.skali=np.array([note+12, note+11, note+9, note+7, note+5, note+4, note+2,note])"
+skalar[1]="Main.skali=np.array([note+12, note+10, note+8, note+7, note+5, note+3, note+2,note])"
+skalar[2]="Main.skali=np.array([note+17, note+15, note+12, note+10, note+7, note+5, note+3, note])"
+custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
 #fClickMap er function map fyrir click.
 fClickMap=np.chararray((5,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
 fClickMap[:][:]="pass"
@@ -26,7 +31,7 @@ fScrollMapX[:][:]="pass"
 def initScrollY():
     fScrollMapY[0][0]="tempchange(val, 1)"
     fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
-    fScrollMapX[0][2]="pass"  #skali
+    #skali fScrollMapX[0][2]
     fScrollMapY[0][3]="livechange()"
     fScrollMapY[0][4]="camerachange()"
     fScrollMapY[0][5]="nodelengdChange(val)"
@@ -43,7 +48,7 @@ def initScrollY():
 
     # customskali
     for x in range (0,8):
-        fScrollMapY[3][x]="skalichange(val,"
+        fScrollMapY[3][x]="customskali(val,"
         fScrollMapY[3][x]+=str(7-x)+")"
 
 
@@ -103,7 +108,9 @@ def initClick():
     oldnavx=navx
     navx=0
     navy=4 """
-    fClickMap[2][1]=
+    fClickMap[2][1]="""
+
+    """
 
 def move(i, val):
     if i==1:
@@ -186,14 +193,20 @@ def nodelengdChange(val): # tharf ad adlaga fyrir prosentu
 #         Main.FLASH=Main.FLASH+val
 #         Render.Render()
 
-def skalichange(val,i):
-    if 0<i<15:
-        if 0<=Main.skali[i]+val<128:
-            Main.skali[i]=Main.skali[i]+val
-            Render.Render()
+def customskali(val,i):
+    if 0<=custom[i]+val<=127:
+        custom[i]+=val
+        skalarChange(1, 2)
 
 def skalarChange(val,x):
-    pass
+    global note, currentscale, skalar
+    if x==1:
+        if 0<=note+value<=127:
+            note+=value
+    elif x==0:
+        currentscale=(currentscale+val)%skalar.size
+    exec skalar[currentscale]
+    Render.Render()
 
 def barChange(val):
     pass
