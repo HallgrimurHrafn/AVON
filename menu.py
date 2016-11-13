@@ -1,6 +1,7 @@
 import numpy as np
 import Render
 import Main
+import math
 
 # navigation tools. navx og navy eru stadsetningarnar okkar i function maps.
 navx=0
@@ -178,12 +179,19 @@ def camerachange():
         Main.cGO=0
     else:
         Main.cGO=1
-
     # forrit sem uppfaerir cameramod
     Render.Render()
 
+def camera(val, xyz):
+    if xyz==0:      # x
+        pass
+    elif xyz==1:    # y
+        pass
+    elif xyz==2:    # z
+        pass
 
-def nodelengdChange(val): # tharf ad adlaga fyrir prosentu
+def nodelengdChange(val):
+    val=float(val/20)
     if 0<Main.lengd+val<1:
         Main.lengd=Main.lengd+val
         Render.Render()
@@ -209,4 +217,7 @@ def skalarChange(val,x):
     Render.Render()
 
 def barChange(val):
-    pass
+    x=math.pow(2,val)
+    if 60/float(Main.tempo)/float(x*Main.bar/4):
+        Main.bar*=x
+        Render.Render()

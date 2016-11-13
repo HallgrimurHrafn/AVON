@@ -41,7 +41,6 @@ period = []
 
 # menu
 taptemp = 1                     # hvort taptempo se virkt
-partur = 2                      # 1= 4du part, 2 = 8 parts, 4=16 parts.
 v = 0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 1                         # ef lgo=1 tha erum vid i life mode.
@@ -53,6 +52,7 @@ timi = 0.5  # 0.05 er min.     #timi
 tempo = 120
 FLASH = 0.9                     # hlutfallsleg lengd af timi fyrir taktmaeli
 lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
+bar=8                           #8=8parts, 4=4parts...
 # save einhvern veginn              notna i samliggjandi dalkum.
 # load einhvern veginn
 
@@ -167,7 +167,7 @@ def Sequencer():
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
-                timi = 60/float(tempo)/partur
+                timi = 60/float(tempo)/float(bar/4)
                 while pause == 1:
                     time.sleep(0.1)
                     if stop == 1:
