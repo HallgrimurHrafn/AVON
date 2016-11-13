@@ -207,7 +207,7 @@ def nodelengdChange(val):
 #         Render.Render()
 
 
-#create new custom scale.
+#create new custom scale. thegar vid forum til baka i menu.
 def nyrskali():
     global note, es, cs, custom, skalar
     note=custom[7]
