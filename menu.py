@@ -9,13 +9,16 @@ navy=0
 oldnavx=0
 
 # skalar related
+es=0                #edit skali, es=1 fyrir custom skala 1, es=2 fyrir customskala 2....
 note=60
 currentscale=0      #0= dur, 1=moll, 2=penta, 3,4,5.... =customs 1,2,3....
+# ef currentscale >2 ma gera adgerd i custom.
 skalar=np.chararray(3, itemsize=10)
 skalar[0]="Main.skali=np.array([note+12, note+11, note+9, note+7, note+5, note+4, note+2,note])"
 skalar[1]="Main.skali=np.array([note+12, note+10, note+8, note+7, note+5, note+3, note+2,note])"
 skalar[2]="Main.skali=np.array([note+17, note+15, note+12, note+10, note+7, note+5, note+3, note])"
 custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
+cs=[]
 #fClickMap er function map fyrir click.
 fClickMap=np.chararray((5,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
 fClickMap[:][:]="pass"
@@ -114,19 +117,12 @@ def initClick():
     """
 
 def move(i, val):
+    global fScrollMapX, fScrollMapY
     if i==1:
-        moveHorizontal(val)
+        kort(fScrollMapX,val)
     else:
-        moveVertical(val)
+        kort(fScrollMapY,val)
 
-
-def moveHorizontal(val):
-    global navx, navy, nav
-    if navx+val>=0:
-        if nav[navy][navx+val]
-
-def moveVertical(val):
-    global navx
 
 def click(i):
     global fClickMap
@@ -137,7 +133,9 @@ def click(i):
 
 
 def moveup():
-    global navx, oldnavx
+    global navx, oldnavx, navy
+    if navy=3:
+        nyrskali()
     if navy-1>0:
         navy-=1
         navx=oldnavx
@@ -200,6 +198,27 @@ def nodelengdChange(val):
 #     if 0<Main.FLASH+val<1:
 #         Main.FLASH=Main.FLASH+val
 #         Render.Render()
+
+
+def editskali(val,i):
+
+    pass
+
+
+#create new custom scale.
+def nyrskali():
+    global note, es, cs, custom, skalar
+    note=custom[7]
+    for i in range (0,7):
+        custom[i]=custom[i]-note
+    cs=np.append(cs,custom.copy())
+    v=""
+    for i in range (0,7):
+        v+="note + "+str(custom[i])+", "
+    v+="note"
+    x="Main.skali=np.array(["+v+"])"
+    skalar=np.append(skalar,x)
+    custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
 
 def customskali(val,i):
     if 0<=custom[i]+val<=127:
