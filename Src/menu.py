@@ -146,7 +146,7 @@ def click(i):
 
 def moveup():
     global navx, oldnavx, navy
-    if navy=3:
+    if navy==3:
         nyrskali()
         navy=2
         navx=oldnavx2
