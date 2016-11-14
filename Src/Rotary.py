@@ -10,6 +10,10 @@ import numpy as np
 GPIO.setmode(GPIO.BOARD)
 # rotary haegri tengt i gpio 33 og vinstri i 31.
 
+menu.initScrollY()
+menu.initScrollX()
+menu.initClick()
+
 # Clockwise:
 # 0,0 : state 0
 # 1,0 : state 1
