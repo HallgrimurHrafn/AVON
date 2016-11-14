@@ -162,7 +162,7 @@ def channelchange(val):
 
 
 def tempchange(val, x):
-    if 0<=Main.tempo+val*x<=600:
+    if 60/float(Main.tempo+val*x)/float(Main.bar/4)>=0.05:
         Main.taptemp=0
         time.sleep(0.01)
         Main.tempo=Main.tempo+val
@@ -209,7 +209,7 @@ def nodelengdChange(val):
 
 #create new custom scale. thegar vid forum til baka i menu.
 def nyrskali():
-    global note, es, cs, custom, skalar
+    global note, es, cs, custom, skalar, currentscale
     note=custom[7]
     for i in range (0,7):
         custom[i]=custom[i]-note
@@ -223,13 +223,23 @@ def nyrskali():
         v+="note + "+str(custom[i])+", "
     v+="note"
     x="Main.skali=np.array(["+v+"])"
-    skalar=np.append(skalar,x)
-    custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
+    if currentscale==3:
+        skalar=np.append(skalar,x)
+        currentscale=skalar.size-1
+    elif currentscale>3:
+        skalar[currentscale]=x
+    exec x
+    Render.Render()
 
 def customskali(val,i):
     if 0<=custom[i]+val<=127:
         custom[i]+=val
-        skalarChange(1, 2)
+        v=np.array([custom[0]])
+        for x in range (1,8):
+            v=np.append(v,[custom[x]])
+        Main.skali=v
+        Render.Render()
+
 
 def skalarChange(val,x):
     global note, currentscale, skalar
@@ -243,7 +253,7 @@ def skalarChange(val,x):
     Render.Render()
 
 def customsetup():
-    global currentscale, es, navy, navx, oldnavx, custom, skalar
+    global currentscale, es, navy, navx, oldnavx, custom, skalar, note
     if currentscale>2:
         es=currentscale-3
         navy=3
@@ -251,9 +261,11 @@ def customsetup():
         navx=0
         if es>0:
             custom=cs[(es-1)*8:(es-1)*8+8]
+        else:
+            custom=np.array([note, note, note, note, note, note, note, note])
 
 def barChange(val):
     x=math.pow(2,val)
-    if 60/float(Main.tempo)/float(x*Main.bar/4):
+    if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
         Main.bar*=x
         Render.Render()
