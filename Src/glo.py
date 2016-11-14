@@ -1,5 +1,11 @@
 import numpy as np
 
+
+# menu
+taptemp = 1                     # hvort taptempo se virkt
+v = 0                           # styring fyrir hvada voice vid aetlum a fara i.
+
+
 #fScrollMapY er function map fyrir scroll y
 
 #fScrollMapX er function map fyrir scroll x
