@@ -37,12 +37,13 @@ GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 
 def rotary(channel):
+    global cl, cr, fstate, state
     if channel==33 or channel==35 or channel==37:  # hvada rotary er ad senda.
         i=0  # rotary 1
     else:
         i=1  # rotary 2
     # placeholder verdur gpio fyrir rotary 2 click channel
-    if channel==37 or channel == 32
+    if channel==37 or channel == 32:
         cd=True
     else:
         cd=False
