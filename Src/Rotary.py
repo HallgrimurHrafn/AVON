@@ -95,35 +95,33 @@ GPIO.add_event_detect(32, GPIO.RISING, callback=rotary, bouncetime=100)
 
 
 def initScrollY():
-    fScrollMapY=np.chararray((5,8), itemsize=25)
-    fScrollMapY[:][:]="pass"
-    fScrollMapY[0][0]="tempchange(val, 1)"
-    fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
+    menu.fScrollMapY[:][:]="pass"
+    menu.fScrollMapY[0][0]="tempchange(val, 1)"
+    menu.fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
     #skali fScrollMapX[0][2]
-    fScrollMapY[0][3]="livechange()"
-    fScrollMapY[0][4]="camerachange()"
-    fScrollMapY[0][5]="notelengdChange(val)"
-    fScrollMapY[0][6]="barChange(val)"
+    menu.fScrollMapY[0][3]="livechange()"
+    menu.fScrollMapY[0][4]="camerachange()"
+    menu.fScrollMapY[0][5]="notelengdChange(val)"
+    menu.fScrollMapY[0][6]="barChange(val)"
 
     # tempchange
-    fScrollMapY[1][0]="tempchange(val, 100)"
-    fScrollMapY[1][1]="tempchange(val, 10)"
-    fScrollMapY[1][2]="tempchange(val, 1)"
+    menu.fScrollMapY[1][0]="tempchange(val, 100)"
+    menu.fScrollMapY[1][1]="tempchange(val, 10)"
+    menu.fScrollMapY[1][2]="tempchange(val, 1)"
 
     # skali
-    fScrollMapY[2][0]="skalarChange(val,1)"
-    fScrollMapY[2][1]="skalarChange(val,0)"
+    menu.fScrollMapY[2][0]="skalarChange(val,1)"
+    menu.fScrollMapY[2][1]="skalarChange(val,0)"
 
     # customskali
     for x in range (0,8):
-        fScrollMapY[3][x]="customskali(val,"
-        fScrollMapY[3][x]+=str(7-x)+")"
+        menu.fScrollMapY[3][x]="customskali(val,"
+        menu.fScrollMapY[3][x]+=str(7-x)+")"
 
 
-    fScrollMapY[4][0]="cameraMode(val,0)"
-    fScrollMapY[4][1]="cameraMode(val,1)"
-    fScrollMapY[4][2]="cameraMode(val,2)"
-    menu.fScrollMapY=fScrollMapY
+    menu.fScrollMapY[4][0]="cameraMode(val,0)"
+    menu.fScrollMapY[4][1]="cameraMode(val,1)"
+    menu.fScrollMapY[4][2]="cameraMode(val,2)"
 
 # fScrollMapX initialization starts
 def initScrollX():
