@@ -79,7 +79,8 @@ def rotary(channel):
         # print 'left', i
         menu.move(i, -1)
     else:
-        print 'eitthvad for urskeidis.', i
+        return
+        # print 'eitthvad for urskeidis.', i
 
 # rotary 1
 GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary)
