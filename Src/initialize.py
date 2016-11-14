@@ -2,10 +2,10 @@ import subprocess
 import threading
 import time
 
-def rot(channel):
+def rot():
     subprocess.call(['python', 'Rotary.py'])
 
-def main(channel):
+def main():
     subprocess.call(['python', 'Main.py'])
 
 t1=threading.Thread(target=rot)
