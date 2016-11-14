@@ -1,6 +1,7 @@
 import numpy as np
 import Render
 import Main
+import time
 import math
 
 ## TODO:
@@ -193,3 +194,6 @@ def barChange(val):
     if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
         Main.bar*=x
         Render.Render()
+
+while True:
+    time.sleep(10)

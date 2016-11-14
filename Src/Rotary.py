@@ -2,12 +2,15 @@ import RPi.GPIO as GPIO
 import time
 import threading
 # import Main
-import menu
 import numpy as np
 
+def menuf():
+    import menu
+t=threading.Thread(target=menuf)
+t.start()
+
+
 GPIO.setmode(GPIO.BOARD)
-
-
 # rotary haegri tengt i gpio 33 og vinstri i 31.
 
 # Clockwise:
