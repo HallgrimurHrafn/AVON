@@ -91,6 +91,6 @@ GPIO.add_event_detect(29, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(32, GPIO.RISING, callback=rotary, bouncetime=100)
 
-
-while True:
-    time.sleep(10)
+# 
+# while True:
+#     time.sleep(10)
