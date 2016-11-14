@@ -3,10 +3,11 @@ import threading
 import time
 
 def main():
-    subprocess.call(['python', 'Main.py'])
+    subprocess.call(['python', 'initMain.py'])
 
 def rot():
     subprocess.call(['python', 'Rotary.py'])
+
 t1=threading.Thread(target=rot)
 t1.start()
 t2=threading.Thread(target=main)
