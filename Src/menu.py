@@ -3,6 +3,7 @@ import Render
 import Main
 import time
 import math
+import functionMaps
 
 ## TODO:
 # custom skali ad bua til note midad vid grunnton eda vid global breytuna note.
@@ -41,7 +42,6 @@ fScrollMapX[:][:]="pass"
 
 
 def initScrollY():
-    global fScrollMapY
     fScrollMapY[:][:]="pass"
     fScrollMapY[0][0]="tempchange(val, 1)"
     fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D

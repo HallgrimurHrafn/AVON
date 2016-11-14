@@ -46,6 +46,7 @@ clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
+newskali=np.array([72, 71, 69, 67, 65, 64, 62, 60])
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
 timi = 0.5  # 0.05 er min.     #timi
@@ -163,11 +164,12 @@ def tfOut(a):
 
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
-    global dlk, pause, stop, timi, tempo, partur                    # til ad halda utanum hvar vid erum.
+    global dlk, pause, stop, timi, tempo, partur, skali, newskali                    # til ad halda utanum hvar vid erum.
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 timi = 60/float(tempo)/float(bar/4)
+                skali=newskali.copy()
                 while pause == 1:
                     time.sleep(0.1)
                     if stop == 1:
