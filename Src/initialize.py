@@ -2,7 +2,7 @@ import subprocess
 import threading
 import time
 import Rotary
-import Main
+# import Main
 
 # def main():
 #     subprocess.call(['python', 'Main.py'])
