@@ -40,94 +40,94 @@ fScrollMapX[:][:]="pass"
 
 
 
-def initScrollY():
-    fScrollMapY[0][0]="tempchange(val, 1)"
-    fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
-    #skali fScrollMapX[0][2]
-    fScrollMapY[0][3]="livechange()"
-    fScrollMapY[0][4]="camerachange()"
-    fScrollMapY[0][5]="notelengdChange(val)"
-    fScrollMapY[0][6]="barChange(val)"
+# def initScrollY():
+fScrollMapY[0][0]="tempchange(val, 1)"
+fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
+#skali fScrollMapX[0][2]
+fScrollMapY[0][3]="livechange()"
+fScrollMapY[0][4]="camerachange()"
+fScrollMapY[0][5]="notelengdChange(val)"
+fScrollMapY[0][6]="barChange(val)"
 
-    # tempchange
-    fScrollMapY[1][0]="tempchange(val, 100)"
-    fScrollMapY[1][1]="tempchange(val, 10)"
-    fScrollMapY[1][2]="tempchange(val, 1)"
+# tempchange
+fScrollMapY[1][0]="tempchange(val, 100)"
+fScrollMapY[1][1]="tempchange(val, 10)"
+fScrollMapY[1][2]="tempchange(val, 1)"
 
-    # skali
-    fScrollMapY[2][0]="skalarChange(val,1)"
-    fScrollMapY[2][1]="skalarChange(val,0)"
+# skali
+fScrollMapY[2][0]="skalarChange(val,1)"
+fScrollMapY[2][1]="skalarChange(val,0)"
 
-    # customskali
-    for x in range (0,8):
-        fScrollMapY[3][x]="customskali(val,"
-        fScrollMapY[3][x]+=str(7-x)+")"
+# customskali
+for x in range (0,8):
+    fScrollMapY[3][x]="customskali(val,"
+    fScrollMapY[3][x]+=str(7-x)+")"
 
 
-    fScrollMapY[4][0]="cameraMode(val,0)"
-    fScrollMapY[4][1]="cameraMode(val,1)"
-    fScrollMapY[4][2]="cameraMode(val,2)"
+fScrollMapY[4][0]="cameraMode(val,0)"
+fScrollMapY[4][1]="cameraMode(val,1)"
+fScrollMapY[4][2]="cameraMode(val,2)"
 
 # fScrollMapX initialization starts
-def initScrollX():
-    low="""
-    if val==1:
-        navx+=val
-        Render.Render()"""
-    high="""
-    if val==-1:
-        navx+=val
-        Render.Render()"""
-    default="""
+# def initScrollX():
+low="""
+if val==1:
     navx+=val
     Render.Render()"""
-    fScrollMapX[0][0]=low
-    fScrollMapX[0][1]=default
-    fScrollMapX[0][2]=default
-    fScrollMapX[0][3]=default
-    fScrollMapX[0][4]=default
-    fScrollMapX[0][5]=default
-    fScrollMapX[0][6]=high
+high="""
+if val==-1:
+    navx+=val
+    Render.Render()"""
+default="""
+navx+=val
+Render.Render()"""
+fScrollMapX[0][0]=low
+fScrollMapX[0][1]=default
+fScrollMapX[0][2]=default
+fScrollMapX[0][3]=default
+fScrollMapX[0][4]=default
+fScrollMapX[0][5]=default
+fScrollMapX[0][6]=high
 
-    fScrollMapX[1][0]=low
-    fScrollMapX[1][2]=default
-    fScrollMapX[1][3]=high
+fScrollMapX[1][0]=low
+fScrollMapX[1][2]=default
+fScrollMapX[1][3]=high
 
-    fScrollMapX[2][0]=low
-    fScrollMapX[2][1]=high
+fScrollMapX[2][0]=low
+fScrollMapX[2][1]=high
 
-    fScrollMapX[3][0]=low
-    fScrollMapX[3][1]=default
-    fScrollMapX[3][2]=default
-    fScrollMapX[3][3]=default
-    fScrollMapX[3][4]=default
-    fScrollMapX[3][5]=default
-    fScrollMapX[3][6]=default
-    fScrollMapX[3][7]=high
+fScrollMapX[3][0]=low
+fScrollMapX[3][1]=default
+fScrollMapX[3][2]=default
+fScrollMapX[3][3]=default
+fScrollMapX[3][4]=default
+fScrollMapX[3][5]=default
+fScrollMapX[3][6]=default
+fScrollMapX[3][7]=high
 
-    fScrollMapX[4][0]=low
-    fScrollMapX[4][0]=default
-    fScrollMapX[4][0]=high
+fScrollMapX[4][0]=low
+fScrollMapX[4][0]=default
+fScrollMapX[4][0]=high
 # fScrollMapX initialization ends
 
 
-def initClick():
-    fClickMap[0][0]="""
-    oldnavx=navx
-    navx=0
-    navy=1
-    Render.Render()"""
-    fClickMap[0][2]="""
-    oldnavx=navx
-    navx=0
-    navy=2
-    Render.Render()"""
-    fClickMap[0][4]="""
-    oldnavx=navx
-    navx=0
-    navy=4
-    Render.Render()"""
-    fClickMap[2][1]="customsetup()"
+# def initClick():
+fClickMap[0][0]="""
+oldnavx=navx
+navx=0
+navy=1
+Render.Render()"""
+fClickMap[0][2]="""
+oldnavx=navx
+navx=0
+navy=2
+Render.Render()"""
+fClickMap[0][4]="""
+oldnavx=navx
+navx=0
+navy=4
+Render.Render()"""
+fClickMap[2][1]="customsetup()"
 
 def move(i, val):
     global fScrollMapX, fScrollMapY
