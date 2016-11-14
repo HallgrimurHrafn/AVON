@@ -219,7 +219,7 @@ def tw():
     global voice, status, tStatus
     status=tStatus.copy()
     ledshow(status[voice][:][:])
-    GPIO.add_event_detect(37, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
+    GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
 # tw ends.
 
 
