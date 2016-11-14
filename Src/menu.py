@@ -195,5 +195,9 @@ def barChange(val):
         Main.bar*=x
         Render.Render()
 
-while True:
-    time.sleep(10)
+def init():
+    initScrollY()
+    initScrollX()
+    initClick()
+    while True:
+        time.sleep(10)
