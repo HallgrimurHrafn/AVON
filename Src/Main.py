@@ -526,12 +526,6 @@ def init():
     trellis.writeDisplay()
     trellis.readSwitches()
 
-
-    status[voice][0][0]=1
-    status[voice][1][1]=1
-    status[voice][2][2]=1
-    status[voice][3][3]=1
-    status[voice][4][4]=1
     tStatus=status.copy()
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
