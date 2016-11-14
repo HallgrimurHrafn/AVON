@@ -28,7 +28,7 @@ skalar[3]="pass"   # custom skali
 custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
 cs=[]
 #fClickMap er function map fyrir click.
-fClickMap=np.chararray((5,8), itemsize=25)         # max 25 stafir.. haegt ad auka.
+fClickMap=np.chararray((5,8), itemsize=68)         # max 25 stafir.. haegt ad auka.
 fClickMap[:][:]="pass"
 
 
@@ -36,11 +36,12 @@ fClickMap[:][:]="pass"
 fScrollMapY=np.chararray((5,8), itemsize=25)
 fScrollMapY[:][:]="pass"
 #fScrollMapX er function map fyrir scroll x
-fScrollMapX=np.chararray((5,8), itemsize=25)
+fScrollMapX=np.chararray((5,8), itemsize=70)
 fScrollMapX[:][:]="pass"
 
 
 def initScrollY():
+    global fScrollMapY
     fScrollMapY[:][:]="pass"
     fScrollMapY[0][0]="tempchange(val, 1)"
     fScrollMapY[0][1]="channelchange(val)"   # svona getum vid baett vid functions :D
@@ -71,8 +72,7 @@ def initScrollY():
 
 # fScrollMapX initialization starts
 def initScrollX():
-    fScrollMapX=np.chararray((5,8), itemsize=25)
-    fScrollMapX[:][:]="pass"
+    global fScrollMapX
     low="""
     if val==1:
         navx+=val
@@ -115,8 +115,7 @@ def initScrollX():
 
 
 def initClick():
-    fClickMap=np.chararray((5,8), itemsize=25)
-    fClickMap[:][:]="pass"
+    global fClickMap
     fClickMap[0][0]="""
     oldnavx=navx
     navx=0
