@@ -7,9 +7,6 @@ import numpy as np
 
 GPIO.setmode(GPIO.BOARD)
 
-menu.initClick()
-menu.initScrollX()
-menu.initScrollY()
 
 # rotary haegri tengt i gpio 33 og vinstri i 31.
 
