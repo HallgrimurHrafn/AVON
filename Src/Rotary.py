@@ -88,8 +88,8 @@ GPIO.add_event_detect(35, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(37, GPIO.RISING, callback=rotary, bouncetime=100)
 
 # rotary 2
-GPIO.add_event_detect(29, GPIO.BOTH, callback=rotary2)
-GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary2)
+GPIO.add_event_detect(29, GPIO.BOTH, callback=rotary)
+GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(32, GPIO.RISING, callback=rotary, bouncetime=100)
 
 
