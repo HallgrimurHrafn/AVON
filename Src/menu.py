@@ -1,7 +1,6 @@
 import numpy as np
 import Render
-# import Main
-import menu
+import Main
 import time
 import math
 
