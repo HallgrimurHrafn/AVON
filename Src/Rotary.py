@@ -47,7 +47,6 @@ def rotary(channel):
         cd=True
     else:
         cd=False
-    x=numpy.array([])
     if cd:
         print "yeii", i        # click kom. af rotary <i>.
         # menu.click(i)
