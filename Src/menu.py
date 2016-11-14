@@ -1,6 +1,7 @@
 import numpy as np
 import Render
-import Main
+# import Main
+import menu
 import time
 import math
 
@@ -111,7 +112,6 @@ def initScrollX():
     fScrollMapX[4][0]=low
     fScrollMapX[4][0]=default
     fScrollMapX[4][0]=high
-    menu.fScrollMapX=fScrollMapX
 # fScrollMapX initialization ends
 
 
@@ -134,7 +134,6 @@ def initClick():
     navy=4
     Render.Render()"""
     fClickMap[2][1]="customsetup()"
-    menu.fClickMap=fClickMap
 
 def move(i, val):
     if i==0:
