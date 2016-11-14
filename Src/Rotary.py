@@ -52,7 +52,7 @@ def rotary(channel):
         print "yeii", i        # click kom. af rotary <i>.
         # menu.click(i)
     global cl, cr, lock, fstate, state
-    if i=0:
+    if i==0:
         if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
             return
         cl[i] = GPIO.input(35)     # ef ekki uppfaerum
