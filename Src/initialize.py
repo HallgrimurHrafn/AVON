@@ -1,7 +1,3 @@
-import Main
-import menu
-import Rotary
-import Render
 import subprocess
 import threading
 
