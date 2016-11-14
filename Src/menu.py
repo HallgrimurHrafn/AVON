@@ -131,20 +131,16 @@ def initClick():
 def move(i, val):
     global fScrollMapX, fScrollMapY
     if i==0:
-        print i, val
         kort(fScrollMapX,val)
     else:
-        print i, val
         kort(fScrollMapY,val)
 
 
 def click(i):
     global fClickMap
     if i==1:
-
         kort(fClickMap,0)
     else:
-        
         moveup()
 
 
