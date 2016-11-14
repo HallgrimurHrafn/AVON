@@ -543,4 +543,4 @@ def init():
     print('its running, boooooiiiiii!')
 
     Sequencer()
-# init()
+init()
