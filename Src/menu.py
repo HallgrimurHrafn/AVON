@@ -162,7 +162,7 @@ def moveup():
 def kort(matrix,val):
     global navy, navx, oldnavx     # matrix er annad hvort nav eda
     exec matrix[navy][navx]
-    print navx, navy
+    print navx, navy, matrix[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
 
 
