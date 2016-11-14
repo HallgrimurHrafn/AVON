@@ -38,9 +38,7 @@ fScrollMapY[:][:]="pass"
 fScrollMapX=np.chararray((5,8), itemsize=25)
 fScrollMapX[:][:]="pass"
 
-initScrollY()
-initScrollX()
-initClick()
+
 
 def initScrollY():
     fScrollMapY[0][0]="tempchange(val, 1)"
@@ -278,3 +276,8 @@ def barChange(val):
     if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
         Main.bar*=x
         Render.Render()
+
+
+initScrollY()
+initScrollX()
+initClick()
