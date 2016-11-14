@@ -130,7 +130,7 @@ def initClick():
 
 def move(i, val):
     global fScrollMapX, fScrollMapY
-    if i==1:
+    if i==0:
         print i, val
         kort(fScrollMapX,val)
     else:
