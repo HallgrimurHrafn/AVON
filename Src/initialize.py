@@ -1,5 +1,6 @@
 import subprocess
 import threading
+import time
 
 t1=threading.Thread(target=rot)
 t1.start()
@@ -13,4 +14,4 @@ def main(channel):
     subprocess.call(['python', 'Main.py'])
 
 while True:
-    pass
+    time.sleep(10)
