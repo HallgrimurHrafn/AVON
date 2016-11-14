@@ -8,6 +8,13 @@
 #include <stdio.h>
 #include <math.h>
 
+// g++ vision.cpp -shared -I/usr/include/python2.7/ -lpython2.7 -lboost_python -o vision.so
+//TODO:
+//1. normalisa XYZ
+//2. laga main
+//3. laga CMakeLists
+//4. testa
+
 using namespace std;
 
 // Global variables
@@ -32,7 +39,7 @@ int dilateSize;
 cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize,erodeSize) );
 cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize,dilateSize) );
 
-int X, Y, Z; // Stores center of marker, does not update unless a new position is found.
+int XYZ[3]; // Stores center of marker, does not update unless a new position is found.
 int detectCounter = 0;
 bool detected = false;
 
@@ -86,9 +93,9 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 			if (t > 200) {
 				detected = true;
 				detectCounter = 10;
-				Z = t;
-				X = moment.m10/Z;
-				Y = moment.m01/Z;
+				XYZ[2] = t;
+				XYZ[0] = moment.m10/Z;
+				XYZ[1] = moment.m01/Z;
 			}
 		}
 	}
@@ -101,7 +108,7 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 	}
 }
 
-int main(int argc, char **argv) {
+void main() {
 	raspicam::RaspiCam_Cv Camera;
 
 	cv::Mat img;
@@ -153,4 +160,35 @@ int main(int argc, char **argv) {
 void update_Var( int, void*) {
 	erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3 ) );
     dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
+}
+
+bool const* markerFound() {
+	return detected;
+}
+
+int[] const* getXYZ() {
+	return XYZ;
+}
+
+void start(){
+	trackingOn = true;
+}
+
+void stop(){
+	trackingOn = false;
+}
+
+void init() {
+	main();
+}
+
+#include <boost/python.hpp>
+
+BOOST_PYTHON_MODULE(vision)	{
+	using namespace boost::python;
+	def("markerFound", markerFound);
+	def("getXYZ", getXYZ);
+	def("start", start);
+	def("stop", stop);
+	def("init", init)
 }
