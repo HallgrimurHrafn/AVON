@@ -126,7 +126,7 @@ def nyrskali():
     # exec x   #otharfi thvi glo.customskali uppfaerir.
     Render.Render()
 
-def glo.customskali(val,i):
+def customskali(val,i):
     if 0<=glo.custom[i]+val<=127:
         glo.custom[i]+=val
         Main.skali=glo.custom.copy()

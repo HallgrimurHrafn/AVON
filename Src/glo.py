@@ -15,9 +15,9 @@ note=60
 currentscale=0      #0= dur, 1=moll, 2=penta, 3,4,5.... =customs 1,2,3....
 # ef currentscale >2 ma gera adgerd i custom.
 skalar=np.array([
-"Main.skali=np.array([note+12, note+11, note+9, note+7, note+5, note+4, note+2,note])",
-"Main.skali=np.array([note+12, note+10, note+8, note+7, note+5, note+3, note+2,note])",
-"Main.skali=np.array([note+17, note+15, note+12, note+10, note+7, note+5, note+3, note])",
+"Main.skali=np.array([glo.note+12, glo.note+11, glo.note+9, glo.note+7, glo.note+5, glo.note+4, glo.note+2,glo.note])",
+"Main.skali=np.array([glo.note+12, glo.note+10, glo.note+8, glo.note+7, glo.note+5, glo.note+3, glo.note+2,glo.note])",
+"Main.skali=np.array([glo.note+17, glo.note+15, glo.note+12, glo.note+10, glo.note+7, glo.note+5, glo.note+3, glo.note])",
 "pass" # custom skali
 ])
 custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
@@ -29,19 +29,19 @@ p="pass"
 
 fClickMap=np.array([[
 """
-functionMaps.oldnavx=functionMaps.navx
-functionMaps.navx=0
-functionMaps.navy=1
+glo.oldnavx=glo.navx
+glo.navx=0
+glo.navy=1
 Render.Render()""", p,
 """
-functionMaps.oldnavx=functionMaps.navx
-functionMaps.navx=0
-functionMaps.navy=2
+glo.oldnavx=glo.navx
+glo.navx=0
+glo.navy=2
 Render.Render()""", p,
 """
-functionMaps.oldnavx=functionMaps.navx
-functionMaps.navx=0
-functionMaps.navy=4
+glo.oldnavx=glo.navx
+glo.navx=0
+glo.navy=4
 Render.Render()""", p, p, p],
 [p, p, p, p, p, p, p, p],
 [p, "customsetup()", p, p, p, p, p, p],
@@ -80,14 +80,14 @@ p],
 
 low="""
 if val==1:
-    functionMaps.navx+=val
+    glo.navx+=val
     Render.Render()"""
 high="""
 if val==-1:
-    functionMaps.navx+=val
+    glo.navx+=val
     Render.Render()"""
 default="""
-functionMaps.navx+=val
+glo.navx+=val
 Render.Render()"""
 fScrollMapX=np.array([
 [low, default, default, default, default, default, high, p],
