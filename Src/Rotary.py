@@ -80,9 +80,9 @@ GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary)
 
 # rotary 2
-# GPIO.add_event_detect(35, GPIO.RISING, callback=rotary, bouncetime=100)
-# GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary2)
-# GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary2)
+GPIO.add_event_detect(35, GPIO.RISING, callback=rotary, bouncetime=100)
+GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary2)
+GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary2)
 
 
 while True:
