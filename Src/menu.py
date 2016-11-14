@@ -39,14 +39,14 @@ def moveup():
 
 def kort(x,val):
     if x==0:
-        print glo.fScrollMapX[glo.navy][navx]
-        exec glo.fScrollMapX[glo.navy][navx]
+        print glo.fScrollMapX[glo.navy][glo.navx]
+        exec glo.fScrollMapX[glo.navy][glo.navx]
     elif x==1:
-        print glo.fScrollMapY[glo.navy][navx]
-        exec glo.fScrollMapY[glo.navy][navx]
+        print glo.fScrollMapY[glo.navy][glo.navx]
+        exec glo.fScrollMapY[glo.navy][glo.navx]
     elif x==2:
-        print glo.fClickMap[glo.navy][navx]
-        exec glo.fClickMap[glo.navy][navx]
+        print glo.fClickMap[glo.navy][glo.navx]
+        exec glo.fClickMap[glo.navy][glo.navx]
     #                               # exec breytir i koda og keyrir fallid.
 
 
@@ -147,7 +147,7 @@ def customsetup():
     if glo.currentscale>2:
         glo.es=glo.currentscale-3
         glo.navy=3
-        glo.oldnavx2=navx
+        glo.oldnavx2=glo.navx
         glo.navx=0
         if glo.es>0:
             glo.custom=glo.cs[(glo.es-1)*8:(glo.es-1)*8+8]
