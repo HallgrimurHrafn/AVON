@@ -37,23 +37,30 @@ GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 
 def rotary(channel):
-    if channel==31 or channel==33 or channel==35:  # hvada rotary er ad senda.
-        i=0
+    if channel==33 or channel==35 or channel==37:  # hvada rotary er ad senda.
+        i=0  # rotary 1
     else:
-        i=1
+        i=1  # rotary 2
     # placeholder verdur gpio fyrir rotary 2 click channel
-    if channel==31 or channel == "placeholder"
+    if channel==37 or channel == 32
         cd=True
     else:
         cd=False
+    x=numpy.array([])
     if cd:
-        # print "yeii", i        # click kom. af rotary <i>.
-        menu.click(i)
+        print "yeii", i        # click kom. af rotary <i>.
+        # menu.click(i)
     global cl, cr, lock, fstate, state
-    if cl[i] ==GPIO.input(33) and cr[i]==GPIO.input(31):  # erum vid i sama state-i?
-        return
-    cl[i] = GPIO.input(33)     # ef ekki uppfaerum
-    cr[i] = GPIO.input(31)
+    if i=0:
+        if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
+            return
+        cl[i] = GPIO.input(35)     # ef ekki uppfaerum
+        cr[i] = GPIO.input(33)
+    else:
+        if cl[i]==GPIO.input(31) and cr[i]==GPIO.input(29):
+            return
+        cl[i]=GPIO.input(31)
+        cr[i]=GPIO.input(29)
     fstate[i] = state[i]          # uppfaerum gamla astand.
     if cl[i]==1 and cr[i]==0:     # uppfaerum astand og haettum ef astand er ekki 0.
         state[i]=1
@@ -67,22 +74,22 @@ def rotary(channel):
     state[i]=0
     if fstate[i]==1:
         print 'right', i
-        menu.move(i, 1)
+        # menu.move(i, 1)
     elif fstate[i]==3:
         print 'left', i
-        menu.move(i, -1)
+        # menu.move(i, -1)
     else:
         print 'eitthvad for urskeidis.', i
 
 # rotary 1
-GPIO.add_event_detect(35, GPIO.RISING, callback=rotary, bouncetime=100)
 GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary)
-GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary)
+GPIO.add_event_detect(35, GPIO.BOTH, callback=rotary)
+GPIO.add_event_detect(37, GPIO.RISING, callback=rotary, bouncetime=100)
 
 # rotary 2
-GPIO.add_event_detect(35, GPIO.RISING, callback=rotary, bouncetime=100)
-GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary2)
+GPIO.add_event_detect(29, GPIO.BOTH, callback=rotary2)
 GPIO.add_event_detect(31, GPIO.BOTH, callback=rotary2)
+GPIO.add_event_detect(32, GPIO.RISING, callback=rotary, bouncetime=100)
 
 
 while True:
