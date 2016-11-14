@@ -3,10 +3,16 @@ import Render
 import Main
 import math
 
+## TODO:
+# custom skali ad bua til note midad vid grunnton eda vid global breytuna note.
+# hanna modetoggle fyrir cameru
+# skroll i gegnum xyz control parametra fyrir cameru
+
 # navigation tools. navx og navy eru stadsetningarnar okkar i function maps.
 navx=0
 navy=0
-oldnavx=0
+oldnavx=0  # navx fyrir
+oldnavx2=0
 
 # skalar related
 es=0                #edit skali, es=1 fyrir custom skala 1, es=2 fyrir customskala 2....
@@ -39,7 +45,7 @@ def initScrollY():
     #skali fScrollMapX[0][2]
     fScrollMapY[0][3]="livechange()"
     fScrollMapY[0][4]="camerachange()"
-    fScrollMapY[0][5]="nodelengdChange(val)"
+    fScrollMapY[0][5]="notelengdChange(val)"
     fScrollMapY[0][6]="barChange(val)"
 
     # tempchange
@@ -142,8 +148,10 @@ def moveup():
     global navx, oldnavx, navy
     if navy=3:
         nyrskali()
-    if navy-1>0:
-        navy-=1
+        navy=2
+        navx=oldnavx2
+    elif navy>0:
+        navy=0
         navx=oldnavx
         Render.Render()
 
@@ -195,7 +203,7 @@ def camera(val, xyz):
         pass
     Render.Render()
 
-def nodelengdChange(val):
+def notelengdChange(val):
     val=float(val/20)
     if 0<Main.lengd+val<1:
         Main.lengd=Main.lengd+val
@@ -228,16 +236,13 @@ def nyrskali():
         currentscale=skalar.size-1
     elif currentscale>3:
         skalar[currentscale]=x
-    exec x
+    # exec x   #otharfi thvi customskali uppfaerir.
     Render.Render()
 
 def customskali(val,i):
     if 0<=custom[i]+val<=127:
         custom[i]+=val
-        v=np.array([custom[0]])
-        for x in range (1,8):
-            v=np.append(v,[custom[x]])
-        Main.skali=v
+        Main.skali=custom.copy()
         Render.Render()
 
 
@@ -257,7 +262,7 @@ def customsetup():
     if currentscale>2:
         es=currentscale-3
         navy=3
-        oldnavx=navx
+        oldnavx2=navx
         navx=0
         if es>0:
             custom=cs[(es-1)*8:(es-1)*8+8]
