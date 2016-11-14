@@ -38,6 +38,9 @@ fScrollMapY[:][:]="pass"
 fScrollMapX=np.chararray((5,8), itemsize=25)
 fScrollMapX[:][:]="pass"
 
+initScrollY()
+initScrollX()
+initClick()
 
 def initScrollY():
     fScrollMapY[0][0]="tempchange(val, 1)"
