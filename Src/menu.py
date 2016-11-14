@@ -41,17 +41,16 @@ fScrollMapX[:][:]="pass"
 
 
 def move(i, val):
-    global fScrollMapX, fScrollMapY
     if i==0:
-        kort(fScrollMapX,val)
+        kort(0,val)
     else:
-        kort(fScrollMapY,val)
+        kort(1,val)
 
 
 def click(i):
     global fClickMap
     if i==1:
-        kort(fClickMap,0)
+        kort(2,0)
     else:
         moveup()
 
@@ -68,10 +67,14 @@ def moveup():
         Render.Render()
 
 
-def kort(matrix,val):
-    global navy, navx, oldnavx     # matrix er annad hvort nav eda
-    exec matrix[navy][navx]
-    print matrix[navy][navx]
+def kort(x,val):
+    global navy, navx, oldnavx, fScrollMapX, fScrollMapY, fClickMap     # matrix er annad hvort nav eda
+    if x==0:
+        exec fScrollMapX[navy][navx]
+    elif x==1:
+        exec fScrollMapY[navy][navx]
+    elif x==2:
+        exec fClickMap[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
 
 
