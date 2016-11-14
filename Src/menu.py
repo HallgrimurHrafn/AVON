@@ -141,7 +141,6 @@ def move(i, val):
 
 
 def click(i):
-    global fClickMap
     if i==1:
         kort(2,0)
     else:
@@ -161,16 +160,16 @@ def moveup():
 
 
 def kort(x,val):
-    global navy, navx, oldnavx, fScrollMapX, fScrollMapY, fClickMap     # matrix er annad hvort nav eda
+    global navy, navx, oldnavx     # matrix er annad hvort nav eda
     if x==0:
-        exec fScrollMapX[navy][navx]
-        print fScrollMapX[navy][navx]
+        exec functionMaps.fScrollMapX[navy][navx]
+        print functionMaps.fScrollMapX[navy][navx]
     elif x==1:
-        exec fScrollMapY[navy][navx]
-        print fScrollMapY[navy][navx]
+        exec functionMaps.fScrollMapY[navy][navx]
+        print functionMaps.fScrollMapY[navy][navx]
     elif x==2:
-        exec fClickMap[navy][navx]
-        print fClickMap[navy][navx]
+        exec functionMaps.fClickMap[navy][navx]
+        print functionMaps.fClickMap[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
 
 
