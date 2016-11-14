@@ -1,5 +1,5 @@
 import Main
-import menu
+import glo
 import threading
 
 
