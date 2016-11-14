@@ -279,8 +279,3 @@ def barChange(val):
     if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
         Main.bar*=x
         Render.Render()
-
-
-initClick()
-initScrollX()
-initScrollY()
