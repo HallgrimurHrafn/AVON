@@ -12,7 +12,7 @@ import threading
 # fall til ad uppfaera skjainn thegar eitthvad er gert
 def Render():
 # kannski gera eitthvad svo hann uppfaeri sig ekki hradar en refresh rate-id er a skjanum
-    print "navx",menu.navx,"navy",menu.navy
+    print "navx",glo.navx,"navy",glo.navy
 
 
 
