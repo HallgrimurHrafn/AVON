@@ -19,7 +19,7 @@ es=0                #edit skali, es=1 fyrir custom skala 1, es=2 fyrir customska
 note=60
 currentscale=0      #0= dur, 1=moll, 2=penta, 3,4,5.... =customs 1,2,3....
 # ef currentscale >2 ma gera adgerd i custom.
-skalar=np.chararray(3, itemsize=10)
+skalar=np.chararray(4, itemsize=10)
 skalar[0]="Main.skali=np.array([note+12, note+11, note+9, note+7, note+5, note+4, note+2,note])"
 skalar[1]="Main.skali=np.array([note+12, note+10, note+8, note+7, note+5, note+3, note+2,note])"
 skalar[2]="Main.skali=np.array([note+17, note+15, note+12, note+10, note+7, note+5, note+3, note])"
