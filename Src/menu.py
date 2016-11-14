@@ -32,11 +32,11 @@ fClickMap[:][:]="pass"
 
 #fScrollMapY er function map fyrir scroll y
 fScrollMapY=np.chararray((5,8), itemsize=25)
-fScrollMapY[:][:]="pass"
+# fScrollMapY[:][:]="pass"
 
 #fScrollMapX er function map fyrir scroll x
 fScrollMapX=np.chararray((5,8), itemsize=25)
-fScrollMapX[:][:]="pass"
+# fScrollMapX[:][:]="pass"
 
 
 
