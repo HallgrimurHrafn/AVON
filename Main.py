@@ -44,7 +44,7 @@ taptemp = 1                     # hvort taptempo se virkt
 v = 0                             # styring fyrir hvada voice vid aetlum a fara i.
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 1                         # ef lgo=1 tha erum vid i life mode.
-pause = 1                       # eigum vid ad pause-a
+pause = 0                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
@@ -479,30 +479,30 @@ def ChannelChange():
 
 
 #
-def tester():
-    global lGO, v
-    time.sleep(3)
-    lGO = 1
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(5)
-    lGO=0
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(3)
-    v=1
-    ChannelChange()
-    time.sleep(5)
-    lGO=1
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(3)
-    lGO=0
-    t = threading.Thread(target=multithread)
-    t.start()
-    time.sleep(3)
-    v=0
-    ChannelChange()
+# def tester():
+#     global lGO, v
+#     time.sleep(3)
+#     lGO = 1
+#     t = threading.Thread(target=multithread)
+#     t.start()
+#     time.sleep(5)
+#     lGO=0
+#     t = threading.Thread(target=multithread)
+#     t.start()
+#     time.sleep(3)
+#     v=1
+#     ChannelChange()
+#     time.sleep(5)
+#     lGO=1
+#     t = threading.Thread(target=multithread)
+#     t.start()
+#     time.sleep(3)
+#     lGO=0
+#     t = threading.Thread(target=multithread)
+#     t.start()
+#     time.sleep(3)
+#     v=0
+#     ChannelChange()
 
 def init():
     print('starting up')
@@ -536,8 +536,7 @@ def init():
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
 
-    test = threading.Thread(target=tester)
-    test.start()
+
 
     t = threading.Thread(target=multithread)
     t.start()
