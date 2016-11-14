@@ -141,10 +141,10 @@ def move(i, val):
 def click(i):
     global fClickMap
     if i==1:
-        print i
+
         kort(fClickMap,0)
     else:
-        print i
+        
         moveup()
 
 
