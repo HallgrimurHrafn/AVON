@@ -71,10 +71,13 @@ def kort(x,val):
     global navy, navx, oldnavx, fScrollMapX, fScrollMapY, fClickMap     # matrix er annad hvort nav eda
     if x==0:
         exec fScrollMapX[navy][navx]
+        print fScrollMapX[navy][navx]
     elif x==1:
         exec fScrollMapY[navy][navx]
+        print fScrollMapY[navy][navx]
     elif x==2:
         exec fClickMap[navy][navx]
+        print fClickMap[navy][navx]
     #                               # exec breytir i koda og keyrir fallid.
 
 
