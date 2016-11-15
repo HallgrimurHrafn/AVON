@@ -80,7 +80,7 @@ def NOTEON(dalkur, cd):
         for v in range(0, 16):                              # fyrir allar notur dalksins spilum..
             if status[v][dalkur][x] == 1:
                 midime.tm(144+v, skali[x], 100)
-    tGO = 1                                                 # tGO=1, trelliswatch ma breyta status
+                                                     # tGO=1, trelliswatch ma breyta status
     mcGO = 1                                                # mcGO=1, her ma modda notur
     if cd:
         taktmaelir(dalkur)                                      # forum i taktmaelinn.
@@ -90,7 +90,7 @@ def NOTEON(dalkur, cd):
 # NOTEOFF begins
 def NOTEOFF(dalkur):
     global tGO, skali, status, mcGO
-    tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
+                                                    # tGO=0, trelliswatch ma ekki breyta status.
     mcGO = 0                                                # slekkur a modColumn, bannad ad modda notur
     for x in range(0, 8):
         for v in range(0, 16):                              # slokkvum a notunum sem vid kveiktum a adan.
