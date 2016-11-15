@@ -7,6 +7,8 @@ import RPi.GPIO as GPIO
 import midime
 import Rotary
 import Adafruit_Trellis         # trellis
+
+
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
 matrix1 = Adafruit_Trellis.Adafruit_Trellis()
 matrix2 = Adafruit_Trellis.Adafruit_Trellis()

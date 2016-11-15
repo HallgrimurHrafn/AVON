@@ -139,7 +139,7 @@ def skalarChange(val,x):
     if x==1:
         if 0<=glo.note+val<=127:
             glo.note+=val
-            print note
+            print glo.note
     elif x==0:
         glo.currentscale=(glo.currentscale+val)%glo.skalar.size
         print glo.currentscale
