@@ -21,11 +21,10 @@ def move(i, val):
 
 
 def click(i):
+    print i
     if i==1:
-        print "click1"
         kort(2,0)
     else:
-        print "click2"
         moveup()
 
 
