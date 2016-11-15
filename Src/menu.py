@@ -93,7 +93,7 @@ def camera(val, xyz):
     Render.Render()
 
 def notelengdChange(val):
-    val=float(val)/20
+    val=-float(val)/20
     if 0<Main.lengd+val<1:
         Main.lengd=Main.lengd+val
         print Main.lengd
