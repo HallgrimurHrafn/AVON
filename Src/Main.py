@@ -106,6 +106,8 @@ def NOTEOFF(dalkur):
 # taktmaelir begins
 def taktmaelir(dalkur):
     global FLASH, status, tkt, timi, voice                          # global breytur, utskyrdar efst.
+    t1= threading.Thread(target=SYNC)
+    t1.start()
     midime.tm(248,0,0)
     tkt = True
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
@@ -119,6 +121,17 @@ def taktmaelir(dalkur):
     trellis.writeDisplay()                                  # uppfaera led a bordi.. VERDI MYRKUR!
     tkt=False
 # taktmaelir end
+
+
+
+# Sync starts
+def Sync():
+    global timi
+    for x in range (0,24):
+        midime.tm(248,0,0)
+        time.sleep(timi/24)
+#Sync ends
+
 
 
 # tfIn begins 		--- varpar ur trellis i okkar format.
