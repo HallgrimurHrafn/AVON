@@ -6,7 +6,7 @@ import numpy as np
 import RPi.GPIO as GPIO
 import config
 import midime
-
+import menu
 import Adafruit_Trellis         # trellis config
 
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
