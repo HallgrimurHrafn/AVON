@@ -22,8 +22,10 @@ def move(i, val):
 
 def click(i):
     if i==1:
+        print "click1"
         kort(2,0)
     else:
+        print "click2"
         moveup()
 
 
@@ -137,12 +139,13 @@ def customskali(val,i):
 
 def skalarChange(val,x):
     if x==1:
-        if 0<=glo.note+value<=127:
-            glo.note+=value
+        if 0<=glo.note+val<=127:
+            glo.note+=val
     elif x==0:
         glo.currentscale=(glo.currentscale+val)%glo.skalar.size
     if glo.currentscale!=2:
         exec glo.skalar[glo.currentscale]
+        print glo.skalar[glo.currentscale]
     Render.Render()
 
 def customsetup():
