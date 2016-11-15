@@ -81,8 +81,6 @@ def NOTEON(dalkur, cd):
                 # midiout.send_message(mido.Message('note_on', channel=voice,
                 # note=skali(x), velocity=100).bytes())  #velocity=mod(dalkur,
                 # x, v, 0)
-                print('on', 'channel er', v,
-                'notan er', skali[x], 'velocity er', 100)
                 midime.tm(144+voice, skali[x], 100)
     tGO = 1                                                 # tGO=1, trelliswatch ma breyta status
     mcGO = 1                                                # mcGO=1, her ma modda notur
@@ -99,7 +97,6 @@ def NOTEOFF(dalkur):
     for x in range(0, 8):
         for v in range(0, 16):                              # slokkvum a notunum sem vid kveiktum a adan.
             if status[v][dalkur][x] == 1:
-                print('off', 'channel er', v, 'notan er', skali[x], 'velocity er', 0)
                 midime.tm(128+voice, skali[x], 0)
                                                             # eini munurinn a thessu og sidasta er ad message-id er note_off og velocity er 0.
                                                             # velocity er valid 0 vegna thess ad sum midi hljodfaeri nota
@@ -334,16 +331,14 @@ def liveplay():
             for x in range(0, 64):
                 y = tfIn(x)
                 if trellis.justPressed(x):
-                    print(
-                        'on, channel er', v,
-                        'notan er', skali[y//8], 'velocity er', 100)
-                    # print mido.Message('note_on', channel=2, note=skali[y%8], velocity=100).bytes()
+                    # print(
+                    #     'on, channel er', v,
+                    #     'notan er', skali[y//8], 'velocity er', 100)
                     trellis.setLED(x)
                 if trellis.justReleased(x):
-                    print(
-                        'off, channel er', v,
-                        'notan er', skali[y//8], 'velocity er', 0)
-                    # print mido.Message('note_off', channel=voice, note=skali[y%8], velocity=0).bytes()
+                    # print(
+                    #     'off, channel er', v,
+                    #     'notan er', skali[y//8], 'velocity er', 0)
                     trellis.clrLED(x)
             trellis.writeDisplay()
 #
