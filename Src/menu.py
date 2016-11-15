@@ -139,11 +139,12 @@ def skalarChange(val,x):
     if x==1:
         if 0<=glo.note+val<=127:
             glo.note+=val
+            print note
     elif x==0:
         glo.currentscale=(glo.currentscale+val)%glo.skalar.size
+        print glo.currentscale
     if glo.currentscale!=2:
         exec glo.skalar[glo.currentscale]
-        print glo.currentscale
     Render.Render()
 
 def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
