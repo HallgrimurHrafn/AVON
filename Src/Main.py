@@ -4,7 +4,7 @@ import time
 import threading
 import numpy as np
 import RPi.GPIO as GPIO
-import glo
+import config
 import midime
 
 import Adafruit_Trellis         # trellis config
@@ -305,7 +305,7 @@ def calculate_tempo(tap, period, tempo):
 def callback_tap(channel):
 
     global tap, period, tempo, timi
-    if glo.taptemp==0:
+    if config.taptemp==0:
         return
     tempo = calculate_tempo(tap, period, tempo)
     print 'tempo =', tempo, 'bpm'
@@ -456,7 +456,7 @@ def clearleds():
 # ChannelChange starts          --- slekkur a thaverandi led m.v. voice og kveikir a naverandi.
 def ChannelChange():
     global tkt, voice
-    if glo.v != voice:
+    if config.v != voice:
         clearleds()
         if tkt:
             for x in range(0, 8):                                   # fyrir oll LED i 'dlk'
