@@ -96,6 +96,7 @@ def notelengdChange(val):
     val=float(val/20)
     if 0<Main.lengd+val<1:
         Main.lengd=Main.lengd+val
+        print Main.lengd 
         Render.Render()
 
 # def FLASHchange(val): # tharf ad adlaga fyrir prosentu
