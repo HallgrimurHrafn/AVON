@@ -96,6 +96,3 @@ GPIO.add_event_detect(32, GPIO.RISING, callback=rotary, bouncetime=100)
 # initScrollY()
 # initScrollX()
 # initClick()
-
-while True:
-    time.sleep(10)
