@@ -1,12 +1,10 @@
 import RPi.GPIO as GPIO
 import time
-import threading
-import menu
+# import menu
 import numpy as np
 
 
 
-GPIO.setmode(GPIO.BOARD)
 # rotary haegri tengt i gpio 33 og vinstri i 31.
 
 # Clockwise:
@@ -24,6 +22,7 @@ fstate=np.array([0, 0])   # former state. sidasta astand semsagt.
 l=np.array([33, "placeholder"])    # vantar gpio channel fyrir rotary 2.
 r=np.array([31, "placeholder"])
 
+GPIO.setmode(GPIO.BOARD)
 # rotary 1
 GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
@@ -50,7 +49,7 @@ def rotary(channel):
         cd=False
     if cd:
         print "yeii", i        # click kom. af rotary <i>.
-        menu.click(i)
+        # menu.click(i)
     global cl, cr, lock, fstate, state
     if i==0:
         if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
@@ -75,10 +74,10 @@ def rotary(channel):
     state[i]=0
     if fstate[i]==1:
         print 'right', i
-        menu.move(i, 1)
+        # menu.move(i, 1)
     elif fstate[i]==3:
         print 'left', i
-        menu.move(i, -1)
+        # menu.move(i, -1)
     else:
         return
         # print 'eitthvad for urskeidis.', i
