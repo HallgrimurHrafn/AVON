@@ -42,7 +42,7 @@ period = []
 
 # menu
 clA = 0                         # ef clA=1 tha gerum vid clearAll
-lGO = 0                         # ef lgo=1 tha erum vid i life mode.
+lGO = 1                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 newskali=np.array([72, 71, 69, 67, 65, 64, 62, 60])
@@ -331,14 +331,10 @@ def liveplay():
             for x in range(0, 64):
                 y = tfIn(x)
                 if trellis.justPressed(x):
-                    # print(
-                    #     'on, channel er', v,
-                    #     'notan er', skali[y//8], 'velocity er', 100)
+                    midime.tm(144+voice, skali[x], 100)
                     trellis.setLED(x)
                 if trellis.justReleased(x):
-                    # print(
-                    #     'off, channel er', v,
-                    #     'notan er', skali[y//8], 'velocity er', 0)
+                    midime.tm(128+voice, skali[x], 0)
                     trellis.clrLED(x)
             trellis.writeDisplay()
 #
