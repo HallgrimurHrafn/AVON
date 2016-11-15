@@ -116,14 +116,14 @@ def skalarChange(val,x):
         if 0<=glo.note+val<=127:
             glo.note+=val
             print glo.note
-        elif x==0:
-            glo.currentscale=(glo.currentscale+val)%glo.skalar.size
-            print glo.currentscale
-            if glo.currentscale!=3:
-                exec glo.skalar[glo.currentscale]
-                print glo.skalar[glo.currentscale]
-                print Main.newskali
-                Render.Render()
+    elif x==0:
+        glo.currentscale=(glo.currentscale+val)%glo.skalar.size
+        print glo.currentscale
+    if glo.currentscale!=3:
+        exec glo.skalar[glo.currentscale]
+        print glo.skalar[glo.currentscale]
+        print Main.newskali
+        Render.Render()
 
 
 
