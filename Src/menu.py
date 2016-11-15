@@ -4,7 +4,6 @@ import Main
 import time
 import math
 import glo
-import config
 
 ## TODO:
 # a glo.custom skali ad bua til glo.note midad vid grunnton eda vid global breytuna glo.note.
@@ -52,19 +51,19 @@ def kort(x,val):
 
 
 def channelchange(val):
-    if 0<=config.v+val<=15:
-        config.v=config.v+val
-        Main.ChannelChange(config.v)
-        print config.v, config.voice
+    if 0<=Main.v+val<=15:
+        Main.v=Main.v+val
+        Main.ChannelChange()
+        print Main.voice
         Render.Render()
 
 
 def tempchange(val, x):
     if 60/float(Main.tempo+val*x)/float(Main.bar/4)>=0.05:
-        config.taptemp=0
+        Main.taptemp=0
         time.sleep(0.01)
         Main.tempo=Main.tempo+val
-        config.taptemp=1
+        Main.taptemp=1
         Render.Render()
 
 
