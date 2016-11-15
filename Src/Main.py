@@ -50,6 +50,7 @@ newskali=np.array([72, 71, 69, 67, 65, 64, 62, 60])
 skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
 timi = 0.5  # 0.05 er min.     #timi
+timi2= 0.5                     # timi fyrir sync.
 tempo = 120
 FLASH = 1                       # hlutfallsleg lengd af timi fyrir taktmaeli
 lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
@@ -124,11 +125,11 @@ def taktmaelir(dalkur):
 
 # Sync starts
 def Sync():
-    global timi
+    global timi2
     while True:
         for x in range (0,16):
             midime.tm(248,0,0)
-            time.sleep(timi/24)
+            time.sleep(timi2/24)
 #Sync ends
 
 
@@ -170,9 +171,10 @@ def tfOut(a):
 
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
-    global dlk, pause, stop, timi, tempo, partur, skali, newskali                    # til ad halda utanum hvar vid erum.
+    global dlk, pause, stop, timi, tempo, partur, skali, newskali, timi2                    # til ad halda utanum hvar vid erum.
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
+            tumi=time.time()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 timi = 60/float(tempo)/float(bar/4)
                 skali=newskali.copy()
@@ -184,6 +186,8 @@ def Sequencer():
                 if stop == 1:
                     break
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
+            tumi2=time.time()
+            timi2=tumi2-tumi    
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
