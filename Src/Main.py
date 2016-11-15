@@ -461,7 +461,7 @@ def ChannelChange():
         if tkt:
             for x in range(0, 8):                                   # fyrir oll LED i 'dlk'
                 trellis.setLED(tfOut(x * 8 + dlk))                  # kveikja a LED!,tfout varpar i trellisformat.
-        voice=v
+        voice=config.v
         for x in range (0, 64):
             y = tfIn(x)
             if status[voice][y % 8][y // 8] == 1:
