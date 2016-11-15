@@ -55,6 +55,7 @@ def channelchange(val):
     if 0<=config.v+val<=15:
         config.v=config.v+val
         Main.ChannelChange()
+        print config.v, config.voice
         Render.Render()
 
 
