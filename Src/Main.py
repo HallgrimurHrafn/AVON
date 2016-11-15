@@ -106,7 +106,7 @@ def NOTEOFF(dalkur):
 # taktmaelir begins
 def taktmaelir(dalkur):
     global FLASH, status, tkt, timi, voice                          # global breytur, utskyrdar efst.
-    midime(248,0,0)
+    midime.tm(248,0,0)
     tkt = True
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
         trellis.setLED(tfOut(x * 8 + dalkur))               # kveikja a LED!,tfout varpar i trellisformat.
