@@ -176,7 +176,7 @@ def Sequencer():
 
 # multithread starts		--- partur af main.
 def multithread():
-    GPIO.remove_event_detect(37)
+    GPIO.remove_event_detect(7)
     time.sleep(0.015)
     if lGO == 1:
         t1 = threading.Thread(target=liveSet)
@@ -222,7 +222,7 @@ def tw():
 def trellisWatch(channel):                              # ignore channel...
     global tGO, status, a, b, tStatus, clA, lGO, mwGO
     time.sleep(0.015)
-    # print(GPIO.input(37))                             #sma debug daemi
+    # print(GPIO.input(7))                             #sma debug daemi
     if trellis.readSwitches():                          #ef ytt var a takka/uppfaerum database.
         for x in range(0, 64):                          #fyrir alla takka
             if trellis.justPressed(x):                  #var ytt a thennan takka?
@@ -230,11 +230,11 @@ def trellisWatch(channel):                              # ignore channel...
                 if tStatus[config.voice][y % 8][y // 8] == 0:  #ef thad var slokkt a notu
                     tStatus[config.voice][y % 8][y // 8] = 1   #tha er nuna kveikt a notu
                     trellis.setLED(x)                   #somuleidis med LED.
-                    # print(GPIO.input(37),'on')        #debug dot
+                    # print(GPIO.input(7),'on')        #debug dot
                 else:                                   #ef ekki slokkt a notu
                     tStatus[config.voice][y % 8][y // 8] = 0   #slokkvum a notu
                     trellis.clrLED(x)                   #led lika
-                    # print(GPIO.input(37),'off')
+                    # print(GPIO.input(7),'off')
                     trellis.readSwitches()              #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         trellis.writeDisplay()                          #uppfaerum led
         if tGO == 1:                                    #meigum vid breyta status
