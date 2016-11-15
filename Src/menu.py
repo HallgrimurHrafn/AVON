@@ -145,6 +145,7 @@ def skalarChange(val,x):
         print glo.currentscale
     if glo.currentscale!=2:
         exec glo.skalar[glo.currentscale]
+        print glo.skalar[glo.currentscale]
         print Main.skali
     Render.Render()
 
