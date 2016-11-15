@@ -145,6 +145,7 @@ def skalarChange(val,x):
         print glo.currentscale
     if glo.currentscale!=2:
         exec glo.skalar[glo.currentscale]
+        print Main.skali
     Render.Render()
 
 def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
