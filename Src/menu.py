@@ -99,10 +99,58 @@ def notelengdChange(val):
         print Main.lengd
         Render.Render()
 
+
+def barChange(val):
+    x=math.pow(2,val)
+    if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
+        Main.bar*=x
+        Render.Render()
+
 # def FLASHchange(val): # tharf ad adlaga fyrir prosentu
 #     if 0<Main.FLASH+val<1:
 #         Main.FLASH=Main.FLASH+val
 #         Render.Render()
+
+def skalarChange(val,x):
+    if x==1:
+        if 0<=glo.note+val<=127:
+            glo.note+=val
+            print glo.note
+        elif x==0:
+            glo.currentscale=(glo.currentscale+val)%glo.skalar.size
+            print glo.currentscale
+            if glo.currentscale!=3:
+                exec glo.skalar[glo.currentscale]
+                print glo.skalar[glo.currentscale]
+                print Main.newskali
+                Render.Render()
+
+
+
+def customskali(val,i):
+    if 0<=glo.custom[i]+val<=127:
+        glo.custom[i]+=int(val)
+        Main.newskali=glo.custom.copy()
+        Render.Render()
+
+
+
+def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
+    if glo.currentscale>2:
+        glo.es=glo.currentscale-3
+        glo.navy=3
+        glo.oldnavx2=glo.navx
+        glo.navx=0
+        if glo.es>0:
+            glo.custom=np.array([
+            (glo.es-1)*8,(glo.es-1)*8+1,
+            (glo.es-1)*8+2,(glo.es-1)*8+3,
+            (glo.es-1)*8+4,(glo.es-1)*8+5,
+            (glo.es-1)*8+6,(glo.es-1)*8+7
+            ])
+            # glo.custom=glo.cs[(glo.es-1)*8:(glo.es-1)*8+7]
+        else:
+            glo.custom=np.array([glo.note, glo.note, glo.note, glo.note, glo.note, glo.note, glo.note, glo.note])
 
 
 #create new glo.custom scale. thegar vid forum til baka i menu.
@@ -111,7 +159,7 @@ def nyrskali():
     for i in range (0,7):
         glo.custom[i]=glo.custom[i]-glo.note
     if glo.es !=0:
-        # glo.cs=np.append(glo.cs[:glo.es*8].copy(), glo.custom.copy(), glo.cs[glo.es*8+8:].copy())
+        glo.cs=np.append(glo.cs[:glo.es*8].copy(), glo.custom.copy(), glo.cs[glo.es*8+7:].copy())
         glo.es=0
     else:
         glo.cs=np.append(glo.cs, glo.custom.copy())
@@ -127,41 +175,3 @@ def nyrskali():
         glo.skalar[glo.currentscale]=x
     # exec x   #otharfi thvi glo.customskali uppfaerir.
     Render.Render()
-
-def customskali(val,i):
-    if 0<=glo.custom[i]+val<=127:
-        glo.custom[i]+=int(val)
-        Main.newskali=glo.custom.copy()
-        Render.Render()
-
-
-def skalarChange(val,x):
-    if x==1:
-        if 0<=glo.note+val<=127:
-            glo.note+=val
-            print glo.note
-    elif x==0:
-        glo.currentscale=(glo.currentscale+val)%glo.skalar.size
-        print glo.currentscale
-    if glo.currentscale!=3:
-        exec glo.skalar[glo.currentscale]
-        print glo.skalar[glo.currentscale]
-        print Main.newskali
-    Render.Render()
-
-def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
-    if glo.currentscale>2:
-        glo.es=glo.currentscale-3
-        glo.navy=3
-        glo.oldnavx2=glo.navx
-        glo.navx=0
-        if glo.es>0:
-            glo.custom=glo.cs[(glo.es-1)*8:(glo.es-1)*8+8]
-        else:
-            glo.custom=np.array([glo.note, glo.note, glo.note, glo.note, glo.note, glo.note, glo.note, glo.note])
-
-def barChange(val):
-    x=math.pow(2,val)
-    if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
-        Main.bar*=x
-        Render.Render()
