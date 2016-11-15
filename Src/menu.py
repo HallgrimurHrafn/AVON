@@ -62,7 +62,7 @@ def tempchange(val, x):
     if 60/float(Main.tempo+val*x)/float(Main.bar/4)>=0.05:
         Main.taptemp=0
         time.sleep(0.01)
-        Main.tempo=Main.tempo+val
+        Main.tempo=Main.tempo+val*x
         Main.taptemp=1
         Render.Render()
 
