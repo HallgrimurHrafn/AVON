@@ -130,7 +130,7 @@ def nyrskali():
 
 def customskali(val,i):
     if 0<=glo.custom[i]+val<=127:
-        glo.custom[i]+=val
+        glo.custom[i]+=int(val)
         Main.newskali=glo.custom.copy()
         Render.Render()
 
