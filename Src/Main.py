@@ -518,11 +518,11 @@ def init():
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
 
-    time.sleep(0.5)
 
     GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
     t = threading.Thread(target=multithread)
     t.start()
     print('its running, boooooiiiiii!')
 
+    time.sleep(0.5)
     Sequencer()
