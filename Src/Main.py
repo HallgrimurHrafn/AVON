@@ -4,7 +4,6 @@ import time
 import threading
 import numpy as np
 import RPi.GPIO as GPIO
-import mido
 import glo
 import midime
 
