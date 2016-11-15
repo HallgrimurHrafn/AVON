@@ -143,7 +143,7 @@ def skalarChange(val,x):
         glo.currentscale=(glo.currentscale+val)%glo.skalar.size
     if glo.currentscale!=2:
         exec glo.skalar[glo.currentscale]
-        print glo.skalar[glo.currentscale]
+        print glo.currentscale
     Render.Render()
 
 def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
