@@ -54,7 +54,7 @@ def kort(x,val):
 def channelchange(val):
     if 0<=config.v+val<=15:
         config.v=config.v+val
-        Main.ChannelChange()
+        Main.ChannelChange(config.v)
         print config.v, config.voice
         Render.Render()
 
