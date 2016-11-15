@@ -126,10 +126,9 @@ def taktmaelir(dalkur):
 # Sync starts
 def Sync():
     global timi2
-    while True:
-        for x in range (0,16):
-            midime.tm(248,0,0)
-            time.sleep(timi2/24)
+    for x in range (0,64):
+        midime.tm(248,0,0)
+        time.sleep(timi2/64)
 #Sync ends
 
 
@@ -172,8 +171,10 @@ def tfOut(a):
 # SEQUENCER LOOP, THIS IS IT YO GUYS:
 def Sequencer():
     global dlk, pause, stop, timi, tempo, partur, skali, newskali, timi2                    # til ad halda utanum hvar vid erum.
+    t1= threading.Thread(target=Sync)
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
+            t1.start()
             tumi=time.time()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 timi = 60/float(tempo)/float(bar/4)
@@ -187,7 +188,7 @@ def Sequencer():
                     break
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
             tumi2=time.time()
-            timi2=tumi2-tumi    
+            timi2=tumi2-tumi
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
@@ -543,8 +544,7 @@ def init():
     t.start()
     print('its running, boooooiiiiii!')
 
-    t1= threading.Thread(target=Sync)
-    t1.start()
+
 
     time.sleep(0.5)
     Sequencer()
