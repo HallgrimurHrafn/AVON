@@ -450,14 +450,14 @@ def clearleds():
 
 
 # ChannelChange starts          --- slekkur a thaverandi led m.v. voice og kveikir a naverandi.
-def ChannelChange():
+def ChannelChange(v):
     global tkt
-    if config.v != config.voice:
+    if v != config.voice:
         clearleds()
         if tkt:
             for x in range(0, 8):                                   # fyrir oll LED i 'dlk'
                 trellis.setLED(tfOut(x * 8 + dlk))                  # kveikja a LED!,tfout varpar i trellisformat.
-        config.voice=config.v
+        config.voice=v
         for x in range (0, 64):
             y = tfIn(x)
             if status[config.voice][y % 8][y // 8] == 1:
