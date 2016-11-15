@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 import threading
-import Main
 import menu
 import numpy as np
 

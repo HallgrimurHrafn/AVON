@@ -7,7 +7,6 @@ def main():
 
 def rot():
     subprocess.call(['python', 'Rotary.py'])
-    print "yes?"
 
 
 t1=threading.Thread(target=rot)
