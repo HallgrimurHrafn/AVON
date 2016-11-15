@@ -143,7 +143,7 @@ def skalarChange(val,x):
     elif x==0:
         glo.currentscale=(glo.currentscale+val)%glo.skalar.size
         print glo.currentscale
-    if glo.currentscale!=2:
+    if glo.currentscale!=3:
         exec glo.skalar[glo.currentscale]
         print glo.skalar[glo.currentscale]
         print Main.newskali
