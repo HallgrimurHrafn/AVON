@@ -106,7 +106,7 @@ def NOTEOFF(dalkur):
 # taktmaelir begins
 def taktmaelir(dalkur):
     global FLASH, status, tkt, timi, voice                          # global breytur, utskyrdar efst.
-    t1= threading.Thread(target=SYNC)
+    t1= threading.Thread(target=Sync)
     t1.start()
     midime.tm(248,0,0)
     tkt = True
