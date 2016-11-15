@@ -518,7 +518,7 @@ def init():
     ledshow(np.zeros((8, 8)))
     ledshow(np.zeros((8, 8)))
 
-
+    time.sleep(0.5)
 
     t = threading.Thread(target=multithread)
     t.start()

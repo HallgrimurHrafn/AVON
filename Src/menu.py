@@ -146,7 +146,7 @@ def skalarChange(val,x):
         print glo.skalar[glo.currentscale]
     Render.Render()
 
-def customsetup():
+def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
     if glo.currentscale>2:
         glo.es=glo.currentscale-3
         glo.navy=3
