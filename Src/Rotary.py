@@ -49,7 +49,7 @@ def rotary(channel):
     else:
         cd=False
     if cd:
-        # print "yeii", i        # click kom. af rotary <i>.
+        print "yeii", i        # click kom. af rotary <i>.
         menu.click(i)
     global cl, cr, lock, fstate, state
     if i==0:
@@ -74,10 +74,10 @@ def rotary(channel):
         return
     state[i]=0
     if fstate[i]==1:
-        # print 'right', i
+        print 'right', i
         menu.move(i, 1)
     elif fstate[i]==3:
-        # print 'left', i
+        print 'left', i
         menu.move(i, -1)
     else:
         return
