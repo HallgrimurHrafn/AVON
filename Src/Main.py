@@ -332,10 +332,10 @@ def liveplay(channel):
             for x in range(0, 64):
                 y = tfIn(x)
                 if trellis.justPressed(x):
-                    midime.tm(144+voice, skali[tfIn(x)], 100)
+                    midime.tm(144+voice, skali[tfIn(x)//8], 100)
                     trellis.setLED(x)
                 if trellis.justReleased(x):
-                    midime.tm(128+voice, skali[tfIn(x)], 0)
+                    midime.tm(128+voice, skali[tfIn(x)//8], 0)
                     trellis.clrLED(x)
             trellis.writeDisplay()
 #
