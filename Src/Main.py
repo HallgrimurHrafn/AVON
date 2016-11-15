@@ -42,7 +42,7 @@ period = []
 
 # menu
 clA = 0                         # ef clA=1 tha gerum vid clearAll
-lGO = 1                         # ef lgo=1 tha erum vid i life mode.
+lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
 stop = 0                        # eigum vid ad stoppa
 newskali=np.array([72, 71, 69, 67, 65, 64, 62, 60])
