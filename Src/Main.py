@@ -106,8 +106,6 @@ def NOTEOFF(dalkur):
 # taktmaelir begins
 def taktmaelir(dalkur):
     global FLASH, status, tkt, timi, voice                          # global breytur, utskyrdar efst.
-    t1= threading.Thread(target=Sync)
-    t1.start()
     midime.tm(248,0,0)
     tkt = True
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
@@ -127,9 +125,10 @@ def taktmaelir(dalkur):
 # Sync starts
 def Sync():
     global timi
-    for x in range (0,16):
-        midime.tm(248,0,0)
-        time.sleep(timi/24)
+    while True:
+        for x in range (0,16):
+            midime.tm(248,0,0)
+            time.sleep(timi/24)
 #Sync ends
 
 
@@ -539,6 +538,9 @@ def init():
     t = threading.Thread(target=multithread)
     t.start()
     print('its running, boooooiiiiii!')
+
+    t1= threading.Thread(target=Sync)
+    t1.start()
 
     time.sleep(0.5)
     Sequencer()
