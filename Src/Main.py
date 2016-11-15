@@ -51,7 +51,7 @@ skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 # save og loada skala :S                        tharf ad vera i minnkandi rod!.
 timi = 0.5  # 0.05 er min.     #timi
 tempo = 120
-FLASH = 0.9                     # hlutfallsleg lengd af timi fyrir taktmaeli
+FLASH = 1                       # hlutfallsleg lengd af timi fyrir taktmaeli
 lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 bar=8                           #8=8parts, 4=4parts...
 # save einhvern veginn              notna i samliggjandi dalkum.
