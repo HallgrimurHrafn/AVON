@@ -119,7 +119,7 @@ def nyrskali():
     for i in range (0,7):
         v+="glo.note + "+str(glo.custom[i])+", "
     v+="glo.note"
-    x="Main.skali=np.array(["+v+"])"
+    x="Main.newskali=np.array(["+v+"])"
     if glo.currentscale==3:
         glo.skalar=np.append(glo.skalar,x)
         glo.currentscale=glo.skalar.size-1
@@ -131,7 +131,7 @@ def nyrskali():
 def customskali(val,i):
     if 0<=glo.custom[i]+val<=127:
         glo.custom[i]+=val
-        Main.skali=glo.custom.copy()
+        Main.newskali=glo.custom.copy()
         Render.Render()
 
 
@@ -146,7 +146,7 @@ def skalarChange(val,x):
     if glo.currentscale!=2:
         exec glo.skalar[glo.currentscale]
         print glo.skalar[glo.currentscale]
-        print Main.skali
+        print Main.newskali
     Render.Render()
 
 def customsetup():  # glo.currentscale verdur ad vera staerra en 2.

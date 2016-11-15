@@ -15,9 +15,9 @@ note=60
 currentscale=0      #0= dur, 1=moll, 2=penta, 3,4,5.... =customs 1,2,3....
 # ef currentscale >2 ma gera adgerd i custom.
 skalar=np.array([
-"Main.skali=np.array([glo.note+12, glo.note+11, glo.note+9, glo.note+7, glo.note+5, glo.note+4, glo.note+2,glo.note])",
-"Main.skali=np.array([glo.note+12, glo.note+10, glo.note+8, glo.note+7, glo.note+5, glo.note+3, glo.note+2,glo.note])",
-"Main.skali=np.array([glo.note+17, glo.note+15, glo.note+12, glo.note+10, glo.note+7, glo.note+5, glo.note+3, glo.note])",
+"Main.newskali=np.array([glo.note+12, glo.note+11, glo.note+9, glo.note+7, glo.note+5, glo.note+4, glo.note+2,glo.note])",
+"Main.newskali=np.array([glo.note+12, glo.note+10, glo.note+8, glo.note+7, glo.note+5, glo.note+3, glo.note+2,glo.note])",
+"Main.newskali=np.array([glo.note+17, glo.note+15, glo.note+12, glo.note+10, glo.note+7, glo.note+5, glo.note+3, glo.note])",
 "pass" # custom skali
 ])
 custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
