@@ -64,12 +64,12 @@ def playColumn(dalkur):
     p1 = threading.Thread(target=NOTEON, args=(dalkur, True))    # buum til thrad til ad og keyrum NOTEON
     p1.start()                                              # thannig er taktmaelirinn nakvaemari
 
-    time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
+    time.sleep((timi2+timi) - (timi2+timi) * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
 
     p2 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
     p2.start()
 
-    time.sleep(timi * lengd)                               # timinn milli lok notu og upphaf naestu.
+    time.sleep((timi2+timi) * lengd)                               # timinn milli lok notu og upphaf naestu.
 # playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
 
 
@@ -173,11 +173,11 @@ def Sequencer():
     global dlk, pause, stop, timi, tempo, partur, skali, newskali, timi2                    # til ad halda utanum hvar vid erum.
     while True:
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
-            tumi=time.time()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
+                timi = 60/float(tempo)/float(bar/4)
+                tumi=time.time()
                 t1= threading.Thread(target=Sync)
                 t1.start()
-                timi = 60/float(tempo)/float(bar/4)
                 skali=newskali.copy()
                 while pause == 1:
                     time.sleep(0.1)
@@ -187,8 +187,9 @@ def Sequencer():
                 if stop == 1:
                     break
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
-            tumi2=time.time()
-            timi2=tumi2-tumi
+                tumi2=tumi
+                timi2=timi-(tumi2-tumi)
+
         while pause == 1:
             time.sleep(0.1)
 # SEQUENCER END, BOOOOOOOOOIIII                           --- her tharf
