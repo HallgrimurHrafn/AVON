@@ -158,7 +158,7 @@ def nyrskali():
     for i in range (0,7):
         glo.custom[i]=glo.custom[i]-glo.note
     if glo.es !=0:
-        glo.cs=np.append(glo.cs[:glo.es*8].copy(), glo.custom.copy(), glo.cs[glo.es*8+7:].copy())
+        glo.cs=np.append(glo.cs[:(glo.es-1)*8].copy(), glo.custom.copy(), glo.cs[(glo.es-1)*8+7:].copy())
         glo.es=0
     else:
         glo.cs=np.append(glo.cs, glo.custom.copy())
