@@ -6,7 +6,6 @@ import math
 import glo
 
 ## TODO:
-# a glo.custom skali ad bua til glo.note midad vid grunnton eda vid global breytuna glo.note.
 # hanna modetoggle fyrir cameru
 # skroll i gegnum xyz control parametra fyrir cameru
 
@@ -155,7 +154,7 @@ def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
 
 #create new glo.custom scale. thegar vid forum til baka i menu.
 def nyrskali():
-    glo.note=glo.custom[7]
+    print glo.es, glo.currentscale
     for i in range (0,7):
         glo.custom[i]=glo.custom[i]-glo.note
     if glo.es !=0:
