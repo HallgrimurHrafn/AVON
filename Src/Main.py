@@ -125,10 +125,10 @@ def taktmaelir(dalkur):
 
 # Sync starts
 def Sync():
-    global timi2
+    global timi
     for x in range (0,8):
         midime.tm(248,0,0)
-        time.sleep(timi2/64)
+        time.sleep(timi/64)
 #Sync ends
 
 
