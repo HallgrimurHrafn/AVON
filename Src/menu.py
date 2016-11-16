@@ -155,7 +155,7 @@ def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
 #create new glo.custom scale. thegar vid forum til baka i menu.
 def nyrskali():
     print glo.es, glo.currentscale
-    for i in range (0,7):
+    for i in range (0,8):
         glo.custom[i]=glo.custom[i]-glo.note
     if glo.es !=0:
         glo.cs=np.append(glo.cs[:(glo.es-1)*8].copy(), glo.custom.copy(), glo.cs[(glo.es-1)*8+7:].copy())
@@ -165,8 +165,8 @@ def nyrskali():
     v=""
     for i in range (0,7):
         v+="glo.note + "+str(glo.custom[i])+", "
-    v+="glo.note + "+str(glo.custom[7])
-    x="Main.newskali=np.array(["+v+"])"
+    v+="glo.note + "+str(glo.custom[7]) + "])"
+    x="Main.newskali=np.array(["+v
     if glo.currentscale==3:
         glo.skalar=np.append(glo.skalar,x)
         glo.currentscale=glo.skalar.size-1
