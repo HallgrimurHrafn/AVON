@@ -141,13 +141,13 @@ def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
         glo.oldnavx2=glo.navx
         glo.navx=0
         if glo.es>0:
-            glo.custom=np.array([
-            (glo.es-1)*8+glo.note,(glo.es-1)*8+1+glo.note,
-            (glo.es-1)*8+2+glo.note,(glo.es-1)*8+3+glo.note,
-            (glo.es-1)*8+4+glo.note,(glo.es-1)*8+5+glo.note,
-            (glo.es-1)*8+6+glo.note,(glo.es-1)*8+7+glo.note
-            ])
-            # glo.custom=glo.cs[(glo.es-1)*8:(glo.es-1)*8+7]
+            # glo.custom=np.array([
+            # (glo.es-1)*8+glo.note,(glo.es-1)*8+1+glo.note,
+            # (glo.es-1)*8+2+glo.note,(glo.es-1)*8+3+glo.note,
+            # (glo.es-1)*8+4+glo.note,(glo.es-1)*8+5+glo.note,
+            # (glo.es-1)*8+6+glo.note,(glo.es-1)*8+7+glo.note
+            # ])
+            glo.custom=glo.cs[(glo.es-1)*8:(glo.es-1)*8+7]
         else:
             glo.custom=np.array([glo.note, glo.note, glo.note, glo.note, glo.note, glo.note, glo.note, glo.note])
 
