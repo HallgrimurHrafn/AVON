@@ -64,12 +64,12 @@ def playColumn(dalkur):
     p1 = threading.Thread(target=NOTEON, args=(dalkur, True))    # buum til thrad til ad og keyrum NOTEON
     p1.start()                                              # thannig er taktmaelirinn nakvaemari
 
-    time.sleep((timi2+timi) - (timi2+timi) * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
+    time.sleep(timi - timi * lengd)                       #timi*lengd er hve mikill timi er eftir thegar notan klarast
 
     p2 = threading.Thread(target=NOTEOFF, args=(dalkur,))   # thad sama fyrir NOTEOFF
     p2.start()
 
-    time.sleep((timi2+timi) * lengd)                               # timinn milli lok notu og upphaf naestu.
+    time.sleep(timi * lengd)                               # timinn milli lok notu og upphaf naestu.
 # playColumn ends		--- finna ut hvernig a ad deala vid mismunandi takta notna.
 
 
