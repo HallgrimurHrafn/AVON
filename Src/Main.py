@@ -128,14 +128,14 @@ def taktmaelir(dalkur):
 
 # Sync starts
 def Sync():
-    global timi
+    global timi, timi2
     # for x in range (0,16):
     midime.tm(248,0,0)
-    time.sleep(timi/4)
+    time.sleep((timi-timi2)/4)
     midime.tm(248,0,0)
-    time.sleep(timi/4)
+    time.sleep((timi-timi2)/4)
     midime.tm(248,0,0)
-    time.sleep(timi/4)
+    time.sleep((timi-timi2)/4)
     midime.tm(248,0,0)
 #Sync ends
 
@@ -183,7 +183,7 @@ def Sequencer():
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             # t1= threading.Thread(target=Sync)
             # t1.start()
-            # tumi=time.time()
+            tumi=time.time()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 timi = 60/float(tempo)/float(bar/4)
                 skali=newskali.copy()
@@ -195,7 +195,7 @@ def Sequencer():
                 if stop == 1:
                     break
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
-                # timi2=timi-(time.time()-tumi)/(dalkur+1)
+                timi2=timi-(time.time()-tumi)/(dalkur+1)
 
         while pause == 1:
             time.sleep(0.1)
