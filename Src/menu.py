@@ -9,6 +9,7 @@ import glo
 ## TODO:
 # hanna modetoggle fyrir cameru
 # skroll i gegnum xyz control parametra fyrir cameru
+# banna notenda ad transpose-a skala svo hann fari uppfyrir 127 eda nidurfyrir 0.
 
 # allar breytur eru geymdar i glo.py
 

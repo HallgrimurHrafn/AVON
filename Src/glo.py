@@ -97,11 +97,11 @@ if val==-1:
 default="""
 glo.navx+=val
 Render.Render()"""
+
 fScrollMapX=np.array([
 [low, default, default, default, default, default, high, p],
 [low, default, high, p, p, p, p, p],
 [low, high, p, p, p, p, p, p],
 [low, default, default, default, default, default, default, high],
-[low, default, high, p, p, p, p, p],
-
+[low, default, high, p, p, p, p, p]
 ])
