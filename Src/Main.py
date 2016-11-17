@@ -1,5 +1,3 @@
-# playcolumn begins --- spilar notur i dalk og takt maelinn lika.
-
 import time
 import threading
 import numpy as np
@@ -9,6 +7,9 @@ import Rotary
 import Adafruit_Trellis         # trellis
 import Render
 
+### TODO:
+# - Laga Sync
+# - Setja inn cameru.
 # Render.Avon()  # on startup we will have the logo on the screen.
 
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
