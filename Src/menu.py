@@ -168,8 +168,10 @@ def nyrskali():
         glo.cs=np.append(glo.cs, glo.custom.copy())
     v=""
     for i in range (0,7):
-        v+="glo.note + "+str(glo.custom[i])+", "
-    v+="glo.note + "+str(glo.custom[7]) + "]" + ")"
+        if i%3==2:
+            v+="\n"
+        v+="glo.note+"+str(glo.custom[i])+","
+    v+="glo.note+"+str(glo.custom[7]) +"]" + ")"
     x="Main.newskali=np.array(["+v
     if glo.currentscale==3:
         glo.skalar=np.append(glo.skalar,x)
