@@ -149,7 +149,7 @@ def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
             # ])
             glo.custom=np.array([glo.note + int(glo.cs[(glo.es-1)*8].copy())])
             for x in range (1,8):
-                glo.custom=np.append(glo.custom, int(glo.cs[(glo.es-1)*8+x].copy()))
+                glo.custom=np.append(glo.custom, glo.note +  int(glo.cs[(glo.es-1)*8+x].copy()))
             # glo.custom=glo.cs[(glo.es-1)*8:(glo.es-1)*8+8].copy()
 
         else:
