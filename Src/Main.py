@@ -213,7 +213,7 @@ def Sequencer():
                 if stop == 1:
                     break
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
-                timi2=timi-(time.time()-tumi)/(dalkur+1)
+                timi2=timi-(time.time()-tumi/(dalkur+1))
 
         while pause == 1:
             time.sleep(0.1)
