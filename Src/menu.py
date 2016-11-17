@@ -5,6 +5,7 @@ import time
 import math
 import glo
 
+
 ## TODO:
 # hanna modetoggle fyrir cameru
 # skroll i gegnum xyz control parametra fyrir cameru

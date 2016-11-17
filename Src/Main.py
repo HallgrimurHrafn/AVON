@@ -7,7 +7,9 @@ import RPi.GPIO as GPIO
 import midime
 import Rotary
 import Adafruit_Trellis         # trellis
+import Render
 
+# Render.Avon()  # on startup we will have the logo on the screen.
 
 matrix0 = Adafruit_Trellis.Adafruit_Trellis()
 matrix1 = Adafruit_Trellis.Adafruit_Trellis()
@@ -43,6 +45,11 @@ period = []
 #
 
 # menu
+cam = False
+seen = False
+x = 0
+y = 0
+z = 0
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
