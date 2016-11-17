@@ -75,6 +75,8 @@ def playColumn(dalkur):
 
 # NOTEON begins
 def NOTEON(dalkur, cd):
+    t1= threading.Thread(target=Sync)
+    t1.start()
     global tGO, skali, status, mcGo                         # global breytur, utskyrdar efst.
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
@@ -90,8 +92,6 @@ def NOTEON(dalkur, cd):
 
 # NOTEOFF begins
 def NOTEOFF(dalkur):
-    t1= threading.Thread(target=Sync)
-    t1.start()
     global tGO, skali, status, mcGO
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     mcGO = 0                                                # slekkur a modColumn, bannad ad modda notur
@@ -128,9 +128,14 @@ def taktmaelir(dalkur):
 # Sync starts
 def Sync():
     global timi
-    for x in range (0,16):
-        midime.tm(248,0,0)
-        time.sleep(timi/16)
+    # for x in range (0,16):
+    midime.tm(248,0,0)
+    time.sleep(timi/4)
+    midime.tm(248,0,0)
+    time.sleep(timi/4)
+    midime.tm(248,0,0)
+    time.sleep(timi/4)
+    midime.tm(248,0,0)
 #Sync ends
 
 
