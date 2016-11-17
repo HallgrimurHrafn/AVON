@@ -24,8 +24,16 @@ custom=np.array([60, 60, 60, 60, 60, 60, 60, 60])
 cs=np.array([])
 
 
+# 5x8: 8 dalkar, 5 linur. functionmaps og cursormap.
 p="pass"
-# 5x8: 8 dalkar, 5 linur.
+
+cursor=np.array([
+[p, p, p, p, p, p, p, p],
+[p, p, p, p, p, p, p, p],
+[p, p, p, p, p, p, p, p],
+[p, p, p, p, p, p, p, p],
+[p, p, p, p, p, p, p, p]
+])
 
 fClickMap=np.array([[
 """
@@ -54,7 +62,7 @@ fScrollMapY=np.array([
 #0
 ["tempchange(val, 1)",
 "channelchange(val)",
-p,
+p, # kannki hvort hann noti global skala eda channel customly her?
 "livechange()",
 "camerachange()",
 "notelengdChange(val)",

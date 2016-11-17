@@ -65,9 +65,11 @@ disp.clear()
 # The screen is 240x320px
 # more than ~5 frames per second won't work!
 #
+#
+#
 # glo variables:
-# glo.cursor[navy][navx]  - locations for cursor to be, and whether the cursor
-#   is > or _. 1 for > and 0 for _.
+# glo.cursor[navy][navx]  - locations for cursor to be,
+#   IMPORTANT-ish: if navy>0 the cursor is _ instead of >
 # glo.currentscale points to type of scale. for it the text must say:
 #   0: Dur (or major), 1: moll (or minor), 2:penta, 3: CreateCustomScale (or just something intuitive)
 #   4 and forward: custom +str(glo.currentscale-3).
@@ -108,11 +110,11 @@ def thebuffer():
     time.sleep(0.2)
     Render()
 
-def cursor(location, type):
-    pass
+def cursor(location, type): # i reccomend using the global page before sending the
+    pass                    # location to cursor().
 
-def chunk(location, text):
-    pass
+def chunk(location, text):  # i reccomend using the global page before sending the
+    pass                    # location to chunk().
 
 def camera(x,y,z):
     pass
