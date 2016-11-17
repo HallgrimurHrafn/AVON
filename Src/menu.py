@@ -120,8 +120,8 @@ def skalarChange(val,x):
         print glo.currentscale
     if glo.currentscale!=3:
         exec glo.skalar[glo.currentscale]
-        print glo.skalar[glo.currentscale]
-        print Main.newskali
+        # print glo.skalar[glo.currentscale]    # adgerdin. debug
+        print Main.newskali                     # nyji skalin. debug
         Render.Render()
 
 

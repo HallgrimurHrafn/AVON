@@ -52,7 +52,7 @@ skali = np.array([72, 71, 69, 67, 65, 64, 62, 60])  # skali, segir sig sjalfur,
 timi = 0.5  # 0.05 er min.     #timi
 timi2= 0.5                     # timi fyrir sync.
 tempo = 120
-FLASH = 1                       # hlutfallsleg lengd af timi fyrir taktmaeli
+FLASH = 0.9                       # hlutfallsleg lengd af timi fyrir taktmaeli
 lengd = 0.1                     # hlutfall timi, bil milli enda og byrjunar
 bar=8                           #8=8parts, 4=4parts...
 # save einhvern veginn              notna i samliggjandi dalkum.
@@ -90,6 +90,8 @@ def NOTEON(dalkur, cd):
 
 # NOTEOFF begins
 def NOTEOFF(dalkur):
+    t1= threading.Thread(target=Sync)
+    t1.start()
     global tGO, skali, status, mcGO
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     mcGO = 0                                                # slekkur a modColumn, bannad ad modda notur
@@ -175,9 +177,9 @@ def Sequencer():
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             # t1= threading.Thread(target=Sync)
             # t1.start()
+            # tumi=time.time()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 timi = 60/float(tempo)/float(bar/4)
-                tumi=time.time()
                 skali=newskali.copy()
                 while pause == 1:
                     time.sleep(0.1)
@@ -187,8 +189,7 @@ def Sequencer():
                 if stop == 1:
                     break
                 playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
-                tumi2=tumi
-                timi2=timi-(tumi2-tumi)
+                # timi2=timi-(time.time()-tumi)/(dalkur+1)
 
         while pause == 1:
             time.sleep(0.1)
