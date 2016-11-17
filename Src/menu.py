@@ -159,12 +159,12 @@ def customsetup():  # glo.currentscale verdur ad vera staerra en 2.
 #create new glo.custom scale. thegar vid forum til baka i menu.
 def nyrskali():
     print glo.es, glo.currentscale
+    for i in range (0,8):
+        glo.custom[i]=glo.custom[i]-glo.note
     if glo.es !=0:
         glo.cs=np.append(glo.cs[:(glo.es-1)*8].copy(), glo.custom.copy(), glo.cs[(glo.es-1)*8+7:].copy())
         glo.es=0
     else:
-        for i in range (0,8):
-            glo.custom[i]=glo.custom[i]-glo.note
         glo.cs=np.append(glo.cs, glo.custom.copy())
     v=""
     for i in range (0,7):
