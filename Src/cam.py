@@ -7,13 +7,14 @@ def cam():
     while True:
         if not Main.cam:
             return
-        t1=threading.Thread(target=None, args=(0))
-        t1.start()
-        t2=threading.Thread(target=None, args=(1))
-        t2.start()
-        t3=threading.Thread(target=None, args=(2))
-        t3.start()
-        time.sleep(Main.timi)
+        if Main.seen:
+            t1=threading.Thread(target=None, args=(0))
+            t1.start()
+            t2=threading.Thread(target=None, args=(1))
+            t2.start()
+            t3=threading.Thread(target=None, args=(2))
+            t3.start()
+            time.sleep(Main.timi)
 
 def opperate(x):
     if x==0:

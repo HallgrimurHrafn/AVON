@@ -78,17 +78,18 @@ def livechange():
     Render.Render()
 
 def camerachange():
-    if Main.cGO==1:
+    if Main.cam==1:
         Main.cGO=0
         camoff()
     else:
-        Main.cGO=1
+        Main.cam=1
         camon()
     # forrit sem uppfaerir cameramod
     Render.Render()
 
 def camon():
-    pass
+    if glo.xcursor or glo.ycursor or glo.zcursor==1:
+
 
 def camoff():
     pass
