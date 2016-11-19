@@ -43,6 +43,9 @@ int XYZ[3]; // Stores center of marker, does not update unless a new position is
 int detectCounter = 0;
 bool detected = false;
 
+bool trackingOn = false;
+bool close = false;
+
 void update_Var( int, void*);
 
 // Initialize Trackbars for tuning
@@ -89,13 +92,13 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 		int numObjects = hierarchy.size();
 		for (int i=0; i>=0; i = hierarchy[i][0]){
 			cv:Moments moment = cv::moments((cv::Mat)contours[i]);
-			int t = moment.m00;
-			if (t > 200) {
+			int area = moment.m00;
+			if (area > 200) {
 				detected = true;
 				detectCounter = 10;
-				XYZ[2] = t;
-				XYZ[0] = moment.m10/Z;
-				XYZ[1] = moment.m01/Z;
+				XYZ[2] = area;
+				XYZ[0] = moment.m10/area;
+				XYZ[1] = moment.m01/area;
 			}
 		}
 	}
@@ -133,20 +136,21 @@ void main() {
 	update_Var(0, 0);
 
 	for (;;) {
-		Camera.grab();
-		Camera.retrieve(img);
+		if (trackingOn) {
+			Camera.grab();
+			Camera.retrieve(img);
 
-		cv::cvtColor(img,img,CV_BGR2RGB);
-		colorIsolation(img, hsv, mask);
-		morphOps(mask);
-		trackMarker(mask, img);
+			cv::cvtColor(img,img,CV_BGR2RGB);
+			colorIsolation(img, hsv, mask);
+			morphOps(mask);
+			trackMarker(mask, img);
 
-		// Display image
-		cv::imshow("Tracker", img);
-		//cv::imshow("Mask", mask);
-		//cv::imshow("HSV", hsv);
-
-		if (cv::waitKey(1) == 27){
+			// Display image
+			cv::imshow("Tracker", img);
+			//cv::imshow("Mask", mask);
+			//cv::imshow("HSV", hsv);
+		}
+		if (end){
 			break;
 		}
 	}
@@ -182,6 +186,10 @@ void init() {
 	main();
 }
 
+void end(){
+	close = true;
+}
+
 #include <boost/python.hpp>
 
 BOOST_PYTHON_MODULE(vision)	{
@@ -190,5 +198,6 @@ BOOST_PYTHON_MODULE(vision)	{
 	def("getXYZ", getXYZ);
 	def("start", start);
 	def("stop", stop);
-	def("init", init)
+	def("init", init);
+	def("end", end);
 }
