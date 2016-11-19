@@ -8,12 +8,15 @@ def cam():
         if not Main.cam:
             return
         if Main.seen:
-            t1=threading.Thread(target=None, args=(0))
-            t1.start()
-            t2=threading.Thread(target=None, args=(1))
-            t2.start()
-            t3=threading.Thread(target=None, args=(2))
-            t3.start()
+            if glo.xcursor==1:
+                t1=threading.Thread(target=opperate, args=(0))
+                t1.start()
+            if glo.xcursor==1:
+                t2=threading.Thread(target=opperate, args=(1))
+                t2.start()
+            if glo.xcursor==1:
+                t3=threading.Thread(target=opperate, args=(2))
+                t3.start()
             time.sleep(Main.timi)
 
 def opperate(x):

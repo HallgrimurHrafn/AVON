@@ -5,6 +5,8 @@ import time
 import math
 import glo
 import threading
+import RPi.GPIO as GPIO
+
 
 
 ## TODO:
@@ -89,10 +91,12 @@ def camerachange():
 
 def camon():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
-
-
+        if Main.lGO=0:
+            GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
 def camoff():
-    pass
+    if glo.xcursor or glo.ycursor or glo.zcursor==1:
+        if Main.lGO=0:
+            GPIO.remove_event_detect(7)
 
 def camera(val, xyz):
     if xyz==0:      # x
