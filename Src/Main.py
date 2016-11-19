@@ -28,14 +28,18 @@ trellis.begin(
     )
 
 # nonmenu
+seen = False                    # ser myndavelin boltann?
+cam = False                     # er kveikt a myndavelinni
+x=0                             # x hnit myndavelarinnar
+y=0                             # y hnit myndavelarinnar
+z=0                             # z hnit myndavelarinnar
 taptemp = 1                     # hvort taptempo se virkt
 v = 0                           # styring fyrir hvada voice vid aetlum a fara i.
 voice = 0                       # hvada voice er i notkun
 tkt = False                       # hvort ljosin fra taktmaelinum seu i gangi.
 dlk = 0                           # hvada dalkur er i spilun.
 mwGO = 0                        # hvort vid erum i modwatch eda ekki
-tGO = 1                         # hvort breyta megi status eda ekki
-mcGo = 0                        # hvort modda megi med myndavel eda ekki
+tGO = 1                         # hvort breyta megi status eda ekk = 0  
 mod=np.zeros((8,8,16,8))    	#mun halda utan um upplysingar hverrar notu sidar.
 status = np.zeros((16, 8, 8))   # status notna fylkid okkar
 tStatus = np.zeros((16, 8, 8))  # tStatus, timirarystatus. notad thegar
@@ -86,7 +90,7 @@ def playColumn(dalkur):
 def NOTEON(dalkur, cd):
     t1= threading.Thread(target=Sync)
     t1.start()
-    global tGO, skali, status, mcGo                         # global breytur, utskyrdar efst.
+    global tGO, skali, status                               # global breytur, utskyrdar efst.
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
         for v in range(0, 16):                              # fyrir allar notur dalksins spilum..

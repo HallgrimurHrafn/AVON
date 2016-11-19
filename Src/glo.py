@@ -9,6 +9,12 @@ navy=0
 oldnavx=0  # navx fyrir
 oldnavx2=0
 
+xmod=["pass", "notes(Main.x)"]
+ymod=["pass", "notes(Main.y)"]
+zmod=["pass", "notes(Main.z)"]
+xcursor=0
+ycursor=0
+zcursor=0
 
 es=0                #edit skali, es=1 fyrir custom skala 1, es=2 fyrir customskala 2....
 note=60

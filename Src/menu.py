@@ -4,6 +4,7 @@ import Main
 import time
 import math
 import glo
+import threading
 
 
 ## TODO:
@@ -79,10 +80,18 @@ def livechange():
 def camerachange():
     if Main.cGO==1:
         Main.cGO=0
+        camoff()
     else:
         Main.cGO=1
+        camon()
     # forrit sem uppfaerir cameramod
     Render.Render()
+
+def camon():
+    pass
+
+def camoff():
+    pass
 
 def camera(val, xyz):
     if xyz==0:      # x
