@@ -93,18 +93,33 @@ def camon():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO=0:
             GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
+    Main.cam=False
+
 def camoff():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO=0:
             GPIO.remove_event_detect(7)
+    Main.cam=True
 
-def camera(val, xyz):
+
+def cameraMode(val, xyz):
     if xyz==0:      # x
-        pass
+        glo.xcursor=(glo.xcursor + val)%glo.xmod.size
     elif xyz==1:    # y
-        pass
+        glo.ycursor=(glo.ycursor + val)%glo.ymod.size
     elif xyz==2:    # z
-        pass
+        glo.zcursor=(glo.zcursor + val)%glo.zmod.size
+
+    if glo.xcursor or glo.ycursor or glo.zcursor==1:
+        if glo.stat==1:
+            if Main.lGO==0:
+                GPIO.remove_event_detect(7)
+                glo.stat=0
+    else:
+        if glo.stat==0:
+            Main.multithread()
+            glo.stat=1
+
     Render.Render()
 
 def notelengdChange(val):

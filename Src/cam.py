@@ -4,9 +4,7 @@ import glo
 import threading
 
 def cam():
-    while True:
-        if not Main.cam:
-            return
+    while Main.cam:
         if Main.seen:
             if glo.xcursor==1:
                 t1=threading.Thread(target=opperate, args=(0))
