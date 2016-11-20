@@ -98,11 +98,11 @@ def Avon():   # i put this here so we could get the logo on the screen when the 
 
 
 def Render():
-    global last
-    last2=time.time()  # a little something since the screen cant handle more than
-    if last2>last+0.2  # more than 5 frames per second.
-        return thebuffer()
-    last=last2
+    # global last
+    # last2=time.time()  # a little something since the screen cant handle more than
+    # if last2>last+0.2  # more than 5 frames per second.
+    #     return thebuffer()
+    # last=last2
 
     print "navx",glo.navx,"navy",glo.navy
 
