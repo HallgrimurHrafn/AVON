@@ -8,15 +8,15 @@ import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
 # Raspberry Pi config.
-DC = 18
-RST = 23
-SPI_PORT = 0
-SPI_DEVICE = 0
-
-last=time.time()
-disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
-disp.begin()
-disp.clear()
+# DC = 18
+# RST = 23
+# SPI_PORT = 0
+# SPI_DEVICE = 0
+#
+# last=time.time()
+# disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
+# disp.begin()
+# disp.clear()
 
 ### TODO:
 # Create the ability to scroll through the list on the left.
