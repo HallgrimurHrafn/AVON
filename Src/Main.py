@@ -28,6 +28,7 @@ trellis.begin(
     )
 
 # nonmenu
+tick=time.time()
 seen = False                    # ser myndavelin boltann?
 cam = False                     # er kveikt a myndavelinni
 x=0                             # x hnit myndavelarinnar
@@ -39,7 +40,7 @@ voice = 0                       # hvada voice er i notkun
 tkt = False                       # hvort ljosin fra taktmaelinum seu i gangi.
 dlk = 0                           # hvada dalkur er i spilun.
 mwGO = 0                        # hvort vid erum i modwatch eda ekki
-tGO = 1                         # hvort breyta megi status eda ekk = 0  
+tGO = 1                         # hvort breyta megi status eda ekk = 0
 mod=np.zeros((8,8,16,8))    	#mun halda utan um upplysingar hverrar notu sidar.
 status = np.zeros((16, 8, 8))   # status notna fylkid okkar
 tStatus = np.zeros((16, 8, 8))  # tStatus, timirarystatus. notad thegar
@@ -88,9 +89,10 @@ def playColumn(dalkur):
 
 # NOTEON begins
 def NOTEON(dalkur, cd):
-    t1= threading.Thread(target=Sync)
-    t1.start()
-    global tGO, skali, status                               # global breytur, utskyrdar efst.
+    # t1= threading.Thread(target=Sync)
+    # t1.start()
+    global tGO, skali, status, tick                               # global breytur, utskyrdar efst.
+    tick=time.time()
     tGO = 0                                                 # tGO=0, trelliswatch ma ekki breyta status.
     for x in range(0, 8):
         for v in range(0, 16):                              # fyrir allar notur dalksins spilum..
@@ -122,7 +124,6 @@ def NOTEOFF(dalkur):
 # taktmaelir begins
 def taktmaelir(dalkur):
     global FLASH, status, tkt, timi, voice                          # global breytur, utskyrdar efst.
-    midime.tm(248,0,0)
     tkt = True
     for x in range(0, 8):                                   # fyrir oll LED i 'dalkur'
         trellis.setLED(tfOut(x * 8 + dalkur))               # kveikja a LED!,tfout varpar i trellisformat.
@@ -213,7 +214,6 @@ def Sequencer():
         if stop == 0:                                       # ef ytt var a pause tha leyfum vid sequencer-inum ekki ad spila.
             # t1= threading.Thread(target=Sync)
             # t1.start()
-            tumi=time.time()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
                 timi = 60/float(tempo)/float(bar/4)
                 skali=newskali.copy()
@@ -224,8 +224,6 @@ def Sequencer():
                 dlk=dalkur                                  #uppfaerum dlk
                 if stop == 1:
                     break
-                playColumn(dalkur)                          # spila notur dalks auk bid og taktmaelis.
-                timi2=timi-(time.time()-tumi)/(dalkur+1)
 
         while pause == 1:
             time.sleep(0.1)

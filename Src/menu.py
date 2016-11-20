@@ -80,11 +80,12 @@ def livechange():
     Render.Render()
 
 def camerachange():
-    if Main.cam==1:
-        Main.cGO=0
+    if Main.cam:
+        Main.cam=False
+        Main.seen=False
         camoff()
     else:
-        Main.cam=1
+        Main.cam=True
         camon()
     # forrit sem uppfaerir cameramod
     Render.Render()
