@@ -11,7 +11,6 @@ import threading
 # control functions in general.
 
 def cam():
-    global
     while Main.cam:
         time.sleep(Main.time-(time.time()-Main.tick))
         for blah in nrange (0,8):
