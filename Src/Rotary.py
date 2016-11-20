@@ -36,7 +36,7 @@ GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 
 def rotary(channel):
-    global cl, cr, fstate, state
+    global cl, cr, lock, fstate, state
     if channel==33 or channel==35 or channel==37:  # hvada rotary er ad senda.
         i=0  # rotary 1
     else:
@@ -50,7 +50,6 @@ def rotary(channel):
     if cd:
         # print "yeii", i        # click kom. af rotary <i>.
         menu.click(i)
-    global cl, cr, lock, fstate, state
     if i==0:
         if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
             return
