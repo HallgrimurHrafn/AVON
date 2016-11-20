@@ -8,3 +8,6 @@ def stopper():
     print "blah"
 
 GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
+
+while True:
+    time.sleep(10)
