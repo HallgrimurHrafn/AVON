@@ -215,7 +215,6 @@ def Sequencer():
             # t1= threading.Thread(target=Sync)
             # t1.start()
             for dalkur in range(0, 8):                      # fyrir alla dalka i sequencer.
-                print "debug"
                 timi = 60/float(tempo)/float(bar/4)
                 skali=newskali.copy()
                 while pause == 1:
@@ -223,6 +222,7 @@ def Sequencer():
                     if stop == 1:
                         break
                 dlk=dalkur                                  #uppfaerum dlk
+                playColumn(dalkur)
                 if stop == 1:
                     break
 
