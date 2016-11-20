@@ -52,10 +52,10 @@ period = []
 
 # menu
 cam = False
-seen = False
-x = 0
-y = 0
-z = 0
+seen = True
+x = 60
+y = 60
+z = 60
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
