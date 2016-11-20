@@ -37,6 +37,7 @@ GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 def rotary(channel):
     global cl, cr, fstate, state
+    print "debug"
     if channel==33 or channel==35 or channel==37:  # hvada rotary er ad senda.
         i=0  # rotary 1
     else:
