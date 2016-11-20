@@ -41,6 +41,7 @@ def rotary(channel):
         i=0  # rotary 1
     else:
         i=1  # rotary 2
+    print cl[i],cr[i]
     # placeholder verdur gpio fyrir rotary 2 click channel
     if channel==37 or channel == 32:
         cd=True
