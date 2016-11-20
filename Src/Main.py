@@ -565,7 +565,7 @@ def init():
 
     GPIO.add_event_detect(38, GPIO.RISING, callback=stopper, bouncetime=200)
     GPIO.add_event_detect(40, GPIO.RISING, callback=playpause, bouncetime=200)
-    GPIO.add_event_detect(36, GPIO.RISING, callback=callback_tap, bouncetime=100)
+    GPIO.add_event_detect(36, GPIO.RISING, callback=callback_tap, bouncetime=200)
 
     for x in range(0, 64):
         trellis.clrLED(x)
