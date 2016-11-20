@@ -5,7 +5,7 @@ import numpy as np
 
 
 
-# rotary haegri tengt i gpio 33 og vinstri i 31.
+# rotary haegri tengt i gpio 11 og vinstri i 31.
 
 # Clockwise:
 # 0,0 : state 0
@@ -19,13 +19,11 @@ cl=np.array([0, 0])
 cr=np.array([0, 0])
 state=np.array([0, 0])
 fstate=np.array([0, 0])   # former state. sidasta astand semsagt.
-l=np.array([33, "placeholder"])    # vantar gpio channel fyrir rotary 2.
-r=np.array([31, "placeholder"])
 
 GPIO.setmode(GPIO.BOARD)
 # rotary 1
-GPIO.setup(33, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
-GPIO.setup(35, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
+GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
 GPIO.setup(37, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 # rotary 2
@@ -37,9 +35,9 @@ GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 def rotary(channel):
     global cl, cr, lock, fstate, state
-    if channel==33 or channel==35 or channel==37:  # hvada rotary er ad senda.
+    if channel==11 or channel==13 or channel==37:  # hvada rotary er ad senda.
         i=0  # rotary 1
-        print GPIO.input(35),GPIO.input(33), "debug1", state[0]
+        print GPIO.input(13),GPIO.input(11), "debug1", state[0]
     else:
         i=1  # rotary 2
         print GPIO.input(31),GPIO.input(29), "debug2", state[1]
@@ -52,10 +50,10 @@ def rotary(channel):
         print "yeii", i        # click kom. af rotary <i>.
         # menu.click(i)
     if i==0:
-        if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
+        if cl[i] ==GPIO.input(13) and cr[i]==GPIO.input(11):  # erum vid i sama state-i?
             return
-        cl[i] = GPIO.input(35)     # ef ekki uppfaerum
-        cr[i] = GPIO.input(33)
+        cl[i] = GPIO.input(13)     # ef ekki uppfaerum
+        cr[i] = GPIO.input(11)
     else:
         if cl[i]==GPIO.input(31) and cr[i]==GPIO.input(29):
             return
@@ -83,8 +81,8 @@ def rotary(channel):
         print 'eitthvad for urskeidis.', i
 
 # rotary 1
-GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary)
-GPIO.add_event_detect(35, GPIO.BOTH, callback=rotary)
+GPIO.add_event_detect(11, GPIO.BOTH, callback=rotary)
+GPIO.add_event_detect(13, GPIO.BOTH, callback=rotary)
 GPIO.add_event_detect(37, GPIO.RISING, callback=rotary, bouncetime=150)
 
 # rotary 2
