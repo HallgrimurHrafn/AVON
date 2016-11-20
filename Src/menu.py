@@ -93,7 +93,7 @@ def camerachange():
 def camon():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO==0:
-            GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
+            GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=100)
     Main.cam=False
 
 def camoff():
