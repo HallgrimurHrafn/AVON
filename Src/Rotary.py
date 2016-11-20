@@ -39,9 +39,10 @@ def rotary(channel):
     global cl, cr, lock, fstate, state
     if channel==33 or channel==35 or channel==37:  # hvada rotary er ad senda.
         i=0  # rotary 1
+        print GPIO.input(35),GPIO.input(33)
     else:
         i=1  # rotary 2
-    print cl[i],cr[i]
+        print GPIO.input(31),GPIO.input(29)
     # placeholder verdur gpio fyrir rotary 2 click channel
     if channel==37 or channel == 32:
         cd=True
