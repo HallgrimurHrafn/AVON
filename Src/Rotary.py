@@ -72,9 +72,11 @@ def rotary(channel):
         return
     state[i]=0
     if fstate[i]==1:
+        print "debug 3"
         # print 'right', i
         menu.move(i, 1)
     elif fstate[i]==3:
+        print "debug 4"
         # print 'left', i
         menu.move(i, -1)
     else:
