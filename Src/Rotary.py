@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-import menu
+# import menu
 import numpy as np
 
 
@@ -50,7 +50,7 @@ def rotary(channel):
         cd=False
     if cd:
         # print "yeii", i        # click kom. af rotary <i>.
-        menu.click(i)
+        # menu.click(i)
     if i==0:
         if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
             return
@@ -75,11 +75,11 @@ def rotary(channel):
     if fstate[i]==1:
         print "debug 3"
         # print 'right', i
-        menu.move(i, 1)
+        # menu.move(i, 1)
     elif fstate[i]==3:
         print "debug 4"
         # print 'left', i
-        menu.move(i, -1)
+        # menu.move(i, -1)
     else:
         return
         # print 'eitthvad for urskeidis.', i
