@@ -8,7 +8,7 @@ GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # set up STOP button
 def stopper(channel):
     print "blah"
 
-GPIO.add_event_detect(38, GPIO.BOTH, callback=stopper, bouncetime=50)
+GPIO.add_event_detect(38, GPIO.BOTH, callback=stopper, bouncetime=100)
 
 while True:
     time.sleep(10)
