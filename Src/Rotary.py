@@ -46,7 +46,6 @@ def rotary(channel):
         cd=True
     else:
         cd=False
-        print "debug"
     if cd:
         # print "yeii", i        # click kom. af rotary <i>.
         menu.click(i)
