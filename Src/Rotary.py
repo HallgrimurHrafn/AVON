@@ -49,7 +49,7 @@ def rotary(channel):
     else:
         cd=False
     if cd:
-        # print "yeii", i        # click kom. af rotary <i>.
+        print "yeii", i        # click kom. af rotary <i>.
         # menu.click(i)
     if i==0:
         if cl[i] ==GPIO.input(35) and cr[i]==GPIO.input(33):  # erum vid i sama state-i?
@@ -73,16 +73,14 @@ def rotary(channel):
         return
     state[i]=0
     if fstate[i]==1:
-        print "debug 3"
-        # print 'right', i
+        print 'right', i
         # menu.move(i, 1)
     elif fstate[i]==3:
-        print "debug 4"
-        # print 'left', i
+        print 'left', i
         # menu.move(i, -1)
     else:
         return
-        # print 'eitthvad for urskeidis.', i
+        print 'eitthvad for urskeidis.', i
 
 # rotary 1
 GPIO.add_event_detect(33, GPIO.BOTH, callback=rotary)
