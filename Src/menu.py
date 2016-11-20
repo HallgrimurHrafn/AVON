@@ -17,6 +17,7 @@ import RPi.GPIO as GPIO
 # allar breytur eru geymdar i glo.py
 
 def move(i, val):
+    print "debug1"
     if i==0:
         kort(0,val)
     else:
@@ -24,6 +25,7 @@ def move(i, val):
 
 
 def click(i):
+    print "debug2"
     if i==1:
         kort(2,0)
     else:
