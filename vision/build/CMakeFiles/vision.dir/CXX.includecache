@@ -25,6 +25,8 @@ stdio.h
 -
 math.h
 -
+boost/python.hpp
+-
 
 /usr/local/include/opencv2/calib3d.hpp
 opencv2/core.hpp
