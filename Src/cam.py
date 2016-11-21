@@ -22,6 +22,7 @@ def cam():
                 t3=threading.Thread(target=opperate, args=(glo.zcursor))
                 if glo.xcursor==1 and blah==7:
                     t1.start()
+                    print "x", glo.xcursor
                 else:
                     t1.start()
                 if glo.ycursor==1 and blah==7:
