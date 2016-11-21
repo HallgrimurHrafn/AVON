@@ -48,7 +48,7 @@ disp.clear((0,0,0))
 print('Loading AVON image')
 Avon;
 
-time.sleep(1)
+time.sleep(10)
 
 #clear to white background
 disp.clear((255,255,255))
@@ -90,6 +90,6 @@ def draw_rotated_text(image, text, position, angle, font, fill=(100,100,100)):
     image.paste(rotated, position, rotated)
 
 # Write two lines of white text on the buffer, rotated 90 degrees counter clockwise.
-draw_rotated_text(disp.buffer, str(tempo)+' bpm' , portrait((300, 120)), 90, font, fill=textbgr)
+draw_rotated_text(disp.buffer, str(tempo)+' bpm' , portrait([300, 120]), 90, font, fill=textbgr)
 
 draw_rotated_text(disp.buffer, 'KHSB-8', (170, 90), 90, font, fill=(255,255,255))
