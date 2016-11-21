@@ -5,18 +5,18 @@ import time
 from PIL import Image
 import Adafruit_ILI9341 as TFT
 import Adafruit_GPIO as GPIO
-# import Adafruit_GPIO.SPI as SPI
+import Adafruit_GPIO.SPI as SPI
 
 # Raspberry Pi config.
-# DC = 18
-# RST = 23
-# SPI_PORT = 0
-# SPI_DEVICE = 0
+DC = 18
+RST = 23
+SPI_PORT = 0
+SPI_DEVICE = 0
 #
-# last=time.time()
-# disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
-# disp.begin()
-# disp.clear()
+last=time.time()
+disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
+disp.begin()
+disp.clear()
 
 ### TODO:
 # Create the ability to scroll through the list on the left.
@@ -39,11 +39,6 @@ import Adafruit_GPIO as GPIO
 #   as well as the type of cursor you need and draw it. use it in Render. You need to add
 #   the locations to glo.cursor yourself. give them their own colors. That should
 #   help the user locate it more easily.
-#
-# create the function below named chunk. it should be used to enter the items in the list
-#   as well as their location and should put it on the screen. Think of Render as a
-#   system to put all the blocks on the screen through functions and afterward it updates the
-#   display it self.
 #
 # create the function below named camera. it should only be called if Main.seen=True.
 #   its result should be that x and y are intersecting perpendicular lines and z should be a radius
@@ -89,12 +84,15 @@ import Adafruit_GPIO as GPIO
 #   for us to mess with it to get a good luck once everything is set up.
 
 # I think this is it. GO CRAZY!!!
-
+draw=disp.draw()
 
 def Avon():   # i put this here so we could get the logo on the screen when the program starts up.
     image = Image.open('avon.png')
     image = image.rotate(90).resize((240,320))
     disp.display(image)
+
+
+# NOTE: pos 0,0 er uppi i hægra horni.
 
 
 def Render():
@@ -103,8 +101,11 @@ def Render():
     # if last2>last+0.2  # more than 5 frames per second.
     #     return thebuffer()
     # last=last2
+    disp.clear()
 
     print "navx",glo.navx,"navy",glo.navy
+
+
 
 def thebuffer():
     time.sleep(0.2)
@@ -113,8 +114,37 @@ def thebuffer():
 def cursor(location, type): # i reccomend using the global page before sending the
     pass                    # location to cursor().
 
-def chunk(location, text):  # i reccomend using the global page before sending the
-    pass                    # location to chunk().
+def chunk(image, location, text):   # i reccomend using the global page before sending the location to chunk().
+	# Get rendered font width and height.
+    fill=(255,255,255)
+	draw = ImageDraw.Draw(image)
+	width, height = draw.textsize(text, font=ImageFont.load_default())
+	# Create a new image with transparent background to store the text.
+	textimage = Image.new('RGBA', (width, height), (0,0,0,0))
+	# Render the text.
+	textdraw = ImageDraw.Draw(textimage)
+	textdraw.text((0,0), text, font=ImageFont.load_default(), fill=fill)
+	# Rotate the text image.
+	rotated = textimage.rotate(90, expand=1)
+	# Paste the text into the image, using it as a mask for transparency.
+	image.paste(rotated, position, rotated)
+
+    # NOTE 240x320
 
 def camera(x,y,z):
-    pass
+    # NOTE notum crop og custom image!
+    # NOTE svaedi 240,0 => 60, 180
+    draw = disp.draw()
+    # ellipse : [x0, y0, x1, y1] kassi utan um hring.
+    x=240-int(float(x)/127*180)   # range fyrir x : fra 240 NIDUR i 60.
+    y=int(float(y)/127*180)  # 127 er max value fra myndavel. subject to change NOTE
+    z=int(float(z)/127*180)
+
+    x0=x+z/2
+    x1=x-z/2
+    x0=x+z/2
+    x1=x-z/2
+    draw.ellipse((x0, y0, x1, y1), outline=(255, 255, 255), fill=(255,255,255))
+
+    draw.line((x, 0, x, 180), fill=(255,255,255)) # x
+    draw.line((240, y, 60, y), fill=(255,255,255)) # y
