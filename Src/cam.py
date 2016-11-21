@@ -14,8 +14,11 @@ import math
 
 def cam():
     while Main.cam:
-        t=time.time()
-        time.sleep(Main.timi-math.fabs(time.time()-Main.tick))
+        t=math.fabs(time.time()-Main.tick)
+        if Main.timi-t>=0:
+            time.sleep(Main.timi-t)
+        else:
+            time.sleep(t-Main.timi)
         for blah in range (0,8):
             if not Main.cam:
                 break
