@@ -13,7 +13,7 @@ sys.path.insert(0, '../Src/') # So I can test functions in Render.py. Can delete
 # import Render
 
 # import Main
-import glo
+# import glo
 
 textbgr = (100,100,100)
 tempo = 120
@@ -46,7 +46,7 @@ disp.clear((0,0,0))
 
 # Load and image
 print('Loading AVON image')
-Avon()
+# Avon()
 
 time.sleep(10)
 
