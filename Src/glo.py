@@ -17,7 +17,6 @@ xcursor=0
 ycursor=0
 zcursor=0
 stat=1
-mod=
 
 es=0                #edit skali, es=1 fyrir custom skala 1, es=2 fyrir customskala 2....
 note=60
