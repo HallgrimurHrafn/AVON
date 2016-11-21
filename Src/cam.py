@@ -20,7 +20,7 @@ def cam():
             time.sleep(Main.timi-t)
         else:
             time.sleep(t-Main.timi)
-        for blah in range (0,4):
+        for blah in range (0,16):
             t=time.time()
             if not Main.cam:
                 break
@@ -28,24 +28,24 @@ def cam():
                 t1=threading.Thread(target=opperate, args=(1,))
                 t2=threading.Thread(target=opperate, args=(2,))
                 t3=threading.Thread(target=opperate, args=(3,))
-                if glo.xcursor==1 and blah==3:
+                if glo.xcursor==1 and blah==0:
                     t1.start()
                 else:
                     # t1.start()
                     pass
-                if glo.ycursor==1 and blah==3:
+                if glo.ycursor==1 and blah==0:
                     t2.start()
                 else:
                     # t2.start()
                     pass
-                if glo.zcursor==1 and blah==3:
+                if glo.zcursor==1 and blah==0:
                     t3.start()
                 else:
                     # t3.start()
                     pass
             else:
                 tick
-            time.sleep(Main.timi/8+time.time()-t)
+            time.sleep(Main.timi/16*2+time.time()-t)
 
 def opperate(x):
     if x==1:
