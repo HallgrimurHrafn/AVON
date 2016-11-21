@@ -31,18 +31,21 @@ def cam():
                 if glo.xcursor==1 and blah==0:
                     t1.start()
                 else:
-                    # t1.start()
-                    pass
+                    if glo.xcursor !=1:
+                        exec glo.xmod[glo.xcursor]
+                    # pass
                 if glo.ycursor==1 and blah==0:
                     t2.start()
                 else:
-                    # t2.start()
-                    pass
+                    if glo.ycursor != 1:
+                        exec glo.ymod[glo.ycursor]
+                    # pass
                 if glo.zcursor==1 and blah==0:
                     t3.start()
                 else:
-                    # t3.start()
-                    pass
+                    if glo.zcursor != 1:
+                        exec glo.zmod[glo.zcursor]
+                    # pass
             else:
                 tick
             time.sleep(Main.timi/16*2+time.time()-t)
@@ -61,5 +64,8 @@ def notes(note):
     time.sleep(Main.timi-Main.timi*Main.lengd)
     midime.tm(128+Main.voice, note, 0)
 
-def pitch(val):
+def bPitch(val):
     midime.tm(224+Main.voice, 0 ,val)
+
+def sPitch(val):
+    midime.tm(224+Main.voice, val ,0)

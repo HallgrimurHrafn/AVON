@@ -89,7 +89,7 @@ def camon():
     #         GPIO.remove_event_detect(7)
     Main.cam=True
     Main.seen=True
-    t=threading.Thread(target=cam.cam())
+    t=threading.Thread(target=cam.cam)
     t.start()
 
 def camoff():
