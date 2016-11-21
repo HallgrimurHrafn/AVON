@@ -19,9 +19,9 @@ def cam():
             if not Main.cam:
                 break
             if Main.seen:
-                t1=threading.Thread(target=opperate, args=(glo.xcursor))
-                t2=threading.Thread(target=opperate, args=(glo.ycursor))
-                t3=threading.Thread(target=opperate, args=(glo.zcursor))
+                t1=threading.Thread(target=opperate, args=(glo.xcursor,))
+                t2=threading.Thread(target=opperate, args=(glo.ycursor,))
+                t3=threading.Thread(target=opperate, args=(glo.zcursor,))
                 if glo.xcursor==1 and blah==7:
                     t1.start()
                     print "x", glo.xcursor
