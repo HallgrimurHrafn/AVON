@@ -27,18 +27,18 @@ def cam():
                 t1=threading.Thread(target=opperate, args=(glo.xcursor,))
                 t2=threading.Thread(target=opperate, args=(glo.ycursor,))
                 t3=threading.Thread(target=opperate, args=(glo.zcursor,))
-                if glo.xcursor==1 and blah==7:
+                if glo.xcursor==1 and blah==7 or glo.xcursor==1 and blah==3:
                     t1.start()
                     print "x", glo.xcursor
                 else:
                     # t1.start()
                     pass
-                if glo.ycursor==1 and blah==7:
+                if glo.ycursor==1 and blah==7 or glo.ycursor==1 and blah==3:
                     t2.start()
                 else:
                     # t2.start()
                     pass
-                if glo.zcursor==1 and blah==7:
+                if glo.zcursor==1 and blah==7 or glo.zcursor==1 and blah==3:
                     t3.start()
                 else:
                     # t3.start()
