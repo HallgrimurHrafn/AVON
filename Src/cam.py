@@ -50,7 +50,7 @@ def cam():
                 pass
                 # revert to normal!
             if blah !=7:
-                time.sleep(Main.timi/4*2+time.time()-t)
+                time.sleep(Main.timi/4/2+time.time()-t)
 
 def opperate(x):
     if x==1:
