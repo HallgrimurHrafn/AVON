@@ -94,7 +94,8 @@ def camon():
     #         GPIO.remove_event_detect(7)
     Main.cam=True
     Main.seen=True
-    cam.cam()
+    t=threading.Thread(target=cam.cam())
+    t.start()
 
 def camoff():
     # if glo.xcursor or glo.ycursor or glo.zcursor==1:
