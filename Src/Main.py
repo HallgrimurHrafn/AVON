@@ -372,9 +372,9 @@ def callback_tap(channel):
 def liveSet():
     global status, tStatus, voice
     tStatus = status.copy()
-    for x in range(0, 64):
-        y = tfIn(x)
-        status[voice][y % 8][y // 8] = 0
+    for x in range(0, 64): 
+       y = tfIn(x)
+       status[voice][y % 8][y // 8] = 0
     ledshow(np.zeros((8, 8)))
     GPIO.add_event_detect(7, GPIO.FALLING, callback=liveplay, bouncetime=20)
 
@@ -587,3 +587,7 @@ def init():
 
     time.sleep(0.5)
     Sequencer()
+
+
+
+init
