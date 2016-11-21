@@ -49,7 +49,8 @@ def cam():
             else:
                 pass
                 # revert to normal!
-            time.sleep(Main.timi/4*2+time.time()-t)
+            if bla !=7:
+                time.sleep(Main.timi/4*2+time.time()-t)
 
 def opperate(x):
     if x==1:
