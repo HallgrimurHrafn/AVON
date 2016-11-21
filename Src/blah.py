@@ -1,6 +1,6 @@
 import time
 import glo
-
+import threading
 
 def screen():
     while True:
