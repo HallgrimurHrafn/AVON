@@ -8,4 +8,3 @@ def tm(cmd,note,val):
 		note=127
 	msg=chr(cmd)+chr(note)+chr(val)
 	ser.write(msg)
-	print note
