@@ -26,15 +26,15 @@ def cam():
                     t1.start()
                     print "x", glo.xcursor
                 else:
-                    t1.start()
+                    # t1.start()
                 if glo.ycursor==1 and blah==7:
                     t2.start()
                 else:
-                    t2.start()
+                    # t2.start()
                 if glo.zcursor==1 and blah==7:
                     t3.start()
                 else:
-                    t3.start()
+                    # t3.start()
             else:
                 tick
             time.sleep(Main.timi/8)
