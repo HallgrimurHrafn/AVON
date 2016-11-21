@@ -9,13 +9,15 @@ navy=0
 oldnavx=0  # navx fyrir
 oldnavx2=0
 
-xmod=np.array(["pass", "notes(Main.x)"])
-ymod=np.array(["pass", "notes(Main.y)"])
-zmod=np.array(["pass", "notes(Main.z)"])
+mod=np.array(["pass", "notes(Main.x)"])
+# xmod=np.array(["pass", "notes(Main.x)"])
+# ymod=np.array(["pass", "notes(Main.y)"])
+# zmod=np.array(["pass", "notes(Main.z)"])
 xcursor=0
 ycursor=0
 zcursor=0
 stat=1
+mod=
 
 es=0                #edit skali, es=1 fyrir custom skala 1, es=2 fyrir customskala 2....
 note=60
