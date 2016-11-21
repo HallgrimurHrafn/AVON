@@ -13,7 +13,8 @@ import time
 
 def cam():
     while Main.cam:
-        time.sleep(Main.time-(time.time()-Main.tick))
+        t=time.time()
+        time.sleep(Main.time-(t-Main.tick))
         for blah in nrange (0,8):
             if not Main.cam:
                 break
