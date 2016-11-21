@@ -20,7 +20,7 @@ def cam():
             time.sleep(Main.timi-t)
         else:
             time.sleep(t-Main.timi)
-        for blah in range (0,16):
+        for blah in range (0,4):
             t=time.time()
             if not Main.cam:
                 break
@@ -49,7 +49,7 @@ def cam():
             else:
                 pass
                 # revert to normal!
-            time.sleep(Main.timi/16*2+time.time()-t)
+            time.sleep(Main.timi/4*2+time.time()-t)
 
 def opperate(x):
     if x==1:
@@ -72,4 +72,4 @@ def sPitch(val):
     midime.tm(224+Main.voice, val ,0)
 
 def modwheel(val):
-    midie.tm(176+Main.voice, 1, val)
+    midime.tm(176+Main.voice, 1, val)
