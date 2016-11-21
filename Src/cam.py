@@ -46,7 +46,7 @@ def opperate(x):
 def notes(note):
     midime.tm(144+Main.voice, note, 100)
     time.sleep(Main.timi-Main.timi*Main.lengd)
-    midime(128, note, 0)
+    midime.tm(128+Main.voice, note, 0)
 
 def pitch(val):
     midime.tm(224+Main.voice, 0 ,val)
