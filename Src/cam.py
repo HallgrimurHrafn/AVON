@@ -24,9 +24,9 @@ def cam():
             if not Main.cam:
                 break
             if Main.seen:
-                t1=threading.Thread(target=opperate, args=(glo.xcursor,))
-                t2=threading.Thread(target=opperate, args=(glo.ycursor,))
-                t3=threading.Thread(target=opperate, args=(glo.zcursor,))
+                t1=threading.Thread(target=opperate, args=(1,))
+                t2=threading.Thread(target=opperate, args=(2,))
+                t3=threading.Thread(target=opperate, args=(3,))
                 if glo.xcursor==1 and blah==3:
                     t1.start()
                 else:
@@ -47,7 +47,12 @@ def cam():
             time.sleep(Main.timi/8+time.time()-t)
 
 def opperate(x):
-    exec glo.mod[x]
+    if x==1:
+        exec glo.xmod[glo.xcursor]
+    if x==2:
+        exec glo.ymod[glo.ycursor]
+    if x==3:
+        exec glo.zmod[glo.zcursor]
 
 
 def notes(note):
