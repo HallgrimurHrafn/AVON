@@ -3,6 +3,7 @@ import midime
 import glo
 import threading
 import time
+import math
 
 
 ### TODO:
@@ -14,7 +15,7 @@ import time
 def cam():
     while Main.cam:
         t=time.time()
-        time.sleep(Main.timi-(t-Main.tick))
+        time.sleep(Main.timi-math.fabs(time.time()-Main.tick))
         for blah in range (0,8):
             if not Main.cam:
                 break
