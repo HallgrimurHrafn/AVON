@@ -83,11 +83,8 @@ def livechange():
 
 def camerachange():
     if Main.cam:
-        Main.cam=False
-        Main.seen=False
         camoff()
     else:
-        Main.cam=True
         camon()
     # forrit sem uppfaerir cameramod
     Render.Render()
@@ -95,14 +92,15 @@ def camerachange():
 def camon():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO==0:
-            GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
+            GPIO.remove_event_detect(7)
     Main.cam=False
 
 def camoff():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO==0:
-            GPIO.remove_event_detect(7)
+            GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
     Main.cam=True
+    Main.seen=False
 
 
 def cameraMode(val, xyz):
