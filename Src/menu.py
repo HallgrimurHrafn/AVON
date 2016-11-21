@@ -1,12 +1,12 @@
 import numpy as np
-# import Render
-# import Main
+import Render
+import Main
 import time
 import math
 import glo
 import threading
 import RPi.GPIO as GPIO
-# import cam
+import cam
 
 
 
