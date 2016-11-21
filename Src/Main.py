@@ -585,7 +585,7 @@ def init():
     t.start()
     print('its running, boooooiiiiii!')
 
-    t4=threading.Thread(target=blah.screen())
+    t4=threading.Thread(target=blah.screen)
     t4.start()
 
 
