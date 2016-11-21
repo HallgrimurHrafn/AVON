@@ -34,7 +34,7 @@ GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
 
 
 def rotary(channel):
-    print channel
+    # print channel
     global cl, cr, lock, fstate, state
     if channel==11 or channel==13 or channel==37:  # hvada rotary er ad senda.
         i=0  # rotary 1
@@ -48,8 +48,8 @@ def rotary(channel):
     else:
         cd=False
     if cd:
-        print "yeii", i        # click kom. af rotary <i>.
-        # menu.click(i)
+        # print "yeii", i        # click kom. af rotary <i>.
+        menu.click(i)
     if i==0:
         if cl[i] ==GPIO.input(13) and cr[i]==GPIO.input(11):  # erum vid i sama state-i?
             return
@@ -72,11 +72,11 @@ def rotary(channel):
         return
     state[i]=0
     if fstate[i]==1:
-        print 'right', i
-        # menu.move(i, 1)
+        # print 'right', i
+        menu.move(i, 1)
     elif fstate[i]==3:
-        print 'left', i
-        # menu.move(i, -1)
+        # print 'left', i
+        menu.move(i, -1)
     else:
         return
         print 'eitthvad for urskeidis.', i
