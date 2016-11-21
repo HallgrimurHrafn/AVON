@@ -93,13 +93,14 @@ def camon():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO==0:
             GPIO.remove_event_detect(7)
-    Main.cam=False
+    Main.cam=True
+    cam.cam()
 
 def camoff():
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if Main.lGO==0:
             GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
-    Main.cam=True
+    Main.cam=False
     Main.seen=False
 
 
