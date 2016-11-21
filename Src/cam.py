@@ -67,9 +67,12 @@ def notes(note):
 
 def bPitch(val):
     midime.tm(224+Main.voice, 0 ,val)
+    print "bPitch"
 
 def sPitch(val):
     midime.tm(224+Main.voice, val ,0)
+    print "sPitch"
 
 def modwheel(val):
     midime.tm(176+Main.voice, 1, val)
+    print "modwheel"
