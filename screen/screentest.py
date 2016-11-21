@@ -46,7 +46,7 @@ disp.clear((0,0,0))
 
 # Load and image
 print('Loading AVON image')
-Avon;
+Avon()
 
 time.sleep(10)
 
@@ -69,7 +69,7 @@ def portrait(landscape_position):
 
     landscape_x = landscape_position[0]
     landscape_y = landscape_position[1]
-    
+
     portrait_x = landscape_y
     portrait_y = 319-landscape_x
 
