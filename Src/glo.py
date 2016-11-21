@@ -47,18 +47,15 @@ fClickMap=np.array([[
 """
 glo.oldnavx=glo.navx
 glo.navx=0
-glo.navy=1
-Render.Render()""", p,
+glo.navy=1""", p,
 """
 glo.oldnavx=glo.navx
 glo.navx=0
-glo.navy=2
-Render.Render()""", p,
+glo.navy=2""", p,
 """
 glo.oldnavx=glo.navx
 glo.navx=0
-glo.navy=4
-Render.Render()""", p, p, p],
+glo.navy=4""", p, p, p],
 [p, p, p, p, p, p, p, p],
 [p, "customsetup()", p, p, p, p, p, p],
 [p, p, p, p, p, p, p, p],
@@ -96,15 +93,12 @@ p],
 
 low="""
 if val==1:
-    glo.navx+=val
-    Render.Render()"""
+    glo.navx+=val"""
 high="""
 if val==-1:
-    glo.navx+=val
-    Render.Render()"""
+    glo.navx+=val"""
 default="""
-glo.navx+=val
-Render.Render()"""
+glo.navx+=val"""
 
 fScrollMapX=np.array([
 [low, default, default, default, default, default, high, p],

@@ -1,5 +1,4 @@
 import numpy as np
-import Render
 import Main
 import time
 import math
@@ -39,7 +38,6 @@ def moveup():
     elif glo.navy>0:
         glo.navy=0
         glo.navx=glo.oldnavx
-        Render.Render()
 
 
 def kort(x,val):
@@ -60,7 +58,6 @@ def channelchange(val):
         Main.v=Main.v+val
         Main.ChannelChange()
         print Main.voice
-        Render.Render()
 
 
 def tempchange(val, x):
@@ -69,7 +66,6 @@ def tempchange(val, x):
         time.sleep(0.01)
         Main.tempo=Main.tempo+val*x
         Main.taptemp=1
-        Render.Render()
 
 
 def livechange():
@@ -78,7 +74,6 @@ def livechange():
     else:
         Main.lGO=1
     Main.multithread()
-    Render.Render()
 
 def camerachange():
     if Main.cam:
@@ -86,7 +81,6 @@ def camerachange():
     else:
         camon()
     # forrit sem uppfaerir cameramod
-    Render.Render()
 
 def camon():
     # if glo.xcursor or glo.ycursor or glo.zcursor==1:
@@ -123,26 +117,22 @@ def cameraMode(val, xyz):
             Main.multithread()
             glo.stat=1
 
-    Render.Render()
 
 def notelengdChange(val):
     val=-float(val)/20
     if 0<Main.lengd+val<1:
         Main.lengd=Main.lengd+val
         print Main.lengd
-        Render.Render()
 
 
 def barChange(val):
     x=math.pow(2,val)
     if 60/float(Main.tempo)/float(x*Main.bar/4)>=0.05:
         Main.bar*=x
-        Render.Render()
 
 # def FLASHchange(val): # tharf ad adlaga fyrir prosentu
 #     if 0<Main.FLASH+val<1:
 #         Main.FLASH=Main.FLASH+val
-#         Render.Render()
 
 def skalarChange(val,x):
     if x==1:
@@ -156,7 +146,6 @@ def skalarChange(val,x):
         exec glo.skalar[glo.currentscale]
         # print glo.skalar[glo.currentscale]    # adgerdin. debug
         print Main.newskali                     # nyji skalin. debug
-        Render.Render()
 
 
 
@@ -164,7 +153,6 @@ def customskali(val,i):
     if 0<=glo.custom[i]+val<=127:
         glo.custom[i]+=int(val)
         Main.newskali=glo.custom.copy()
-        Render.Render()
 
 
 
@@ -206,4 +194,3 @@ def nyrskali():
     elif glo.currentscale>3:
         glo.skalar[glo.currentscale]=x
     # exec x   #otharfi thvi glo.customskali uppfaerir.
-    Render.Render()

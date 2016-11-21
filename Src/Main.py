@@ -5,7 +5,8 @@ import RPi.GPIO as GPIO
 import midime
 import Rotary
 import Adafruit_Trellis         # trellis
-import Render
+# import Render
+import blah
 
 ### TODO:
 # - Laga Sync
