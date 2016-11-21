@@ -11,9 +11,9 @@ oldnavx2=0
 
 
 # mod=np.array(["pass", "notes(Main.x)"])
-xmod=np.array(["pass", "notes(Main.x)", "bPitch(Main.x)", "sPitch(Main.x)", "modwheel(Main.x)"])
-ymod=np.array(["pass", "notes(Main.y)", "bPitch(Main.y)", "sPitch(Main.y)", "modwheel(Main.y)"])
-zmod=np.array(["pass", "notes(Main.z)", "bPitch(Main.z)", "sPitch(Main.z)", "modwheel(Main.z)"])
+xmod=np.array(["pass", "notes(Main.x)", "bPitch(Main.x)", "modwheel(Main.x)"])
+ymod=np.array(["pass", "notes(Main.y)", "bPitch(Main.y)", "modwheel(Main.y)"])
+zmod=np.array(["pass", "notes(Main.z)", "bPitch(Main.z)", "modwheel(Main.z)"])
 xcursor=0
 ycursor=0
 zcursor=0

@@ -20,7 +20,7 @@ def cam():
             time.sleep(Main.timi-t)
         else:
             time.sleep(t-Main.timi)
-        for blah in range (0,4):
+        for blah in range (0,8):
             t=time.time()
             if not Main.cam:
                 break
@@ -65,13 +65,11 @@ def notes(note):
     time.sleep(Main.timi-Main.timi*Main.lengd)
     midime.tm(128+Main.voice, note, 0)
 
+
 def bPitch(val):
     midime.tm(224+Main.voice, 0 ,val)
     print "bPitch"
 
-def sPitch(val):
-    midime.tm(224+Main.voice, val ,0)
-    print "sPitch"
 
 def modwheel(val):
     midime.tm(176+Main.voice, 1, val)
