@@ -47,7 +47,8 @@ def cam():
                         exec glo.zmod[glo.zcursor]
                     # pass
             else:
-                tick
+                pass
+                # revert to normal!
             time.sleep(Main.timi/16*2+time.time()-t)
 
 def opperate(x):
@@ -69,3 +70,6 @@ def bPitch(val):
 
 def sPitch(val):
     midime.tm(224+Main.voice, val ,0)
+
+def modwheel(val):
+    midie.tm(176+Main.voice, 1, val)
