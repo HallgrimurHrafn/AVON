@@ -108,15 +108,15 @@ def cameraMode(val, xyz):
     elif xyz==2:    # z
         glo.zcursor=(glo.zcursor + val)%glo.zmod.size
 
-    if glo.xcursor or glo.ycursor or glo.zcursor==1:
-        if glo.stat==1:
-            if Main.lGO==0:
-                GPIO.remove_event_detect(7)
-                glo.stat=0
-    else:
-        if glo.stat==0:
-            Main.multithread()
-            glo.stat=1
+    # if glo.xcursor or glo.ycursor or glo.zcursor==1:
+    #     if glo.stat==1:
+    #         if Main.lGO==0:
+    #             GPIO.remove_event_detect(7)
+    #             glo.stat=0
+    # else:
+    #     if glo.stat==0:
+    #         Main.multithread()
+    #         glo.stat=1
 
 
 def notelengdChange(val):
