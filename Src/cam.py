@@ -20,6 +20,7 @@ def cam():
         else:
             time.sleep(t-Main.timi)
         for blah in range (0,8):
+            t=time.time()
             if not Main.cam:
                 break
             if Main.seen:
@@ -44,7 +45,7 @@ def cam():
                     pass
             else:
                 tick
-            time.sleep(Main.timi/8)
+            time.sleep(Main.timi/8+time.time()-t)
 
 def opperate(x):
     exec glo.mod[x]
