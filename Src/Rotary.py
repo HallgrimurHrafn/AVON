@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-# import menu
+import menu
 import numpy as np
 
 

@@ -82,49 +82,49 @@ def livechange():
     Main.multithread()
     Render.Render()
 
-# def camerachange():
-#     if Main.cam:
-#         Main.cam=False
-#         Main.seen=False
-#         camoff()
-#     else:
-#         Main.cam=True
-#         camon()
-#     # forrit sem uppfaerir cameramod
-#     Render.Render()
-#
-# def camon():
-#     if glo.xcursor or glo.ycursor or glo.zcursor==1:
-#         if Main.lGO==0:
-#             GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
-#     Main.cam=False
-#
-# def camoff():
-#     if glo.xcursor or glo.ycursor or glo.zcursor==1:
-#         if Main.lGO==0:
-#             GPIO.remove_event_detect(7)
-#     Main.cam=True
-#
-#
-# def cameraMode(val, xyz):
-#     if xyz==0:      # x
-#         glo.xcursor=(glo.xcursor + val)%glo.xmod.size
-#     elif xyz==1:    # y
-#         glo.ycursor=(glo.ycursor + val)%glo.ymod.size
-#     elif xyz==2:    # z
-#         glo.zcursor=(glo.zcursor + val)%glo.zmod.size
-#
-#     if glo.xcursor or glo.ycursor or glo.zcursor==1:
-#         if glo.stat==1:
-#             if Main.lGO==0:
-#                 GPIO.remove_event_detect(7)
-#                 glo.stat=0
-#     else:
-#         if glo.stat==0:
-#             Main.multithread()
-#             glo.stat=1
-#
-#     Render.Render()
+def camerachange():
+    if Main.cam:
+        Main.cam=False
+        Main.seen=False
+        camoff()
+    else:
+        Main.cam=True
+        camon()
+    # forrit sem uppfaerir cameramod
+    Render.Render()
+
+def camon():
+    if glo.xcursor or glo.ycursor or glo.zcursor==1:
+        if Main.lGO==0:
+            GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
+    Main.cam=False
+
+def camoff():
+    if glo.xcursor or glo.ycursor or glo.zcursor==1:
+        if Main.lGO==0:
+            GPIO.remove_event_detect(7)
+    Main.cam=True
+
+
+def cameraMode(val, xyz):
+    if xyz==0:      # x
+        glo.xcursor=(glo.xcursor + val)%glo.xmod.size
+    elif xyz==1:    # y
+        glo.ycursor=(glo.ycursor + val)%glo.ymod.size
+    elif xyz==2:    # z
+        glo.zcursor=(glo.zcursor + val)%glo.zmod.size
+
+    if glo.xcursor or glo.ycursor or glo.zcursor==1:
+        if glo.stat==1:
+            if Main.lGO==0:
+                GPIO.remove_event_detect(7)
+                glo.stat=0
+    else:
+        if glo.stat==0:
+            Main.multithread()
+            glo.stat=1
+
+    Render.Render()
 
 def notelengdChange(val):
     val=-float(val)/20
