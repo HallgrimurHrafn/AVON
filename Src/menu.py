@@ -106,11 +106,11 @@ def camoff():
 
 def cameraMode(val, xyz):
     if xyz==0:      # x
-        glo.xcursor=(glo.xcursor + val)%glo.mod.size
+        glo.xcursor=(glo.xcursor + val)%glo.xmod.size
     elif xyz==1:    # y
-        glo.ycursor=(glo.ycursor + val)%glo.mod.size
+        glo.ycursor=(glo.ycursor + val)%glo.ymod.size
     elif xyz==2:    # z
-        glo.zcursor=(glo.zcursor + val)%glo.mod.size
+        glo.zcursor=(glo.zcursor + val)%glo.zmod.size
 
     if glo.xcursor or glo.ycursor or glo.zcursor==1:
         if glo.stat==1:
