@@ -2,6 +2,7 @@ import Main
 import midime
 import glo
 import threading
+import time
 
 
 ### TODO:
