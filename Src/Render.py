@@ -7,17 +7,16 @@ import Adafruit_ILI9341 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
-
 # Raspberry Pi config.
-DC = 18
-RST = 23
-SPI_PORT = 0
-SPI_DEVICE = 0
+# DC = 18
+# RST = 23
+# SPI_PORT = 0
+# SPI_DEVICE = 0
 #
 last=time.time()
-disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
-disp.begin()
-disp.clear()
+# disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
+# disp.begin()
+# disp.clear()
 
 ### TODO:
 # Create the ability to scroll through the list on the left.
@@ -93,8 +92,7 @@ def Avon():   # i put this here so we could get the logo on the screen when the 
     disp.display(image)
 
 
-# NOTE: pos 0,0 er uppi i hægra horni.
-
+# NOTE: pos 0,0 er uppi i haegra horni.
 
 def Render():
     # global last
@@ -118,17 +116,17 @@ def cursor(location, type): # i reccomend using the global page before sending t
 def chunk(image, location, text):   # i reccomend using the global page before sending the location to chunk().
 	# Get rendered font width and height.
     fill=(255,255,255)
-	draw = ImageDraw.Draw(image)
-	width, height = draw.textsize(text, font=ImageFont.load_default())
-	# Create a new image with transparent background to store the text.
-	textimage = Image.new('RGBA', (width, height), (0,0,0,0))
-	# Render the text.
-	textdraw = ImageDraw.Draw(textimage)
-	textdraw.text((0,0), text, font=ImageFont.load_default(), fill=fill)
-	# Rotate the text image.
-	rotated = textimage.rotate(90, expand=1)
-	# Paste the text into the image, using it as a mask for transparency.
-	image.paste(rotated, position, rotated)
+    draw = ImageDraw.Draw(image)
+    width, height = draw.textsize(text, font=ImageFont.load_default())
+    # Create a new image with transparent background to store the text.
+    textimage = Image.new('RGBA', (width, height), (0,0,0,0))
+    # Render the text.
+    textdraw = ImageDraw.Draw(textimage)
+    textdraw.text((0,0), text, font=ImageFont.load_default(), fill=fill)
+    # Rotate the text image.
+    rotated = textimage.rotate(90, expand=1)
+    # Paste the text into the image, using it as a mask for transparency.
+    image.paste(rotated, position, rotated)
 
     # NOTE 240x320
 

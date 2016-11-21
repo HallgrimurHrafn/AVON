@@ -3,18 +3,17 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <iostream>
+//#include <iostream>
 #include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+//#include <stdio.h>
+//#include <math.h>
 
-//  g++ vision.cpp -shared -I/usr/include/python2.7/ -lpython2.7 -I/usr/local/include/opencv2 -I/usr/local/include/raspicam/raspicam_cv -lboost_python -o vision.so
+//  gcc -shared -o vision.so vision.cpp -I/usr/include/python2.7/ -lpython2.7  -lraspicam_cv -lraspicam -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lboost_python
 //TODO:
 //1. normalisa XYZ
 //2. laga main
 //3. laga CMakeLists
 //4. testa
-
 using namespace std;
 
 // Global variables
@@ -33,13 +32,13 @@ cv::Scalar upperb = cv::Scalar(max_H, max_S, max_V);
 int erodeOn = 1;
 int dilateOn = 1;
 
-int erodeSize;
-int dilateSize;
+//int erodeSize;
+//int dilateSize;
 
-cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize,erodeSize) );
-cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize,dilateSize) );
+//cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize,erodeSize) );
+//cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize,dilateSize) );
 
-int XYZ[3]; // Stores center of marker, does not update unless a new position is found.
+int X, Y, Z; // Stores center of marker, does not update unless a new position is found.
 int detectCounter = 0;
 bool detected = false;
 
@@ -59,10 +58,10 @@ void createTrackbars() {
 	cv::createTrackbar("min V", "Options", &min_V, max_value );
 	cv::createTrackbar("max V", "Options", &max_V, max_value );
 
-	cv::createTrackbar("Erode", "Options", &erodeOn, 1);
-	cv::createTrackbar("Erode size", "Options", &erodeSize, max_morph, update_Var );
-	cv::createTrackbar("Dilate", "Options", &dilateOn, 1);
-	cv::createTrackbar("Dilate size", "Options", &dilateSize, max_morph, update_Var );
+	//cv::createTrackbar("Erode", "Options", &erodeOn, 1);
+	//cv::createTrackbar("Erode size", "Options", &erodeSize, max_morph, update_Var );
+	//cv::createTrackbar("Dilate", "Options", &dilateOn, 1);
+	//cv::createTrackbar("Dilate size", "Options", &dilateSize, max_morph, update_Var );
 }
 
 // Creates black and white mask image of certain HSV range, set with Options
@@ -73,12 +72,12 @@ void colorIsolation(cv::Mat &frame, cv::Mat &hsv, cv::Mat &mask) {
 }
 
 // Performs the morphological operations Erode and/or Dilate on a mask image.
-void morphOps(cv::Mat &mask) {
-	if(erodeOn)
-		cv::erode(mask, mask, erodeElement);
-	if(dilateOn)
-		cv::dilate(mask, mask, dilateElement);
-}
+//void morphOps(cv::Mat &mask) {
+	//if(erodeOn)
+		//cv::erode(mask, mask, erodeElement);
+	//if(dilateOn)
+		//cv::dilate(mask, mask, dilateElement);
+//}
 
 void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 	vector< vector<cv::Point> > contours;
@@ -96,9 +95,9 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 			if (area > 200) {
 				detected = true;
 				detectCounter = 10;
-				XYZ[2] = area;
-				XYZ[0] = moment.m10/area;
-				XYZ[1] = moment.m01/area;
+				X = area;
+				Y = moment.m10/area;
+				Z = moment.m01/area;
 			}
 		}
 	}
@@ -121,10 +120,10 @@ int vision() {
 	Camera.set(CV_CAP_PROP_FRAME_WIDTH, 320);
 	Camera.set(CV_CAP_PROP_FRAME_HEIGHT, 320);
 
-	cout << "Opening camera..." << endl;
+	//cout << "Opening camera..." << endl;
 
 	if (!Camera.open()) {
-		 		cerr << "Error opening camera!" << endl;
+	//	 		cerr << "Error opening camera!" << endl;
  		return -1;
  	}
 
@@ -142,7 +141,7 @@ int vision() {
 
 			cv::cvtColor(img,img,CV_BGR2RGB);
 			colorIsolation(img, hsv, mask);
-			morphOps(mask);
+			//morphOps(mask);
 			trackMarker(mask, img);
 
 			// Display image
@@ -154,24 +153,32 @@ int vision() {
 			break;
 		}
 	}
-	cout << "Stopping camera.." << endl;
+	//cout << "Stopping camera.." << endl;
 	Camera.release();
 
 	return 0;
 }
 
 // Update global variables
-void update_Var( int, void*) {
-	erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3 ) );
-    dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
-}
+//void update_Var( int, void*) {
+	//erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3 ) );
+    //dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
+//}
 
 bool markerFound() {
 	return detected;
 }
 
-int * getXYZ() {
-	return XYZ;
+int getX() {
+	return X;
+}
+
+int getY() {
+	return Y;
+}
+
+int getZ() {
+	return Z;
 }
 
 void start(){
@@ -195,7 +202,9 @@ void end(){
 BOOST_PYTHON_MODULE(vision)	{
 	using namespace boost::python;
 	def("markerFound", markerFound);
-	def("getXYZ", getXYZ);
+	def("getX", getX);
+	def("getY", getY);
+	def("getZ", getZ);
 	def("start", start);
 	def("stop", stop);
 	def("initialize", initialize);

@@ -1,4 +1,8 @@
 from PIL import Image
+import ImageDraw
+import ImageFont
+
+import time
 
 import Adafruit_ILI9341 as TFT
 import Adafruit_GPIO as GPIO
@@ -6,10 +10,13 @@ import Adafruit_GPIO.SPI as SPI
 
 import sys
 sys.path.insert(0, '../Src/') # So I can test functions in Render.py. Can delete this later.
-import Render
-import time
+# import Render
+
+# import Main
+import glo
 
 textbgr = (100,100,100)
+tempo = 120
 
 # Raspberry Pi config.
 DC = 18
@@ -17,8 +24,19 @@ RST = 23
 SPI_PORT = 0
 SPI_DEVICE = 0
 
+
+
+
 # TFT LCD display class
 disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
+
+draw=disp.draw()
+
+def Avon():   # i put this here so we could get the logo on the screen when the program starts up.
+    image = Image.open('avon.png')
+    image = image.rotate(90).resize((240,320))
+    disp.display(image)
+
 
 # Initialize display.
 disp.begin()
@@ -28,9 +46,9 @@ disp.clear((0,0,0))
 
 # Load and image
 print('Loading AVON image')
-Render.Avon;
+Avon;
 
-time.sleep 1
+time.sleep(1)
 
 #clear to white background
 disp.clear((255,255,255))
@@ -72,6 +90,6 @@ def draw_rotated_text(image, text, position, angle, font, fill=(100,100,100)):
     image.paste(rotated, position, rotated)
 
 # Write two lines of white text on the buffer, rotated 90 degrees counter clockwise.
-draw_rotated_text(disp.buffer, str(Main.tempo)+' bpm' , portrait(300, 120), 90, font, fill=textbgr)
+draw_rotated_text(disp.buffer, str(tempo)+' bpm' , portrait((300, 120)), 90, font, fill=textbgr)
 
 draw_rotated_text(disp.buffer, 'KHSB-8', (170, 90), 90, font, fill=(255,255,255))
