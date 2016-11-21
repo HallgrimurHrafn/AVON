@@ -20,7 +20,7 @@ def cam():
             time.sleep(Main.timi-t)
         else:
             time.sleep(t-Main.timi)
-        for blah in range (0,16):
+        for blah in range (0,8):
             t=time.time()
             if not Main.cam:
                 break
@@ -49,8 +49,8 @@ def cam():
             else:
                 pass
                 # revert to normal!
-            if blah !=15:
-                time.sleep(Main.timi/16+time.time()-t)
+            if blah !=7:
+                time.sleep(Main.timi/8+time.time()-t)
 
 def opperate(x):
     if x==1:
