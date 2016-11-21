@@ -27,14 +27,17 @@ def cam():
                     print "x", glo.xcursor
                 else:
                     # t1.start()
+                    pass
                 if glo.ycursor==1 and blah==7:
                     t2.start()
                 else:
                     # t2.start()
+                    pass
                 if glo.zcursor==1 and blah==7:
                     t3.start()
                 else:
                     # t3.start()
+                    pass
             else:
                 tick
             time.sleep(Main.timi/8)
