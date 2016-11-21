@@ -26,7 +26,6 @@ def move(i, val):
 
 
 def click(i):
-    print "debug2"
     if i==1:
         kort(2,0)
     else:
