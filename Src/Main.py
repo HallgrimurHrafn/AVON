@@ -585,8 +585,8 @@ def init():
     t.start()
     print('its running, boooooiiiiii!')
 
-    # t2=threading.Thread(target=blah.screen())
-    # t2.start()
+    t4=threading.Thread(target=blah.screen())
+    t4.start()
 
 
     time.sleep(0.5)
