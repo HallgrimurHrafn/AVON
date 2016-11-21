@@ -9,9 +9,9 @@ navy=0
 oldnavx=0  # navx fyrir
 oldnavx2=0
 
-xmod=["pass", "notes(Main.x)"]
-ymod=["pass", "notes(Main.y)"]
-zmod=["pass", "notes(Main.z)"]
+xmod=np.array(["pass", "notes(Main.x)"])
+ymod=np.array(["pass", "notes(Main.y)"])
+zmod=np.array(["pass", "notes(Main.z)"])
 xcursor=0
 ycursor=0
 zcursor=0
