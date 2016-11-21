@@ -18,7 +18,6 @@ import cam
 # allar breytur eru geymdar i glo.py
 
 def move(i, val):
-    print "debug1"
     if i==0:
         kort(0,val)
     else:
