@@ -3,6 +3,7 @@ import midime
 import glo
 import threading
 import time
+import math
 
 
 ### TODO:
@@ -13,37 +14,45 @@ import time
 
 def cam():
     while Main.cam:
-        t=time.time()
-        time.sleep(Main.timi-(t-Main.tick))
-        for blah in range (0,8):
+        t=math.fabs(time.time()-Main.tick)
+        if Main.timi-t>=0:
+            time.sleep(Main.timi-t)
+        else:
+            time.sleep(t-Main.timi)
+        for blah in range (0,4):
+            t=time.time()
             if not Main.cam:
                 break
             if Main.seen:
-                t1=threading.Thread(target=opperate, args=(glo.xcursor,))
-                t2=threading.Thread(target=opperate, args=(glo.ycursor,))
-                t3=threading.Thread(target=opperate, args=(glo.zcursor,))
-                if glo.xcursor==1 and blah==7:
+                t1=threading.Thread(target=opperate, args=(1,))
+                t2=threading.Thread(target=opperate, args=(2,))
+                t3=threading.Thread(target=opperate, args=(3,))
+                if glo.xcursor==1 and blah==3:
                     t1.start()
-                    print "x", glo.xcursor
                 else:
                     # t1.start()
                     pass
-                if glo.ycursor==1 and blah==7:
+                if glo.ycursor==1 and blah==3:
                     t2.start()
                 else:
                     # t2.start()
                     pass
-                if glo.zcursor==1 and blah==7:
+                if glo.zcursor==1 and blah==3:
                     t3.start()
                 else:
                     # t3.start()
                     pass
             else:
                 tick
-            time.sleep(Main.timi/8)
+            time.sleep(Main.timi/8+time.time()-t)
 
 def opperate(x):
-    exec glo.mod[x]
+    if x==1:
+        exec glo.xmod[glo.xcursor]
+    if x==2:
+        exec glo.ymod[glo.ycursor]
+    if x==3:
+        exec glo.zmod[glo.zcursor]
 
 
 def notes(note):

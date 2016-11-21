@@ -5,7 +5,8 @@ import RPi.GPIO as GPIO
 import midime
 import Rotary
 import Adafruit_Trellis         # trellis
-import Render
+# import Render
+import blah
 
 ### TODO:
 # - Laga Sync
@@ -54,8 +55,8 @@ period = []
 cam = False
 seen = True
 x = 60
-y = 60
-z = 60
+y = 64
+z = 67
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
@@ -372,7 +373,7 @@ def callback_tap(channel):
 def liveSet():
     global status, tStatus, voice
     tStatus = status.copy()
-    for x in range(0, 64): 
+    for x in range(0, 64):
        y = tfIn(x)
        status[voice][y % 8][y // 8] = 0
     ledshow(np.zeros((8, 8)))
@@ -583,11 +584,9 @@ def init():
     t.start()
     print('its running, boooooiiiiii!')
 
+    t2=threading.Thread(target=blah.screen())
+    t2.start()
 
 
     time.sleep(0.5)
     Sequencer()
-
-
-
-
