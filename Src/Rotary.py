@@ -4,7 +4,6 @@ import menu
 import numpy as np
 
 
-
 # rotary haegri tengt i gpio 33 og vinstri i 31.
 
 # Clockwise:

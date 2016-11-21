@@ -9,6 +9,7 @@ import cam
 
 
 
+
 ## TODO:
 # hanna modetoggle fyrir cameru
 # skroll i gegnum xyz control parametra fyrir cameru

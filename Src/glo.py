@@ -9,6 +9,7 @@ navy=0
 oldnavx=0  # navx fyrir
 oldnavx2=0
 
+
 # mod=np.array(["pass", "notes(Main.x)"])
 xmod=np.array(["pass", "notes(Main.x)"])
 ymod=np.array(["pass", "notes(Main.y)"])

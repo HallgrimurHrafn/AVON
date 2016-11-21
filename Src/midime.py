@@ -1,5 +1,6 @@
 import serial
 
+
 ser=serial.Serial('/dev/ttyAMA0',31250)
 def tm(cmd,note,val):
 	if note<0:

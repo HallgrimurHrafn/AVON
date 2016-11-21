@@ -7,6 +7,7 @@ import Adafruit_ILI9341 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
+
 # Raspberry Pi config.
 DC = 18
 RST = 23

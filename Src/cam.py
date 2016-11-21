@@ -6,6 +6,7 @@ import time
 import math
 
 
+
 ### TODO:
 # laga fyrir skipt um function eda lengi ekki a mynd.
 # function til ad breyta Main.x,y,z,seen.
