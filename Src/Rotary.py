@@ -19,7 +19,7 @@ cr=np.array([0, 0])
 state=np.array([0, 0])
 fstate=np.array([0, 0])   # former state. sidasta astand semsagt.
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 # rotary 1
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
 GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
