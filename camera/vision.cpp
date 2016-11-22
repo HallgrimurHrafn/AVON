@@ -159,9 +159,9 @@ int vision() {
 			//cv::imshow("Mask", mask);
 			//cv::imshow("HSV", hsv);
 		}
-		if (shutdown){
-			break;
-		}
+		//if (shutdown){
+			//break;
+		//}
 	}
 	//cout << "Stopping camera.." << endl;
 	Camera.release();
