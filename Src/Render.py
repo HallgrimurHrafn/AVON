@@ -1,4 +1,4 @@
-#import Main
+import Main
 import glo
 import threading
 import time
@@ -150,15 +150,36 @@ def camera(x,y,z):
     draw.line((x, 0, x, 180), fill=(255,255,255)) # x
     draw.line((240, y, 60, y), fill=(255,255,255)) # y
 
-
+def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
+    # Get rendered font width and height.
+    draw = ImageDraw.Draw(image)
+    width, height = draw.textsize(text, font=font)
+    # Create a new image with transparent background to store the text.
+    textimage = Image.new('RGBA', (width, height), (0,0,0,0))
+    # Render the text.
+    textdraw = ImageDraw.Draw(textimage)
+    textdraw.text((0,0), text, font=font, fill=fill)
+    # Rotate the text image.
+    rotated = textimage.rotate(angle, expand=1)
+    # Paste the text into the image, using it as a mask for transparency.
+    image.paste(rotated, position, rotated)
+    
 def clear():
     disp.clear()
+    disp.display()
     
 def background():
     # Get a PIL Draw object to start drawing on the display buffer.
     draw = disp.draw()
     # draw a rectangle around text area for tempo, etc.
-    draw.rectangle((0, 0, 59, 319), outline=(0,0,0), fill=glo.textbgr)    
+    draw.rectangle((0, -1, 59, 320), outline=(0,0,0), fill=glo.textbgr)    
     # draw a rectangle around menu list
-    draw.rectangle((59, 319, 239, 179), outline=(0,0,0), fill=glo.textbgr)
+    draw.rectangle((59, 319, 239, 179), outline=glo.textbgr, fill=glo.textbgr)
+    disp.display() #delete me later
 
+def tempo():
+    font = ImageFont.truetype('Minecraftia-Regular.ttf', 18)
+    # show bpm
+    draw_rotated_text(disp.buffer, str(Main.tempo)+' bpm',
+                      (14, 19), 90, font, fill=(255,255,255))
+    disp.display() #deleteme
