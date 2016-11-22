@@ -132,7 +132,7 @@ def chunk(image, location, text):   # i reccomend using the global page before s
 
     # NOTE 240x320
 
-def camera(x,y,z):
+def crosshairs(Main.x,Main.y,Main.z):
     # NOTE notum crop og custom image!
     # NOTE svaedi 240,0 => 60, 180
     draw = disp.draw()
@@ -147,8 +147,8 @@ def camera(x,y,z):
     x1=x-z/2
     draw.ellipse((x0, y0, x1, y1), outline=(255, 255, 255), fill=(255,255,255))
 
-    draw.line((x, 0, x, 180), fill=(255,255,255)) # x
-    draw.line((240, y, 60, y), fill=(255,255,255)) # y
+    draw.line((x, y-5, x, y+5), fill=(255,255,0)) # x
+    draw.line((x-5, y, x+5, y), fill=(255,255,0)) # y
 
 def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
     # Get rendered font width and height.
