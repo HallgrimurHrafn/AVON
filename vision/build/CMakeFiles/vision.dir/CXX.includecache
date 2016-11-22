@@ -25,6 +25,8 @@ stdio.h
 -
 math.h
 -
+fstream
+-
 
 /usr/local/include/opencv2/calib3d.hpp
 opencv2/core.hpp

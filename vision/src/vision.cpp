@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <fstream>
 
 // g++ vision.cpp -shared -I/usr/include/python2.7/ -lpython2.7 -lboost_python -o vision.so
 //TODO:
@@ -49,21 +50,21 @@ bool detected = false;
 void update_Var( int, void*);
 
 // Initialize Trackbars for tuning
-void createTrackbars() {
-	cv::namedWindow("Options" , 0);
+//void createTrackbars() {
+	//cv::namedWindow("Options" , 0);
 
-	cv::createTrackbar("min H", "Options", &min_H, max_value );
-	cv::createTrackbar("max H", "Options", &max_H, max_value );
-	cv::createTrackbar("min S", "Options", &min_S, max_value );
-	cv::createTrackbar("max S", "Options", &max_S, max_value );
-	cv::createTrackbar("min V", "Options", &min_V, max_value );
-	cv::createTrackbar("max V", "Options", &max_V, max_value );
+	//cv::createTrackbar("min H", "Options", &min_H, max_value );
+	//cv::createTrackbar("max H", "Options", &max_H, max_value );
+	//cv::createTrackbar("min S", "Options", &min_S, max_value );
+	//cv::createTrackbar("max S", "Options", &max_S, max_value );
+	//cv::createTrackbar("min V", "Options", &min_V, max_value );
+	//cv::createTrackbar("max V", "Options", &max_V, max_value );
 
-	cv::createTrackbar("Erode", "Options", &erodeOn, 1);
-	cv::createTrackbar("Erode size", "Options", &erodeSize, max_morph, update_Var );
-	cv::createTrackbar("Dilate", "Options", &dilateOn, 1);
-	cv::createTrackbar("Dilate size", "Options", &dilateSize, max_morph, update_Var );
-}
+	//cv::createTrackbar("Erode", "Options", &erodeOn, 1);
+	//cv::createTrackbar("Erode size", "Options", &erodeSize, max_morph, update_Var );
+	//cv::createTrackbar("Dilate", "Options", &dilateOn, 1);
+	//cv::createTrackbar("Dilate size", "Options", &dilateSize, max_morph, update_Var );
+//}
 
 // Creates black and white mask image of certain HSV range, set with Options
 void colorIsolation(cv::Mat &frame, cv::Mat &hsv, cv::Mat &mask) {
@@ -93,13 +94,15 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 		for (int i=0; i>=0; i = hierarchy[i][0]){
 			cv::Moments moment = cv::moments((cv::Mat)contours[i]);
 			int area = moment.m00;
-			if (area > 200) {
+			if (area > 800 && area < 25000) {
 				detected = true;
 				detectCounter = 10;
 				Z = area;
 				X = moment.m10/area;
 				Y = moment.m01/area;
-				cout << X << Y << Z << endl;
+				X = (int) X*127/320 -1;
+				Y = (int) Y*127/320 -1;
+				Z = (int) sqrt(Z-800)*127/sqrt(25000-800);
 			}
 		}
 	}
@@ -129,18 +132,12 @@ int main(int argc, char **argv) {
  		return -1;
  	}
 	
-	cout << "1" << endl;
-	
 	cv::namedWindow("Tracker", cv::WINDOW_AUTOSIZE);
-	cv::namedWindow("HSV", cv::WINDOW_AUTOSIZE);
-	cv::namedWindow("Mask", cv::WINDOW_AUTOSIZE);
-	
-	cout << "1" << endl;
+	//cv::namedWindow("HSV", cv::WINDOW_AUTOSIZE);
+	//cv::namedWindow("Mask", cv::WINDOW_AUTOSIZE);
 
-	createTrackbars();
-	update_Var(0, 0);
-	
-	cout << "1" << endl;
+	//createTrackbars();
+	//update_Var(0, 0);
 
 	for (;;) {
 		Camera.grab();
@@ -148,13 +145,25 @@ int main(int argc, char **argv) {
 
 		cv::cvtColor(img,img,CV_BGR2RGB);
 		colorIsolation(img, hsv, mask);
-		cv::imshow("HSV", hsv);
+		//cv::imshow("HSV", hsv);
 		morphOps(mask);
-		cv::imshow("Mask", mask);
+		//cv::imshow("Mask", mask);
 		trackMarker(mask, img);
 
 		// Display image	
 		cv::imshow("Tracker", img);
+	
+		if (detected) {
+			ofstream ofs ("XYZ.txt", ofstream::trunc);
+			ofs << "True" << endl;
+			ofs << X << endl; 
+			ofs << Y << endl;
+			ofs << Z << endl;
+		}
+		else {
+			ofstream ofs ("XYZ.txt", ofstream::trunc);
+			ofs << "False";
+		}
 	
 		if (cv::waitKey(1)==27) {
 			break;
@@ -167,7 +176,7 @@ int main(int argc, char **argv) {
 }
 
 // Update global variables
-void update_Var( int, void*) {
-	erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3 ) );
-    dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
-}
+//void update_Var( int, void*) {
+	//erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3 ) );
+    //dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
+//}

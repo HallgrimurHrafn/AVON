@@ -132,6 +132,27 @@ def chunk(image, location, text):   # i reccomend using the global page before s
 
     # NOTE 240x320
 
+# Define a function to create rotated text.  Unfortunately PIL doesn't have good
+# native support for rotated fonts, but this function can be used to make a
+# text image and rotate it so it's easy to paste in the buffer.
+def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
+    # Get rendered font width and height.
+    draw = ImageDraw.Draw(image)
+    width, height = draw.textsize(text, font=font)
+    # Create a new image with transparent background to store the text.
+    textimage = Image.new('RGBA', (width, height), (0,0,0,0))
+    # Render the text.
+    textdraw = ImageDraw.Draw(textimage)
+    textdraw.text((0,0), text, font=font, fill=fill)
+    # Rotate the text image.
+    rotated = textimage.rotate(angle, expand=1)
+    # Paste the text into the image, using it as a mask for transparency.
+    image.paste(rotated, position, rotated)
+    
+def clear(): # just for testing
+    disp.clear()
+    disp.display()
+
 def crosshairs():
     # NOTE notum crop og custom image!
     # NOTE svaedi 240,0 => 60, 180
@@ -149,45 +170,55 @@ def crosshairs():
 
     draw.line((x, y-10, x, y+10), fill=(255,153,0)) # x
     draw.line((x-10, y, x+10, y), fill=(255,153,0)) # y
-    disp.display()
 
-def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
-    # Get rendered font width and height.
-    draw = ImageDraw.Draw(image)
-    width, height = draw.textsize(text, font=font)
-    # Create a new image with transparent background to store the text.
-    textimage = Image.new('RGBA', (width, height), (0,0,0,0))
-    # Render the text.
-    textdraw = ImageDraw.Draw(textimage)
-    textdraw.text((0,0), text, font=font, fill=fill)
-    # Rotate the text image.
-    rotated = textimage.rotate(angle, expand=1)
-    # Paste the text into the image, using it as a mask for transparency.
-    image.paste(rotated, position, rotated)
-    
-def clear():
-    disp.clear()
-    disp.display() #deleteme
     
 def background():
     # Get a PIL Draw object to start drawing on the display buffer.
     draw = disp.draw()
     # draw a rectangle around text area for tempo, etc.
-    draw.rectangle((0, -1, 59, 320), outline=(255,255,255), fill=glo.textbgr)    
+    draw.rectangle((0, 0, 59, 319), outline=(255,255,255), fill=glo.textbgr)    
     # draw a rectangle around menu list
-    draw.rectangle((59, 319, 239, 179), outline=glo.textbgr, fill=glo.textbgr)
-    disp.display() #delete me later
+    draw.rectangle((59, 319, 239, 179), outline=(255,255,255), fill=glo.textbgr)
+
 
 def tempo():
     # Get a PIL Draw object to start drawing on the display buffer.
     draw = disp.draw()
 
     # clear old tempo
-    draw.rectangle((0, 0, 58, 50), outline=glo.textbgr, fill=glo.textbgr)
+    draw.rectangle((1, 1, 58, 55), outline=glo.textbgr, fill=glo.textbgr)
     
-    font = ImageFont.truetype('Minecraftia-Regular.ttf', 18)
-    # show bpm
-    draw_rotated_text(disp.buffer, Main.tempo,(14, 19), 90, font, fill=(255,255,255))
-    draw_rotated_text(disp.buffer, 'bpm',     (14, 12), 90, font, fill=(255,255,255))
+    font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
-    disp.display() #deleteme
+    draw_rotated_text(disp.buffer, str(Main.tempo), (16, 55), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, 'bpm', (16, 15), 90, font, fill=(255,255,255))
+
+    disp.display() 
+
+def channel():
+    # Print channel number between 1-16.
+
+    # Get a PIL Draw object to start drawing on the display buffer.
+    draw = disp.draw()
+
+    # clear old tempo
+    draw.rectangle((60, 1, 139, 50), outline=glo.textbgr, fill=glo.textbgr)
+    
+    font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
+
+    draw_rotated_text(disp.buffer, 'Channel '+str(Main.voice+1),
+                      (16, 119), 90, font, fill=(255,255,255))
+
+    disp.display()
+
+def test():
+#    disp.begin()
+    disp.clear()
+    crosshairs()
+    background()
+    tempo()
+    channel()
+    disp.display()
+    
+    
+test()
