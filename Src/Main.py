@@ -31,11 +31,6 @@ trellis.begin(
 
 # nonmenu
 tick=time.time()
-seen = False                    # ser myndavelin boltann?
-cam = False                     # er kveikt a myndavelinni
-x=0                             # x hnit myndavelarinnar
-y=0                             # y hnit myndavelarinnar
-z=0                             # z hnit myndavelarinnar
 taptemp = 1                     # hvort taptempo se virkt
 v = 0                           # styring fyrir hvada voice vid aetlum a fara i.
 voice = 0                       # hvada voice er i notkun
@@ -53,11 +48,11 @@ period = []
 #
 
 # menu
-cam = False
-seen = True
-x = 60
-y = 64
-z = 67
+cam = False                     # ser myndavelin boltann?
+seen = True                     # er kveikt a myndavelinni
+x = 60                          # x hnit myndavelarinnar
+y = 64                          # y hnit myndavelarinnar
+z = 67                          # z hnit myndavelarinnar
 clA = 0                         # ef clA=1 tha gerum vid clearAll
 lGO = 0                         # ef lgo=1 tha erum vid i life mode.
 pause = 0                       # eigum vid ad pause-a
