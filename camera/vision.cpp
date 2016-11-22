@@ -128,7 +128,7 @@ int vision() {
 
 	if (!Camera.open()) {
 	//	 		cerr << "Error opening camera!" << endl;
- 		return -1;
+ 		return 0;
  	}
 
 	X = 30;
@@ -142,7 +142,7 @@ int vision() {
 	createTrackbars();
 	//update_Var(0, 0);
 
-	for (;;) {
+	while (!shutdown) {
 		X = X+1;
 		if (trackingOn) {
 			X = 20;
@@ -159,9 +159,6 @@ int vision() {
 			//cv::imshow("Mask", mask);
 			//cv::imshow("HSV", hsv);
 		}
-		//if (shutdown){
-			//break;
-		//}
 	}
 	//cout << "Stopping camera.." << endl;
 	Camera.release();

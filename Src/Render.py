@@ -1,22 +1,24 @@
-import Main
+#import Main
 import glo
 import threading
 import time
 from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 import Adafruit_ILI9341 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
 # Raspberry Pi config.
-# DC = 18
-# RST = 23
-# SPI_PORT = 0
-# SPI_DEVICE = 0
+DC = 18
+RST = 23
+SPI_PORT = 0
+SPI_DEVICE = 0
 #
 last=time.time()
-# disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
-# disp.begin()
-# disp.clear()
+disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
+disp.begin()
+disp.clear()
 
 ### TODO:
 # Create the ability to scroll through the list on the left.
@@ -84,7 +86,7 @@ last=time.time()
 #   for us to mess with it to get a good luck once everything is set up.
 
 # I think this is it. GO CRAZY!!!
-draw=disp.draw()
+
 
 def Avon():   # i put this here so we could get the logo on the screen when the program starts up.
     image = Image.open('avon.png')
@@ -147,3 +149,16 @@ def camera(x,y,z):
 
     draw.line((x, 0, x, 180), fill=(255,255,255)) # x
     draw.line((240, y, 60, y), fill=(255,255,255)) # y
+
+
+def clear():
+    disp.clear()
+    
+def background():
+    # Get a PIL Draw object to start drawing on the display buffer.
+    draw = disp.draw()
+    # draw a rectangle around text area for tempo, etc.
+    draw.rectangle((0, 0, 59, 319), outline=(0,0,0), fill=glo.textbgr)    
+    # draw a rectangle around menu list
+    draw.rectangle((59, 319, 239, 179), outline=(0,0,0), fill=glo.textbgr)
+
