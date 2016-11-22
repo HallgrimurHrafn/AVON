@@ -18,10 +18,10 @@ def vision():
     # os.getcwd()
     # os.path.exists('/test2')
     x=[False,3,2,1]
-    z=0
 
     while Main.cam:
         f = open(os.path.join('../vision/build', "XYZ.txt"), 'r')
+        z=0
         for line in f:
             if z==0:
                 if line == "True\n":
