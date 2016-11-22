@@ -1,0 +1,3 @@
+import vision
+
+vision.initialize()

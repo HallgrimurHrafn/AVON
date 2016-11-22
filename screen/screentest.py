@@ -1,6 +1,6 @@
 from PIL import Image
-import ImageDraw
-import ImageFont
+from PIL import ImageDraw
+from PIL import ImageFont
 
 import time
 
@@ -8,10 +8,9 @@ import Adafruit_ILI9341 as TFT
 import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 
-import sys
-sys.path.insert(0, '../Src/') # So I can test functions in Render.py. Can delete this later.
+# import sys
+# sys.path.insert(0, '../Src/') # So I can test functions in Render.py. Can delete this later.
 # import Render
-
 # import Main
 # import glo
 
@@ -27,36 +26,6 @@ SPI_DEVICE = 0
 
 
 
-# TFT LCD display class
-disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
-
-draw=disp.draw()
-
-def Avon():   # i put this here so we could get the logo on the screen when the program starts up.
-    image = Image.open('avon.png')
-    image = image.rotate(90).resize((240,320))
-    disp.display(image)
-
-
-# Initialize display.
-disp.begin()
-
-#clear to black background
-disp.clear((0,0,0))
-
-# Load and image
-print('Loading AVON image')
-# Avon()
-
-time.sleep(10)
-
-#clear to white background
-disp.clear((255,255,255))
-
-draw.rectangle((0, 0, 239, 319), fill=textbgr)
-
-font = ImageFont.load_default()
-
 # Usage:  portrait_position = portrait(landscape_position)
 # Before: landscape_position is a pair of integers (x,y) indicating
 #         coordinates on a plane where the origin (0,0) is the
@@ -69,13 +38,34 @@ def portrait(landscape_position):
 
     landscape_x = landscape_position[0]
     landscape_y = landscape_position[1]
-
+    
     portrait_x = landscape_y
     portrait_y = 319-landscape_x
 
     return (portrait_x, portrait_y)
 
-def draw_rotated_text(image, text, position, angle, font, fill=(100,100,100)):
+# Create TFT LCD display class.
+disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
+
+# Initialize display.
+disp.begin()
+
+# Clear the display to a red background.
+# Can pass any tuple of red, green, blue values (from 0 to 255 each).
+disp.clear((0, 0, 0))
+
+# Alternatively can clear to a black screen by calling:
+# disp.clear()
+
+def Avon():   # i put this here so we could get the logo on the screen when the program starts up.
+    image = Image.open('avon.png')
+    image = image.rotate(90).resize((240,320))
+    disp.display(image)
+
+# Define a function to create rotated text.  Unfortunately PIL doesn't have good
+# native support for rotated fonts, but this function can be used to make a
+# text image and rotate it so it's easy to paste in the buffer.
+def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
     # Get rendered font width and height.
     draw = ImageDraw.Draw(image)
     width, height = draw.textsize(text, font=font)
@@ -89,7 +79,34 @@ def draw_rotated_text(image, text, position, angle, font, fill=(100,100,100)):
     # Paste the text into the image, using it as a mask for transparency.
     image.paste(rotated, position, rotated)
 
-# Write two lines of white text on the buffer, rotated 90 degrees counter clockwise.
-draw_rotated_text(disp.buffer, str(tempo)+' bpm' , portrait([300, 120]), 90, font, fill=textbgr)
+def Main():
 
-draw_rotated_text(disp.buffer, 'KHSB-8', (170, 90), 90, font, fill=(255,255,255))
+    # draw logo
+    Avon()
+    time.sleep(1)
+
+    # Get a PIL Draw object to start drawing on the display buffer.
+    draw = disp.draw()
+    # draw a rectangle around text area for tempo, etc.
+    draw.rectangle((0, 0, 59, 319), outline=(0,0,0), fill=textbgr)    
+    # draw a rectangle around menu list
+    draw.rectangle((59, 319, 239, 179), outline=(0,0,0), fill=textbgr)
+
+    
+
+    # Load default font.
+#    font = ImageFont.load_default()
+    
+    # Alternatively load a TTF font.
+    # Some other nice fonts to try: http://www.dafont.com/bitmap.php
+    font = ImageFont.truetype('Minecraftia-Regular.ttf', 18)
+
+    # show bpm
+    draw_rotated_text(disp.buffer, str(tempo)+' bpm', (14, 19), 90, font, fill=(255,255,255))
+    
+    
+    # Write buffer to display hardware, must be called to make things visible on the
+    # display!
+    disp.display()
+    
+Main()

@@ -108,3 +108,7 @@ fScrollMapX=np.array([
 [low, default, default, default, default, default, default, high],
 [low, default, high, p, p, p, p, p]
 ])
+
+
+# background color for menu
+textbgr = (100,100,100)

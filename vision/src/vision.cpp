@@ -33,18 +33,18 @@ cv::Scalar upperb = cv::Scalar(max_H, max_S, max_V);
 int erodeOn = 1;
 int dilateOn = 1;
 
-int erodeSize;
-int dilateSize;
+int erodeSize = 0;
+int dilateSize = 0;
 
-cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize,erodeSize) );
-cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize,dilateSize) );
+cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3) );
+cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
 
-int XYZ[3]; // Stores center of marker, does not update unless a new position is found.
+int X, Y, Z; // Stores center of marker, does not update unless a new position is found.
 int detectCounter = 0;
 bool detected = false;
 
-bool trackingOn = false;
-bool close = false;
+//bool trackingOn = false;
+//bool close = false;
 
 void update_Var( int, void*);
 
@@ -91,14 +91,15 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 	if (hierarchy.size() > 0) {
 		int numObjects = hierarchy.size();
 		for (int i=0; i>=0; i = hierarchy[i][0]){
-			cv:Moments moment = cv::moments((cv::Mat)contours[i]);
+			cv::Moments moment = cv::moments((cv::Mat)contours[i]);
 			int area = moment.m00;
 			if (area > 200) {
 				detected = true;
 				detectCounter = 10;
-				XYZ[2] = area;
-				XYZ[0] = moment.m10/area;
-				XYZ[1] = moment.m01/area;
+				Z = area;
+				X = moment.m10/area;
+				Y = moment.m01/area;
+				cout << X << Y << Z << endl;
 			}
 		}
 	}
@@ -111,7 +112,7 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 	}
 }
 
-void main() {
+int main(int argc, char **argv) {
 	raspicam::RaspiCam_Cv Camera;
 
 	cv::Mat img;
@@ -124,33 +125,38 @@ void main() {
 	cout << "Opening camera..." << endl;
 
 	if (!Camera.open()) {
-		 		cerr << "Error opening camera!" << endl;
+		 cerr << "Error opening camera!" << endl;
  		return -1;
  	}
-
+	
+	cout << "1" << endl;
+	
 	cv::namedWindow("Tracker", cv::WINDOW_AUTOSIZE);
 	cv::namedWindow("HSV", cv::WINDOW_AUTOSIZE);
 	cv::namedWindow("Mask", cv::WINDOW_AUTOSIZE);
+	
+	cout << "1" << endl;
 
 	createTrackbars();
 	update_Var(0, 0);
+	
+	cout << "1" << endl;
 
 	for (;;) {
-		if (trackingOn) {
-			Camera.grab();
-			Camera.retrieve(img);
+		Camera.grab();
+		Camera.retrieve(img);
 
-			cv::cvtColor(img,img,CV_BGR2RGB);
-			colorIsolation(img, hsv, mask);
-			morphOps(mask);
-			trackMarker(mask, img);
+		cv::cvtColor(img,img,CV_BGR2RGB);
+		colorIsolation(img, hsv, mask);
+		cv::imshow("HSV", hsv);
+		morphOps(mask);
+		cv::imshow("Mask", mask);
+		trackMarker(mask, img);
 
-			// Display image
-			cv::imshow("Tracker", img);
-			//cv::imshow("Mask", mask);
-			//cv::imshow("HSV", hsv);
-		}
-		if (end){
+		// Display image	
+		cv::imshow("Tracker", img);
+	
+		if (cv::waitKey(1)==27) {
 			break;
 		}
 	}
@@ -164,40 +170,4 @@ void main() {
 void update_Var( int, void*) {
 	erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3 ) );
     dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
-}
-
-bool const* markerFound() {
-	return detected;
-}
-
-int[] const* getXYZ() {
-	return XYZ;
-}
-
-void start(){
-	trackingOn = true;
-}
-
-void stop(){
-	trackingOn = false;
-}
-
-void init() {
-	main();
-}
-
-void end(){
-	close = true;
-}
-
-#include <boost/python.hpp>
-
-BOOST_PYTHON_MODULE(vision)	{
-	using namespace boost::python;
-	def("markerFound", markerFound);
-	def("getXYZ", getXYZ);
-	def("start", start);
-	def("stop", stop);
-	def("init", init);
-	def("end", end);
 }

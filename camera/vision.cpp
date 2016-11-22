@@ -4,7 +4,7 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 //#include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 //#include <stdio.h>
 //#include <math.h>
 
@@ -45,7 +45,7 @@ bool detected = false;
 bool trackingOn = false;
 bool shutdown = false;
 
-void update_Var( int, void*);
+//void update_Var( int, void*);
 
 // Initialize Trackbars for tuning
 void createTrackbars() {
@@ -115,11 +115,15 @@ int vision() {
 
 	cv::Mat img;
 	cv::Mat equ, hsv, mask;
-
+	
+	X = 10;
+	
 	Camera.set(CV_CAP_PROP_FORMAT, CV_8UC3 ); // For color
 	Camera.set(CV_CAP_PROP_FRAME_WIDTH, 320);
 	Camera.set(CV_CAP_PROP_FRAME_HEIGHT, 320);
-
+	
+	X = 20;
+	
 	//cout << "Opening camera..." << endl;
 
 	if (!Camera.open()) {
@@ -127,15 +131,21 @@ int vision() {
  		return -1;
  	}
 
+	X = 30;
+
 	cv::namedWindow("Tracker", cv::WINDOW_AUTOSIZE);
 	cv::namedWindow("HSV", cv::WINDOW_AUTOSIZE);
 	cv::namedWindow("Mask", cv::WINDOW_AUTOSIZE);
-
+	
+	X = 40;
+	
 	createTrackbars();
-	update_Var(0, 0);
+	//update_Var(0, 0);
 
 	for (;;) {
+		X = X+1;
 		if (trackingOn) {
+			X = 20;
 			Camera.grab();
 			Camera.retrieve(img);
 
