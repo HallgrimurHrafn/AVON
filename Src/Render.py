@@ -190,10 +190,30 @@ def tempo():
     
     font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
-    draw_rotated_text(disp.buffer, str(Main.tempo), (16, 55), 90, font, fill=(255,255,255))
-    draw_rotated_text(disp.buffer, 'bpm', (16, 15), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, str(Main.tempo), (17, 55), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, 'bpm', (17, 15), 90, font, fill=(255,255,255))
 
-    disp.display() 
+    disp.display()
+
+def mode():
+    # Print sequencer or live mode
+
+    # Get a PIL Draw object to start drawing on the display buffer.
+    draw = disp.draw()
+
+    # clear old tempo
+    draw.rectangle((60, 1, 139, 50), outline=glo.textbgr, fill=glo.textbgr)
+
+    font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
+
+    if Main.lGO == 1:
+        mode = "live mode"
+    else mode = "sequencer"
+    
+    draw_rotated_text(disp.buffer, mode,
+                      (17, 260), 90, font, fill=(255,255,255))
+
+    disp.display()
 
 def channel():
     # Print channel number between 1-16.
@@ -202,12 +222,12 @@ def channel():
     draw = disp.draw()
 
     # clear old tempo
-    draw.rectangle((60, 1, 139, 50), outline=glo.textbgr, fill=glo.textbgr)
-    
+    draw.rectangle((140, 1, 318, 50), outline=glo.textbgr, fill=glo.textbgr)
+
     font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
-    draw_rotated_text(disp.buffer, 'Channel '+str(Main.voice+1),
-                      (16, 119), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, 'Ch '+str(Main.voice+1),
+                      (17, 260), 90, font, fill=(255,255,255))
 
     disp.display()
 
