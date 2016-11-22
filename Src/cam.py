@@ -38,6 +38,7 @@ def vision():
         time.sleep(0.05)
 
 
+
 def cam():
     while Main.cam:
         t=math.fabs(time.time()-Main.tick)
@@ -45,6 +46,7 @@ def cam():
             time.sleep(Main.timi-t)
         else:
             time.sleep(t-Main.timi)
+        print Main.x, Main.y, Main.z
         for blah in range (0,8):
             t=time.time()
             if not Main.cam:
@@ -94,9 +96,7 @@ def notes(note):
 
 def bPitch(val):
     midime.tm(224+Main.voice, 0 ,val)
-    print "bPitch"
 
 
 def modwheel(val):
     midime.tm(176+Main.voice, 1, val)
-    print "modwheel"
