@@ -20,21 +20,23 @@ def vision():
     x=[False,3,2,1]
     z=0
 
-
-    f = open(os.path.join('../vision/build', "XYZ.txt"), 'r')
-    for line in f:
-        if z==0:
-            if line == "True\n":
-                x[z]=True
+    while Main.cam:
+        f = open(os.path.join('../vision/build', "XYZ.txt"), 'r')
+        for line in f:
+            if z==0:
+                if line == "True\n":
+                    x[z]=True
+                else:
+                    x[z]=True
             else:
-                x[z]=True
-        else:
-            x[z]=int(line)
-        z+=1
-    if x[0]:
-        print x, x[1]+x[2]+x[3]
+                x[z]=int(line)
+            z+=1
+        Main.seen=x[0]
+        Main.x=x[1]
+        Main.y=x[2]
+        Main.z=x[3]
+        time.sleep(0.05)
 
-vision()
 
 def cam():
     while Main.cam:
