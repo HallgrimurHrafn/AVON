@@ -34,6 +34,7 @@ def vision():
     if x[0]:
         print x, x[1]+x[2]+x[3]
 
+vision()
 
 def cam():
     while Main.cam:
