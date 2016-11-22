@@ -6,6 +6,7 @@ import glo
 import threading
 import RPi.GPIO as GPIO
 import cam
+import Render
 
 
 
@@ -58,6 +59,7 @@ def channelchange(val):
     if 0<=Main.v+val<=15:
         Main.v=Main.v+val
         Main.ChannelChange()
+        renderchan = True # Print new channel on screen
         print Main.voice
 
 
@@ -74,6 +76,7 @@ def livechange():
         Main.lGO=0
     else:
         Main.lGO=1
+    glo.renderlive = True # print new mode on screen
     Main.multithread()
 
 def camerachange():

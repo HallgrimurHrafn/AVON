@@ -7,6 +7,7 @@ import Rotary
 import Adafruit_Trellis         # trellis
 # import Render
 import blah
+import Render
 
 
 ### TODO:
@@ -574,7 +575,7 @@ def init():
 
     GPIO.add_event_detect(20, GPIO.FALLING, callback=stopper, bouncetime=200)
     GPIO.add_event_detect(21, GPIO.FALLING, callback=playpause, bouncetime=200)
-    GPIO.add_event_detect(16, GPIO.FALLING, callback=callback_tap, bouncetime=200)
+    GPIO.add_event_detect(16, GPIO.FALLING, callback=callback_tap, bouncetime=100)
     GPIO.add_event_detect(4, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
     t = threading.Thread(target=multithread)
     t.start()
@@ -583,6 +584,10 @@ def init():
     t4=threading.Thread(target=blah.screen)
     t4.start()
 
+    t5=threading.Thread(target=Render.test)
+    t5.start()
 
     time.sleep(0.5)
     Sequencer()
+
+    

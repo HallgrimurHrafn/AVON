@@ -107,12 +107,13 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 		}
 	}
 	if (detected) {
-		detectCounter = detectCounter--;
+		detectCounter = detectCounter-1;
 		if (detectCounter <= 0) {
 			detected = false;
 			detectCounter = 0;
 		}
 	}
+	cout << detectCounter << endl;
 }
 
 int main(int argc, char **argv) {

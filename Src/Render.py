@@ -19,6 +19,8 @@ last=time.time()
 disp = TFT.ILI9341(DC, rst=RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=64000000))
 disp.begin()
 disp.clear()
+draw = disp.draw()
+font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
 ### TODO:
 # Create the ability to scroll through the list on the left.
@@ -156,89 +158,113 @@ def clear(): # just for testing
 def crosshairs():
     # NOTE notum crop og custom image!
     # NOTE svaedi 240,0 => 60, 180
-    draw = disp.draw()
+    # draw = disp.draw()
     # ellipse : [x0, y0, x1, y1] kassi utan um hring.
-    x=240-int(float(Main.x)/127*180)   # range fyrir x : fra 240 NIDUR i 60.
-    y=int(float(Main.y)/127*180)  # 127 er max value fra myndavel. subject to change NOTE
-    z=int(float(Main.z)/127*180)
+    x=240-int((float(Main.x)/127)*180)   # range fyrir x : fra 240 NIDUR i 60.
+    y=int((float(Main.y)/127)*180)  # 127 er max value fra myndavel. subject to change NOTE
+    z=int((float(Main.z)/127)*180)
 
     x0=x+z/2
     x1=x-z/2
     y0=y+z/2
     y1=y-z/2
-    draw.ellipse((x0, y0, x1, y1), outline=(255, 0, 0), fill=(255,255,255))
+
+    draw.rectangle((60, 0, 239, 179), outline=(0,0,0), fill=(0,0,0))
+    
+    draw.ellipse((x0, y0, x1, y1), outline=(255, 0, 0), fill=(0,0,0))
 
     draw.line((x, y-10, x, y+10), fill=(255,153,0)) # x
     draw.line((x-10, y, x+10, y), fill=(255,153,0)) # y
 
     
 def background():
+
     # Get a PIL Draw object to start drawing on the display buffer.
-    draw = disp.draw()
+    # draw = disp.draw()
     # draw a rectangle around text area for tempo, etc.
     draw.rectangle((0, 0, 59, 319), outline=(255,255,255), fill=glo.textbgr)    
     # draw a rectangle around menu list
     draw.rectangle((59, 319, 239, 179), outline=(255,255,255), fill=glo.textbgr)
 
 
-def tempo():
+def channel():
+    # Print channel number between 1-16.
+
     # Get a PIL Draw object to start drawing on the display buffer.
-    draw = disp.draw()
+    # draw = disp.draw()
 
     # clear old tempo
-    draw.rectangle((1, 1, 58, 55), outline=glo.textbgr, fill=glo.textbgr)
+    # draw.rectangle((140, 1, 318, 50), outline=glo.textbgr, fill=glo.textbgr)
+
+    # font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
+
+    draw_rotated_text(disp.buffer, 'Ch '+str(Main.voice+1),
+                      (17, 260), 90, font, fill=(255,255,255))
+
+    # disp.display()
     
-    font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
-
-    draw_rotated_text(disp.buffer, str(Main.tempo), (17, 55), 90, font, fill=(255,255,255))
-    draw_rotated_text(disp.buffer, 'bpm', (17, 15), 90, font, fill=(255,255,255))
-
-    disp.display()
 
 def mode():
     # Print sequencer or live mode
 
     # Get a PIL Draw object to start drawing on the display buffer.
-    draw = disp.draw()
+    # draw = disp.draw()
 
     # clear old tempo
-    draw.rectangle((60, 1, 139, 50), outline=glo.textbgr, fill=glo.textbgr)
+    # draw.rectangle((60, 1, 139, 50), outline=glo.textbgr, fill=glo.textbgr)
 
-    font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
+    # font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
     if Main.lGO == 1:
         mode = "live mode"
-    else mode = "sequencer"
+    else:
+        mode = "sequencer"
     
-    draw_rotated_text(disp.buffer, mode,
-                      (17, 260), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, mode, (17, 135), 90, font, fill=(255,255,255))
 
-    disp.display()
+    # disp.display()
 
-def channel():
-    # Print channel number between 1-16.
 
+def tempo():
     # Get a PIL Draw object to start drawing on the display buffer.
-    draw = disp.draw()
+    # draw = disp.draw()
 
     # clear old tempo
-    draw.rectangle((140, 1, 318, 50), outline=glo.textbgr, fill=glo.textbgr)
+    # draw.rectangle((1, 1, 58, 55), outline=glo.textbgr, fill=glo.textbgr)
+    
+    # font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
-    font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
 
-    draw_rotated_text(disp.buffer, 'Ch '+str(Main.voice+1),
-                      (17, 260), 90, font, fill=(255,255,255))
+    
+    draw_rotated_text(disp.buffer, str(Main.tempo), (17, 55), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, 'bpm', (17, 15), 90, font, fill=(255,255,255))
 
-    disp.display()
+    # disp.display()
 
+
+menulist = ['tempo', 'channel', 'scale', 'live mode', 'camera', 'note length', 'bar']
+
+def menu():
+    # Get a PIL Draw object to start drawing on the display buffer.
+    # draw = disp.draw()
+    # font = ImageFont.truetype('Minecraftia-Regular.ttf', 16)
+    pass
+
+
+
+    
 def test():
-#    disp.begin()
-    disp.clear()
-    crosshairs()
-    background()
-    tempo()
-    channel()
-    disp.display()
+    #    disp.begin()
+      
+    while(True):
+        #        disp.clear()
+        crosshairs()
+        background()
+        channel()
+        mode()
+        tempo()    
+        disp.display()
+        time.sleep(0.4)
     
     
-test()
+#test()

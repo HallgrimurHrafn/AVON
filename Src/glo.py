@@ -4,6 +4,7 @@ import numpy as np
 
 #fScrollMapX er function map fyrir scroll x
 
+
 navx=0
 navy=0
 oldnavx=0  # navx fyrir
@@ -112,3 +113,6 @@ fScrollMapX=np.array([
 
 # background color for menu
 textbgr = (100,100,100)
+
+renderlive = True
+renderchan = True
