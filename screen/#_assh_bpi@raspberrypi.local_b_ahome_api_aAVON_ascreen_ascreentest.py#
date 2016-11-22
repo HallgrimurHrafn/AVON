@@ -104,7 +104,7 @@ def Main():
     # show bpm
     draw_rotated_text(disp.buffer, str(tempo)+' bpm', (14, 19), 90, font, fill=(255,255,255))
     
-    d
+    
     # Write buffer to display hardware, must be called to make things visible on the
     # display!
     disp.display()
