@@ -18,11 +18,11 @@
 using namespace std;
 
 // Global variables
-int min_H = 53;
-int min_S = 0;
-int min_V = 234;
-int max_H = 147;
-int max_S = 27;
+int min_H = 156;
+int min_S = 144;
+int min_V = 25;
+int max_H = 182;
+int max_S = 204;
 int max_V = 255;
 int const max_value = 255;
 int const max_morph = 20;
@@ -33,8 +33,8 @@ cv::Scalar upperb = cv::Scalar(max_H, max_S, max_V);
 int erodeOn = 1;
 int dilateOn = 1;
 
-int erodeSize = 0;
-int dilateSize = 0;
+int erodeSize = 1;
+int dilateSize = 7;
 
 cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3) );
 cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );

@@ -132,23 +132,24 @@ def chunk(image, location, text):   # i reccomend using the global page before s
 
     # NOTE 240x320
 
-def crosshairs(Main.x,Main.y,Main.z):
+def crosshairs():
     # NOTE notum crop og custom image!
     # NOTE svaedi 240,0 => 60, 180
     draw = disp.draw()
     # ellipse : [x0, y0, x1, y1] kassi utan um hring.
-    x=240-int(float(x)/127*180)   # range fyrir x : fra 240 NIDUR i 60.
-    y=int(float(y)/127*180)  # 127 er max value fra myndavel. subject to change NOTE
-    z=int(float(z)/127*180)
+    x=240-int(float(Main.x)/127*180)   # range fyrir x : fra 240 NIDUR i 60.
+    y=int(float(Main.y)/127*180)  # 127 er max value fra myndavel. subject to change NOTE
+    z=int(float(Main.z)/127*180)
 
     x0=x+z/2
     x1=x-z/2
-    x0=x+z/2
-    x1=x-z/2
-    draw.ellipse((x0, y0, x1, y1), outline=(255, 255, 255), fill=(255,255,255))
+    y0=y+z/2
+    y1=y-z/2
+    draw.ellipse((x0, y0, x1, y1), outline=(255, 0, 0), fill=(255,255,255))
 
-    draw.line((x, y-5, x, y+5), fill=(255,255,0)) # x
-    draw.line((x-5, y, x+5, y), fill=(255,255,0)) # y
+    draw.line((x, y-10, x, y+10), fill=(255,153,0)) # x
+    draw.line((x-10, y, x+10, y), fill=(255,153,0)) # y
+    disp.display()
 
 def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
     # Get rendered font width and height.
@@ -166,20 +167,27 @@ def draw_rotated_text(image, text, position, angle, font, fill=(255,255,255)):
     
 def clear():
     disp.clear()
-    disp.display()
+    disp.display() #deleteme
     
 def background():
     # Get a PIL Draw object to start drawing on the display buffer.
     draw = disp.draw()
     # draw a rectangle around text area for tempo, etc.
-    draw.rectangle((0, -1, 59, 320), outline=(0,0,0), fill=glo.textbgr)    
+    draw.rectangle((0, -1, 59, 320), outline=(255,255,255), fill=glo.textbgr)    
     # draw a rectangle around menu list
     draw.rectangle((59, 319, 239, 179), outline=glo.textbgr, fill=glo.textbgr)
     disp.display() #delete me later
 
 def tempo():
+    # Get a PIL Draw object to start drawing on the display buffer.
+    draw = disp.draw()
+
+    # clear old tempo
+    draw.rectangle((0, 0, 58, 50), outline=glo.textbgr, fill=glo.textbgr)
+    
     font = ImageFont.truetype('Minecraftia-Regular.ttf', 18)
     # show bpm
-    draw_rotated_text(disp.buffer, str(Main.tempo)+' bpm',
-                      (14, 19), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, Main.tempo,(14, 19), 90, font, fill=(255,255,255))
+    draw_rotated_text(disp.buffer, 'bpm',     (14, 12), 90, font, fill=(255,255,255))
+
     disp.display() #deleteme
