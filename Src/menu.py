@@ -86,7 +86,7 @@ def camerachange():
 def camon():
     # if glo.xcursor or glo.ycursor or glo.zcursor==1:
     #     if Main.lGO==0:
-    #         GPIO.remove_event_detect(7)
+    #         GPIO.remove_event_detect(4)
     Main.cam=True
     Main.seen=True
     t=threading.Thread(target=cam.cam)
@@ -95,7 +95,7 @@ def camon():
 def camoff():
     # if glo.xcursor or glo.ycursor or glo.zcursor==1:
     #     if Main.lGO==0:
-    #         GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
+    #         GPIO.add_event_detect(4, GPIO.FALLING, callback=trellisWatch, bouncetime=350)
     Main.cam=False
     Main.seen=False
 
@@ -114,7 +114,7 @@ def cameraMode(val, xyz):
     # if glo.xcursor or glo.ycursor or glo.zcursor==1:
     #     if glo.stat==1:
     #         if Main.lGO==0:
-    #             GPIO.remove_event_detect(7)
+    #             GPIO.remove_event_detect(4)
     #             glo.stat=0
     # else:
     #     if glo.stat==0:

@@ -235,7 +235,7 @@ def Sequencer():
 
 # multithread starts		--- partur af main.
 def multithread():
-    GPIO.remove_event_detect(7)
+    GPIO.remove_event_detect(4)
     time.sleep(0.015)
     if lGO == 1:
         t1 = threading.Thread(target=liveSet)
@@ -273,7 +273,7 @@ def tw():
     global status, tStatus, voice
     status=tStatus.copy()
     ledshow(status[voice][:][:])
-    GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
+    GPIO.add_event_detect(4, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
 # tw ends.
 
 
@@ -283,7 +283,7 @@ def tw():
 def trellisWatch(channel):                              # ignore channel...
     global tGO, status, a, b, tStatus, clA, lGO, mwGO, voice
     time.sleep(0.015)
-    # print(GPIO.input(7))                             #sma debug daemi
+    # print(GPIO.input(4))                             #sma debug daemi
     if trellis.readSwitches():                          #ef ytt var a takka/uppfaerum database.
         for x in range(0, 64):                          #fyrir alla takka
             if trellis.justPressed(x):                  #var ytt a thennan takka?
@@ -291,11 +291,11 @@ def trellisWatch(channel):                              # ignore channel...
                 if tStatus[voice][y % 8][y // 8] == 0:  #ef thad var slokkt a notu
                     tStatus[voice][y % 8][y // 8] = 1   #tha er nuna kveikt a notu
                     trellis.setLED(x)                   #somuleidis med LED.
-                    # print(GPIO.input(7),'on')        #debug dot
+                    # print(GPIO.input(4),'on')        #debug dot
                 else:                                   #ef ekki slokkt a notu
                     tStatus[voice][y % 8][y // 8] = 0   #slokkvum a notu
                     trellis.clrLED(x)                   #led lika
-                    # print(GPIO.input(7),'off')
+                    # print(GPIO.input(4),'off')
                     trellis.readSwitches()              #tilraun til ad laga response time-id. ma prufa ad fjarlaegja
         trellis.writeDisplay()                          #uppfaerum led
         if tGO == 1:                                    #meigum vid breyta status
@@ -378,7 +378,7 @@ def liveSet():
        y = tfIn(x)
        status[voice][y % 8][y // 8] = 0
     ledshow(np.zeros((8, 8)))
-    GPIO.add_event_detect(7, GPIO.FALLING, callback=liveplay, bouncetime=20)
+    GPIO.add_event_detect(4, GPIO.FALLING, callback=liveplay, bouncetime=20)
 
 # done
 def liveplay(channel):
@@ -560,15 +560,6 @@ def init():
         trellis.clrLED(x)
     trellis.writeDisplay()
 
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
-    GPIO.setup(38, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
-    GPIO.setup(40, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
-    GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
-
-    GPIO.add_event_detect(38, GPIO.FALLING, callback=stopper, bouncetime=200)
-    GPIO.add_event_detect(40, GPIO.FALLING, callback=playpause, bouncetime=200)
-    GPIO.add_event_detect(36, GPIO.FALLING, callback=callback_tap, bouncetime=200)
 
     for x in range(0, 64):
         trellis.clrLED(x)
@@ -580,7 +571,16 @@ def init():
     ledshow(np.zeros((8, 8)))
 
 
-    GPIO.add_event_detect(7, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up for trellis
+    GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up STOP button
+    GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up START button
+    GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP) # set up TAP button
+
+    GPIO.add_event_detect(20, GPIO.FALLING, callback=stopper, bouncetime=200)
+    GPIO.add_event_detect(21, GPIO.FALLING, callback=playpause, bouncetime=200)
+    GPIO.add_event_detect(16, GPIO.FALLING, callback=callback_tap, bouncetime=200)
+    GPIO.add_event_detect(4, GPIO.FALLING, callback=trellisWatch, bouncetime=20)
     t = threading.Thread(target=multithread)
     t.start()
     print('its running, boooooiiiiii!')
