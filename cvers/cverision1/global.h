@@ -4,6 +4,8 @@
 #include <time.h>
 #include <map>
 #include <sting>
+#include <chrono>
+#include <vector>
 
 using namespace std;
 
@@ -13,6 +15,8 @@ typedef map<string,naviFunc> clickmap;
 typedef map<const int,modFunc> xmodMap;
 typedef map<const int,modFunc> ymodMap;
 typedef map<const int,modFunc> zmodMap;
+typedef chrono::high_resolution_clock TIME;
+typedef chrono::duration<float> timer:
 
 extern void notes(int);
 extern void bPitch(int);
@@ -44,7 +48,7 @@ int length = 0.1;					// Ratio of time, end to begining of note
 int bar = 8;						// 8=1/8 note, 4=1/4 note
 
 // NONMENU
-time_t tick;
+auto tick = TIME::now();
 int tapTempo = 1;					// Is the tap tempo active?
 int nextChannel = 0;					// What MIDI channel are we changing to
 int channel = 0;					// What is the current MIDI channel
@@ -56,8 +60,8 @@ int mod[8][8][16][8] = {0};				// Info on each note
 int status[16][8][8] = {0};				// Status note array
 int tStatus[16][8][8] = {0};				// timirarystatus notad thegar trellStatus = 0
 int nowPlaying[8][8] = {0};				// For live mode
-int tap[];
-int period[];
+vector<double> tap;
+vector<double> period;
 
 // These are from other .py files
 
@@ -87,7 +91,7 @@ static xmodMap xMod;
 static ymodMap yMod;
 static zmodMap zMod;
 static clickmap cMap
-inline xmodMap & xmod(){
+inline xmodMap & xmod(){				// Notkun: xmod().find(mapKey)->second(x)
 	xMod[0] = passer;
 	xMod[1] = notes;
 	xMod[2] = bPitch;
