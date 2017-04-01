@@ -179,10 +179,10 @@ void stopper()
 }
 
 void trellisEvent();
-// vantar GPIO library
+// vantar GPIO library   ????
 
 void trellisWatch();
-// Vantar trellis Library
+// Vantar trellis Library   ????
 
 void calcBPM(float tap, int period, int tempo)
 {
@@ -247,8 +247,7 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 }
 
 
-
-// FROM menu.py @@@@
+// FROM menu.py @@@@ NAVIGATION
 
 void clicker(int Num)
 {
@@ -276,3 +275,11 @@ void moveUp()
 	// Get old navigation for the new depth.
 	nav[0] = oldNav[nav[1]];
 }
+
+
+
+
+
+
+
+// From Menu.py  @@@@ Functions!
