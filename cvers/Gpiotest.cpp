@@ -1,12 +1,25 @@
-#include <pigpio.h>
+#include <thread>
+#include <wiringPi.h>
+// #include <chrono>
 
 int main() {
-  gpioInitialise();
-  gpioSetMode(17, PI_INPUT);
-  gpioSetPullUpDown(17, PI_PUD_UP);
+  wiringPiSetupGpio ();
+
+  int pin = 21;
+  pinMode(pin, INPUT);
+  pullUpDnControl(pin, PUD_UP);
+  int wiringPiISR (pin, INT_EDGE_FALLING,  success);
 
 
-  test pin
+
+  for(;;)
+  {
+    usleep(1000000)
+  }
 
 }
-print shit if works
+
+void success()
+{
+  cout << "OUTPUT!" << endl;
+}
