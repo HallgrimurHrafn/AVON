@@ -1,18 +1,50 @@
 #include "global.h"
 #include <thread>
+#include <math.h>
 
+
+void Sequencer() {
+	for(;;)
+	{
+		if (stop == 0)
+		{
+			for(int i = 0; i<8; i++)
+			{
+				timi = (15000000/BPM)/bar;
+				for(int j=0; j<8; j++){
+    			Scale[j] = newScale[j];
+				}
+				column = i;
+				playColumn(i);
+				while (pause == 1) {
+					usleep(100000);
+					if (stop == 1)
+						break;
+				}
+				if (stop == 1)
+					break;
+			}
+		}
+		while (pause == 1)
+			usleep(100000);
+	}
+}
 
 void playColumn(int column)
 {
+	// Creating thread to play current column.
 	thread p1(NOTEON,column,true);
+	// Wait for note duration.
 	usleep(timi-timi*length);
+	// Turn the note off.
 	thread p2(NOTEOFF,column);
+	// Delay before next column should start playing.
 	usleep(timi*length);
 }
 
 void NOTEON(int column, bool cd)
 {
-	time_h tick;
+	tick = TIME::now();
 	trellStatus = 0;
 	for(int i=0;i<8;i++)
 	{
@@ -24,11 +56,10 @@ void NOTEON(int column, bool cd)
 	}
 	trellStatus = 1;
 	mcGo = 1;
-	if(cd)
-		metronome(column);
+	metronome(column);
 }
 
-void NOTEOFF(column)
+void NOTEOFF(int column)
 {
 	trellStatus = 0;
 	mcGo =0, //?
@@ -44,6 +75,23 @@ void NOTEOFF(column)
 }
 
 void metronome(column) // vantar info um trellis
+{
+	metroLed = true;
+	for(int i =0; i<8; 1++)
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		trellis.setLED(invTrellisTransf(i * 8 + column));
+	trellis.writeDisplay();
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	usleep(FLASH*timi);
+	for(int i =0; i<8; 1){
+	  if (status[channel][column][i] == 0)
+		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      trellis.clrLED(invTrellisTransf(i * 8 + column));
+	}
+  trellis.writeDisplay();
+	!!!!!!!!!!!!!!!!!!!!!!!!!!
+	metroLed = false;
+}
 
 void Sync()
 {
@@ -54,11 +102,58 @@ void Sync()
 	}
 }
 
-void TrellisTransf() // Trellis format to our format
+int TrellisTransf(int a) // Trellis format to our format
+{
+	int f = a/16;
+	int d = (a % 16) % 4;
+	int l = (a % 16) / 4;
+	int b;
+	if (f % 2 == 0)
+      b = 16 * f + 8 * l + d;
+	else
+      b = 16 * (f + 1) - (3 - l) * 8 + d - 4;
+  return b;
+}
 
-void invTrellisTransf()  // Our format to Trellis format
+int invTrellisTransf(int a)  // Our format to Trellis format
+{
+	int f = a / 16;
+  int d = (a % 16) % 8;
+  int l = (a % 16) / 8;
+	int b;
+  if (d < 4)
+	{
+      if (f < 2)
+          b = 8 * f + 4 * l + d;
+      else
+			{
+          if (f == 2)
+              b = 32 + 4 * l + d;
+          else
+              b = 40 + d + 4 * l;
+			}
+	}
+  else
+	{
+      if (f % 2 == 1)
+          b = 16 * (f + 1) + d - 4 * (3 - l);
+      else
+          b = 16 * (f + 1) + d - 4 * (3 - l) + 8;
+	}
+  return b
+}
 
-void multithread();
+void multithread()
+{
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// GPIO.remove_event_detect(4)
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	usleep(15000);
+	if (live == 1)
+		thread p2(liveSet);
+	else:
+		thread p2(trellisEvent);
+}
 
 void PlayPause()
 {
@@ -82,11 +177,28 @@ void stopper()
 }
 
 void trellisEvent();
+// vantar GPIO library
 
 void trellisWatch();
+// Vantar trellis Library
 
 void calcBPM(float tap, int period, int tempo)
 {
-	time_t currentTime 
 
+}
+
+void liveset();
+
+void liveplay();
+
+void ledshow(matrix);
+
+void ChannelChange();
+
+void clearleds(){
+	for(int i = 0; i<64; i++)
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		trellis.clrLED(i);
+	trellis.writeDisplay();
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
