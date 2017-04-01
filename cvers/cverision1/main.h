@@ -1,6 +1,7 @@
 #include "global.h"
 #include <thread>
 #include <math.h>
+#include <stdlib.h>
 
 
 void Sequencer() {
@@ -15,9 +16,10 @@ void Sequencer() {
     			Scale[j] = newScale[j];
 				}
 				column = i;
-				playColumn(i);
+				playColumn(column);
 				while (pause == 1) {
 					usleep(100000);
+
 					if (stop == 1)
 						break;
 				}
@@ -150,9 +152,9 @@ void multithread()
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	usleep(15000);
 	if (live == 1)
-		thread p2(liveSet);
+		thread ls(liveSet);
 	else:
-		thread p2(trellisEvent);
+		thread te(trellisEvent);
 }
 
 void PlayPause()
@@ -191,7 +193,10 @@ void liveset();
 
 void liveplay();
 
-void ledshow(matrix);
+void ledshow(int matrix[][8])
+{
+
+}
 
 void ChannelChange();
 
@@ -201,4 +206,73 @@ void clearleds(){
 		trellis.clrLED(i);
 	trellis.writeDisplay();
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+
+
+// FROM Rotary.py @@@@
+
+// Clockwise:
+// 0,0 : state 0
+// 1,0 : state 1
+// 1,1 : state 2
+// 0,1 : state 3
+// 0,0 : state 0  Full turn.
+void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
+// RotaryNum indicates what Rotary was used.
+// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
+	int tempLeft = !!!!!!GPIOinput(leftPin)!!!!!!!!;
+	int tempRight = !!!!!!GPIOinput(rightPin)!!!!!!!!;
+	if(RotaryAction == 0)
+	{
+		!!!!!Menu.click(RotaryNum)!!!!!
+		return;
+	}
+	// Did we change state?
+	else if ((leftTurn[RotaryNum] == tempLeft) && (rightTurn[RotaryNum] == tempRight))
+		return;  // if not, return. else we update state.
+	leftTurn[RotaryNum] = tempLeft;
+	rightTurn[RotaryNum] = tempRight;
+	prevState[RotaryNum] = state[RotaryNum];
+	state[RotaryNum] = abs(3*rightTurn[RotaryNum]-leftTurn[RotaryNum]);
+	// If current state is 0 then the rotary has done a full turn.
+	if (state[RotaryNum] == 0)
+		{
+			if (prevState[RotaryNum] == 1)
+				// MOVE TO RIGHT.
+			else if (prevState[RotaryNum] == 3)
+				// MOVE TO LEFT.
+		}
+	return;
+}
+
+
+
+// FROM menu.py @@@@
+
+void clicker(int Num)
+{
+	if (Num == 1)
+	{
+		string mapKey = to_string(nav[1])+to_string(nav[0]);
+		clickMap().find(mapKey)->second;
+	}
+	else
+		moveUp();
+}
+
+void moveUp()
+{
+	// Not allowed to move up in first position.
+	if (nav[1] == 0)
+		return;
+	// Setting navigation for current depth to 0.
+	oldNav[nav[1]] = 0;
+	// Update navigation depth.
+	if (nav[1] == 3)
+		nav[1] = 2;
+	else
+		nav[1] = 0;
+	// Get old navigation for the new depth.
+	nav[0] = oldNav[nav[1]];
 }

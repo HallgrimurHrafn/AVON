@@ -58,7 +58,7 @@ int modWatch = 0;					// Are we in Mod Watch
 int trellStatus = 1;					// Status changes allowed in Trellis
 int mod[8][8][16][8] = {0};				// Info on each note
 int status[16][8][8] = {0};				// Status note array
-int tStatus[16][8][8] = {0};				// timirarystatus notad thegar trellStatus = 0
+int tStatus[16][8][8] = {0};				// temporary status used when trellStatus = 0
 int nowPlaying[8][8] = {0};				// For live mode
 vector<double> tap;
 vector<double> period;
@@ -66,14 +66,14 @@ vector<double> period;
 // These are from other .py files
 
 // ROTARY
-int leftClick[2] = {0};					// Left rotary click
-int rightClick[2] = {0};				// Right rotary click
+int leftTurn[2] = {0};					// Left rotary click
+int rightTurn[2] = {0};				// Right rotary click
 int state[2] = {0};					// Current state
 int prevState[2] = {0};					// Previous state
 
 // FROM GLO
 int nav[2] = {0,0};					// Current Navigation state for the menu {x,y}
-int oldNav[2] = {0,0};					// Old Navigation state
+int oldNav[5] = {0,0,0,0,0};					// Old Navigation state
 int cursorxyz[3] = {0,0,0};				// Cursor {x,y,z}
 int stat = 1;						// Status?
 
