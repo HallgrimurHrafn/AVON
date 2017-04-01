@@ -189,16 +189,16 @@ void calcBPM(float tap, int period, int tempo)
 
 }
 
-void liveset();
+void liveset();    // ????
 
-void liveplay();
+void liveplay();   // ????
 
-void ledshow(int matrix[][8])
+void ledshow(int matrix[][8])   // ????
 {
 
 }
 
-void ChannelChange();
+void ChannelChange();    // ????
 
 void clearleds(){
 	for(int i = 0; i<64; i++)
