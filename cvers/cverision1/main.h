@@ -198,7 +198,7 @@ void ledshow(int matrix[][8])   // ????
 
 }
 
-void ChannelChange();    // ????
+void ChannelChange();    // ???
 
 void clearleds(){
 	for(int i = 0; i<64; i++)
