@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <thread>
 #include <wiringPi.h>
 #include <iostream>
@@ -7,14 +8,15 @@
 // #include <chrono>
 using namespace std;
 
-void success(std::string a)
+void success(string a)
 {
   cout << "kemur test? :" << a;
 }
 
 void supsuccess()
 {
-  std::thread suc(success,"test");
+
+  thread suc = thread(success,"test");
 }
 
 int main() {
