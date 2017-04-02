@@ -188,24 +188,26 @@ void trellisEvent();
 void trellisWatch();
 // Vantar trellis Library   ????
 
-int calcBPM(vector<double> tap, vector<double> period, int BPM)
+void calcBPM(vector<double> tap, vector<double> period)
 {
-	þarf að tala við Mr.Karl;
+	// þarf að tala við Mr.Karl;
 	high_resolution_clock::TIME currentTime = high_resolution_clock::now();
+
 	tap.push_back(currentTime);
 	int tapCount = period.size();
 	double avgPeriod = 0;
 	if(tapCount==1)
-		return BPM;
-	elseif ((tap.end()-(tap.end()-1))>=3)
+		return;
+	elseif ((tap.end()-(tap.end()-1))>=3 || (tap.end()-(tap.end()-1))<=0.2)
 	{
 		tap.erase(period.begin(),period.end()-1);
-		return BPM;
+		return;
 	}
+
 	elseif(tapCount==2)
 	{
 		period.push_back(tap.end()-(tap.end()-1));
-		return BPM;
+		return;
 	}
 	period.push_back(tap.end()-(tap.end()-1));
 
@@ -214,16 +216,17 @@ int calcBPM(vector<double> tap, vector<double> period, int BPM)
 	elseif (tapCount==4)
 		avgPeriod = (period.end()+(period.end()-1)+(period.end()-2))/3;
 	else
-		avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/3;
+		avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/4;
 
-	int newTempo = round(60/avgPeriod);
+	BPM = round(60/avgPeriod);
+	return;
 }
 
 void callbackTap(int channel)
 {
 	if(tapTempo==0)
 		return;
-	BPM = calcBPM(tap,period,BPM);
+	calcBPM(tap,period,BPM);
 	cout << "BPM: " << BPM << endl;
 }
 void liveset();    // ????
@@ -262,7 +265,7 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 	int tempRight = !!!!!!GPIOinput(rightPin)!!!!!!!!;
 	if(RotaryAction == 0)
 	{
-		!!!!!Menu.click(RotaryNum)!!!!!
+		clicker(RotaryNum);
 		return;
 	}
 	// Did we change state?
@@ -328,28 +331,6 @@ void move(int i, int val)
 		kort(1,val);
 }
 
-void click(i)
-{
-	if(i==1)
-		kort(2,0);
-	else
-		moveUp();
-}
-
-void moveUp()
-{
-	if(nav[1]==3)
-	{
-		createNewScale();
-		nav[1] = 2;
-		nav[0] = oldNav[0]; 	// Þarf að skoða
-	}
-	elseif(nav[1]>0)
-	{
-		nav[1]=0;
-		nav[0] = oldNav[]		// sama hér
-	}
-}
 
 void kort(int x, int val)
 {
@@ -370,7 +351,7 @@ void channelPrep(int val)
 		{
 			nextChannel=nextChannel+val;
 			ChannelChange();
-			renderChan = true;		
+			renderChan = true;
 			cout << channel << endl;
 		}
 }
@@ -382,7 +363,7 @@ void tempChange(int val,int x)
 		tapTempo = 0;
 		usleep(10000);
 		BPM += val*x;
-		tapTempo = 1; 
+		tapTempo = 1;
 	}
 }
 
@@ -463,7 +444,8 @@ void scaleChange(int val,int x)
 	}
 	elseif(x==0)
 	{
-		currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));		// skoða með custom?
+		currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));
+		// skoða með custom?
 		cout ...
 	}
 	if (currentScale != 3)

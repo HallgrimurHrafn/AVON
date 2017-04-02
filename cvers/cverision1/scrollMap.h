@@ -46,7 +46,7 @@ void fScrollMapY(int line, int column,int val)
 	}
 	elseif(line==3)
 	{
-		customScale(val,(-column)%7);
+		customScale(val,7-(column)%8);
 	}
 	elseif(line==4)
 	{
