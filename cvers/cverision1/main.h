@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "scrollMap.h"
 
-
+// FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
 	for(;;)
 	{
@@ -108,6 +108,7 @@ void Sync()
 	}
 }
 
+// FROM Main.py @@@@ Trellis Transformations.
 int TrellisTransf(int a) // Trellis format to our format
 {
 	int f = a/16;
@@ -149,6 +150,8 @@ int invTrellisTransf(int a)  // Our format to Trellis format
   return b
 }
 
+
+// FROM Main.py @@@@ Setting up trellis events.
 void multithread()
 {
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -157,10 +160,38 @@ void multithread()
 	usleep(15000);
 	if (live == 1)
 		thread ls(liveSet);
-	else:
+	else
 		thread te(trellisEvent);
 }
 
+
+void trellisEvent();
+// vantar GPIO library   ????
+
+void trellisWatch();
+// Vantar trellis Library   ????
+
+void liveset();    // ????
+
+void liveplay();   // ????
+
+void ChannelChange();    // ???
+
+
+// FROM Main.py @@@@ LED operations on the trellis keypad.
+void ledshow(int matrix[][8])   // ????
+{
+
+}
+void clearleds(){
+	for(int i = 0; i<64; i++)
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		trellis.clrLED(i);
+	trellis.writeDisplay();
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+// FROM Main.py @@@@ Button related Functions.
 void PlayPause()
 {
 	cout << "playpause" << endl;
@@ -182,11 +213,6 @@ void stopper()
 	}
 }
 
-void trellisEvent();
-// vantar GPIO library   ????
-
-void trellisWatch();
-// Vantar trellis Library   ????
 
 void calcBPM(vector<double> tap, vector<double> period)
 {
@@ -229,24 +255,7 @@ void callbackTap()
 	calcBPM(tap,period);
 	cout << "BPM: " << BPM << endl;
 }
-void liveset();    // ????
 
-void liveplay();   // ????
-
-void ledshow(int matrix[][8])   // ????
-{
-
-}
-
-void ChannelChange();    // ???
-
-void clearleds(){
-	for(int i = 0; i<64; i++)
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		trellis.clrLED(i);
-	trellis.writeDisplay();
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-}
 
 
 
@@ -261,8 +270,8 @@ void clearleds(){
 void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 // RotaryNum indicates what Rotary was used.
 // RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
-	int tempLeft = !!!!!!GPIOinput(leftPin)!!!!!!!!;
-	int tempRight = !!!!!!GPIOinput(rightPin)!!!!!!!!;
+	int tempLeft = digitalRead(leftPin);
+	int tempRight = digitalRead(rightPin);
 	if(RotaryAction == 0)
 	{
 		clicker(RotaryNum);
