@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <iostream>
 #include <QButtonGroup>
+#include <QLabel>
 
 using namespace std;
 
@@ -17,16 +18,25 @@ class AvonWidget : public QWidget
 
 public:
     explicit AvonWidget(QWidget *parent = 0);
-    void highlightBpmVal(bool highlighted);
+    void highlightLabel(QLabel *myLabel, bool highlighted);
     ~AvonWidget();
 
 private slots:
     void on_qButtonTempo_pressed();
 
+    void on_qButtonChan_pressed();
+
+    void on_qButtonBar_pressed();
+
+    void on_qButtonMode_pressed();
+
+    void on_qButtonLength_pressed();
+
+    void on_qButtonCam_pressed();
+
 private:
     Ui::AvonWidget *ui;
-    QWidget *getMenuPageNamed(string page);
-    void setPageNamed(string pageName);
+    void setPageNamed(QString pageName);
 };
 
 #endif // AVONWIDGET_H

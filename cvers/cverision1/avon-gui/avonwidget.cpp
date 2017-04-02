@@ -33,12 +33,13 @@ AvonWidget::AvonWidget(QWidget *parent) :
  * @brief AvonWidget::highlightBpmVal
  * @param highlighted = true if rectangle should be drawn around BPM value.
  */
-void AvonWidget::highlightBpmVal(bool highlighted)
+void AvonWidget::highlightLabel(QLabel * myLabel, bool highlighted)
 {
     if (highlighted == true)
-        ui->qLabelBpmVal->setFrameStyle(1);
+        myLabel->setFrameStyle(1);
     else
-        ui->qLabelBpmVal->setFrameStyle(0);
+        myLabel->setFrameStyle(0);
+
 }
 
 AvonWidget::~AvonWidget()
@@ -47,13 +48,7 @@ AvonWidget::~AvonWidget()
 }
 
 
-QWidget* AvonWidget::getMenuPageNamed(string page)
-{
-//    QWidget *q = ui->menuDetails->findChild-><QWidget *>(page);
-    string temp = page;
-    return ui->menuDetails->findChild<QWidget *>("pageTempo");
 
-}
 
 
 /**
@@ -61,18 +56,54 @@ QWidget* AvonWidget::getMenuPageNamed(string page)
  * @brief AvonWidget::setPageNamed
  * @param pageName = name of page to reveal.
  */
-void AvonWidget::setPageNamed(string pageName)
+void AvonWidget::setPageNamed(QString pageName)
 {
-    QWidget * pageWidget = getMenuPageNamed(pageName);
+    QWidget * pageWidget = ui->menuDetails->findChild<QWidget *>(pageName);
+
+    cout << pageWidget->objectName().toStdString() << endl;
     ui->menuDetails->setCurrentWidget(pageWidget);
 }
 
 /* Activates when tempo menu item is selected. */
 void AvonWidget::on_qButtonTempo_pressed()
 {
-    highlightBpmVal(true);
+    QLabel * q = ui->qLabelBpmVal;
+    highlightLabel(q, true);
     setPageNamed("pageTempo");
 }
 
 
+void AvonWidget::on_qButtonChan_pressed()
+{
+    QLabel * q = ui->qLabelBpmVal;
+    highlightLabel(q, false);
+    setPageNamed("pageChan");
+}
 
+void AvonWidget::on_qButtonBar_pressed()
+{
+    QLabel * q = ui->qLabelBpmVal;
+    highlightLabel(q, false);
+    setPageNamed("pageBar");
+}
+
+void AvonWidget::on_qButtonMode_pressed()
+{
+    QLabel * q = ui->qLabelBpmVal;
+    highlightLabel(q, false);
+    setPageNamed("pageMode");
+}
+
+void AvonWidget::on_qButtonLength_pressed()
+{
+    QLabel * q = ui->qLabelBpmVal;
+    highlightLabel(q, false);
+    setPageNamed("pageLength");
+}
+
+void AvonWidget::on_qButtonCam_pressed()
+{
+    QLabel * q = ui->qLabelBpmVal;
+    highlightLabel(q, false);
+    setPageNamed("pageCam");
+}
