@@ -1,0 +1,8 @@
+avon-gui.pro
+../changNav.h
+../global.h
+main.cpp
+mainwindow.cpp
+mainwindow.h
+mainwindow.ui
+../main.h
