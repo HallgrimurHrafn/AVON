@@ -16,6 +16,7 @@ typedef map<const int,modFunc> xmodMap;
 typedef map<const int,modFunc> ymodMap;
 typedef map<const int,modFunc> zmodMap;
 typedef chrono::high_resolution_clock TIME;
+typedef chrono::milliseconds ms;
 typedef chrono::duration<float> timer:
 
 extern void fScrollMapX(int,int);

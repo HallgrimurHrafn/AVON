@@ -434,7 +434,7 @@ void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér.
 	}
 }
 
-void noteLendthChange(int value)
+void noteLengthChange(int value)
 {
 	float val=-float(value)/20;
 	if(0<length+val && length+val<1)
@@ -496,7 +496,7 @@ void cam()
 {
 	while(cam)
 	{
-		
+
 	}
 }
 
