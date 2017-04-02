@@ -391,17 +391,34 @@ void Interruption()
 	pinMode(20, INPUT); // STOP
 	pinMode(21, INPUT); // PLAY/PAUSE
 	pinMode(16, INPUT); // TAP
+	pinMode(13, INPUT); // rotary 1 right
+	pinMode(19, INPUT); // rotary 1 left
+	pinMode(26, INPUT); // rotary 1 click
+	pinMode(5, INPUT); // rotary 2 right
+	pinMode(6, INPUT); // rotary 2 left
+	pinMode(12, INPUT); // rotary 2 click
 
   pullUpDnControl(4, PUD_UP); // Trellis
   pullUpDnControl(20, PUD_UP); // STOP
   pullUpDnControl(21, PUD_UP); // PLAY/PAUSE
   pullUpDnControl(16, PUD_UP); // TAP
+  pullUpDnControl(13, PUD_UP); // rotary 1 right
+  pullUpDnControl(19, PUD_UP); // rotary 1 left
+  pullUpDnControl(26, PUD_UP); // rotary 1 click
+  pullUpDnControl(5, PUD_UP); // rotary 2 right
+  pullUpDnControl(6, PUD_UP); // rotary 2 left
+  pullUpDnControl(12, PUD_UP); // rotary 2 click
 
   wiringPiISR (4, INT_EDGE_FALLING, &success(4)); // Trellis
   wiringPiISR (20, INT_EDGE_FALLING, &stopper()); //STOP
   wiringPiISR (21, INT_EDGE_FALLING, &PlayPause()); // PLAY/PAUSE
   wiringPiISR (16, INT_EDGE_FALLING, &trellisWatch()); //TAP
-
+  wiringPiISR (13, INT_EDGE_FALLING, &Rotary(0, 2, 19, 13)); // rotary 1 right
+  wiringPiISR (19, INT_EDGE_FALLING, &Rotary(0, 1, 19, 13)); // rotary 1 left
+  wiringPiISR (26, INT_EDGE_FALLING, &Rotary(0, 0, 19, 13)); // rotary 1 click
+  wiringPiISR (5, INT_EDGE_FALLING, &Rotary(1, 2, 5, 6)); // rotary 2 right
+  wiringPiISR (6, INT_EDGE_FALLING, &Rotary(1, 1, 5, 6)); // rotary 2 left
+  wiringPiISR (12, INT_EDGE_FALLING, &Rotary(1, 0, 5, 6)); // rotary 2 click
 
 	for(;;)
 	{
