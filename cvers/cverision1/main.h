@@ -40,10 +40,12 @@ void playColumn(int column)
 {
 	// Creating thread to play current column.
 	thread p1(NOTEON,column,true);
+	p1.detach();
 	// Wait for note duration.
 	usleep(timi-timi*length);
 	// Turn the note off.
 	thread p2(NOTEOFF,column);
+	p2.detach();
 	// Delay before next column should start playing.
 	usleep(timi*length);
 }
@@ -52,10 +54,8 @@ void NOTEON(int column, bool cd)
 {
 	tick = TIME::now();
 	trellStatus = 0;
-	for(int i=0;i<8;i++)
-	{
-		for(int j=0; j<16;j++)
-		{
+	for(int i=0;i<8;i++) {
+		for(int j=0; j<16;j++) {
 			if(status[j][column][i] == 1)
 				midime(144+j,Scale[i],100);
 		}
@@ -160,29 +160,123 @@ void multithread()
 	usleep(15000);
 	if (live == 1)
 		thread ls(liveSet);
+		ls.detach();
 	else
-		thread te(trellisEvent);
+		thread te(sequencerSet);
+		te.detach();
 }
 
+void trellisWatch()
+{
+	if (live)
+		livePlay();
+	else
+		sequencerPlay();
+}
 
-void trellisEvent();
-// vantar GPIO library   ????
+void sequencerSet()
+{
+	int ready = false;
+	int matrix[8][8] = {0};
+	// Creating Matrix as a 8x8 matrix copy of status for current channel.
+	// and getting the correct status back from tStatus.
+	for (int i=0;i<16;i++) {
+		for (int j=0;j<8;j++) {
+			for (int k=0;k<8;k++) {
+				status[i][j][k]=tStatus[i][j][k];
+				if (i==channel)
+					matrix[j][k] = status[i][j][k];
+			}
+		}
+	}
+  ledshow(matrix);
+}
 
-void trellisWatch();
-// Vantar trellis Library   ????
-
-void liveset();    // ????
-
-void liveplay();   // ????
-
-void ChannelChange();    // ???
-
-
-// FROM Main.py @@@@ LED operations on the trellis keypad.
-void ledshow(int matrix[][8])   // ????
+void sequencerPlay()  //  ????
 {
 
 }
+
+void liveSet()
+{
+	// Saving the status to tStatus.
+	for(int i=0;i<16;i++)
+	{
+		for (int j=0;j<8;j++)
+		{
+			for (int k=0;k<8;k++)
+				tStatus[i][j][k] = status[i][j][k];
+		}
+	}
+	// Setting the status of this channel to 0 to prevent sequencer from playing it.
+  for (int i=0; i<64; i++)
+     status[channel][i % 8][i / 8] = 0
+	 // Creating an empty 8x8 matrix for ledshow.
+	 int matrix[8][8] = {0};
+  ledshow(matrix);
+}
+
+void livePlay()   // ????
+{
+
+}
+
+void ChannelChange()
+{
+	if (nextChannel != channel)
+	{
+		// remove all the leds.
+    clearleds()
+		// turning on leds for metronome if currently flashing.
+    if (metroLed){
+			for(int i=0; i<8; i++)
+				!!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.setLED(invTrellisTransf(i * 8 + column))
+		}
+		// updating channel and turning on corresponding leds.
+  	channel=nextChannel;
+		for (int x=0; x<64; x++)
+		{
+			y = TrellisTransf(x);
+			if (status[channel][y % 8][y / 8] == 1)
+				!!!!!!!!!!!!!!!
+				trellis.setLED(x)
+		}
+		// update the board.
+		!!!!!!!!!!!!!!!!!!!!!!
+  	trellis.writeDisplay();
+	}
+}
+
+
+// FROM Main.py @@@@ LED operations on the trellis keypad.
+void ledshow(int matrix[][8])
+{
+	for (int i = 0; i<6; i++)
+	{
+		if (i<4)
+		{
+			for(int j = 0; j<ledsNum[i];j++)
+			!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.setLED(leds[i][j]);
+		}
+		if (i>1)
+		{
+			for(int j = 0; j<j<ledsNum[i-2];j++)
+				ledhelp(leds[i-2][j],matrix);
+		}
+	}
+}
+
+void ledhelp(int x, int matrix[][8])
+{
+	int y = TrellisTransf(x);
+  if (matrix[y % 8][y / 8] ==0)
+      trellis.clrLED(x); !!!!!!!!!!!!!!!!!!!!
+}
+
+
+
 void clearleds(){
 	for(int i = 0; i<64; i++)
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -256,10 +350,10 @@ void callbackTap()
 	cout << "BPM: " << BPM << endl;
 }
 
-
-
-
-// FROM Rotary.py @@@@
+// FROM Rotary.py @@@@ The Rotary solution.
+void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
+// RotaryNum indicates what Rotary was used.
+// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
 
 // Clockwise:
 // 0,0 : state 0
@@ -267,9 +361,7 @@ void callbackTap()
 // 1,1 : state 2
 // 0,1 : state 3
 // 0,0 : state 0  Full turn.
-void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
-// RotaryNum indicates what Rotary was used.
-// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
+
 	int tempLeft = digitalRead(leftPin);
 	int tempRight = digitalRead(rightPin);
 	if(RotaryAction == 0)
@@ -295,6 +387,51 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 				Map(RotaryNum, -1);
 		}
 	return;
+}
+
+
+// FROM ALLOVER @@@@ GPIO INTERRUPT SYSTEM.
+void Interruption()
+{
+	wiringPiSetupGpio ();
+
+	pinMode(4, INPUT); // Trellis
+	pinMode(20, INPUT); // STOP
+	pinMode(21, INPUT); // PLAY/PAUSE
+	pinMode(16, INPUT); // TAP
+	pinMode(13, INPUT); // rotary 1 right
+	pinMode(19, INPUT); // rotary 1 left
+	pinMode(26, INPUT); // rotary 1 click
+	pinMode(5, INPUT); // rotary 2 right
+	pinMode(6, INPUT); // rotary 2 left
+	pinMode(12, INPUT); // rotary 2 click
+
+  pullUpDnControl(4, PUD_UP); // Trellis
+  pullUpDnControl(20, PUD_UP); // STOP
+  pullUpDnControl(21, PUD_UP); // PLAY/PAUSE
+  pullUpDnControl(16, PUD_UP); // TAP
+  pullUpDnControl(13, PUD_UP); // rotary 1 right
+  pullUpDnControl(19, PUD_UP); // rotary 1 left
+  pullUpDnControl(26, PUD_UP); // rotary 1 click
+  pullUpDnControl(5, PUD_UP); // rotary 2 right
+  pullUpDnControl(6, PUD_UP); // rotary 2 left
+  pullUpDnControl(12, PUD_UP); // rotary 2 click
+
+  wiringPiISR (4, INT_EDGE_FALLING, &success(4)); // Trellis
+  wiringPiISR (20, INT_EDGE_FALLING, &stopper()); //STOP
+  wiringPiISR (21, INT_EDGE_FALLING, &PlayPause()); // PLAY/PAUSE
+  wiringPiISR (16, INT_EDGE_FALLING, &trellisWatch()); //TAP
+  wiringPiISR (13, INT_EDGE_FALLING, &Rotary(0, 2, 19, 13)); // rotary 1 right
+  wiringPiISR (19, INT_EDGE_FALLING, &Rotary(0, 1, 19, 13)); // rotary 1 left
+  wiringPiISR (26, INT_EDGE_FALLING, &Rotary(0, 0, 19, 13)); // rotary 1 click
+  wiringPiISR (5, INT_EDGE_FALLING, &Rotary(1, 2, 5, 6)); // rotary 2 right
+  wiringPiISR (6, INT_EDGE_FALLING, &Rotary(1, 1, 5, 6)); // rotary 2 left
+  wiringPiISR (12, INT_EDGE_FALLING, &Rotary(1, 0, 5, 6)); // rotary 2 click
+
+	for(;;)
+	{
+		usleep(1000000);
+	}
 }
 
 
@@ -382,7 +519,9 @@ void camON()
 	cam = true;
 	seen = true;
 	thread c1(vision);
+	c1.detach();
 	thread c2(cam);
+	c2.detach();
 }
 
 void camOFF()
@@ -407,7 +546,7 @@ void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér.
 	}
 }
 
-void noteLendthChange(int value)
+void noteLengthChange(int value)
 {
 	float val=-float(value)/20;
 	if(0<length+val && length+val<1)
@@ -470,7 +609,7 @@ void cam()
 {
 	while(cam)
 	{
-		
+
 	}
 }
 <<<<<<< HEAD

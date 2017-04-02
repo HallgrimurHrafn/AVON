@@ -16,6 +16,7 @@ typedef map<const int,modFunc> xmodMap;
 typedef map<const int,modFunc> ymodMap;
 typedef map<const int,modFunc> zmodMap;
 typedef chrono::high_resolution_clock TIME;
+typedef chrono::milliseconds ms;
 typedef chrono::duration<float> timer:
 
 extern void fScrollMapX(int,int);
@@ -131,5 +132,22 @@ inline clickmap & clickMap(){
 	cMap["21"] = customSetup;
 	return cMap;
 }
+
+// Ugly stuff to to create Led show.
+int Leds[4][28]  = {0};
+int Leds1[4]  = {15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,
+														0,0,0,0,0,0,0,0,0,0,0,0,0};
+int Leds2[12] = {10,11,14,24,25,34,38,39,29,49,52,
+										53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+int Leds3[20] = {5,6,7,9,13,20,21,22,26,27,41,42,
+								43,33,34,50,51,56,57,58,0,0,0,0,0,0,0,0};
+int Leds4[28] = {0,1,2,3,4,8,12,16,17,18,19,23,24,
+								25,44,45,46,47,32,33,34,60,61,62,63,51,52,53};
+int ledsNum[4] = {4,12,20,28};
+for (int i=0;i<28;i++){ leds[0][i]=Leds1[i]; }
+for (int i=0;i<28;i++){ leds[1][i]=Leds2[i]; }
+for (int i=0;i<28;i++){ leds[2][i]=Leds3[i]; }
+for (int i=0;i<28;i++){ leds[3][i]=Leds4[i]; }
+
 
 #endif
