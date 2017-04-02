@@ -4,8 +4,20 @@
 #include <iostream>
 #include <time.h>
 #include <unistd.h>
-// #include <chrono>
+#include <chrono>
+
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <unistd.h>
+
 using namespace std;
+
+typedef chrono::high_resolution_clock TIME;
+typedef chrono::milliseconds ms;
+typedef chrono::duration<float> timer;
+auto tick = TIME::now();
+ms tvohundrudms;
 
 void success(int a)
 {
@@ -14,12 +26,22 @@ void success(int a)
 
 void supsuccess()
 {
+  auto tock = TIME::now();
+  timer mismunur = tock-tick;
+  ms milli = chrono::duration_cast<ms>(mismunur);
+ if(milli> tvohundrudms*1.3)
+ {
    thread test(success,0);
    test.detach();
-   usleep(400000);
+   tick = tock;
+ }
 }
 
 int main() {
+  usleep(100000);
+  auto tock = TIME::now();
+  timer mismunur = tock-tick;
+  tvohundrudms = chrono::duration_cast<ms>(mismunur);
   wiringPiSetupGpio ();
 
   int pin = 21;
