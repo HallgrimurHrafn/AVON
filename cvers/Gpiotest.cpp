@@ -26,7 +26,7 @@ void success(int a)
 void supsuccess()
 {
   auto tock = TIME::now();
-  timer x = t2-t1;
+  timer x = tock-tick;
   ms milli = chrono::duration_cast<ms>(x);
  if(milli> 200)
  {
