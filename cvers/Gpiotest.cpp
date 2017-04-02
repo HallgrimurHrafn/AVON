@@ -17,6 +17,10 @@ typedef chrono::high_resolution_clock TIME;
 typedef chrono::milliseconds ms;
 typedef chrono::duration<float> timer;
 auto tick = TIME::now();
+usleep(200000);
+auto tock = TIME::now();
+timer mismunur = tock-tick;
+ms tvohundrudms = chrono::duration_cast<ms>(mismunur);
 
 void success(int a)
 {
@@ -26,9 +30,9 @@ void success(int a)
 void supsuccess()
 {
   auto tock = TIME::now();
-  timer mismunur = tock-tick;
+  mismunur = tock-tick;
   ms milli = chrono::duration_cast<ms>(mismunur);
- if(milli> 200)
+ if(milli> tvohundrudms)
  {
    thread test(success,0);
    test.detach();
