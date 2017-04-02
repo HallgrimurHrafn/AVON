@@ -7,7 +7,7 @@
 // #include <chrono>
 using namespace std;
 
-void success(int a)
+void success(std::int a)
 {
   cout << a << endl;
 }
