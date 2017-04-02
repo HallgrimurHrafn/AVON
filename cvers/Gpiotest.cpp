@@ -17,10 +17,7 @@ typedef chrono::high_resolution_clock TIME;
 typedef chrono::milliseconds ms;
 typedef chrono::duration<float> timer;
 auto tick = TIME::now();
-usleep(200000);
-auto tock = TIME::now();
-timer mismunur = tock-tick;
-ms tvohundrudms = chrono::duration_cast<ms>(mismunur);
+ms tvohundrudms;
 
 void success(int a)
 {
@@ -41,6 +38,10 @@ void supsuccess()
 }
 
 int main() {
+  usleep(200000);
+  auto tock = TIME::now();
+  timer mismunur = tock-tick;
+  tvohundrudms = chrono::duration_cast<ms>(mismunur);
   wiringPiSetupGpio ();
 
   int pin = 21;
