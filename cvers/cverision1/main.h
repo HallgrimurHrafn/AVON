@@ -161,19 +161,63 @@ void multithread()
 	if (live == 1)
 		thread ls(liveSet);
 	else
-		thread te(trellisEvent);
+		thread te(sequencerSet);
 }
 
+void trellisWatch()
+{
+	if (live)
+		livePlay();
+	else
+		sequencerPlay();
+}
 
-void trellisEvent();
+void sequencerSet()
+{
+	int ready = false;
+	int matrix[8][8] = {0};
+	// Creating Matrix as a 8x8 matrix copy of status for current channel.
+	// and getting the correct status back from tStatus.
+	for (int i=0;i<16;i++)
+	{
+		for (int j=0;j<8;j++)
+		{
+			for (int k=0;k<8;k++)
+			{
+				status[i][j][k]=tStatus[i][j][k];
+				if (i==channel)
+					matrix[j][k] = status[i][j][k];
+			}
+		}
+	}
+  ledshow(matrix);
+}
 // vantar GPIO library   ????
 
-void trellisWatch();
+void sequencerPlay();
 // Vantar trellis Library   ????
 
-void liveset();    // ????
+void liveSet()    // ????
+{
+	// Saving the status to tStatus.
+	for(int i=0;i<16;i++)
+	{
+		for (int j=0;j<8;j++)
+		{
+			for (int k=0;k<8;k++)
+				tStatus[i][j][k] = status[i][j][k];
+		}
+	}
+	tStatus = status.copy()
+	// Setting the status of this channel to 0 to prevent sequencer from playing it.
+  for (int i=0; i<64; i++)
+     status[channel][i % 8][i / 8] = 0
+	 // Creating an empty 8x8 matrix for ledshow.
+	 int matrix[8][8] = {0};
+  ledshow(matrix);
+}
 
-void liveplay();   // ????
+void livePlay();   // ????
 
 void ChannelChange();    // ???
 
@@ -256,10 +300,10 @@ void callbackTap()
 	cout << "BPM: " << BPM << endl;
 }
 
-
-
-
-// FROM Rotary.py @@@@
+// FROM Rotary.py @@@@ The Rotary solution.
+void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
+// RotaryNum indicates what Rotary was used.
+// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
 
 // Clockwise:
 // 0,0 : state 0
@@ -267,9 +311,7 @@ void callbackTap()
 // 1,1 : state 2
 // 0,1 : state 3
 // 0,0 : state 0  Full turn.
-void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
-// RotaryNum indicates what Rotary was used.
-// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
+
 	int tempLeft = digitalRead(leftPin);
 	int tempRight = digitalRead(rightPin);
 	if(RotaryAction == 0)
@@ -295,6 +337,34 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 				Map(RotaryNum, -1);
 		}
 	return;
+}
+
+
+// FROM ALLOVER @@@@ GPIO INTERRUPT SYSTEM.
+void Interruption()
+{
+	wiringPiSetupGpio ();
+
+	pinMode(4, INPUT); // Trellis
+	pinMode(20, INPUT); // STOP
+	pinMode(21, INPUT); // PLAY/PAUSE
+	pinMode(16, INPUT); // TAP
+
+  pullUpDnControl(4, PUD_UP); // Trellis
+  pullUpDnControl(20, PUD_UP); // STOP
+  pullUpDnControl(21, PUD_UP); // PLAY/PAUSE
+  pullUpDnControl(16, PUD_UP); // TAP
+
+  wiringPiISR (4, INT_EDGE_FALLING, &success(4)); // Trellis
+  wiringPiISR (20, INT_EDGE_FALLING, &stopper()); //STOP
+  wiringPiISR (21, INT_EDGE_FALLING, &PlayPause()); // PLAY/PAUSE
+  wiringPiISR (16, INT_EDGE_FALLING, &trellisWatch()); //TAP
+
+
+	for(;;)
+	{
+		usleep(1000000);
+	}
 }
 
 
@@ -470,7 +540,7 @@ void cam()
 {
 	while(cam)
 	{
-		
+
 	}
 }
 <<<<<<< HEAD
