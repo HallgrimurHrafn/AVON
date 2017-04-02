@@ -6,6 +6,16 @@
 #include <unistd.h>
 // #include <chrono>
 using namespace std;
+
+void success(int a)
+{
+  cout << "OUTPUT! "<< a << endl;
+}
+
+void success2()
+{
+  thread suc(success,32);
+}
 int main() {
   wiringPiSetupGpio ();
 
@@ -16,23 +26,8 @@ int main() {
   // wiringPiISR (pin, INT_EDGE_FALLING, &success2);
   wiringPiISR (pin, INT_EDGE_FALLING, &success2());
   // wiringPiISR (pin, INT_EDGE_FALLING, thread suc(success,100));
-
-
-
-
   for(;;)
   {
     usleep(1000000);
   }
-
-}
-
-void success(int a)
-{
-  cout << "OUTPUT! "<< a << endl;
-}
-
-void success2()
-{
-  thread suc(success,32);
 }
