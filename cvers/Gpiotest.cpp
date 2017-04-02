@@ -26,7 +26,7 @@ int main() {
   // wiringPiISR (pin, INT_EDGE_FALLING, &success(4));
   // wiringPiISR (pin, INT_EDGE_FALLING, &success);
   // wiringPiISR (pin, INT_EDGE_FALLING, &success2());
-  wiringPiISR (pin, INT_EDGE_FALLING, &suc(success,100));
+  wiringPiISR (pin, INT_EDGE_FALLING, &supsuccess(100));
   for(;;)
   {
     usleep(1000000);
