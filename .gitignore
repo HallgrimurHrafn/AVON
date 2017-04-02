@@ -8,6 +8,7 @@ __pycache__/
 
 ### Qt ###
 *.user
+build*
 
 ### macOS ###
 .DS_Store
