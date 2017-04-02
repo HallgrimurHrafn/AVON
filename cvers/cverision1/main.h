@@ -280,8 +280,10 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 		{
 			if (prevState[RotaryNum] == 1)
 				// MOVE TO RIGHT.
+				move(RotaryNum, 1);
 			else if (prevState[RotaryNum] == 3)
 				// MOVE TO LEFT.
+				move(RotaryNum, -1);
 		}
 	return;
 }
@@ -317,32 +319,22 @@ void moveUp()
 }
 
 
-
-
-
-
-
 // From Menu.py  @@@@ Functions!
-void move(int i, int val)
+void move(int RotaryNum, int val)
 {
-	if(i==1)
+	if(RotaryNum==1)
 		kort(i,val);
 	else
 		kort(1,val);
 }
 
 
-void kort(int x, int val)
+void kort(int RotaryNum, int val)
 {
-	if(x==0)
+	if(RotaryNum==0)
 		fScrollMapX(nav[1],nav[0],val);
-	elseif(x==1)
+	elseif(RotaryNum==1)
 		fScrollMapY(nav[1],nav[0],val);
-	elseif(x==2)
-	{
-		string mapKey = to_string(nav[1])+to_string(nav[0]);
-		clickMap().find(mapKey)->second();
-	}
 }
 
 void channelPrep(int val)
