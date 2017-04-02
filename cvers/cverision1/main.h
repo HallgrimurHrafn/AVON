@@ -52,10 +52,8 @@ void NOTEON(int column, bool cd)
 {
 	tick = TIME::now();
 	trellStatus = 0;
-	for(int i=0;i<8;i++)
-	{
-		for(int j=0; j<16;j++)
-		{
+	for(int i=0;i<8;i++) {
+		for(int j=0; j<16;j++) {
 			if(status[j][column][i] == 1)
 				midime(144+j,Scale[i],100);
 		}
@@ -178,12 +176,9 @@ void sequencerSet()
 	int matrix[8][8] = {0};
 	// Creating Matrix as a 8x8 matrix copy of status for current channel.
 	// and getting the correct status back from tStatus.
-	for (int i=0;i<16;i++)
-	{
-		for (int j=0;j<8;j++)
-		{
-			for (int k=0;k<8;k++)
-			{
+	for (int i=0;i<16;i++) {
+		for (int j=0;j<8;j++) {
+			for (int k=0;k<8;k++) {
 				status[i][j][k]=tStatus[i][j][k];
 				if (i==channel)
 					matrix[j][k] = status[i][j][k];
