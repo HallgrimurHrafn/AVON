@@ -213,7 +213,32 @@ void liveSet()    // ????
 
 void livePlay();   // ????
 
-void ChannelChange();    // ???
+void ChannelChange()
+{
+	if (nextChannel != channel)
+	{
+		// remove all the leds.
+    clearleds()
+		// turning on leds for metronome if currently flashing.
+    if (metroLed){
+			for(int i=0; i<8; i++)
+				!!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.setLED(invTrellisTransf(i * 8 + column))
+		}
+		// updating channel and turning on corresponding leds.
+  	channel=nextChannel;
+		for (int x=0; x<64; x++)
+		{
+			y = TrellisTransf(x);
+			if (status[channel][y % 8][y / 8] == 1)
+				!!!!!!!!!!!!!!!
+				trellis.setLED(x)
+		}
+		// update the board.
+		!!!!!!!!!!!!!!!!!!!!!!
+  	trellis.writeDisplay();
+	}
+}
 
 
 // FROM Main.py @@@@ LED operations on the trellis keypad.
@@ -224,6 +249,7 @@ void ledshow(int matrix[][8])   // ????
 		if (i<4)
 		{
 			for(int j = 0; j<ledsNum[i];j++)
+			!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				trellis.setLED(leds[i][j]);
 		}
 		if (i>1)
