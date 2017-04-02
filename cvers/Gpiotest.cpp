@@ -30,7 +30,7 @@ void success(int a)
   cout << "OUTPUT! "<< a << endl;
 }
 
-void success()
+void success2()
 {
   thread suc(success,32);
 }
