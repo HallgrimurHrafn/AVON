@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <map>
+#include <boost/bind.hpp>
+#include <array>
+using namespace std;
+typedef void (*intfun;
+typedef map<const int, intfunc_t(int,int)> mama;
+
+int x = 10;
+int y;
+extern int y;
+static mama m;
+int scali[8] = {0,0,0,0,0,0,0,0};
+void passer(int,int){};
+extern void printer(int,int);
+extern void sumprint(int,int);
+extern void divider(int,int);
+inline mama & myMap()
+{
+	m[0] = printer(x,0);
+	m[1] = printer(x,1);
+	m[2] = printer(x,4);
+	return m;
+}
