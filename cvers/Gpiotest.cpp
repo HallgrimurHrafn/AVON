@@ -6,11 +6,17 @@
 #include <unistd.h>
 #include <chrono>
 
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <unistd.h>
 
 using namespace std;
 
-auto tick = high_resolution_clock::now();
-auto tick2 = high_resolution_clock::now();
+typedef chrono::high_resolution_clock TIME;
+typedef chrono::milliseconds ms;
+typedef chrono::duration<float> timer;
+auto tick = TIME::now();
 
 void success(int a)
 {
@@ -19,12 +25,14 @@ void success(int a)
 
 void supsuccess()
 {
- tick = high_resolution_clock::now();
- if(tick-tick2> 10)
+  auto tock = TIME::now();
+  timer x = t2-t1;
+  ms milli = chrono::duration_cast<ms>(x);
+ if(milli> 200)
  {
    thread test(success,0);
    test.detach();
-   tick2 = tick;
+   tick = tock;
  }
 }
 
