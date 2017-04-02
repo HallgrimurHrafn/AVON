@@ -468,8 +468,36 @@ void scaleChange(int val,int x)
 	}
 	if (currentScale != 3)
 	{
-		// skoða þetta halli
+		for(int i =0;i<8;i++)
+		{
+			newScale[i] = scales[currentScale][i];
+		}
 	}
-
 }
+
+void customScale(int val,int i)
+{
+	if(0<= custom[i]+val && custom[i]+val<=127)
+	{
+		custom[i] += int(val);
+		// new skali copy
+	}
+}
+
+void customSetup()
+
+void createNewScale()
+
+// From cam.py  @@@@ Functions!
+
+void vision()
+
+void cam()
+{
+	while(cam)
+	{
+		
+	}
+}
+
 #endif
