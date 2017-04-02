@@ -14,8 +14,7 @@ void success(int a)
 
 void supsuccess()
 {
-  // thread suc(success,100);
-  success(100);
+  std::thread suc(success,100);
 }
 
 int main() {
