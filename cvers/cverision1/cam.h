@@ -3,7 +3,7 @@ void cam()
 {
 	while(cam)
 	{
-		ms t = duration_cast<ms>(fabs(TIME:now()-tick));
+		ms t = chrono::duration_cast<ms>(fabs(TIME:now()-tick));
 		if(timi-t>=0)
 			usleep(timi-t);
 		else
@@ -48,7 +48,7 @@ void cam()
  				else
  					passer(0);
  				if(i!=7)
- 					usleep(timi/8+duration_cast<ms>(TIME:now()-t));
+ 					usleep(timi/8+chrono::duration_cast<ms>(TIME:now()-t));
  			}
 		}
 	}
