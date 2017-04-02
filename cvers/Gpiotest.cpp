@@ -26,8 +26,8 @@ void success(int a)
 void supsuccess()
 {
   auto tock = TIME::now();
-  timer x = tock-tick;
-  ms milli = chrono::duration_cast<ms>(x);
+  timer mismunur = tock-tick;
+  ms milli = chrono::duration_cast<ms>(mismunur);
  if(milli> 200)
  {
    thread test(success,0);
