@@ -8,7 +8,7 @@
 
 typedef chrono::high_resolution_clock TIME;
 typedef chrono::milliseconds ms;
-typedef chrono::duration<float> timer:
+typedef chrono::duration<float> timer;
 
 using namespace std;
 
