@@ -26,7 +26,7 @@ int max_V = 255;
 int const max_value = 255;
 int const max_morph = 20;
 
-cv::Scalar lowerb = cv::Scalar(min_H, min_S, min_V);
+cv::wScalar lowerb = cv::Scalar(min_H, min_S, min_V);
 cv::Scalar upperb = cv::Scalar(max_H, max_S, max_V);
 
 int erodeOn = 1;
