@@ -7,14 +7,14 @@
 // #include <chrono>
 using namespace std;
 
-void success(std::int a)
+void success(std::string a)
 {
-  cout << a << endl;
+  cout << "kemur test? :" << a;
 }
 
 void supsuccess()
 {
-  std::thread suc(success,100);
+  std::thread suc(success,"test");
 }
 
 int main() {
