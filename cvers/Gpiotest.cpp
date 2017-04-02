@@ -29,7 +29,7 @@ void supsuccess()
   auto tock = TIME::now();
   timer mismunur = tock-tick;
   ms milli = chrono::duration_cast<ms>(mismunur);
- if(milli> tvohundrudms)
+ if(milli> tvohundrudms*1.3)
  {
    thread test(success,0);
    test.detach();
