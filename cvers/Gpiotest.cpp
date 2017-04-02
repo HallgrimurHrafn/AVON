@@ -27,7 +27,7 @@ void success(int a)
 void supsuccess()
 {
   auto tock = TIME::now();
-  mismunur = tock-tick;
+  timer mismunur = tock-tick;
   ms milli = chrono::duration_cast<ms>(mismunur);
  if(milli> tvohundrudms)
  {
