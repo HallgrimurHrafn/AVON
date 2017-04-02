@@ -16,7 +16,7 @@ void supsuccess()
 {
    thread test(success,0);
    test.detach();
-   usleep(1000000);
+   usleep(200000);
 }
 
 int main() {
