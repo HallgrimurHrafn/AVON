@@ -3,6 +3,7 @@
 #include <wiringPi.h>
 #include <iostream>
 #include <time.h>
+#include <unistd.h>
 // #include <chrono>
 using namespace std;
 int main() {
