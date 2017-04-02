@@ -40,10 +40,12 @@ void playColumn(int column)
 {
 	// Creating thread to play current column.
 	thread p1(NOTEON,column,true);
+	p1.detach();
 	// Wait for note duration.
 	usleep(timi-timi*length);
 	// Turn the note off.
 	thread p2(NOTEOFF,column);
+	p2.detach();
 	// Delay before next column should start playing.
 	usleep(timi*length);
 }
@@ -158,8 +160,10 @@ void multithread()
 	usleep(15000);
 	if (live == 1)
 		thread ls(liveSet);
+		ls.detach();
 	else
 		thread te(sequencerSet);
+		te.detach();
 }
 
 void trellisWatch()
@@ -190,7 +194,7 @@ void sequencerSet()
 
 void sequencerPlay()  //  ????
 {
-	
+
 }
 
 void liveSet()
@@ -515,7 +519,9 @@ void camON()
 	cam = true;
 	seen = true;
 	thread c1(vision);
+	c1.detach();
 	thread c2(cam);
+	c2.detach();
 }
 
 void camOFF()
