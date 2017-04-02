@@ -14,7 +14,7 @@ void success(int a)
 
 void supsuccess()
 {
-  thread suc(success,a);
+  thread suc(success,100);
 }
 
 int main() {
