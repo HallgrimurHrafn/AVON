@@ -203,7 +203,6 @@ void liveSet()    // ????
 				tStatus[i][j][k] = status[i][j][k];
 		}
 	}
-	tStatus = status.copy()
 	// Setting the status of this channel to 0 to prevent sequencer from playing it.
   for (int i=0; i<64; i++)
      status[channel][i % 8][i / 8] = 0
@@ -220,8 +219,30 @@ void ChannelChange();    // ???
 // FROM Main.py @@@@ LED operations on the trellis keypad.
 void ledshow(int matrix[][8])   // ????
 {
-
+	for (int i = 0; i<6; i++)
+	{
+		if (i<4)
+		{
+			for(int j = 0; j<ledsNum[i];j++)
+				trellis.setLED(leds[i][j]);
+		}
+		if (i>1)
+		{
+			for(int j = 0; j<j<ledsNum[i-2];j++)
+				ledhelp(leds[i-2][j],matrix);
+		}
+	}
 }
+
+void ledhelp(int x, int matrix[][8])
+{
+	int y = TrellisTransf(x);
+  if (matrix[y % 8][y / 8] ==0)
+      trellis.clrLED(x); !!!!!!!!!!!!!!!!!!!!
+}
+
+
+
 void clearleds(){
 	for(int i = 0; i<64; i++)
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
