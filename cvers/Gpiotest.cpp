@@ -12,8 +12,8 @@ typedef chrono::duration<float> timer;
 
 using namespace std;
 
-auto tick = time::now();
-auto tick2 = time::now();
+auto tick = TIME::now();
+auto tick2 = TIME::now();
 
 void success(int a)
 {
@@ -22,7 +22,7 @@ void success(int a)
 
 void supsuccess()
 {
- tick = time::now();
+ tick = TIME::now();
  if(tick-tick2> 10)
  {
    thread test(success,0);
