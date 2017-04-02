@@ -18,6 +18,8 @@ typedef map<const int,modFunc> zmodMap;
 typedef chrono::high_resolution_clock TIME;
 typedef chrono::duration<float> timer:
 
+extern void fScrollMapX(int,int);
+extern void FscorllMapY(int,int);
 extern void notes(int);
 extern void bPitch(int);
 extern void modWheel(int);
@@ -73,7 +75,7 @@ int prevState[2] = {0};					// Previous state
 
 // FROM GLO
 int nav[2] = {0,0};					// Current Navigation state for the menu {x,y}
-int oldNav[5] = {0,0,0,0,0};					// Old Navigation state
+int oldNav[5] = {0,0,0,0,0};				// Old Navigation state (MEIRA INFO HALLI?)
 int cursorxyz[3] = {0,0,0};				// Cursor {x,y,z}
 int stat = 1;						// Status?
 
@@ -86,6 +88,9 @@ int custom[8] = {60,60,60,60,60,60,60,60};
 string p = "pass";
 string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p}};
 int cScale[];
+bool renderLive = true;
+bool renderChan = true;
+
 
 static xmodMap xMod;
 static ymodMap yMod;

@@ -1,7 +1,11 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #include "global.h"
 #include <thread>
 #include <math.h>
 #include <stdlib.h>
+#include "scrollMap.h"
 
 
 void Sequencer() {
@@ -184,11 +188,44 @@ void trellisEvent();
 void trellisWatch();
 // Vantar trellis Library   ????
 
-void calcBPM(float tap, int period, int tempo)
+int calcBPM(vector<double> tap, vector<double> period, int BPM)
 {
+	þarf að tala við Mr.Karl;
+	high_resolution_clock::TIME currentTime = high_resolution_clock::now();
+	tap.push_back(currentTime);
+	int tapCount = period.size();
+	double avgPeriod = 0;
+	if(tapCount==1)
+		return BPM;
+	elseif ((tap.end()-(tap.end()-1))>=3)
+	{
+		tap.erase(period.begin(),period.end()-1);
+		return BPM;
+	}
+	elseif(tapCount==2)
+	{
+		period.push_back(tap.end()-(tap.end()-1));
+		return BPM;
+	}
+	period.push_back(tap.end()-(tap.end()-1));
 
+	if(tapCount==3)
+		avgPeriod = (period.end()+(period.end()-1))/2;
+	elseif (tapCount==4)
+		avgPeriod = (period.end()+(period.end()-1)+(period.end()-2))/3;
+	else
+		avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/3;
+
+	int newTempo = round(60/avgPeriod);
 }
 
+void callbackTap(int channel)
+{
+	if(tapTempo==0)
+		return;
+	BPM = calcBPM(tap,period,BPM);
+	cout << "BPM: " << BPM << endl;
+}
 void liveset();    // ????
 
 void liveplay();   // ????
@@ -283,3 +320,156 @@ void moveUp()
 
 
 // From Menu.py  @@@@ Functions!
+void move(int i, int val)
+{
+	if(i==1)
+		kort(i,val);
+	else
+		kort(1,val);
+}
+
+void click(i)
+{
+	if(i==1)
+		kort(2,0);
+	else
+		moveUp();
+}
+
+void moveUp()
+{
+	if(nav[1]==3)
+	{
+		createNewScale();
+		nav[1] = 2;
+		nav[0] = oldNav[0]; 	// Þarf að skoða
+	}
+	elseif(nav[1]>0)
+	{
+		nav[1]=0;
+		nav[0] = oldNav[]		// sama hér
+	}
+}
+
+void kort(int x, int val)
+{
+	if(x==0)
+		fScrollMapX(nav[1],nav[0],val);
+	elseif(x==1)
+		fScrollMapY(nav[1],nav[0],val);
+	elseif(x==2)
+	{
+		string mapKey = to_string(nav[1])+to_string(nav[0]);
+		clickMap().find(mapKey)->second();
+	}
+}
+
+void channelPrep(int val)
+{
+	if(0<= nextChannel+val && nextChannel+val<=15)
+		{
+			nextChannel=nextChannel+val;
+			ChannelChange();
+			renderChan = true;		
+			cout << channel << endl;
+		}
+}
+
+void tempChange(int val,int x)
+{
+	if(60/float(BPM+val*x)/float(bar/4)>=0.05)
+	{
+		tapTempo = 0;
+		usleep(10000);
+		BPM += val*x;
+		tapTempo = 1; 
+	}
+}
+
+void liveChange()
+{
+	if(live==1)
+		live=0;
+	else
+		live=1;
+	renderLive = true;
+	multithread();
+}
+
+void cameraChange()
+{
+	if(cam)
+		camOFF();
+	else
+		camON();
+}
+
+void camON()
+{
+	cam = true;
+	seen = true;
+	thread c1(vision);
+	thread c2(cam);
+}
+
+void camOFF()
+{
+	cam = false;
+	seen = false;
+}
+
+void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér.
+{
+	if(xyz==0)
+	{
+
+	}
+	elseif(xyz==1)
+	{
+
+	}
+	elseif(xyz==2)
+	{
+
+	}
+}
+
+void noteLendthChange(int value)
+{
+	float val=-float(value)/20;
+	if(0<length+val && length+val<1)
+	{
+		length = length+val;
+		cout << length << endl;
+	}
+}
+
+void barChange(int val)
+{
+	float x = pow(2,val);
+	if(60/float(BPM)/float(x*bar/4)>=0.05)
+		bar=bar*x;
+}
+
+void scaleChange(int val,int x)
+{
+	if(x==1)
+	{
+		if(0<= note+val && note+val <=127)
+		{
+			note += val;
+			cout << note << endl;
+		}
+	}
+	elseif(x==0)
+	{
+		currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));		// skoða með custom?
+		cout ...
+	}
+	if (currentScale != 3)
+	{
+		// skoða þetta halli
+	}
+
+}
+#endif
