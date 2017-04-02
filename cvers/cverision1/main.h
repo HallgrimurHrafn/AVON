@@ -222,11 +222,11 @@ void calcBPM(vector<double> tap, vector<double> period)
 	return;
 }
 
-void callbackTap(int channel)
+void callbackTap()
 {
 	if(tapTempo==0)
 		return;
-	calcBPM(tap,period,BPM);
+	calcBPM(tap,period);
 	cout << "BPM: " << BPM << endl;
 }
 void liveset();    // ????
@@ -280,10 +280,10 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 		{
 			if (prevState[RotaryNum] == 1)
 				// MOVE TO RIGHT.
-				move(RotaryNum, 1);
+				Map(RotaryNum, 1);
 			else if (prevState[RotaryNum] == 3)
 				// MOVE TO LEFT.
-				move(RotaryNum, -1);
+				Map(RotaryNum, -1);
 		}
 	return;
 }
@@ -318,18 +318,7 @@ void moveUp()
 	nav[0] = oldNav[nav[1]];
 }
 
-
-// From Menu.py  @@@@ Functions!
-void move(int RotaryNum, int val)
-{
-	if(RotaryNum==1)
-		kort(i,val);
-	else
-		kort(1,val);
-}
-
-
-void kort(int RotaryNum, int val)
+void Map(int RotaryNum, int val)
 {
 	if(RotaryNum==0)
 		fScrollMapX(nav[1],nav[0],val);
@@ -337,6 +326,8 @@ void kort(int RotaryNum, int val)
 		fScrollMapY(nav[1],nav[0],val);
 }
 
+
+// From Menu.py  @@@@ Functions!
 void channelPrep(int val)
 {
 	if(0<= nextChannel+val && nextChannel+val<=15)
