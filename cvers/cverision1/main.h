@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "scrollMap.h"
 
-
+// FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
 	for(;;)
 	{
@@ -52,10 +52,8 @@ void NOTEON(int column, bool cd)
 {
 	tick = TIME::now();
 	trellStatus = 0;
-	for(int i=0;i<8;i++)
-	{
-		for(int j=0; j<16;j++)
-		{
+	for(int i=0;i<8;i++) {
+		for(int j=0; j<16;j++) {
 			if(status[j][column][i] == 1)
 				midime(144+j,Scale[i],100);
 		}
@@ -108,6 +106,7 @@ void Sync()
 	}
 }
 
+// FROM Main.py @@@@ Trellis Transformations.
 int TrellisTransf(int a) // Trellis format to our format
 {
 	int f = a/16;
@@ -149,6 +148,8 @@ int invTrellisTransf(int a)  // Our format to Trellis format
   return b
 }
 
+
+// FROM Main.py @@@@ Setting up trellis events.
 void multithread()
 {
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -157,10 +158,130 @@ void multithread()
 	usleep(15000);
 	if (live == 1)
 		thread ls(liveSet);
-	else:
-		thread te(trellisEvent);
+	else
+		thread te(sequencerSet);
 }
 
+void trellisWatch()
+{
+	if (live)
+		livePlay();
+	else
+		sequencerPlay();
+}
+
+void sequencerSet()
+{
+	int ready = false;
+	int matrix[8][8] = {0};
+	// Creating Matrix as a 8x8 matrix copy of status for current channel.
+	// and getting the correct status back from tStatus.
+	for (int i=0;i<16;i++) {
+		for (int j=0;j<8;j++) {
+			for (int k=0;k<8;k++) {
+				status[i][j][k]=tStatus[i][j][k];
+				if (i==channel)
+					matrix[j][k] = status[i][j][k];
+			}
+		}
+	}
+  ledshow(matrix);
+}
+
+void sequencerPlay()  //  ????
+{
+	
+}
+
+void liveSet()
+{
+	// Saving the status to tStatus.
+	for(int i=0;i<16;i++)
+	{
+		for (int j=0;j<8;j++)
+		{
+			for (int k=0;k<8;k++)
+				tStatus[i][j][k] = status[i][j][k];
+		}
+	}
+	// Setting the status of this channel to 0 to prevent sequencer from playing it.
+  for (int i=0; i<64; i++)
+     status[channel][i % 8][i / 8] = 0
+	 // Creating an empty 8x8 matrix for ledshow.
+	 int matrix[8][8] = {0};
+  ledshow(matrix);
+}
+
+void livePlay()   // ????
+{
+
+}
+
+void ChannelChange()
+{
+	if (nextChannel != channel)
+	{
+		// remove all the leds.
+    clearleds()
+		// turning on leds for metronome if currently flashing.
+    if (metroLed){
+			for(int i=0; i<8; i++)
+				!!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.setLED(invTrellisTransf(i * 8 + column))
+		}
+		// updating channel and turning on corresponding leds.
+  	channel=nextChannel;
+		for (int x=0; x<64; x++)
+		{
+			y = TrellisTransf(x);
+			if (status[channel][y % 8][y / 8] == 1)
+				!!!!!!!!!!!!!!!
+				trellis.setLED(x)
+		}
+		// update the board.
+		!!!!!!!!!!!!!!!!!!!!!!
+  	trellis.writeDisplay();
+	}
+}
+
+
+// FROM Main.py @@@@ LED operations on the trellis keypad.
+void ledshow(int matrix[][8])
+{
+	for (int i = 0; i<6; i++)
+	{
+		if (i<4)
+		{
+			for(int j = 0; j<ledsNum[i];j++)
+			!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.setLED(leds[i][j]);
+		}
+		if (i>1)
+		{
+			for(int j = 0; j<j<ledsNum[i-2];j++)
+				ledhelp(leds[i-2][j],matrix);
+		}
+	}
+}
+
+void ledhelp(int x, int matrix[][8])
+{
+	int y = TrellisTransf(x);
+  if (matrix[y % 8][y / 8] ==0)
+      trellis.clrLED(x); !!!!!!!!!!!!!!!!!!!!
+}
+
+
+
+void clearleds(){
+	for(int i = 0; i<64; i++)
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		trellis.clrLED(i);
+	trellis.writeDisplay();
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+// FROM Main.py @@@@ Button related Functions.
 void PlayPause()
 {
 	cout << "playpause" << endl;
@@ -182,30 +303,27 @@ void stopper()
 	}
 }
 
-void trellisEvent();
-// vantar GPIO library   ????
 
-void trellisWatch();
-// Vantar trellis Library   ????
-
-int calcBPM(vector<double> tap, vector<double> period, int BPM)
+void calcBPM(vector<double> tap, vector<double> period)
 {
-	þarf að tala við Mr.Karl;
+	// þarf að tala við Mr.Karl;
 	high_resolution_clock::TIME currentTime = high_resolution_clock::now();
+
 	tap.push_back(currentTime);
 	int tapCount = period.size();
 	double avgPeriod = 0;
 	if(tapCount==1)
-		return BPM;
-	elseif ((tap.end()-(tap.end()-1))>=3)
+		return;
+	elseif ((tap.end()-(tap.end()-1))>=3 || (tap.end()-(tap.end()-1))<=0.2)
 	{
 		tap.erase(period.begin(),period.end()-1);
-		return BPM;
+		return;
 	}
+
 	elseif(tapCount==2)
 	{
 		period.push_back(tap.end()-(tap.end()-1));
-		return BPM;
+		return;
 	}
 	period.push_back(tap.end()-(tap.end()-1));
 
@@ -214,40 +332,24 @@ int calcBPM(vector<double> tap, vector<double> period, int BPM)
 	elseif (tapCount==4)
 		avgPeriod = (period.end()+(period.end()-1)+(period.end()-2))/3;
 	else
-		avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/3;
+		avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/4;
 
-	int newTempo = round(60/avgPeriod);
+	BPM = round(60/avgPeriod);
+	return;
 }
 
-void callbackTap(int channel)
+void callbackTap()
 {
 	if(tapTempo==0)
 		return;
-	BPM = calcBPM(tap,period,BPM);
+	calcBPM(tap,period);
 	cout << "BPM: " << BPM << endl;
 }
-void liveset();    // ????
 
-void liveplay();   // ????
-
-void ledshow(int matrix[][8])   // ????
-{
-
-}
-
-void ChannelChange();    // ???
-
-void clearleds(){
-	for(int i = 0; i<64; i++)
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		trellis.clrLED(i);
-	trellis.writeDisplay();
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-}
-
-
-
-// FROM Rotary.py @@@@
+// FROM Rotary.py @@@@ The Rotary solution.
+void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
+// RotaryNum indicates what Rotary was used.
+// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
 
 // Clockwise:
 // 0,0 : state 0
@@ -255,14 +357,12 @@ void clearleds(){
 // 1,1 : state 2
 // 0,1 : state 3
 // 0,0 : state 0  Full turn.
-void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
-// RotaryNum indicates what Rotary was used.
-// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
-	int tempLeft = !!!!!!GPIOinput(leftPin)!!!!!!!!;
-	int tempRight = !!!!!!GPIOinput(rightPin)!!!!!!!!;
+
+	int tempLeft = digitalRead(leftPin);
+	int tempRight = digitalRead(rightPin);
 	if(RotaryAction == 0)
 	{
-		!!!!!Menu.click(RotaryNum)!!!!!
+		clicker(RotaryNum);
 		return;
 	}
 	// Did we change state?
@@ -277,10 +377,57 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 		{
 			if (prevState[RotaryNum] == 1)
 				// MOVE TO RIGHT.
+				Map(RotaryNum, 1);
 			else if (prevState[RotaryNum] == 3)
 				// MOVE TO LEFT.
+				Map(RotaryNum, -1);
 		}
 	return;
+}
+
+
+// FROM ALLOVER @@@@ GPIO INTERRUPT SYSTEM.
+void Interruption()
+{
+	wiringPiSetupGpio ();
+
+	pinMode(4, INPUT); // Trellis
+	pinMode(20, INPUT); // STOP
+	pinMode(21, INPUT); // PLAY/PAUSE
+	pinMode(16, INPUT); // TAP
+	pinMode(13, INPUT); // rotary 1 right
+	pinMode(19, INPUT); // rotary 1 left
+	pinMode(26, INPUT); // rotary 1 click
+	pinMode(5, INPUT); // rotary 2 right
+	pinMode(6, INPUT); // rotary 2 left
+	pinMode(12, INPUT); // rotary 2 click
+
+  pullUpDnControl(4, PUD_UP); // Trellis
+  pullUpDnControl(20, PUD_UP); // STOP
+  pullUpDnControl(21, PUD_UP); // PLAY/PAUSE
+  pullUpDnControl(16, PUD_UP); // TAP
+  pullUpDnControl(13, PUD_UP); // rotary 1 right
+  pullUpDnControl(19, PUD_UP); // rotary 1 left
+  pullUpDnControl(26, PUD_UP); // rotary 1 click
+  pullUpDnControl(5, PUD_UP); // rotary 2 right
+  pullUpDnControl(6, PUD_UP); // rotary 2 left
+  pullUpDnControl(12, PUD_UP); // rotary 2 click
+
+  wiringPiISR (4, INT_EDGE_FALLING, &success(4)); // Trellis
+  wiringPiISR (20, INT_EDGE_FALLING, &stopper()); //STOP
+  wiringPiISR (21, INT_EDGE_FALLING, &PlayPause()); // PLAY/PAUSE
+  wiringPiISR (16, INT_EDGE_FALLING, &trellisWatch()); //TAP
+  wiringPiISR (13, INT_EDGE_FALLING, &Rotary(0, 2, 19, 13)); // rotary 1 right
+  wiringPiISR (19, INT_EDGE_FALLING, &Rotary(0, 1, 19, 13)); // rotary 1 left
+  wiringPiISR (26, INT_EDGE_FALLING, &Rotary(0, 0, 19, 13)); // rotary 1 click
+  wiringPiISR (5, INT_EDGE_FALLING, &Rotary(1, 2, 5, 6)); // rotary 2 right
+  wiringPiISR (6, INT_EDGE_FALLING, &Rotary(1, 1, 5, 6)); // rotary 2 left
+  wiringPiISR (12, INT_EDGE_FALLING, &Rotary(1, 0, 5, 6)); // rotary 2 click
+
+	for(;;)
+	{
+		usleep(1000000);
+	}
 }
 
 
@@ -313,64 +460,23 @@ void moveUp()
 	nav[0] = oldNav[nav[1]];
 }
 
-
-
-
-
+void Map(int RotaryNum, int val)
+{
+	if(RotaryNum==0)
+		fScrollMapX(nav[1],nav[0],val);
+	elseif(RotaryNum==1)
+		fScrollMapY(nav[1],nav[0],val);
+}
 
 
 // From Menu.py  @@@@ Functions!
-void move(int i, int val)
-{
-	if(i==1)
-		kort(i,val);
-	else
-		kort(1,val);
-}
-
-void click(i)
-{
-	if(i==1)
-		kort(2,0);
-	else
-		moveUp();
-}
-
-void moveUp()
-{
-	if(nav[1]==3)
-	{
-		createNewScale();
-		nav[1] = 2;
-		nav[0] = oldNav[0]; 	// Þarf að skoða
-	}
-	elseif(nav[1]>0)
-	{
-		nav[1]=0;
-		nav[0] = oldNav[]		// sama hér
-	}
-}
-
-void kort(int x, int val)
-{
-	if(x==0)
-		fScrollMapX(nav[1],nav[0],val);
-	elseif(x==1)
-		fScrollMapY(nav[1],nav[0],val);
-	elseif(x==2)
-	{
-		string mapKey = to_string(nav[1])+to_string(nav[0]);
-		clickMap().find(mapKey)->second();
-	}
-}
-
 void channelPrep(int val)
 {
 	if(0<= nextChannel+val && nextChannel+val<=15)
 		{
 			nextChannel=nextChannel+val;
 			ChannelChange();
-			renderChan = true;		
+			renderChan = true;
 			cout << channel << endl;
 		}
 }
@@ -382,7 +488,7 @@ void tempChange(int val,int x)
 		tapTempo = 0;
 		usleep(10000);
 		BPM += val*x;
-		tapTempo = 1; 
+		tapTempo = 1;
 	}
 }
 
@@ -463,7 +569,8 @@ void scaleChange(int val,int x)
 	}
 	elseif(x==0)
 	{
-		currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));		// skoða með custom?
+		currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));
+		// skoða með custom?
 		cout ...
 	}
 	if (currentScale != 3)
@@ -499,5 +606,9 @@ void cam()
 
 	}
 }
+<<<<<<< HEAD
+#endif
+=======
 
 #endif
+>>>>>>> origin/master

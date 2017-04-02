@@ -21,14 +21,14 @@ fstate=np.array([0, 0])   # former state. sidasta astand semsagt.
 
 GPIO.setmode(GPIO.BCM)
 # rotary 1
-GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
-GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary 1 right
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary 1 left
+GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary 1 click
 
 # rotary 2
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary right
-GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary left
-GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary click
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary 2 right
+GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary 2 left
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP) # rotary 2 click
 
 
 
