@@ -38,7 +38,7 @@ void supsuccess()
 }
 
 int main() {
-  usleep(200000);
+  usleep(100000);
   auto tock = TIME::now();
   timer mismunur = tock-tick;
   tvohundrudms = chrono::duration_cast<ms>(mismunur);
