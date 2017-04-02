@@ -4,7 +4,12 @@
 #include <iostream>
 #include <time.h>
 #include <unistd.h>
-// #include <chrono>
+#include <chrono>
+
+typedef chrono::high_resolution_clock TIME;
+typedef chrono::milliseconds ms;
+typedef chrono::duration<float> timer:
+
 using namespace std;
 
 auto tick = time::now();
