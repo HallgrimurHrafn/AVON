@@ -7,8 +7,8 @@
 // #include <chrono>
 using namespace std;
 
-auto tick = TIME::now();
-auto tick2 = TIME::now();
+auto tick = time::now();
+auto tick2 = time::now();
 
 void success(int a)
 {
@@ -17,7 +17,7 @@ void success(int a)
 
 void supsuccess()
 {
- tick = TIME::now();
+ tick = time::now();
  if(tick-tick2> 10)
  {
    thread test(success,0);
