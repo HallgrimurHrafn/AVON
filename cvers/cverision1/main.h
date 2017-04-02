@@ -187,12 +187,13 @@ void sequencerSet()
 	}
   ledshow(matrix);
 }
-// vantar GPIO library   ????
 
-void sequencerPlay();
-// Vantar trellis Library   ????
+void sequencerPlay()  //  ????
+{
+	
+}
 
-void liveSet()    // ????
+void liveSet()
 {
 	// Saving the status to tStatus.
 	for(int i=0;i<16;i++)
@@ -211,7 +212,10 @@ void liveSet()    // ????
   ledshow(matrix);
 }
 
-void livePlay();   // ????
+void livePlay()   // ????
+{
+
+}
 
 void ChannelChange()
 {
@@ -242,7 +246,7 @@ void ChannelChange()
 
 
 // FROM Main.py @@@@ LED operations on the trellis keypad.
-void ledshow(int matrix[][8])   // ????
+void ledshow(int matrix[][8])
 {
 	for (int i = 0; i<6; i++)
 	{
