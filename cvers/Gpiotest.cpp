@@ -12,7 +12,7 @@ void success(int a)
   cout << a << endl;
 }
 
-void supsuccess(int a)
+void supsuccess()
 {
   thread suc(success,a);
 }
@@ -26,7 +26,7 @@ int main() {
   // wiringPiISR (pin, INT_EDGE_FALLING, &success(4));
   // wiringPiISR (pin, INT_EDGE_FALLING, &success);
   // wiringPiISR (pin, INT_EDGE_FALLING, &success2());
-  wiringPiISR (pin, INT_EDGE_FALLING, supsuccess(100));
+  wiringPiISR (pin, INT_EDGE_FALLING, &supsuccess);
   for(;;)
   {
     usleep(1000000);
