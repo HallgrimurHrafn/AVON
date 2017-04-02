@@ -14,7 +14,8 @@ void success(int a)
 
 void supsuccess()
 {
-   std::thread second (success,0);
+   std::thread test (success,0);
+   test.detach();
 }
 
 int main() {
