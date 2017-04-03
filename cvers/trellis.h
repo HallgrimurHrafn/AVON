@@ -63,7 +63,7 @@ sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 	//  		return true;
 	//  else
 	//  		return false;
-	 return out
+	 return out;
 }
 
 string readSwitches(){
