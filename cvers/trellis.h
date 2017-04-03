@@ -1,4 +1,4 @@
-#include <Python.h> 
+#include <Python.h>
 #include <string>
 
 using namespace std;
@@ -32,21 +32,48 @@ void setLED(int i){
 	char const* ch = s.c_str();
 	PyRun_SimpleString(ch);
 }
- 
+
 void writeDisplay(){
 	PyRun_SimpleString("trellis.writeDisplay()\n");
 }
 
 bool readSwitches(){
-	PyRun_SimpleString("trellis.readSwitches()\n");
+	pythonCatch("trellis.readSwitches()\n");
 }
 
 bool justPressed(int i){
 	string s = "trellis.justPressed("+to_string(i)+")\n";
 	char const* ch = s.c_str();
+	return pythonCatch(ch);
 }
 
 bool justReleased(int i){
 	string s = "trellis.justReleased("+to_string(i)+")\n";
 	char const* ch = s.c_str();
+	return pythonCatch(ch);
+}
+
+bool pythonCatch(car const* command){
+	string stdOutErr =
+    "import sys\n\
+     class CatchOut:\n\
+        def __init__(self):\n\
+           self.value = ''\n\
+        def write(self, txt):\n\
+           self.value += txt\n\
+     catchOut = CatchOut()\n\
+     sys.stdout = catchOut\n\
+     sys.stderr = catchOut\n\ "; //this is python code to redirect stdouts/stderr
+	 PyObject *pModule = PyImport_AddModule("__main__"); //create main module
+	 PyRun_SimpleString(stdOutErr.c_str()); //invoke code to redirect
+
+	 PyRun_SimpleString(command);
+	 PyObject *catcher = PyObject_GetAttrString(pModule,"catchOut");
+
+	 PyObject *output = PyObject_GetAttrString(catcher,"value");
+	 string out = PyString_AsString(output));
+	 if (out == "True")
+	 		return true;
+	 else
+	 		return false;
 }

@@ -2,11 +2,7 @@
 
 int main() {
 	initialize();
-	for(int i=0;i<64;i++)
-	{
-		setLED(i);
-		writeDisplay();
-		sleep(1);
-	}
+	bool test = readSwitches();
+	cout<<test << endl;
 	finalise();
 }
