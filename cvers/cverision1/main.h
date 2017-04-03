@@ -7,6 +7,15 @@
 #include <stdlib.h>
 #include "scrollMap.h"
 
+/* Karl: put some prototypes here to fix "undeclared identifier"
+ * complaints. need midime().
+ */
+void playColumn(int column);
+void usleep(int i);
+void NOTEON(int column, bool cd);
+void NOTEOFF(int column);
+
+
 // FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
 	for(;;)
@@ -38,16 +47,16 @@ void Sequencer() {
 
 void playColumn(int column)
 {
-	// Creating thread to play current column.
-	thread p1(NOTEON,column,true);
-	p1.detach();
-	// Wait for note duration.
-	usleep(timi-timi*length);
-	// Turn the note off.
-	thread p2(NOTEOFF,column);
-	p2.detach();
-	// Delay before next column should start playing.
-	usleep(timi*length);
+    // Creating thread to play current column.
+    thread p1(NOTEON,column,true);
+    p1.detach();
+    // Wait for note duration.
+    usleep(timi-timi*length);
+    // Turn the note off.
+    thread p2(NOTEOFF,column);
+    p2.detach();
+    // Delay before next column should start playing.
+    usleep(timi*length);
 }
 
 void NOTEON(int column, bool cd)
