@@ -7,6 +7,7 @@
 #include <chrono>
 #include <vector>
 #include "metro.h"
+#include <iostream>
 
 using namespace std;
 
@@ -54,8 +55,10 @@ double length = 0.1;					// Ratio of time, end to begining of note
 int bar = 8;						// 8=1/8 note, 4=1/4 note
 
 // NONMENU
+Metro myMetro; // includes int getTempo(), void setTempo(int t), calcTempo(blabla);
+
 auto tick = TIME::now();
-int tapTempo = 1;					// Is the tap tempo active?
+// myMetro.tapOK;					// Is the tap tempo active? formerly tapTempo
 int nextChannel = 0;					// What MIDI channel are we changing to
 int channel = 0;					// What is the current MIDI channel
 bool metroLed = false;					// Is the metronome lights on?
@@ -134,6 +137,7 @@ inline zmodMap & zmod(){
 	zMod[3] = modWheel;
 	return zMod;
 }
+/**
 inline clickmap & clickMap(){
 	string temp;
 	for(int i=0;i<8;i++){
@@ -166,5 +170,5 @@ for (int i=0;i<28;i++){ leds[1][i]=leds2[i]; }
 for (int i=0;i<28;i++){ leds[2][i]=leds3[i]; }
 for (int i=0;i<28;i++){ leds[3][i]=leds4[i]; }
 
-
+**/
 #endif

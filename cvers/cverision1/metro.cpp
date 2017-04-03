@@ -1,21 +1,31 @@
 #include "metro.h"
-#include "global.h"
+//#include "global.h"
+#include <math.h>
+#include <time.h>
+//#include <map>
+#include <chrono>
+#include <iostream>
 
-Metro::Metro()
+
+
+
+Metro::Metro(int tempo)
 {
-
+    setTempo(tempo);
+    tapOK = true;
 
 }
 
 int Metro::getTempo()
 {
-
+    return tempo;
 }
 
 void Metro::setTempo(int t)
 {
-
+    tempo = t;
 }
+
 
 
 /**
@@ -30,37 +40,52 @@ void Metro::setTempo(int t)
  * @param tap
  * @param period
  */
-void Metro::calcBPM(vector<double> tap, vector<double> period)
-{
-    // þarf að tala við Mr.Karl;
-    high_resolution_clock::TIME currentTime = high_resolution_clock::now();
+void Metro::calcBPM() {
+    // temp placeholders for temporary period and tempo
+    duration<double> p;
+    double t;
 
-    tap.push_back(currentTime);
-    int tapCount = period.size();
-    double avgPeriod = 0;
-    if(tapCount==1)
+    // first add the newest tap time to the tap vector.
+    auto currentTime = Clock::now();
+    taps.push_back(currentTime);
+
+    int tapCount = tempi.size();
+    double avgTempo = getTempo();
+    if (tapCount==1)
         return;
-    elseif ((tap.end()-(tap.end()-1))>=3 || (tap.end()-(tap.end()-1))<=0.2)
+    else if ((taps.back()-(taps.at(taps.size()-2))>=milliseconds(3000) ||
+              (taps.back()-(taps.at(taps.size()-2))<=milliseconds(200))))
     {
-        tap.erase(period.begin(),period.end()-1);
+        taps.clear(); // too long or too short between taps? reset.
         return;
     }
 
-    elseif(tapCount==2)
-    {
-        period.push_back(tap.end()-(tap.end()-1));
+    else if (tapCount==2) {
+        // add a new period (time between taps) but don't adjust tempo.
+        p = taps.back()-(taps.at(taps.size()-2));
+              cout << "TAP: " << tempi.back() << " bpm" << endl;
+
+        t = getTempoFromPeriod(p);
+        tempi.push_back(t);
+        cout << "TAP: " << tempi.back() << " bpm" << endl;
         return;
     }
-    period.push_back(tap.end()-(tap.end()-1));
 
-    if(tapCount==3)
-        avgPeriod = (period.end()+(period.end()-1))/2;
-    elseif (tapCount==4)
-        avgPeriod = (period.end()+(period.end()-1)+(period.end()-2))/3;
-    else
-        avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/4;
+    /**
+     * else: # tap_count > 2:
+     * add a new period and calculate tempo in bpm.
+    **/
+    p = taps.back()-(taps.at(taps.size()-2));
+    t = getTempoFromPeriod(p);
+    tempi.push_back(t);
 
-    BPM = round(60/avgPeriod);
+    if (tapCount == 3) // 3 taps = get avg of two tempi
+        avgTempo = (tempi.back()+(tempi.at(tempi.size()-2)))/2;
+    else //  (tapCount >= 4) // only get average of last 3
+        avgTempo = (tempi.back()+(tempi.at(tempi.size()-2))+(tempi.at(tempi.size()-3)))/3;
+
+    int BPM = round(60/avgTempo);
+    setTempo(BPM);
     return;
 }
 
@@ -71,8 +96,14 @@ void Metro::calcBPM(vector<double> tap, vector<double> period)
 **/
 void Metro::callbackTap()
 {
-    if(tapTempo==0)
+    if (tapOK==false)
         return;
-    calcBPM(tap,period);
-    cout << "BPM: " << BPM << endl;
+    else
+        calcBPM();
+    cout << getTempo() << " bpm" << endl;
+}
+
+int Metro::getTempoFromPeriod(duration<double> period)
+{
+    return round(seconds(60)/period);
 }

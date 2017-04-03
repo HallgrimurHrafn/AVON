@@ -1,7 +1,5 @@
 #include "avonwidget.h"
-#include "avongui.h"
 #include "ui_avonwidget.h"
-
 
 AvonWidget::AvonWidget(QWidget *parent) :
     QWidget(parent),
@@ -32,7 +30,13 @@ void AvonWidget::initButtons(QButtonGroup* menuButtons)
     menuButtons->setExclusive(true);
 
     ui->qButtonTempo->setChecked(true);
-    highlightFrame(ui->qBpmFrame);
+    highlightFrame(ui->qBpmFrame, true);
+}
+
+void AvonWidget::refreshTempo(Metro &metro)
+{
+    QString s = QString::number(metro.getTempo());
+    ui->qLabelBpmVal->setText(s);
 }
 
 /**

@@ -5,7 +5,8 @@
 #include <iostream>
 #include <QButtonGroup>
 #include <QFrame>
-
+#include "../metro.h"
+#include "../main.h"
 using namespace std;
 
 namespace Ui {
@@ -15,11 +16,23 @@ class AvonWidget;
 class AvonWidget : public QWidget
 {
     Q_OBJECT
+    MainInteractions maini;
 
 public:
-    explicit AvonWidget(QWidget *parent = 0);
+    // this sees whether I'm passing the AvonWidget methods for main.h to call.
+    explicit AvonWidget(QWidget *parent = 0): maini(*this);
+    std::cout << "Outer: " << this << std::endl;
+
     void highlightFrame(QFrame *myFrame, bool highlighted);
     ~AvonWidget();
+
+
+    void refreshTempo(Metro &metro);
+    void refreshChan();
+    void refreshStep();
+    void refreshMode();
+    void refreshLength();
+    void refreshCam();
 
 private slots:
     void on_qButtonTempo_pressed();
@@ -50,6 +63,8 @@ private:
     Ui::AvonWidget *ui;
     void setPageNamed(QString pageName);
     void initButtons(QButtonGroup* menuButtons);
+
+
 };
 
 #endif // AVONWIDGET_H

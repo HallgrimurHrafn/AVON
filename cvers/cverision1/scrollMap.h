@@ -2,6 +2,8 @@
 #define SCROLLMAP_H
 
 #include <stdio.h>
+
+#include "main.h"
 using namespace std;
 
 extern void passer(int);
@@ -11,46 +13,46 @@ void fScrollMapY(int line, int column,int val)
 {
 	if(line == 0)
 	{
-		if(column==0)
+        if (column==0)
 			tempChange(val,1);
-		elseif(column==1)
+        else if (column==1)
 			channelChange(val);
-		elseif(column==3)
+        else if (column==3)
 			liveChange();
-		elseif(column==4)
+        else if (column==4)
 			cameraChange();
-		elseif(column==5)
+        else if (column==5)
 			noteLengthChange(val);
-		elseif(column==6)
+        else if (column==6)
 			barChange();
 		else
 			passer(0);
 	}
 	elseif(line==1)
 	{
-		if(column==0)
+        if (column==0)
 			tempChange(val,100);
-		elseif(column==1)
+        else if (column==1)
 			tempChange(val,10);
-		elseif(column==2)
+        else if (column==2)
 			tempChange(val,1);
 		else
 			passer(0);
 	}
-	elseif(line==2)
+    else if (line==2)
 	{
-		if(column<2)
+        if (column<2)
 			scaleChange(val,column%1);
 		else
 			passer(0);
 	}
-	elseif(line==3)
+    else if (line==3)
 	{
 		customScale(val,7-(column)%8);
 	}
-	elseif(line==4)
+    else if (line==4)
 	{
-		if(column<3)
+        if (column<3)
 			cameraMode(val,column);
 		else
 			passer(0);
@@ -63,7 +65,7 @@ void fScrollMapX(int line, int column,int val)
 		if(val==1)
 			nav[0]+=val;
 	}
-	elseif(column==1)
+    else if(column==1)
 	{
 		if(line==2)
 		{
@@ -71,7 +73,7 @@ void fScrollMapX(int line, int column,int val)
 				nav[0]+=val;
 		}
 	}
-	elseif(line==3)
+    else if(line==3)
 	{
 		if(column<7)
 			nav[0]+=val;
@@ -81,7 +83,7 @@ void fScrollMapX(int line, int column,int val)
 				nav[0]+=val;
 		}
 	}
-	elseif(line==0 && column<7)
+    else if(line==0 && column<7)
 	{
 		if(column==6)
 		{
@@ -89,9 +91,9 @@ void fScrollMapX(int line, int column,int val)
 				nav[0]+=val;
 		}
 		else
-			n[0]+=val;
+            nav[0]+=val;
 	}
-	elseif(column==2 && (line==1 || line==4))
+    else if(column==2 && (line==1 || line==4))
 	{
 		if(val==-1)
 			nav[0]+=val;

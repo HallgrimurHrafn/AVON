@@ -8,8 +8,11 @@
 #include "scrollMap.h"
 #include "avonwidget.h"
 #include "metro.h" // tempo operations and status
+#include "midime.h"
 
-Metro myMetro = new Metro(); // includes int getTempo(), void setTempo(int t), calcTempo(blabla);
+
+
+
 
 /* Karl: put some prototypes here to fix "undeclared identifier"
  * complaints. need midime().
@@ -28,7 +31,7 @@ void Sequencer() {
 		{
 			for(int i = 0; i<8; i++)
 			{
-				timi = (15000000/BPM)/bar;
+                timi = (15000000/myMetro.getTempo())/bar;
 				for(int j=0; j<8; j++){
     			Scale[j] = newScale[j];
 				}
@@ -245,7 +248,7 @@ void ChannelChange()
 			for(int i=0; i<8; i++)
 				!!!!!!!!!!!!!!!!!!!!!!!!!!
 				trellis.setLED(invTrellisTransf(i * 8 + column))
-		}
+        }
 		// updating channel and turning on corresponding leds.
   	channel=nextChannel;
 		for (int x=0; x<64; x++)
@@ -448,11 +451,13 @@ void callbackTapPrep()
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
 	if(timeDifferenceMs> hundradms)
 	{
-	 thread TapThread(callbackTap);
+     thread TapThread(myMetro.callbackTap());
 	 TapThread.detach();
 	 tapBounce = tock;
 	}
 }
+
+
 
 void clickerPrep1()
 {
@@ -503,7 +508,7 @@ void clicker(int Num)
 		clickMap().find(mapKey)->second;
 	}
 	else
-		moveUp();
+        moveUp();
 }
 
 void moveUp()
@@ -515,7 +520,7 @@ void moveUp()
 	oldNav[nav[1]] = 0;
 	// Update navigation depth.
 	if (nav[1] == 3)
-		nav[1] = 2;
+        nav[1] = 2;
 	else
 		nav[1] = 0;
 	// Get old navigation for the new depth.
@@ -525,7 +530,7 @@ void moveUp()
 void Map(int RotaryNum, int val)
 {
 	if(RotaryNum==0)
-		fScrollMapX(nav[1],nav[0],val);
+        fScrollMapX(nav[1],nav[0],val);
 	elseif(RotaryNum==1)
 		fScrollMapY(nav[1],nav[0],val);
 }
@@ -537,23 +542,43 @@ void channelPrep(int val)
 	if(0<= nextChannel+val && nextChannel+val<=15)
 		{
 			nextChannel=nextChannel+val;
-			ChannelChange();
+            ChannelChange();
 			renderChan = true;
 			cout << channel << endl;
 		}
 }
 
+
+
+
+//////////////////////////////////////////////////////////////////////
+////////////////// Methods that trigger UI changes! //////////////////
+//////////////////////////////////////////////////////////////////////
+
+Class MainInteractions {
+
+    AvonWidget &mrBarks;
+
+    public:
+        MainInteractions(AvonWidget &a): avonwidget(a) {
+            // Warning: outer is not fully constructed yet
+            //          don't use it in here
+            std::cout << "Inner: " << this << std::endl;
+        };
+
+
+// no comprendo en ok
 void tempChange(int val,int x)
 {
     int BPM = Metro.getTempo();
 	if(60/float(BPM+val*x)/float(bar/4)>=0.05)
 	{
-		tapTempo = 0;
+        myMetro.tapOK = false;
 		usleep(10000);
         Metro.setTempo(BPM + val*x);
-		tapTempo = 1;
+        myMetro.tapOK = true;
 
-
+        &mrBarks.refreshTempo();
 	}
 }
 
@@ -565,6 +590,8 @@ void liveChange()
 		live=1;
 	renderLive = true;
 	multithread();
+
+    &mrBarks.refreshMode();
 }
 
 void cameraChange()
@@ -573,6 +600,8 @@ void cameraChange()
 		camOFF();
 	else
 		camON();
+
+    mrBarks->refreshChan();
 }
 
 void camON()
@@ -615,6 +644,9 @@ void noteLengthChange(int value)
 		length = length+val;
 		cout << length << endl;
 	}
+
+    &mrBarks.refreshLength();
+
 }
 
 void barChange(int val)
@@ -622,6 +654,8 @@ void barChange(int val)
 	float x = pow(2,val);
 	if(60/float(BPM)/float(x*bar/4)>=0.05)
 		bar=bar*x;
+
+    mrBarks->refreshStep();
 }
 
 void scaleChange(int val,int x)
@@ -631,7 +665,7 @@ void scaleChange(int val,int x)
 		if(0<= note+val && note+val <=127)
 		{
 			note += val;
-			cout << note << endl;
+            cout << note << endl;
 		}
 	}
 	elseif(x==0)
@@ -654,8 +688,8 @@ void customScale(int val,int i)
 	if(0<= custom[i]+val && custom[i]+val<=127)
 	{
 		custom[i] += int(val);
-		// new skali copy
-	}
+        // new skali copy
+    }
 }
 
 void customSetup()
@@ -689,8 +723,16 @@ void initialize()
 
 	// start a thread for the Interruption
 
-	// Start Sequencer.
+    // Start Sequencer.
 }
+
+};
+
+//////////////////////////////////////////////////////////////////////
+/////////////// End of methods that trigger UI changes! //////////////
+//////////////////////////////////////////////////////////////////////
+
+
 <<<<<<< HEAD
 #endif
 =======

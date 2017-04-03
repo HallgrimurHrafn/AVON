@@ -1,13 +1,34 @@
 #ifndef METRO_H
 #define METRO_H
+#include <vector>
+#include <chrono>
 
+
+using namespace std;
+using namespace std::chrono;
+
+typedef high_resolution_clock Clock;
 
 class Metro
 {
 public:
-    Metro();
+    Metro(int tempo=120); // if tempo not specified, default = 120
     int getTempo();
     void setTempo(int t);
+
+
+
+    /**
+     * Usage: callback_tap(channel). runs whenever TAP button pressed.
+     * Before: global variable tempo is an integer.
+     * After: tempo = average tempo of last three taps.
+    **/
+    void callbackTap();
+
+    bool tapOK;
+
+private:
+    int tempo;	// tempo in beats per minute, formerly BPM
 
     /**
      * Usage: tempo = calcBPM(tap);
@@ -21,17 +42,14 @@ public:
      * @param tap
      * @param period
      */
-    void calcBPM(vector<double> tap, vector<double> period);
+    void calcBPM();
 
-    /**
-     * Usage: callback_tap(channel). runs whenever TAP button pressed.
-     * Before: global variable tempo is an integer.
-     * After: tempo = average tempo of last three taps.
-    **/
-    void callbackTap();
+    int getTempoFromPeriod(duration<double> period); // returns tempo in BPM
 
-private:
-    int tempo = 120;	// tempo in beats per minute, formerly BPM
+    vector<Clock::time_point> taps;
+    vector<double> tempi; // vector list of tempi to take average of when tapping (*formerly period)
+
+
 };
 
 
