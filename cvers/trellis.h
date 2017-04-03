@@ -39,7 +39,7 @@ void writeDisplay(){
 
 bool pythonCatch(char const* command){
 	string stdOutErr =
-    " import sys\n\
+   " import sys\n\
      class CatchOut:\n\
         def __init__(self):\n\
            self.value = ''\n\
