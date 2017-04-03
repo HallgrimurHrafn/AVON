@@ -747,7 +747,6 @@ void createNewScale()
 
 // From cam.py  @@@@ Functions!
 
-void vision()
 
 void cam()
 {
@@ -817,11 +816,11 @@ void cam()
 void opperate(int x)				// µµµµ
 {
 	if(x==1)
-		xmod().find(cursorxyz[0])->second(BÍÐAEFTIRVEKTOR);
+		xmod().find(cursorxyz[0])->second(camera()[1]);
 	if(x==2)
-		ymod().find(cursorxyz[1])->second(BÍÐAEFTIRVEKTOR);
+		ymod().find(cursorxyz[1])->second(camera()[2]);
 	if(x==3)
-		zmod().find(cursorxyz[2])->second(BÍÐAEFTIRVEKTOR);
+		zmod().find(cursorxyz[2])->second(camera()[3]);
 }
 
 void notes(int note)
