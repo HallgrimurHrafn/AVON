@@ -3,7 +3,7 @@
 
 int main() {
 	initialize();
-	bool test = readSwitches();
+	string test = readSwitches();
 	cout<<test << endl;
 	finalise();
 }
