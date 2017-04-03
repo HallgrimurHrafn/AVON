@@ -1,4 +1,5 @@
 #include "trellis.h"
+#include <iostream>
 
 int main() {
 	initialize();

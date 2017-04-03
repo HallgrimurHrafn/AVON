@@ -37,7 +37,7 @@ void writeDisplay(){
 	PyRun_SimpleString("trellis.writeDisplay()\n");
 }
 
-bool pythonCatch(car const* command){
+bool pythonCatch(char const* command){
 	string stdOutErr =
     "import sys\n\
      class CatchOut:\n\
