@@ -74,6 +74,16 @@ int rightTurn[2] = {0};				// Right rotary click
 int state[2] = {0};					// Current state
 int prevState[2] = {0};					// Previous state
 
+
+// Bouncetime timers.
+ms hundradms;
+auto stopBounce = TIME::now();
+auto playBounce = TIME::now();
+auto tapBounce = TIME::now();
+auto trellisBounce = TIME::now();
+auto Rotary1Bounce = TIME::now();
+auto Rotary2Bounce = TIME::now();
+
 // FROM GLO
 int nav[2] = {0,0};					// Current Navigation state for the menu {x,y}
 int oldNav[5] = {0,0,0,0,0};				// Old Navigation state (MEIRA INFO HALLI?)
