@@ -4,6 +4,6 @@
 int main() {
 	initialize();
 	string test = readSwitches();
-	cout<<test << endl;
+	// cout<<test << endl;
 	finalise();
 }
