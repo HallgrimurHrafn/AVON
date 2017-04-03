@@ -17,7 +17,7 @@ extern void barChange();
 extern void scaleChange(int val, int x);
 extern void cameraMode(int val, int x);
 
-
+MainInteractions mainy;
 void fScrollMapY(int line, int column,int val)
 {
 	if(line == 0)
