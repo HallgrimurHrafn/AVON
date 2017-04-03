@@ -351,9 +351,9 @@ void callbackTap()
 }
 
 // FROM Rotary.py @@@@ The Rotary solution.
-void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
+void Rotary(int RotaryNum, int leftPin, int rightPin){
 // RotaryNum indicates what Rotary was used.
-// RotaryAction indicates what was done. 0=click, 1=Left Rotate, 2=Right Rotate.
+// RotaryAction indicates what was done. 0=click, 1=Left Rotate or Right Rotate.
 
 // Clockwise:
 // 0,0 : state 0
@@ -364,13 +364,8 @@ void Rotary(int RotaryNum, int RotaryAction, int leftPin, int rightPin){
 
 	int tempLeft = digitalRead(leftPin);
 	int tempRight = digitalRead(rightPin);
-	if(RotaryAction == 0)
-	{
-		clicker(RotaryNum);
-		return;
-	}
 	// Did we change state?
-	else if ((leftTurn[RotaryNum] == tempLeft) && (rightTurn[RotaryNum] == tempRight))
+	if ((leftTurn[RotaryNum] == tempLeft) && (rightTurn[RotaryNum] == tempRight))
 		return;  // if not, return. else we update state.
 	leftTurn[RotaryNum] = tempLeft;
 	rightTurn[RotaryNum] = tempRight;
@@ -417,21 +412,112 @@ void Interruption()
   pullUpDnControl(6, PUD_UP); // rotary 2 left
   pullUpDnControl(12, PUD_UP); // rotary 2 click
 
-  wiringPiISR (4, INT_EDGE_FALLING, &success(4)); // Trellis
-  wiringPiISR (20, INT_EDGE_FALLING, &stopper()); //STOP
-  wiringPiISR (21, INT_EDGE_FALLING, &PlayPause()); // PLAY/PAUSE
-  wiringPiISR (16, INT_EDGE_FALLING, &trellisWatch()); //TAP
-  wiringPiISR (13, INT_EDGE_FALLING, &Rotary(0, 2, 19, 13)); // rotary 1 right
-  wiringPiISR (19, INT_EDGE_FALLING, &Rotary(0, 1, 19, 13)); // rotary 1 left
-  wiringPiISR (26, INT_EDGE_FALLING, &Rotary(0, 0, 19, 13)); // rotary 1 click
-  wiringPiISR (5, INT_EDGE_FALLING, &Rotary(1, 2, 5, 6)); // rotary 2 right
-  wiringPiISR (6, INT_EDGE_FALLING, &Rotary(1, 1, 5, 6)); // rotary 2 left
-  wiringPiISR (12, INT_EDGE_FALLING, &Rotary(1, 0, 5, 6)); // rotary 2 click
+  wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep; // Trellis
+  wiringPiISR (20, INT_EDGE_FALLING, &stopperPrep; //STOP
+  wiringPiISR (21, INT_EDGE_FALLING, &PlayPausePrep; // PLAY/PAUSE
+  wiringPiISR (16, INT_EDGE_FALLING, &callbackTapPrep; //TAP
+  wiringPiISR (13, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 right
+  wiringPiISR (19, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 left
+  wiringPiISR (26, INT_EDGE_FALLING, &clickerPrep1); // rotary 1 click
+  wiringPiISR (5, INT_EDGE_FALLING, &rotary2Prep); // rotary 2 right
+  wiringPiISR (6, INT_EDGE_FALLING, &rotary2Prep); // rotary 2 left
+  wiringPiISR (12, INT_EDGE_FALLING, &clickerPrep2); // rotary 2 click
 
 	for(;;)
 	{
 		usleep(1000000);
 	}
+}
+
+// NEW @@@@ groundwork interruptions.
+void trellisPrep()
+{
+	auto tock = TIME::now();
+	timer timeDifference = tock-trellisBounce;
+	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
+	if(timeDifferenceMs> hundradms/5)
+	{
+	 thread trellisThread(trellisWatch);
+	 trellisThread.detach();
+	 trellisBounce = tock;
+	}
+}
+
+void stopperPrep()
+{
+	auto tock = TIME::now();
+	timer timeDifference = tock-stopBounce;
+	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
+	if(timeDifferenceMs> hundradms*2)
+	{
+	 thread StopperThread(stopper);
+	 StopperThread.detach();
+	 stopBounce = tock;
+	}
+}
+
+void PlayPausePrep()
+{
+	auto tock = TIME::now();
+	timer timeDifference = tock-playBounce;
+	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
+	if(timeDifferenceMs> hundradms*2)
+	{
+	 thread PlayPauseThread(PlayPause);
+	 PlayPauseThread.detach();
+	 playBounce = tock;
+	}
+}
+
+void callbackTapPrep()
+{
+	auto tock = TIME::now();
+	timer timeDifference = tock-tapBounce;
+	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
+	if(timeDifferenceMs> hundradms)
+	{
+	 thread TapThread(callbackTap);
+	 TapThread.detach();
+	 tapBounce = tock;
+	}
+}
+
+void clickerPrep1()
+{
+	auto tock = TIME::now();
+	timer timeDifference = tock-Rotary1Bounce;
+	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
+	if(timeDifferenceMs> hundradms)
+	{
+	 thread clicker2Thread(clicker, 0);
+	 clicker2Thread.detach();
+	 Rotary1Bounce = tock;
+	}
+}
+
+void clickerPrep2()
+{
+	auto tock = TIME::now();
+	timer timeDifference = tock-Rotary2Bounce;
+	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
+	if(timeDifferenceMs> hundradms)
+	{
+	 thread clicker1Thread(clicker, 1);
+	 clicker1Thread.detach();
+	 Rotary2Bounce = tock;
+	}
+}
+
+void rotary1Prep()
+{
+	thread Rotary1Thread(Rotary,0,19,13);
+	Rotary1Thread.detach();
+}
+
+void rotary2Prep()
+{
+	thread Rotary2Thread(Rotary,1,5,6);
+	Rotary2Thread.detach();
 }
 
 
@@ -611,6 +697,24 @@ void cam()
 	{
 
 	}
+}
+
+
+
+void initialize()
+{
+	// create Bouncetime
+	auto t2 = TIME::now();
+	usleep(100000);
+  auto t1 = TIME::now();
+	timer mismunur = tock-tick;
+  hundradms = chrono::duration_cast<ms>(mismunur);
+
+	// Run Ledshow 3-4 times for starting animation
+
+	// start a thread for the Interruption
+
+	// Start Sequencer.
 }
 <<<<<<< HEAD
 #endif
