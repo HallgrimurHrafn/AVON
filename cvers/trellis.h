@@ -22,12 +22,15 @@ void finalise() {
 }
 
 void clrLED(int i){
+	string s = "clrLED("+to_string(i)+")\n";
+	char const* ch = s.c_str();
+	PyRun_SimpleString(ch);
 }
 
 void setLED(int i){
-	string s = to_string(i);
-	s = "trellis.setLED(" + s +")\n";
-	PyRun_SimpleString(s);
+	string s = "trellis.setLED("+to_string(i)+")\n";
+	char const* ch = s.c_str();
+	PyRun_SimpleString(ch);
 }
  
 void writeDisplay(){
@@ -35,10 +38,15 @@ void writeDisplay(){
 }
 
 bool readSwitches(){
+	PyRun_SimpleString("trellis.readSwitches()\n");
 }
 
-bool justPressed(){
+bool justPressed(int i){
+	string s = "trellis.justPressed("+to_string(i)+")\n";
+	char const* ch = s.c_str();
 }
 
-bool justReleased(){
+bool justReleased(int i){
+	string s = "trellis.justReleased("+to_string(i)+")\n";
+	char const* ch = s.c_str();
 }

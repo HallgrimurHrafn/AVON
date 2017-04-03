@@ -2,7 +2,11 @@
 
 int main() {
 	initialize();
-	setLED(1);
-	writeDisplay();
+	for(int i=0;i<64;i++)
+	{
+		setLED(i);
+		writeDisplay();
+		sleep(1);
+	}
 	finalise();
 }
