@@ -17,7 +17,7 @@ typedef map<const int,modFunc> ymodMap;
 typedef map<const int,modFunc> zmodMap;
 typedef chrono::high_resolution_clock TIME;
 typedef chrono::milliseconds ms;
-typedef chrono::duration<float> timer;
+typedef chrono::duration<float> timer; 
 
 extern void fScrollMapX(int,int);
 extern void FscorllMapY(int,int);
@@ -86,18 +86,21 @@ auto Rotary2Bounce = TIME::now();
 
 // FROM GLO
 int nav[2] = {0,0};					// Current Navigation state for the menu {x,y}
-int oldNav[5] = {0,0,0,0,0};				// Old Navigation state (MEIRA INFO HALLI?)
-int cursorxyz[3] = {0,0,0};				// Cursor {x,y,z}
+int oldNav[5] = {0,0,0,0,0};		// Old Navigation state (MEIRA INFO HALLI?)
+int cursorxyz[3] = {0,0,0};			// Cursor {x,y,z}
 int stat = 1;						// Status?
 
 int editScale = 0;					// edit scale, 1 for custom scale 1, 2 for custom 2 etc...
 int note = 60;						// deafult note
-int currentScale = 0;					// 0 major, 1 minor, 2 penta, 3-4-5 custom
+int currentScale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
 string pass("pass");
-int scales[3][8] = {{note+12,note+11,note+9,note+7,note+5,note+4,note+2,note},{note+12,note+10,note+8,note+7,note+5,note+3,note+2,note},{note+17,note+15,note+12,note+10,note+7,note+5,note+3,note}};
+vector <vector<int>> scales({{note+12,note+11,note+9,note+7,note+5,note+4,note+2,note}, 
+							{note+12,note+10,note+8,note+7,note+5,note+3,note+2,note},
+							{note+17,note+15,note+12,note+10,note+7,note+5,note+3,note}});		// scales.resize(scales.size()+1,vector<int>(8))
 int custom[8] = {60,60,60,60,60,60,60,60};
 string p = "pass";
-string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p}};
+string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},
+						{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p}};
 int cScale[];
 bool renderLive = true;
 bool renderChan = true;
