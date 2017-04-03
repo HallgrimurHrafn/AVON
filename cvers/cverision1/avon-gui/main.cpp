@@ -1,7 +1,8 @@
 #include "avonwidget.h"
 #include <QApplication>
 //#include "../global.h"
-#include "../main.h"
+//#include "../main.h"
+
 
 
 int main(int argc, char *argv[])
@@ -11,7 +12,6 @@ int main(int argc, char *argv[])
     AvonWidget mrBarks;
     mrBarks.show();
 
-    initialize();
 
     return a.exec();
 

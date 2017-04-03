@@ -6,7 +6,7 @@
 #include <QButtonGroup>
 #include <QFrame>
 #include "../metro.h"
-#include "../main.h"
+
 using namespace std;
 
 namespace Ui {
@@ -16,12 +16,10 @@ class AvonWidget;
 class AvonWidget : public QWidget
 {
     Q_OBJECT
-    MainInteractions maini;
 
 public:
     // this sees whether I'm passing the AvonWidget methods for main.h to call.
-    explicit AvonWidget(QWidget *parent = 0): maini(*this);
-    std::cout << "Outer: " << this << std::endl;
+    explicit AvonWidget(QWidget *parent = 0);
 
     void highlightFrame(QFrame *myFrame, bool highlighted);
     ~AvonWidget();
@@ -38,8 +36,6 @@ private slots:
     void on_qButtonTempo_pressed();
 
     void on_qButtonChan_pressed();
-
-    void on_qButtonPage_pressed();
 
     void on_qButtonMode_pressed();
 
@@ -58,6 +54,8 @@ private slots:
      * whether Channel button is toggled on/off.
      **/
     void on_qButtonChan_toggled(bool checked);
+
+    void on_qButtonStep_pressed();
 
 private:
     Ui::AvonWidget *ui;
