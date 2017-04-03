@@ -209,10 +209,49 @@ void sequencerSet()
   ledshow(matrix);
 }
 
-void sequencerPlay()  //  ????
+void sequencerPlay()
 {
-
+	usleep(15000);  // requirement for trellis to process the change.
+	!!!!!!!!!!!!!!!!!!!!
+	if (trellis.readSwitches()) { // was a key pressed?
+		for (int i=0; i<64; i++) { // for all keys in trellis.
+			!!!!!!!!!!!!!!!!!!!
+			if (trellis.justPressed(i)) { // was this exact key pressed?
+				int y = TrellisTransf(i);  // transform key to our format.
+				if (tStatus[channel][y%8][y/8] == 0) { // if key was off
+					tStatus[channel][y%8][y/8] = 1; // turn it on
+					!!!!!!!!!!!!!!!!!!!!
+					trellis.setLED(x); // also turn on the LED.
+				} else {
+					tStatus[channel][y%8][y/8] = 0; // turn it off
+					!!!!!!!!!!!!!!!!!!!!!!!!!
+					trellis.clrLED(x); // and turn of the LED
+				}
+				!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.readSwitches(); // an attempt to improve response time.
+			}
+		}
+		!!!!!!!!!!!!!!!!!!!!!
+		trellis.writeDisplay(); // update the LEDs on trellis.
+		if (trellStatus == 1) { // are we allowed to update status.
+			for (int i=0; i<16; i++) { // setting status=tStatus for values not pointers.
+				for (int j=0; j<64; j++) {
+					status[i][j%8][j/8] = tStatus[i][j%8][j/8];
+				}
+			}
+			usleep(15000); // attempt to imrpove response time
+			trellis.readSwitches(); // attempt to imrpove response time
+		} else {
+			usleep(15000); // attempt to imrpove response time
+			trellis.readSwitches(); // attempt to imrpove response time
+			sequencerPlay(); // not allowed to update status. cant wait since
+			// we could get a data hazard if multiple notes were pressed. for the price
+			// of some performance we cann rerun the function to update it. This should
+			// prevent the data hazard and possible imrpove response time as well.
+		}
+	}
 }
+
 
 void liveSet()
 {
@@ -235,8 +274,29 @@ void liveSet()
 
 void livePlay()   // ????
 {
-
+	if (live == 1) { // are we in livemode.
+		usleep(30000); // required to allow trellis to process information.
+		!!!!!!!!!!!!!!!!!!!!!!!!
+		if (trellis.readSwitches())	{ // update trellis info, was a key pressed?
+			for(int i=0; i<64; i++) { // iterate through all keys
+				int y = TrellisTransf(i); // transform into our system.
+				!!!!!!!!!!!!!!!!!!!!!!!!1
+				if (trellis.justPressed(i)){ // was this key just pressed?
+					midime(144+channel, scale[y/8], 100); // send out note.
+					!!!!!!!!!!!!!!!!!
+					trellis.setLED(i) // turn on led
+				} else if (trellis.justReleased(i)) { // was this key just released?
+					midime(128+channel, scale[y/8], 0); // stop note..
+					!!!!!!!!!!!!!!!!!!!!!!!!
+					trellis.clrLED(i); // turn off led
+				}
+			}
+			!!!!!!!!!!!!!!!!!!!!!!!!!
+			trellis.writeDisplay(); // update LEDS
+		}
+	}
 }
+
 
 void channelChange()
 {
@@ -388,10 +448,10 @@ void Interruption()
   pullUpDnControl(6, PUD_UP); // rotary 2 left
   pullUpDnControl(12, PUD_UP); // rotary 2 click
 
-  wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep; // Trellis
-  wiringPiISR (20, INT_EDGE_FALLING, &stopperPrep; //STOP
-  wiringPiISR (21, INT_EDGE_FALLING, &PlayPausePrep; // PLAY/PAUSE
-  wiringPiISR (16, INT_EDGE_FALLING, &callbackTapPrep; //TAP
+  wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep); // Trellis
+  wiringPiISR (20, INT_EDGE_FALLING, &stopperPrep); //STOP
+  wiringPiISR (21, INT_EDGE_FALLING, &PlayPausePrep); // PLAY/PAUSE
+  wiringPiISR (16, INT_EDGE_FALLING, &callbackTapPrep); //TAP
   wiringPiISR (13, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 right
   wiringPiISR (19, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 left
   wiringPiISR (26, INT_EDGE_FALLING, &clickerPrep1); // rotary 1 click
@@ -734,4 +794,3 @@ void initialize()
 //////////////////////////////////////////////////////////////////////
 
 #endif
-
