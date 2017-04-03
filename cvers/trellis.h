@@ -46,8 +46,7 @@ bool pythonCatch(char const* command){
         self.value += txt\n\
 catchOutErr = CatchOutErr()\n\
 sys.stdout = catchOutErr\n\
-sys.stderr = catchOutErr\n\
-"; //this is python code to redirect stdouts/stderr
+sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 	 PyObject *pModule = PyImport_AddModule("__main__"); //create main module
 	 PyRun_SimpleString(stdOutErr.c_str()); //invoke code to redirect
 
