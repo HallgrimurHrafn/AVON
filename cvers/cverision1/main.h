@@ -569,7 +569,10 @@ void moveUp()
 	oldNav[nav[1]] = 0;
 	// Update navigation depth.
 	if (nav[1] == 3)
-        nav[1] = 2;
+	{
+		createNewScale();
+  	nav[1] = 2;
+	}
 	else
 		nav[1] = 0;
 	// Get old navigation for the new depth.
@@ -760,7 +763,7 @@ void cam()
 			auto t = TIME::now();
 			if(!cam)
 				return;
-			if(camera()[0]==1) 
+			if(camera()[0]==1)
 			{
 				if(cursorxyz[0]==1 & i==0)
 				{
