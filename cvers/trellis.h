@@ -51,13 +51,14 @@ sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 
 	 PyObject *pModule = PyImport_AddModule("__main__"); //create main module
 	 PyRun_SimpleString(stdOutErr.c_str()); //invoke code to redirect
-	 cout<<"test2" <<endl;
+
 
 	 PyRun_SimpleString(command);
 	 PyObject *catcher = PyObject_GetAttrString(pModule,"catchOut");
 	 cout<<"test1" <<endl;
 	 PyObject *output = PyObject_GetAttrString(catcher,"value");
 	 string out = PyString_AsString(output);
+	 cout<<"test2" <<endl;
 	 if (out == "False")
 	 		return true;
 	 else
