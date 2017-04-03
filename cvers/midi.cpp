@@ -15,11 +15,9 @@ int main()
 	{
 		cout << "Please select a note" << endl;
 		cin >> note;
-		cout << "Please select velocity" << endl;
-		cin >> val;
-		midime(144,note,val);
+		midime(144,note,100);
 		usleep(100000);
-		midime(128,note,val);
+		midime(128,note,0);
 	}
 	return 0;
 }
