@@ -24,7 +24,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp \
-    avongui.cpp \
     avonwidget.cpp
 
 HEADERS  += \
@@ -32,7 +31,6 @@ HEADERS  += \
     ../global.h \
     ../main.h \
     ../scrollMap.h \
-    avongui.h \
     avonwidget.h
 
 FORMS    += avonwidget.ui

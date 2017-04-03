@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <iostream>
 #include <QButtonGroup>
-#include <QLabel>
+#include <QFrame>
 
 using namespace std;
 
@@ -18,7 +18,7 @@ class AvonWidget : public QWidget
 
 public:
     explicit AvonWidget(QWidget *parent = 0);
-    void highlightLabel(QLabel *myLabel, bool highlighted);
+    void highlightFrame(QFrame *myFrame, bool highlighted);
     ~AvonWidget();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 
     void on_qButtonChan_pressed();
 
-    void on_qButtonBar_pressed();
+    void on_qButtonPage_pressed();
 
     void on_qButtonMode_pressed();
 
@@ -34,9 +34,22 @@ private slots:
 
     void on_qButtonCam_pressed();
 
+    /**
+     * Show/hide a frame around BPM status based on
+     * whether Tempo button is toggled on/off.
+     **/
+    void on_qButtonTempo_toggled(bool checked);
+
+    /**
+     * Show/hide a frame around Channel number based on
+     * whether Channel button is toggled on/off.
+     **/
+    void on_qButtonChan_toggled(bool checked);
+
 private:
     Ui::AvonWidget *ui;
     void setPageNamed(QString pageName);
+    void initButtons(QButtonGroup* menuButtons);
 };
 
 #endif // AVONWIDGET_H

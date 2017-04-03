@@ -10,6 +10,30 @@
     <height>240</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>320</width>
+    <height>240</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>320</width>
+    <height>240</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Menlo</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>AvonWidget</string>
   </property>
@@ -25,9 +49,12 @@
      <height>241</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="qLayoutAll">
+   <layout class="QHBoxLayout" name="qLayoutAll" stretch="320,240">
     <property name="spacing">
-     <number>6</number>
+     <number>0</number>
+    </property>
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMinAndMaxSize</enum>
     </property>
     <item>
      <widget class="QGroupBox" name="menuBar">
@@ -35,15 +62,27 @@
        <bool>true</bool>
       </property>
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>120</width>
         <height>240</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>120</width>
+        <height>0</height>
        </size>
       </property>
       <property name="font">
@@ -67,6 +106,9 @@
        <bool>false</bool>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -92,6 +134,11 @@
            <width>16777215</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Menlo</family>
+          </font>
          </property>
          <property name="text">
           <string>Tempo</string>
@@ -130,6 +177,11 @@
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Menlo</family>
+          </font>
+         </property>
          <property name="text">
           <string>Channel</string>
          </property>
@@ -151,7 +203,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="qButtonBar">
+        <widget class="QPushButton" name="qButtonPage">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -164,8 +216,13 @@
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Menlo</family>
+          </font>
+         </property>
          <property name="text">
-          <string>Bar</string>
+          <string>Step</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -197,6 +254,11 @@
            <width>16777215</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Menlo</family>
+          </font>
          </property>
          <property name="text">
           <string>Live Mode</string>
@@ -232,6 +294,11 @@
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Menlo</family>
+          </font>
+         </property>
          <property name="text">
           <string>Note Length</string>
          </property>
@@ -266,6 +333,11 @@
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Menlo</family>
+          </font>
+         </property>
          <property name="text">
           <string>Camera</string>
          </property>
@@ -296,6 +368,24 @@
       </property>
       <item>
        <widget class="QFrame" name="statusBar">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>41</height>
+         </size>
+        </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
@@ -303,95 +393,213 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>8</number>
+         </property>
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
-          <widget class="QLabel" name="qLabelBpmVal">
-           <property name="font">
-            <font>
-             <family>Menlo</family>
-            </font>
-           </property>
-           <property name="text">
-            <string>120</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="qLabelBpm">
-           <property name="font">
-            <font>
-             <family>Menlo</family>
-            </font>
-           </property>
-           <property name="text">
-            <string>bpm</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="qLabelChan">
-           <property name="font">
-            <font>
-             <family>Menlo</family>
-            </font>
-           </property>
-           <property name="text">
-            <string>Channel</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="qLabelChanVal">
+          <widget class="QFrame" name="qBpmFrame">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>10</horstretch>
+             <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>10</width>
+             <width>86</width>
              <height>0</height>
             </size>
            </property>
-           <property name="sizeIncrement">
+           <property name="maximumSize">
             <size>
-             <width>10</width>
-             <height>0</height>
+             <width>86</width>
+             <height>16777215</height>
             </size>
            </property>
-           <property name="baseSize">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="qLabelBpmVal">
+              <property name="font">
+               <font>
+                <family>Menlo</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>120</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="qLabelBpm">
+              <property name="font">
+               <font>
+                <family>Menlo</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>bpm</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+           <zorder>qLabelBpm</zorder>
+           <zorder>qLabelBpmVal</zorder>
+           <zorder>qLabelBpmVal</zorder>
+           <zorder>qLabelBpm</zorder>
+           <zorder>qLabelBpmVal</zorder>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="qChanFrame">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
             <size>
-             <width>10</width>
+             <width>90</width>
              <height>0</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <family>Menlo</family>
-            </font>
+           <property name="maximumSize">
+            <size>
+             <width>90</width>
+             <height>16777215</height>
+            </size>
            </property>
-           <property name="text">
-            <string>1</string>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
            </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="qLabelChan">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>63</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>63</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Menlo</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Channel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="qLabelChanVal">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>18</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>18</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Menlo</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -400,53 +608,11 @@
       <item>
        <widget class="QStackedWidget" name="menuDetails">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
-        <widget class="QWidget" name="pageBar">
-         <widget class="QLabel" name="label_6">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>60</y>
-            <width>60</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>bar</string>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="pageCam">
-         <widget class="QLabel" name="label_5">
-          <property name="geometry">
-           <rect>
-            <x>100</x>
-            <y>80</y>
-            <width>60</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>length</string>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="pageChan">
-         <widget class="QLabel" name="label_4">
-          <property name="geometry">
-           <rect>
-            <x>120</x>
-            <y>80</y>
-            <width>60</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>channel</string>
-          </property>
-         </widget>
-        </widget>
+        <widget class="QWidget" name="pageTempo"/>
+        <widget class="QWidget" name="pageChan"/>
+        <widget class="QWidget" name="pageStep"/>
         <widget class="QWidget" name="pageMode">
          <widget class="QLabel" name="label_3">
           <property name="geometry">
@@ -477,18 +643,18 @@
           </property>
          </widget>
         </widget>
-        <widget class="QWidget" name="pageTempo">
-         <widget class="QLabel" name="label">
+        <widget class="QWidget" name="pageCam">
+         <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>49</x>
+            <x>100</x>
             <y>80</y>
-            <width>91</width>
-            <height>20</height>
+            <width>60</width>
+            <height>16</height>
            </rect>
           </property>
           <property name="text">
-           <string>tempoPage</string>
+           <string>length</string>
           </property>
          </widget>
         </widget>
