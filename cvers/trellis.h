@@ -38,18 +38,22 @@ void writeDisplay(){
 }
 
 bool pythonCatch(char const* command){
-	string stdOutErr =
-    "import sys\n\
-     class CatchOut:\n\
-        def __init__(self):\n\
-           self.value = ''\n\
-        def write(self, txt):\n\
-           self.value += txt\n\
-     catchOut = CatchOut()\n\
-     sys.stdout = catchOut\n\
-     sys.stderr = catchOut\n\ "; //this is python code to redirect stdouts/stderr
+	// string stdOutErr =
+  //   "import sys\n"
+  //    "class CatchOut:\n\
+  //       def __init__(self):\n\
+  //          self.value = ''\n\
+  //       def write(self, txt):\n\
+  //          self.value += txt\n\
+  //    catchOut = CatchOut()\n\
+  //    sys.stdout = catchOut\n\
+  //    sys.stderr = catchOut\n\ "; //this is python code to redirect stdouts/stderr
 	 PyObject *pModule = PyImport_AddModule("__main__"); //create main module
-	 PyRun_SimpleString(stdOutErr.c_str()); //invoke code to redirect
+	 PyRun_SimpleString("import sys\n\ ");
+	 PyRun_SimpleString("class CatchOut:\n\ def __init__(self):\n\ self.value = ''\n\ def write(self, txt):\n\ self.value += txt\n\ ");
+	 PyRun_SimpleString("catchOut = CatchOut()\n\ ");
+	 PyRun_SimpleString("sys.stdout = catchOut\n\ ");
+	 PyRun_SimpleString("sys.stderr = catchOut\n\ ");
 
 	 PyRun_SimpleString(command);
 	 PyObject *catcher = PyObject_GetAttrString(pModule,"catchOut");
