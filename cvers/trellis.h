@@ -38,7 +38,7 @@ void writeDisplay(){
 	PyRun_SimpleString("trellis.writeDisplay()\n");
 }
 
-string pythonCatch(char const* command){
+bool pythonCatch(char const* command){
 	string stdOutErr =
     "class CatchOutErr:\n\
     def __init__(self):\n\
@@ -59,24 +59,23 @@ sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 	 PyObject *output = PyObject_GetAttrString(catcher,"value");
 	 string out = PyString_AsString(output);
 	 out = out.substr(0,4);
-	//  if (out == "True ")
-	//  		return true;
-	//  else
-	//  		return false;
-	 return out;
+	 if (out == "Fals")
+	 		return true;
+	 else
+	 		return false;
 }
 
-string readSwitches(){
+bool readSwitches(){
 	return pythonCatch("print trellis.readSwitches()\n");
 }
 
-string justPressed(int i){
+bool justPressed(int i){
 	string s = "print trellis.justPressed("+to_string(i)+")\n";
 	char const* ch = s.c_str();
 	return pythonCatch(ch);
 }
 
-string justReleased(int i){
+bool justReleased(int i){
 	string s = "print trellis.justReleased("+to_string(i)+")\n";
 	char const* ch = s.c_str();
 	return pythonCatch(ch);
