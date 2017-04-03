@@ -3,7 +3,7 @@
 
 #include <time.h>
 #include <map>
-#include <sting>
+#include <string.h> // Karl: sting -> string.h
 #include <chrono>
 #include <vector>
 
@@ -46,8 +46,9 @@ int Scale[8] = {72,71,69,67,65,64,62,60};		// Current scale
 int timi = 500000;					// Time for common use
 int synctime = 500000;					// Time for synchronization
 int BPM = 120;						// Beats per minute
-int FLASH = 0.9;					// Ratio time length for the metronome
-int length = 0.1;					// Ratio of time, end to begining of note
+/* Karl: changed ints to doubles */
+double FLASH = 0.9;					// Ratio time length for the metronome
+double length = 0.1;					// Ratio of time, end to begining of note
 int bar = 8;						// 8=1/8 note, 4=1/4 note
 
 // NONMENU
@@ -59,10 +60,11 @@ bool metroLed = false;					// Is the metronome lights on?
 int column = 0;						// What column is playing
 int modWatch = 0;					// Are we in Mod Watch
 int trellStatus = 1;					// Status changes allowed in Trellis
-int mod[8][8][16][8] = {0};				// Info on each note
-int status[16][8][8] = {0};				// Status note array
-int tStatus[16][8][8] = {0};				// temporary status used when trellStatus = 0
-int nowPlaying[8][8] = {0};				// For live mode
+/* Karl: the following fills the arrays with 0's more reliably */
+int mod[8][8][16][8] = {};				// Info on each note
+int status[16][8][8] = {};				// Status note array
+int tStatus[16][8][8] = {};				// temporary status used when trellStatus = 0
+int nowPlaying[8][8] = {};				// For live mode
 vector<double> tap;
 vector<double> period;
 
@@ -101,7 +103,7 @@ int custom[8] = {60,60,60,60,60,60,60,60};
 string p = "pass";
 string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},
 						{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p}};
-int cScale[];
+int cScale[] = {};
 bool renderLive = true;
 bool renderChan = true;
 
@@ -109,7 +111,7 @@ bool renderChan = true;
 static xmodMap xMod;
 static ymodMap yMod;
 static zmodMap zMod;
-static clickmap cMap
+static clickmap cMap;
 inline xmodMap & xmod(){				// Notkun: xmod().find(mapKey)->second(x)
 	xMod[0] = passer;
 	xMod[1] = notes;
@@ -136,7 +138,7 @@ inline clickmap & clickMap(){
 	for(int i=0;i<8;i++){
 		for(int j=0;j<5;j++){
 			temp = to_string(i)+to_string(j);
-			cMap[temp] = passer;
+            cMap[temp] = passer;
 		}
 	}
 	cMap["00"] = changNav1;
@@ -147,20 +149,20 @@ inline clickmap & clickMap(){
 }
 
 // Ugly stuff to to create Led show.
-int Leds[4][28]  = {0};
-int Leds1[4]  = {15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,
+int leds[4][28]  = {};
+int leds1[4]  = {15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,
 														0,0,0,0,0,0,0,0,0,0,0,0,0};
-int Leds2[12] = {10,11,14,24,25,34,38,39,29,49,52,
+int leds2[12] = {10,11,14,24,25,34,38,39,29,49,52,
 										53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-int Leds3[20] = {5,6,7,9,13,20,21,22,26,27,41,42,
+int leds3[20] = {5,6,7,9,13,20,21,22,26,27,41,42,
 								43,33,34,50,51,56,57,58,0,0,0,0,0,0,0,0};
-int Leds4[28] = {0,1,2,3,4,8,12,16,17,18,19,23,24,
+int leds4[28] = {0,1,2,3,4,8,12,16,17,18,19,23,24,
 								25,44,45,46,47,32,33,34,60,61,62,63,51,52,53};
 int ledsNum[4] = {4,12,20,28};
-for (int i=0;i<28;i++){ leds[0][i]=Leds1[i]; }
-for (int i=0;i<28;i++){ leds[1][i]=Leds2[i]; }
-for (int i=0;i<28;i++){ leds[2][i]=Leds3[i]; }
-for (int i=0;i<28;i++){ leds[3][i]=Leds4[i]; }
+for (int i=0;i<28;i++){ leds[0][i]=leds1[i]; }
+for (int i=0;i<28;i++){ leds[1][i]=leds2[i]; }
+for (int i=0;i<28;i++){ leds[2][i]=leds3[i]; }
+for (int i=0;i<28;i++){ leds[3][i]=leds4[i]; }
 
 
 #endif
