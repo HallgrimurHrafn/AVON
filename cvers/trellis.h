@@ -57,7 +57,8 @@ sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 	 PyObject *catcher = PyObject_GetAttrString(pModule,"catchOutErr");
 
 	 PyObject *output = PyObject_GetAttrString(catcher,"value");
-	 string out = PyString_AsString(output).resize(4);
+	 string out = PyString_AsString(output);
+	 out = out.resize(4);
 	//  if (out == "True ")
 	//  		return true;
 	//  else
