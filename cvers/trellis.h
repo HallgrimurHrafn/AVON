@@ -55,8 +55,8 @@ bool pythonCatch(char const* command){
 	 PyObject *catcher = PyObject_GetAttrString(pModule,"catchOut");
 
 	 PyObject *output = PyObject_GetAttrString(catcher,"value");
-	 string out = PyString_AsString(output));
-	 if (out == "True")
+	 string out = PyString_AsString(output);
+	 if (out == "False")
 	 		return true;
 	 else
 	 		return false;
