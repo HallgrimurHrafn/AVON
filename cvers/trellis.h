@@ -39,14 +39,15 @@ void writeDisplay(){
 
 bool pythonCatch(char const* command){
 	string stdOutErr =
-    "class CatchOut:\n\
-        def __init__(self):\n\
-           self.value = ''\n\
-        def write(self, txt):\n\
-           self.value += txt\n\
-     catchOut = CatchOut()\n\
-     sys.stdout = catchOut\n\
-     sys.stderr = catchOut\n"; //this is python code to redirect stdouts/stderr
+    "class CatchOutErr:\n\
+    def __init__(self):\n\
+        self.value = ''\n\
+    def write(self, txt):\n\
+        self.value += txt\n\
+catchOutErr = CatchOutErr()\n\
+sys.stdout = catchOutErr\n\
+sys.stderr = catchOutErr\n\
+"; //this is python code to redirect stdouts/stderr
 	 PyObject *pModule = PyImport_AddModule("__main__"); //create main module
 	 PyRun_SimpleString(stdOutErr.c_str()); //invoke code to redirect
 
