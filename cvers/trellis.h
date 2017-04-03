@@ -68,7 +68,7 @@ sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 }
 
 string readSwitches(){
-	pythonCatch("trellis.readSwitches()\n");
+	return pythonCatch("trellis.readSwitches()\n");
 }
 
 string justPressed(int i){
