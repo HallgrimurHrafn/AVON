@@ -3,18 +3,27 @@
 
 #include <stdio.h>
 
-#include "main.h"
+
 using namespace std;
 
 extern void passer(int);
 extern int nav[];
+extern void tempChange(int val, int x);
+extern void channelChange(int val);
+extern void liveChange();
+extern void cameraChange();
+extern void noteLengthChange(int value);
+extern void barChange();
+extern void scaleChange(int val, int x);
+extern void cameraMode(int val, int x);
+
 
 void fScrollMapY(int line, int column,int val)
 {
 	if(line == 0)
 	{
         if (column==0)
-			tempChange(val,1);
+            tempChange(val,1);
         else if (column==1)
 			channelChange(val);
         else if (column==3)
@@ -28,7 +37,7 @@ void fScrollMapY(int line, int column,int val)
 		else
 			passer(0);
 	}
-	elseif(line==1)
+    else if(line==1)
 	{
         if (column==0)
 			tempChange(val,100);

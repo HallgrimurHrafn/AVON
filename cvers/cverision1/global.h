@@ -41,7 +41,7 @@ bool seen = true;					// Does the camera see the object
 int camxyz[3] = {60,64,67};				// Coordinates of the object (x,y,z)
 int clear = 0;						// if 1 clear all notes
 int live = 0;						// if 1 live mode is on
-int pause = 0;						// should we pause?
+int paused = 0;						// should we pause?
 int stop = 0;						// time to stop?
 int newScale[8] = {72,71,69,67,65,64,62,60};		// Scale we are changing to
 int Scale[8] = {72,71,69,67,65,64,62,60};		// Current scale
@@ -51,7 +51,7 @@ int synctime = 500000;					// Time for synchronization
 
 /* Karl: changed ints to doubles */
 double FLASH = 0.9;					// Ratio time length for the metronome
-double length = 0.1;					// Ratio of time, end to begining of note
+double length = 1.0;					// Ratio of time, end to begining of note
 int bar = 8;						// 8=1/8 note, 4=1/4 note
 
 // NONMENU
@@ -59,8 +59,8 @@ Metro myMetro; // includes int getTempo(), void setTempo(int t), calcTempo(blabl
 
 auto tick = TIME::now();
 // myMetro.tapOK;					// Is the tap tempo active? formerly tapTempo
-int nextChannel = 0;					// What MIDI channel are we changing to
-int channel = 0;					// What is the current MIDI channel
+int nextChannel = 1;					// What MIDI channel are we changing to
+int channel = 1;					// What is the current MIDI channel
 bool metroLed = false;					// Is the metronome lights on?
 int column = 0;						// What column is playing
 int modWatch = 0;					// Are we in Mod Watch

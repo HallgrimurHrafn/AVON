@@ -21,6 +21,7 @@ void playColumn(int column);
 void usleep(int i);
 void NOTEON(int column, bool cd);
 void NOTEOFF(int column);
+void metronome(int column);
 
 
 // FROM main.py @@@@ Sequencer Part.
@@ -37,7 +38,7 @@ void Sequencer() {
 				}
 				column = i;
 				playColumn(column);
-				while (pause == 1) {
+                while (paused == 1) {
 					usleep(100000);
 
 					if (stop == 1)
@@ -47,7 +48,7 @@ void Sequencer() {
 					break;
 			}
 		}
-		while (pause == 1)
+        while (paused == 1)
 			usleep(100000);
 	}
 }
@@ -237,7 +238,7 @@ void livePlay()   // ????
 
 }
 
-void ChannelChange()
+void channelChange()
 {
 	if (nextChannel != channel)
 	{
@@ -305,10 +306,10 @@ void clearleds(){
 void PlayPause()
 {
 	cout << "playpause" << endl;
-	if (pause == 0)
-		pause = 1;
+    if (paused == 0)
+        paused = 1;
 	else
-		pause = 0;
+        paused = 0;
 }
 
 void stopper()
@@ -317,7 +318,7 @@ void stopper()
 	if (stop == 0)
 	{
 		stop = 1;
-		pause = 1;
+        paused = 1;
 		usleep(timi);
 		stop = 0;
 	}
@@ -542,7 +543,7 @@ void channelPrep(int val)
 	if(0<= nextChannel+val && nextChannel+val<=15)
 		{
 			nextChannel=nextChannel+val;
-            ChannelChange();
+            channelChange();
 			renderChan = true;
 			cout << channel << endl;
 		}
@@ -571,79 +572,79 @@ Class MainInteractions {
 void tempChange(int val,int x)
 {
     int BPM = Metro.getTempo();
-	if(60/float(BPM+val*x)/float(bar/4)>=0.05)
-	{
+    if(60/float(BPM+val*x)/float(bar/4)>=0.05)
+    {
         myMetro.tapOK = false;
-		usleep(10000);
+        usleep(10000);
         Metro.setTempo(BPM + val*x);
         myMetro.tapOK = true;
 
         &mrBarks.refreshTempo();
-	}
+    }
 }
 
 void liveChange()
 {
-	if(live==1)
-		live=0;
-	else
-		live=1;
-	renderLive = true;
-	multithread();
+    if(live==1)
+        live=0;
+    else
+        live=1;
+    renderLive = true;
+    multithread();
 
     &mrBarks.refreshMode();
 }
 
 void cameraChange()
 {
-	if(cam)
-		camOFF();
-	else
-		camON();
+    if(cam)
+        camOFF();
+    else
+        camON();
 
     mrBarks->refreshChan();
 }
 
 void camON()
 {
-	cam = true;
-	seen = true;
-	thread c1(vision);
-	c1.detach();
-	thread c2(cam);
-	c2.detach();
+    cam = true;
+    seen = true;
+    thread c1(vision);
+    c1.detach();
+    thread c2(cam);
+    c2.detach();
 }
 
 void camOFF()
 {
-	cam = false;
-	seen = false;
+    cam = false;
+    seen = false;
 }
 
 void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér.
 {
-	if(xyz==0)
-	{
+    if(xyz==0)
+    {
 
-	}
-	elseif(xyz==1)
-	{
+    }
+    elseif(xyz==1)
+    {
 
-	}
-	elseif(xyz==2)
-	{
+    }
+    elseif(xyz==2)
+    {
 
-	}
+    }
 }
 
 void noteLengthChange(int value)
 {
-	float val=-float(value)/20;
-	if(0<length+val && length+val<1)
-	{
-		length = length+val;
-		cout << length << endl;
-	}
+    float val=-float(value)/20;
+    if(0<length+val && length+val<1)
+    {
+        length = length+val;
+        cout << length << endl;
+    }
 
     &mrBarks.refreshLength();
 
@@ -651,43 +652,43 @@ void noteLengthChange(int value)
 
 void barChange(int val)
 {
-	float x = pow(2,val);
-	if(60/float(BPM)/float(x*bar/4)>=0.05)
-		bar=bar*x;
+    float x = pow(2,val);
+    if(60/float(BPM)/float(x*bar/4)>=0.05)
+        bar=bar*x;
 
     mrBarks->refreshStep();
 }
 
 void scaleChange(int val,int x)
 {
-	if(x==1)
-	{
-		if(0<= note+val && note+val <=127)
-		{
-			note += val;
+    if(x==1)
+    {
+        if(0<= note+val && note+val <=127)
+        {
+            note += val;
             cout << note << endl;
-		}
-	}
-	elseif(x==0)
-	{
-		currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));
-		// skoða með custom?
-		cout ...
-	}
-	if (currentScale != 3)
-	{
-		for(int i =0;i<8;i++)
-		{
-			newScale[i] = scales[currentScale][i];
-		}
-	}
+        }
+    }
+    elseif(x==0)
+    {
+        currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));
+        // skoða með custom?
+        cout ...
+    }
+    if (currentScale != 3)
+    {
+        for(int i =0;i<8;i++)
+        {
+            newScale[i] = scales[currentScale][i];
+        }
+    }
 }
 
 void customScale(int val,int i)
 {
-	if(0<= custom[i]+val && custom[i]+val<=127)
-	{
-		custom[i] += int(val);
+    if(0<= custom[i]+val && custom[i]+val<=127)
+    {
+        custom[i] += int(val);
         // new skali copy
     }
 }
@@ -702,10 +703,10 @@ void vision()
 
 void cam()
 {
-	while(cam)
-	{
+    while(cam)
+    {
 
-	}
+    }
 }
 
 
@@ -732,10 +733,5 @@ void initialize()
 /////////////// End of methods that trigger UI changes! //////////////
 //////////////////////////////////////////////////////////////////////
 
-
-<<<<<<< HEAD
 #endif
-=======
 
-#endif
->>>>>>> origin/master
