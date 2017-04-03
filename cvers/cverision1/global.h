@@ -6,6 +6,7 @@
 #include <string.h> // Karl: sting -> string.h
 #include <chrono>
 #include <vector>
+#include "metro.h"
 
 using namespace std;
 
@@ -45,7 +46,8 @@ int newScale[8] = {72,71,69,67,65,64,62,60};		// Scale we are changing to
 int Scale[8] = {72,71,69,67,65,64,62,60};		// Current scale
 int timi = 500000;					// Time for common use
 int synctime = 500000;					// Time for synchronization
-int BPM = 120;						// Beats per minute
+
+
 /* Karl: changed ints to doubles */
 double FLASH = 0.9;					// Ratio time length for the metronome
 double length = 0.1;					// Ratio of time, end to begining of note
@@ -65,8 +67,7 @@ int mod[8][8][16][8] = {};				// Info on each note
 int status[16][8][8] = {};				// Status note array
 int tStatus[16][8][8] = {};				// temporary status used when trellStatus = 0
 int nowPlaying[8][8] = {};				// For live mode
-vector<double> tap;
-vector<double> period;
+
 
 // These are from other .py files
 

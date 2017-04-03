@@ -6,6 +6,10 @@
 #include <math.h>
 #include <stdlib.h>
 #include "scrollMap.h"
+#include "avonwidget.h"
+#include "metro.h" // tempo operations and status
+
+Metro myMetro = new Metro(); // includes int getTempo(), void setTempo(int t), calcTempo(blabla);
 
 /* Karl: put some prototypes here to fix "undeclared identifier"
  * complaints. need midime().
@@ -317,47 +321,6 @@ void stopper()
 }
 
 
-void calcBPM(vector<double> tap, vector<double> period)
-{
-	// þarf að tala við Mr.Karl;
-	high_resolution_clock::TIME currentTime = high_resolution_clock::now();
-
-	tap.push_back(currentTime);
-	int tapCount = period.size();
-	double avgPeriod = 0;
-	if(tapCount==1)
-		return;
-	elseif ((tap.end()-(tap.end()-1))>=3 || (tap.end()-(tap.end()-1))<=0.2)
-	{
-		tap.erase(period.begin(),period.end()-1);
-		return;
-	}
-
-	elseif(tapCount==2)
-	{
-		period.push_back(tap.end()-(tap.end()-1));
-		return;
-	}
-	period.push_back(tap.end()-(tap.end()-1));
-
-	if(tapCount==3)
-		avgPeriod = (period.end()+(period.end()-1))/2;
-	elseif (tapCount==4)
-		avgPeriod = (period.end()+(period.end()-1)+(period.end()-2))/3;
-	else
-		avgPeriod = (period.end()+(period.end()-1)+2*(period.end()-2))/4;
-
-	BPM = round(60/avgPeriod);
-	return;
-}
-
-void callbackTap()
-{
-	if(tapTempo==0)
-		return;
-	calcBPM(tap,period);
-	cout << "BPM: " << BPM << endl;
-}
 
 // FROM Rotary.py @@@@ The Rotary solution.
 void Rotary(int RotaryNum, int leftPin, int rightPin){
@@ -582,12 +545,15 @@ void channelPrep(int val)
 
 void tempChange(int val,int x)
 {
+    int BPM = Metro.getTempo();
 	if(60/float(BPM+val*x)/float(bar/4)>=0.05)
 	{
 		tapTempo = 0;
 		usleep(10000);
-		BPM += val*x;
+        Metro.setTempo(BPM + val*x);
 		tapTempo = 1;
+
+
 	}
 }
 
