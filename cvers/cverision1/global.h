@@ -100,9 +100,9 @@ int editScale = 0;					// edit scale, 1 for custom scale 1, 2 for custom 2 etc..
 int note = 60;						// deafult note
 int currentScale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
 string pass("pass");
-vector <vector<int>> scales({{note+12,note+11,note+9,note+7,note+5,note+4,note+2,note},
-                            {note+12,note+10,note+8,note+7,note+5,note+3,note+2,note},
-                            {note+17,note+15,note+12,note+10,note+7,note+5,note+3,note}});		// scales.resize(scales.size()+1,vector<int>(8))
+vector <vector<int>> scales({{12,11,9,7,5,4,2,0},
+                            {12,10,8,7,5,3,2,0},
+                            {17,15,12,10,7,5,3,0}});		// scales.resize(scales.size()+1,vector<int>(8))
 int custom[8] = {60,60,60,60,60,60,60,60};
 string p = "pass";
 string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},

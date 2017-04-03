@@ -748,7 +748,7 @@ void vision()
 
 void cam()
 {
-	while(camera()[0] == 1)
+	while(cam)
 	{
 		ms t = chrono::duration_cast<ms>(fabs(TIME:now()-tick));
 		if(timi-t>=0)
@@ -760,7 +760,7 @@ void cam()
 			auto t = TIME::now();
 			if(!cam)
 				return;
-			if(seen)
+			if(camera()[0]==1) 
 			{
 				if(cursorxyz[0]==1 & i==0)
 				{
