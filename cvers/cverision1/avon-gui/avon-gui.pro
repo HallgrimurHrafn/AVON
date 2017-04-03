@@ -24,14 +24,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp \
-    avonwidget.cpp
+    avonwidget.cpp \
+    ../metro.cpp
 
 HEADERS  += \
     ../changNav.h \
     ../global.h \
     ../main.h \
     ../scrollMap.h \
-    avonwidget.h
+    avonwidget.h \
+    ../metro.h
 
 FORMS    += avonwidget.ui
 

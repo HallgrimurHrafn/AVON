@@ -1,5 +1,5 @@
 #ifndef SCROLLMAP_H
-#def SCROLLMAP_H
+#define SCROLLMAP_H
 
 #include <stdio.h>
 using namespace std;
