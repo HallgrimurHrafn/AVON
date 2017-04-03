@@ -12,18 +12,6 @@
 
 
 
-
-
-/* Karl: put some prototypes here to fix "undeclared identifier"
- * complaints. need midime().
- */
-void playColumn(int column);
-void usleep(int i);
-void NOTEON(int column, bool cd);
-void NOTEOFF(int column);
-void metronome(int column);
-
-
 // FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
 	for(;;)
@@ -239,15 +227,15 @@ void sequencerPlay()
 					status[i][j%8][j/8] = tStatus[i][j%8][j/8];
 				}
 			}
-			usleep(15000); // attempt to imrpove response time
-			trellis.readSwitches(); // attempt to imrpove response time
+			usleep(15000); // attempt to improve response time
+			trellis.readSwitches(); // attempt to improve response time
 		} else {
-			usleep(15000); // attempt to imrpove response time
-			trellis.readSwitches(); // attempt to imrpove response time
+			usleep(15000); // attempt to improve response time
+			trellis.readSwitches(); // attempt to improve response time
 			sequencerPlay(); // not allowed to update status. cant wait since
 			// we could get a data hazard if multiple notes were pressed. for the price
 			// of some performance we cann rerun the function to update it. This should
-			// prevent the data hazard and possible imrpove response time as well.
+			// prevent the data hazard and possible improve response time as well.
 		}
 	}
 }
