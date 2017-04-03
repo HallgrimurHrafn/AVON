@@ -57,14 +57,12 @@ sys.stderr = catchOutErr\n"; //this is python code to redirect stdouts/stderr
 	 PyObject *catcher = PyObject_GetAttrString(pModule,"catchOutErr");
 
 	 PyObject *output = PyObject_GetAttrString(catcher,"value");
-	 cout<< "test1" << endl;
 	 string out = PyString_AsString(output);
-	 cout << "test2" <<endl;
 	//  if (out == "True")
 	//  		return true;
 	//  else
 	//  		return false;
-	 return out;
+	 return out.resize(4);
 }
 
 string readSwitches(){
