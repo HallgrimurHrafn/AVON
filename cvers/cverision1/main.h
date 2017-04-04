@@ -552,9 +552,7 @@ void moveUp()
 	oldNav[nav[1]] = 0;
 	// Update navigation depth.
 	if (nav[1] == 3)
-	{
-		createSetup();
-	}
+		addScale();
 	else
 		nav[1] = 0;
 	// Get old navigation for the new depth.
@@ -576,7 +574,7 @@ void channelPrep(int val)
 	if(0<= nextChannel+val && nextChannel+val<=15)
 		{
 			nextChannel=nextChannel+val;
-            channelChange();
+      channelChange();
 			renderChan = true;
 			cout << channel << endl;
 		}
@@ -701,8 +699,7 @@ void scaleChange(int val,int x)
     }
     else if(x==0)
     {
-        currentScale = (currentScale+val)%(Scales.size());
-
+	      currentScale = (currentScale+val)%(Scales.size());
     }
     if (currentScale != scales.size())
     {
@@ -717,11 +714,12 @@ void modScale(int val,int i)
         custom[i] += val; // new skali copy
 }
 
-void createSetup()
+void createScale()
 {
 	if(currentScale>2)
 	{
-		nav[1] = 2;
+		oldNav[nav[1]] = nav[0];
+		nav[] = {0,3};
 		for(int i=0; i<8; i++)
 			custom[i]=0;
 	}
