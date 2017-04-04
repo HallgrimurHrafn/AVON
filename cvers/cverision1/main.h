@@ -565,8 +565,8 @@ void moveUp()
 void Map(int RotaryNum, int val)
 {
 	if(RotaryNum==0)
-        fScrollMapX(nav[1],nav[0],val);
-	elseif(RotaryNum==1)
+    fScrollMapX(nav[1],nav[0],val);
+	else if(RotaryNum==1)
 		fScrollMapY(nav[1],nav[0],val);
 }
 
@@ -658,11 +658,11 @@ void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér. µµµµ
     {
 
     }
-    elseif(xyz==1)
+    else if(xyz==1)
     {
 
     }
-    elseif(xyz==2)
+    else if(xyz==2)
     {
 
     }
