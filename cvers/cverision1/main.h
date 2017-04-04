@@ -645,7 +645,7 @@ void camON()
 {
     cam = true;
     seen = true;
-    thread c2(cam);
+    thread c2(camFunc);
     c2.detach();
 }
 
