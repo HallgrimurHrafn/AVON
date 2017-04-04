@@ -14,7 +14,7 @@ extern void liveChange();
 extern void cameraChange();
 extern void noteLengthChange(int value);
 extern void barChange();
-extern void scaleChange(int val, int x);
+extern void changeScale(int val, int x);
 extern void cameraMode(int val, int x);
 
 MainInteractions mainy;
@@ -51,7 +51,7 @@ void fScrollMapY(int row, int column,int val)
     else if  (row==2)
 	{
         if (column<2)
-			scaleChange(val,1-column);
+			changeScale(val,1-column);
 		else
 			passer(0);
 	}

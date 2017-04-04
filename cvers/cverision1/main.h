@@ -8,6 +8,7 @@
 #include "scrollMap.h"
 #include "avonwidget.h"
 #include "metro.h" // tempo operations and status
+#include "metro.cpp" // tempo operations and status
 #include "midime.h"
 #include "trellis.h"
 
@@ -687,7 +688,7 @@ void barChange(int val)
     mrBarks->refreshStep();
 }
 
-void scaleChange(int val,int x)
+void changeScale(int val,int x)
 {
     if(x==1)
     {
