@@ -92,7 +92,7 @@ void NOTEOFF(int column)
 void metronome(int column) // vantar info um trellis
 {
 	metroLed = true;
-	for(int i =0; i<8; 1++)
+	for(int i =0; i<8; i++)
 		setLED(invTrellisTransf(i * 8 + column));
 	writeDisplay();
 	usleep(FLASH*timi);
@@ -142,7 +142,7 @@ int invTrellisTransf(int a)  // Our format to Trellis format
   	      if (f == 2)
 	          b = 32 + 4 * l + d;
           else
-              b = 40 + d + 4 * l;
+            b = 40 + d + 4 * l;
 		}
 	}
 	else
@@ -207,11 +207,11 @@ void sequencerWatch()
 				int y = TrellisTransf(i);  // transform key to our format.
 				if (tStatus[channel][y%8][y/8] == 0) { // if key was off
 					tStatus[channel][y%8][y/8] = 1; // turn it on
-					setLED(x); // also turn on the LED.
+					setLED(i); // also turn on the LED.
 				}
 				else {
 					tStatus[channel][y%8][y/8] = 0; // turn it off
-					clrLED(x); // and turn of the LED
+					clrLED(i); // and turn of the LED
 				}
 				readSwitches(); // an attempt to improve response time.
 			}
