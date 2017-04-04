@@ -740,10 +740,13 @@ void createSetup()
 
 void addScale()
 {
-	scales.resize(scales.size()+1,vector<int>(8));		// Resize the scale vector
-	for(int i=0;i<8:i++)
+	if (currentScale == 3)
 	{
-		scales[scales.size()-1][i] = custom[i];
+		scales.resize(scales.size()+1,vector<int>(8));		// Resize the scale vector
+		for(int i=0;i<8:i++)
+		{
+			scales[scales.size()-1][i] = custom[i];
+		}
 	}
 }
 
