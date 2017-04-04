@@ -48,7 +48,7 @@ extern void changeScale(int,int);
 extern void modScale(int ,int);
 extern void createScale();
 extern void addScale();
-extern void cam();
+extern void camFunc();
 extern void opperate(int);
 extern void notes(int);
 extern void bPitch(int);
