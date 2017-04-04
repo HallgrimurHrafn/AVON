@@ -96,7 +96,6 @@ int oldNav[5] = {0,0,0,0,0};		// Old Navigation state (MEIRA INFO HALLI?)
 int cursorxyz[3] = {0,0,0};			// Cursor {x,y,z}
 int stat = 1;						// Status?
 
-int editScale = 0;					// edit scale, 1 for custom scale 1, 2 for custom 2 etc...
 int note = 60;						// deafult note
 int currentscale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
 string pass("pass");
