@@ -12,6 +12,7 @@
 #include "midime.h"
 #include "trellis.h"
 #include "scopeFix.h"
+#include <wiringPi.h>
 
 
 
@@ -265,10 +266,10 @@ void livePlay()
 			for(int i=0; i<64; i++) { // iterate through all keys
 				int y = TrellisTransf(i); // transform into our system.
 				if (justPressed(i)){ // was this key just pressed?
-					midime(144+channel, scale[y/8], 100); // send out note.
+					midime(144+channel, Scale[y/8], 100); // send out note.
 					setLED(i); // turn on led
 				} else if (justReleased(i)) { // was this key just released?
-					midime(128+channel, scale[y/8], 0); // stop note..
+					midime(128+channel, Scale[y/8], 0); // stop note..
 					clrLED(i); // turn off led
 				}
 			}
@@ -293,7 +294,7 @@ void channelChange()
   	channel=nextChannel;
 		for (int x=0; x<64; x++)
 		{
-			y = TrellisTransf(x);
+			int y = TrellisTransf(x);
 			if (status[channel][y % 8][y / 8] == 1)
 				setLED(x);
 		}
