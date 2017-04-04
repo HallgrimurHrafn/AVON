@@ -21,7 +21,7 @@ void Sequencer() {
 		{
 			for(int i = 0; i<8; i++)
 			{
-                timi = (15000000/myMetro.getTempo())/bar;
+        timi = (15000000/myMetro.getTempo())/bar;
 				for(int j=0; j<8; j++){
     				Scale[j] = newScale[j];
 				}
