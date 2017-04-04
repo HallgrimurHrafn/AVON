@@ -93,7 +93,7 @@ auto Rotary2Bounce = TIME::now();
 int nav[2] = {0,0};					// Current Navigation state for the menu {x,y}
 int oldNav[5] = {0,0,0,0,0};		// Old Navigation state (MEIRA INFO HALLI?)
 int cursorxyz[3] = {0,0,0};			// Cursor {x,y,z}
-int stat = 1;						// Status?
+// int stat = 1;						// Status?
 
 int note = 60;						// deafult note
 int currentscale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom

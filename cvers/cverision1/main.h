@@ -130,8 +130,8 @@ int TrellisTransf(int a) // Trellis format to our format
 int invTrellisTransf(int a)  // Our format to Trellis format
 {
 	int f = a / 16;
-  	int d = (a % 16) % 8;
-  	int l = (a % 16) / 8;
+	int d = (a % 16) % 8;
+	int l = (a % 16) / 8;
 	int b;
   	if (d < 4)
 		{
@@ -152,7 +152,7 @@ int invTrellisTransf(int a)  // Our format to Trellis format
       else
           b = 16 * (f + 1) + d - 4 * (3 - l) + 8;
 	}
-  	return b
+  	return b;
 }
 
 
@@ -251,7 +251,7 @@ void liveSet()
 	}
 	// Setting the status of this channel to 0 to prevent sequencer from playing it.
   for (int i=0; i<64; i++)
-     status[channel][i % 8][i / 8] = 0
+     status[channel][i % 8][i / 8] = 0;
 	 // Creating an empty 8x8 matrix for ledshow.
 	int matrix[8][8] = {0};
   ledshow(matrix);
