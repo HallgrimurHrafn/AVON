@@ -1,26 +1,5 @@
-main.h: In function ‘void camFunc()’:
-main.h:766:14: error: ‘camera’ was not declared in this scope
-    if(camera()[0]==1)
-              ^
-main.h: In function ‘void opperate(int)’:
-main.h:820:44: error: ‘camera’ was not declared in this scope
-   xmod().find(cursorxyz[0])->second(camera()[1]);
-                                            ^
-main.h:822:44: error: ‘camera’ was not declared in this scope
-   ymod().find(cursorxyz[1])->second(camera()[2]);
-                                            ^
-main.h:824:44: error: ‘camera’ was not declared in this scope
-   zmod().find(cursorxyz[2])->second(camera()[3]);
-                                            ^
-In file included from /usr/include/c++/4.9/thread:39:0,
-                 from main.h:5,
-                 from Sequencer.cpp:1:
-/usr/include/c++/4.9/functional: In instantiation of ‘struct std::_Bind_simple<bool()>’:
-/usr/include/c++/4.9/thread:140:47:   required from ‘std::thread::thread(_Callable&&, _Args&& ...) [with _Callable = bool&; _Args = {}]’
-main.h:649:18:   required from here
-/usr/include/c++/4.9/functional:1665:61: error: no type named ‘type’ in ‘class std::result_of<bool()>’
-       typedef typename result_of<_Callable(_Args...)>::type result_type;
-                                                             ^
-/usr/include/c++/4.9/functional:1695:9: error: no type named ‘type’ in ‘class std::result_of<bool()>’
-         _M_invoke(_Index_tuple<_Indices...>)
-         ^
+/tmp/ccsm46YZ.o: In function `clickMap()':
+Sequencer.cpp:(.text._Z8clickMapv[_Z8clickMapv]+0x340): undefined reference to `changNav1()'
+Sequencer.cpp:(.text._Z8clickMapv[_Z8clickMapv]+0x348): undefined reference to `changNav2()'
+Sequencer.cpp:(.text._Z8clickMapv[_Z8clickMapv]+0x350): undefined reference to `changNav4()'
+collect2: error: ld returned 1 exit status
