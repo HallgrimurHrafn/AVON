@@ -25,7 +25,7 @@ void fScrollMapY(int row, int column,int val)
         if (column==0)
       tempoChange(val,1);
         else if (column==1)
-			channelChange(val);
+			channelPrep(val);
         else if (column==3)
 			liveChange();
         else if (column==4)
