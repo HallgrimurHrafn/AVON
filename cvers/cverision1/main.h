@@ -10,7 +10,6 @@
 #include "metro.h" // tempo operations and status
 #include "metro.cpp" // tempo operations and status
 #include <wiringPi.h>
-wiringPiSetupGpio ();
 #include "midime.h"
 #include "trellis.h"
 #include "scopeFix.h"
@@ -706,7 +705,7 @@ void changeScale(int val,int x)
     }
     else if(x==0)
     {
-	      currentScale = (currentScale+val)%(Scale.size());
+	      currentScale = (currentScale+val)%(scales.size());
     }
     if (currentScale != scales.size())
     {

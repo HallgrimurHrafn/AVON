@@ -1,12 +1,7 @@
 In file included from Sequencer.cpp:1:0:
 main.h:13:21: error: expected constructor, destructor, or type conversion before ‘;’ token
  wiringPiSetupGpio ();
-                     ^
-In file included from Sequencer.cpp:1:0:
-main.h: In function ‘void changeScale(int, int)’:
-main.h:709:49: error: request for member ‘size’ in ‘Scale’, which is of non-class type ‘int [8]’
-        currentScale = (currentScale+val)%(Scale.size());
-                                                 ^
+ 
 main.h: In function ‘void camFunc()’:
 main.h:766:14: error: ‘camera’ was not declared in this scope
     if(camera()[0]==1)

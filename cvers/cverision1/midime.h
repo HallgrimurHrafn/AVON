@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// int wiringPiSetupGpio(void);
+int wiringPiSetupGpio(void);
 
 int inRange(int value,int min, int max)
 {
