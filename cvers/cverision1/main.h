@@ -9,6 +9,7 @@
 #include "avonwidget.h"
 #include "metro.h" // tempo operations and status
 #include "midime.h"
+#include "trellis.h"
 
 
 
@@ -66,14 +67,13 @@ void NOTEON(int column, bool cd)
 		}
 	}
 	trellStatus = 1;
-	mcGo = 1;
+	modWatch = 1;
 	metronome(column);
 }
 
 void NOTEOFF(int column)
 {
 	trellStatus = 0;
-	mcGo =0; //!!!!
 	for(int i = 0; i < 8;i++)
 	{
 		for(int j = 0; j < 16; j++)
@@ -82,6 +82,7 @@ void NOTEOFF(int column)
 				midime(128+j,Scale[i],100);
 		}
 	}
+	modWatch =0;
 	trellStatus = 1;
 }
 
@@ -155,9 +156,6 @@ int invTrellisTransf(int a)  // Our format to Trellis format
 // FROM Main.py @@@@ Setting up trellis events.
 void trellisEventSetup()
 {
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// GPIO.remove_event_detect(4)
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	usleep(15000);
 	if (live == 1)
 	{
@@ -200,27 +198,21 @@ void sequencerSet()
 void sequencerWatch()
 {
 	usleep(15000);  // requirement for trellis to process the change.
-	!!!!!!!!!!!!!!!!!!!!
 	if (readSwitches()) { // was a key pressed?
 		for (int i=0; i<64; i++) { // for all keys in trellis.
-			!!!!!!!!!!!!!!!!!!!
 			if (justPressed(i)) { // was this exact key pressed?
 				int y = TrellisTransf(i);  // transform key to our format.
 				if (tStatus[channel][y%8][y/8] == 0) { // if key was off
 					tStatus[channel][y%8][y/8] = 1; // turn it on
-					!!!!!!!!!!!!!!!!!!!!
 					setLED(x); // also turn on the LED.
-				} 
+				}
 				else {
 					tStatus[channel][y%8][y/8] = 0; // turn it off
-					!!!!!!!!!!!!!!!!!!!!!!!!!
 					clrLED(x); // and turn of the LED
 				}
-				!!!!!!!!!!!!!!!!!!!!!!!!!
 				readSwitches(); // an attempt to improve response time.
 			}
 		}
-		!!!!!!!!!!!!!!!!!!!!!
 		writeDisplay(); // update the LEDs on trellis.
 		if (trellStatus == 1) { // are we allowed to update status.
 			for (int i=0; i<16; i++) { // setting status=tStatus for values not pointers.
@@ -230,7 +222,7 @@ void sequencerWatch()
 			}
 			usleep(15000); // attempt to improve response time
 			readSwitches(); // attempt to improve response time
-		} 
+		}
 		else {
 			usleep(15000); // attempt to improve response time
 			readSwitches(); // attempt to improve response time
@@ -266,22 +258,17 @@ void livePlay()   // ????
 {
 	if (live == 1) { // are we in livemode.
 		usleep(30000); // required to allow trellis to process information.
-		!!!!!!!!!!!!!!!!!!!!!!!!
 		if (readSwitches())	{ // update trellis info, was a key pressed?
 			for(int i=0; i<64; i++) { // iterate through all keys
 				int y = TrellisTransf(i); // transform into our system.
-				!!!!!!!!!!!!!!!!!!!!!!!!1
 				if (justPressed(i)){ // was this key just pressed?
 					midime(144+channel, scale[y/8], 100); // send out note.
-					!!!!!!!!!!!!!!!!!
-					trellis.setLED(i); // turn on led
+					setLED(i); // turn on led
 				} else if (justReleased(i)) { // was this key just released?
 					midime(128+channel, scale[y/8], 0); // stop note..
-					!!!!!!!!!!!!!!!!!!!!!!!!
 					clrLED(i); // turn off led
 				}
 			}
-			!!!!!!!!!!!!!!!!!!!!!!!!!
 			writeDisplay(); // update LEDS
 		}
 	}
@@ -297,7 +284,6 @@ void channelChange()
 		// turning on leds for metronome if currently flashing.
     if (metroLed){
 			for(int i=0; i<8; i++)
-				!!!!!!!!!!!!!!!!!!!!!!!!!!
 				setLED(invTrellisTransf(i * 8 + column));
         }
 		// updating channel and turning on corresponding leds.
@@ -306,11 +292,9 @@ void channelChange()
 		{
 			y = TrellisTransf(x);
 			if (status[channel][y % 8][y / 8] == 1)
-				!!!!!!!!!!!!!!!
 				setLED(x);
 		}
 		// update the board.
-		!!!!!!!!!!!!!!!!!!!!!!
   	writeDisplay();
 	}
 }
@@ -324,7 +308,6 @@ void ledshow(int matrix[][8])
 		if (i<4)
 		{
 			for(int j = 0; j<ledsNum[i];j++)
-			!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				setLED(leds[i][j]);
 		}
 		if (i>1)
@@ -339,17 +322,15 @@ void ledHelp(int x, int matrix[][8])
 {
 	int y = TrellisTransf(x);
   if (matrix[y % 8][y / 8] ==0)
-  		clrLED(x); !!!!!!!!!!!!!!!!!!!!
+  		clrLED(x);
 }
 
 
 
 void clearLeds(){
 	for(int i = 0; i<64; i++)
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		clrLED(i);
 	writeDisplay();
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 // FROM Main.py @@@@ Button related Functions.
@@ -722,7 +703,7 @@ void scaleChange(int val,int x)
     elseif(x==0)
     {
         currentScale = (currentScale+val)%(Scales.size());
-        
+
     }
     if (currentScale != 3)
     {
@@ -750,7 +731,7 @@ void customSetup()
 		nav[1] = 3;		// fer eftir röð
 		oldnav2 = navx;	// vantar meira info um oldnav
 		nav[0] = 0;
-		if(editScale>0)	
+		if(editScale>0)
 		{
 
 		}
