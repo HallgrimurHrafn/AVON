@@ -26,9 +26,9 @@ extern void FscorllMapY(int,int);
 extern void notes(int);
 extern void bPitch(int);
 extern void modWheel(int);
-extern void changNav1();
-extern void changNav2();
-extern void changNav4();
+extern void changNav1(int);
+extern void changNav2(int);
+extern void changNav4(int);
 extern void createScale();
 void passer(int){cout<<"pass"<<endl;};
 void passer2(){cout<<"pass"<<endl;}; // skritin hegdun i c++ fyrir tetta.
