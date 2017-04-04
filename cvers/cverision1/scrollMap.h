@@ -51,7 +51,7 @@ void fScrollMapY(int row, int column,int val)
     else if  (row==2)
 	{
         if (column<2)
-			scaleChange(val,column%1);
+			scaleChange(val,1-column);
 		else
 			passer(0);
 	}
