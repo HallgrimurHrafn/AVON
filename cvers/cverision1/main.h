@@ -483,9 +483,9 @@ void callbackTapPrep()
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
 	if(timeDifferenceMs> hundradms)
 	{
-     thread TapThread(myMetro.callbackTap());
-	 TapThread.detach();
-	 tapBounce = tock;
+  	thread TapThread(myMetro.callbackTap());
+	 	TapThread.detach();
+	 	tapBounce = tock;
 	}
 }
 
@@ -553,8 +553,7 @@ void moveUp()
 	// Update navigation depth.
 	if (nav[1] == 3)
 	{
-		createNewScale();
-  	nav[1] = 2;
+		createSetup();
 	}
 	else
 		nav[1] = 0;
@@ -705,54 +704,40 @@ void scaleChange(int val,int x)
         currentScale = (currentScale+val)%(Scales.size());
 
     }
-    if (currentScale != 3)
+    if (currentScale != scales.size())
     {
         for(int i =0;i<8;i++)
-        {
-            newScale[i] = scales[currentScale][i]+note;
-        }
+          newScale[i] = scales[currentScale][i]+note;
     }
 }
 
 void modScale(int val,int i)
 {
     if(0<= custom[i]+val+note && custom[i]+val+note<=127)
-    {
-        custom[i] += int(val);
-        // new skali copy
-    }
+        custom[i] += val; // new skali copy
 }
 
 void createSetup()
 {
 	if(currentScale>2)
 	{
-		editScale = currentScale-3;
-		nav[1] = 3;		// fer eftir röð
-		oldnav2 = navx;	// vantar meira info um oldnav
-		nav[0] = 0;
-		if(editScale>0)
-		{
-
-		}
+		nav[1] = 2;
+		for(int i=0; i<8; i++)
+			custom[i]=0;
 	}
 }
 
 void addScale()
 {
-	if (currentScale == 3)
+	if (currentScale == scales.size())
 	{
 		scales.resize(scales.size()+1,vector<int>(8));		// Resize the scale vector
 		for(int i=0;i<8:i++)
-		{
 			scales[scales.size()-1][i] = custom[i];
-		}
 	}
 	else if (currentScale > 3){
 		for(int i=0;i<8:i++)
-		{
 			scales[currentScale-1][i] = custom[i];
-		}
 	}
 }
 
