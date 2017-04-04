@@ -98,7 +98,7 @@ int stat = 1;						// Status?
 
 int editScale = 0;					// edit scale, 1 for custom scale 1, 2 for custom 2 etc...
 int note = 60;						// deafult note
-int currentScale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
+int currentscale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
 string pass("pass");
 vector <vector<int>> scales({{12,11,9,7,5,4,2,0},
                             {12,10,8,7,5,3,2,0},
