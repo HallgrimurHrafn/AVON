@@ -399,7 +399,7 @@ void Rotary(int RotaryNum, int leftPin, int rightPin){
 // FROM ALLOVER @@@@ GPIO INTERRUPT SYSTEM.
 void Interruption()
 {
-	wiringPiSetupGpio ();
+	// wiringPiSetupGpio ();
 
 	pinMode(4, INPUT); // Trellis
 	pinMode(20, INPUT); // STOP
@@ -487,7 +487,7 @@ void callbackTapPrep()
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
 	if(timeDifferenceMs> hundradms)
 	{
-  	thread TapThread(myMetro.callbackTap());
+  	thread TapThread(myMetro.callbackTap);
 	 	TapThread.detach();
 	 	tapBounce = tock;
 	}
@@ -611,7 +611,7 @@ void tempoChange(int val,int x)
     {
         myMetro.tapOK = false;
         usleep(10000);
-        Metro.setTempo(BPM + val*x);
+        myMetro.setTempo(BPM + val*x);
         myMetro.tapOK = true;
 
         // &mrBarks.refreshTempo();
@@ -641,8 +641,6 @@ void camON()
 {
     cam = true;
     seen = true;
-    thread c1(vision);
-    c1.detach();
     thread c2(cam);
     c2.detach();
 }
@@ -703,7 +701,7 @@ void changeScale(int val,int x)
     }
     else if(x==0)
     {
-	      currentScale = (currentScale+val)%(Scales.size());
+	      currentScale = (currentScale+val)%(Scale.size());
     }
     if (currentScale != scales.size())
     {
@@ -723,7 +721,8 @@ void createScale()
 	if(currentScale>2)
 	{
 		oldNav[nav[1]] = nav[0];
-		nav[] = {0,3};
+		nav[0] = 0 ;
+		nav[1] = 3;
 		for(int i=0; i<8; i++)
 			custom[i]=0;
 	}
@@ -734,11 +733,11 @@ void addScale()
 	if (currentScale == scales.size())
 	{
 		scales.resize(scales.size()+1,vector<int>(8));		// Resize the scale vector
-		for(int i=0;i<8:i++)
+		for(int i=0;i<8; i++)
 			scales[scales.size()-1][i] = custom[i];
 	}
 	else if (currentScale > 3){
-		for(int i=0;i<8:i++)
+		for(int i=0;i<8;i++)
 			scales[currentScale-1][i] = custom[i];
 	}
 }
@@ -749,11 +748,11 @@ void camFunc()
 {
 	while(cam)
 	{
-		ms t = chrono::duration_cast<ms>(fabs(TIME:now()-tick));
-		if(timi-t>=0)
-			usleep(timi-t);
+		ms t = chrono::duration_cast<ms>(fabs(TIME::now()-tick));
+		if(timi-t.count()>=0)
+			usleep(timi-t.count());
 		else
-			usleep(t-timi);
+			usleep(t.count()-timi);
 		for(int i = 0;i<8;i++)
 		{
 			auto t = TIME::now();
@@ -782,7 +781,7 @@ void camFunc()
 				}
  				else
  				{
- 					if(cursorxyz!=1)
+ 					if(cursorxyz[1]!=1)
  					{
  						int mapKey = cursorxyz[1];
  						ymod().find(mapKey)->second(cursorxyz[0]);
@@ -795,16 +794,16 @@ void camFunc()
  				}
  				else
  				{
- 					if(cursorxyz!=1)
+ 					if(cursorxyz[2]!=1)
  					{
  						int mapKey = cursorxyz[2];
  						zmod().find(mapKey)->second(cursorxyz[0]);
  					}
+					else
+						passer(0);
  				}
- 				else
- 					passer(0);
  				if(i!=7)
- 					usleep(timi/8+chrono::duration_cast<ms>(TIME:now()-t));
+ 					usleep(timi/8+(chrono::duration_cast<ms>(TIME:now()-t).count()));
  			}
 		}
 	}

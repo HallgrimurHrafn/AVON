@@ -30,7 +30,8 @@ extern void changNav1();
 extern void changNav2();
 extern void changNav4();
 extern void createScale();
-void passer(){cout<<"pass"<<endl;};
+void passer(int){cout<<"pass"<<endl;};
+void passer2(){cout<<"pass"<<endl;}; // skritin hegdun i c++ fyrir tetta.
 // here are all global variables defined. This file has to be included to be able to use all global variables.
 // To start they will be split into menu and non menu, just so they can be easily found.
 // These come from main.py
@@ -141,7 +142,7 @@ inline clickmap & clickMap(){
 	for(int i=0;i<8;i++){
 		for(int j=0;j<5;j++){
 			temp = to_string(i)+to_string(j);
-      cMap[temp] = passer;
+      cMap[temp] = passer2;
 		}
 	}
 	cMap["00"] = changNav1;
