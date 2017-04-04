@@ -13,6 +13,7 @@
 #include "trellis.h"
 
 
+void metronome(int);
 
 // FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
