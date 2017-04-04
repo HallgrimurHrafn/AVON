@@ -51,13 +51,13 @@ void fScrollMapY(int row, int column,int val)
     else if  (row==2)
 	{
         if (column<2)
-			changeScale(val,1-column);
+			modScale(val,1-column);
 		else
 			passer(0);
 	}
     else if  (row==3)
 	{
-		customScale(val,7-(column)%8);
+		modScale(val,7-(column)%8);
 	}
     else if  (row==4)
 	{
