@@ -1,5 +1,6 @@
 #ifndef CHANGNAV_H
 #define CHANGNAV_H
+#include "scopeFix.h"
 
 extern int oldNav[];
 extern int nav[];
