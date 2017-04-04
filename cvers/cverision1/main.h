@@ -6,7 +6,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "scrollMap.h"
-#include "avon-gui/avonwidget.h"
+// #include "avon-gui/avonwidget.h"
 #include "metro.h" // tempo operations and status
 #include "metro.cpp" // tempo operations and status
 #include "midime.h"
