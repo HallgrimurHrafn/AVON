@@ -19,7 +19,7 @@ typedef map<const int,modFunc> ymodMap;
 typedef map<const int,modFunc> zmodMap;
 typedef chrono::high_resolution_clock TIME;
 typedef chrono::milliseconds ms;
-typedef chrono::duration<float> timer; 
+typedef chrono::duration<float> timer;
 
 extern void fScrollMapX(int,int);
 extern void FscorllMapY(int,int);
@@ -82,7 +82,7 @@ int prevState[2] = {0};					// Previous state
 
 
 // Bouncetime timers.
-ms hundradms;
+ms hundradms = milliseconds(100);
 auto stopBounce = TIME::now();
 auto playBounce = TIME::now();
 auto tapBounce = TIME::now();
@@ -154,7 +154,7 @@ inline clickmap & clickMap(){
 }
 
 // Pretty stuff to to create Led show.
-int leds[4][28]  = {{15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, 
+int leds[4][28]  = {{15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 					{10,11,14,24,25,34,38,39,29,49,52,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 					{5,6,7,9,13,20,21,22,26,27,41,42,43,33,34,50,51,56,57,58,0,0,0,0,0,0,0,0},
 					{0,1,2,3,4,8,12,16,17,18,19,23,24,25,44,45,46,47,32,33,34,60,61,62,63,51,52,53}};

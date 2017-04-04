@@ -838,18 +838,22 @@ void modWheel(int val)
 
 void initialize()
 {
-	// create Bouncetime
-	auto t2 = TIME::now();
-	usleep(100000);
-  	auto t1 = TIME::now();
-	timer mismunur = tock-tick;
-  	hundradms = chrono::duration_cast<ms>(mismunur);
+	// // create Bouncetime
+	// auto t2 = TIME::now();
+	// usleep(100000);
+  // 	auto t1 = TIME::now();
+	// timer mismunur = tock-tick;
+  // 	hundradms = chrono::duration_cast<ms>(mismunur);
 
 	// Run Ledshow 3-4 times for starting animation
-
+	int empty[8][8] = {};
+	for (int i=0; i<3; i++)
+		ledshow(empty);
 	// start a thread for the Interruption
-
-    // Start Sequencer.
+	thread InterruptionThread(Interruption);
+	InterruptionThread.detach();
+	// Start Sequencer.
+	Sequencer();
 }
 
 };
