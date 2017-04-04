@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int wiringPiSetup(void);
+// int wiringPiSetup(void);
 
 int main()
 {

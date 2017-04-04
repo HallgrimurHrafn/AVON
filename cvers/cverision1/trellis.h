@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void initialize() {
+void trelliInitialize() {
 	Py_Initialize();
 	PyRun_SimpleString("import sys\n");
 	PyRun_SimpleString("sys.path.append(\"/home/pi/AVON/cvers\")\n");

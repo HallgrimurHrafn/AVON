@@ -9,10 +9,11 @@
 // #include "avon-gui/avonwidget.h"
 #include "metro.h" // tempo operations and status
 #include "metro.cpp" // tempo operations and status
+#include <wiringPi.h>
+wiringPiSetupGpio ();
 #include "midime.h"
 #include "trellis.h"
 #include "scopeFix.h"
-#include <wiringPi.h>
 
 // HALLI DISABLADI GUI TIL AD REYNA AD COMPILEA MED THVI AD COMMENTA THAD UT.
 
@@ -480,6 +481,10 @@ void PlayPausePrep()
 	}
 }
 
+void callbackTapPrepMetro() {
+	myMetro.callbackTap(); // error utaf hinu :S
+}
+
 void callbackTapPrep()
 {
 	auto tock = TIME::now();
@@ -487,7 +492,7 @@ void callbackTapPrep()
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
 	if(timeDifferenceMs> hundradms)
 	{
-  	thread TapThread(myMetro.callbackTap);
+  	thread TapThread(callbackTapPrepMetro);
 	 	TapThread.detach();
 	 	tapBounce = tock;
 	}
@@ -748,7 +753,7 @@ void camFunc()
 {
 	while(cam)
 	{
-		ms t = chrono::duration_cast<ms>(fabs(TIME::now()-tick));
+		ms t = chrono::duration_cast<ms>(TIME::now()-tick);
 		if(timi-t.count()>=0)
 			usleep(timi-t.count());
 		else
@@ -803,7 +808,7 @@ void camFunc()
 						passer(0);
  				}
  				if(i!=7)
- 					usleep(timi/8+(chrono::duration_cast<ms>(TIME:now()-t).count()));
+ 					usleep(timi/8+(chrono::duration_cast<ms>(TIME::now()-t).count()));
  			}
 		}
 	}
@@ -839,6 +844,8 @@ void modWheel(int val)
 
 void initialize()
 {
+	// Startup trellis
+	trelliInitialize();
 	// // create Bouncetime
 	// auto t2 = TIME::now();
 	// usleep(100000);
