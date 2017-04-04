@@ -2,20 +2,20 @@
 #define SCROLLMAP_H
 
 #include <stdio.h>
-
+#include "scopeFix.h"
 
 using namespace std;
 
 extern void passer(int);
 extern int nav[];
-extern void tempoChange(int, int);
-extern void channelChange(int val);
-extern void liveChange();
-extern void cameraChange();
-extern void noteLengthChange(int value);
-extern void barChange();
-extern void changeScale(int val, int x);
-extern void cameraMode(int val, int x);
+// extern void tempoChange(int, int);
+// extern void channelChange(int val);
+// extern void liveChange();
+// extern void cameraChange();
+// extern void noteLengthChange(int value);
+// extern void barChange();
+// extern void changeScale(int val, int x);
+// extern void cameraMode(int val, int x);
 
 // MainInteractions mainy;
 void fScrollMapY(int row, int column,int val)
