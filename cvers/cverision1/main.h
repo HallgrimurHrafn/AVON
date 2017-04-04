@@ -714,7 +714,7 @@ void scaleChange(int val,int x)
     }
 }
 
-void customScale(int val,int i)
+void modScale(int val,int i)
 {
     if(0<= custom[i]+val+note && custom[i]+val+note<=127)
     {
@@ -723,7 +723,7 @@ void customScale(int val,int i)
     }
 }
 
-void customSetup()
+void createSetup()
 {
 	if(currentScale>2)
 	{
@@ -738,7 +738,7 @@ void customSetup()
 	}
 }
 
-void createNewScale()
+void addScale()
 
 // From cam.py  @@@@ Functions!
 
