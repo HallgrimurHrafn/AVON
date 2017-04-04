@@ -8,7 +8,7 @@ using namespace std;
 
 extern void passer(int);
 extern int nav[];
-extern void tempChange(int, int);
+extern void tempoChange(int, int);
 extern void channelChange(int val);
 extern void liveChange();
 extern void cameraChange();
