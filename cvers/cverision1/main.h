@@ -748,6 +748,12 @@ void addScale()
 			scales[scales.size()-1][i] = custom[i];
 		}
 	}
+	else if (currentScale > 3){
+		for(int i=0;i<8:i++)
+		{
+			scales[currentScale-1][i] = custom[i];
+		}
+	}
 }
 
 
