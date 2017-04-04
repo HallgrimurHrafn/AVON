@@ -29,8 +29,7 @@ extern void modWheel(int);
 extern void changNav1();
 extern void changNav2();
 extern void changNav4();
-extern void customSetup();
-extern void customScale(int, int);
+extern void createScale();
 void passer(int){cout<<"pass"<<endl;};
 // here are all global variables defined. This file has to be included to be able to use all global variables.
 // To start they will be split into menu and non menu, just so they can be easily found.
@@ -102,7 +101,7 @@ string pass("pass");
 vector <vector<int>> scales({{12,11,9,7,5,4,2,0},
                             {12,10,8,7,5,3,2,0},
                             {17,15,12,10,7,5,3,0}});		// scales.resize(scales.size()+1,vector<int>(8))
-int custom[8] = {60,60,60,60,60,60,60,60};
+int custom[8] = {};
 string p = "pass";
 string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},
                         {p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p}};
@@ -148,7 +147,7 @@ inline clickmap & clickMap(){
 	cMap["00"] = changNav1;
 	cMap["02"] = changNav2;
 	cMap["04"] = changNav4;
-	cMap["21"] = customSetup;
+	cMap["21"] = createScale;
 	return cMap;
 }
 
