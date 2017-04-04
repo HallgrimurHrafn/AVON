@@ -8,7 +8,7 @@ using namespace std;
 
 extern void passer(int);
 extern int nav[];
-extern void tempChange(int val, int x);
+extern void tempChange(int, int);
 extern void channelChange(int val);
 extern void liveChange();
 extern void cameraChange();
@@ -67,7 +67,7 @@ void fScrollMapY(int row, int column,int val)
 			passer(0);
 	}
 }
-void fScrollMapX(int (row, int column,int val)
+void fScrollMapX(int row, int column,int val)
 {
 	if(column==0)
 	{
