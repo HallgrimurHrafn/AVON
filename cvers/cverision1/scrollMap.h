@@ -102,7 +102,7 @@ void fScrollMapX(int row, int column,int val)
 		else
             nav[0]+=val;
 	}
-    else if(column==2 &&  (row==1 || (row==4))
+    else if(column==2 &&  (row==1 || (row==4)))
 	{
 		if(val==-1)
 			nav[0]+=val;
