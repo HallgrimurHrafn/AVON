@@ -1,7 +1,3 @@
-In file included from Sequencer.cpp:1:0:
-main.h:13:21: error: expected constructor, destructor, or type conversion before ‘;’ token
- wiringPiSetupGpio ();
- 
 main.h: In function ‘void camFunc()’:
 main.h:766:14: error: ‘camera’ was not declared in this scope
     if(camera()[0]==1)
