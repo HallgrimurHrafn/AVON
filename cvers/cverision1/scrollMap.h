@@ -33,7 +33,7 @@ void fScrollMapY(int row, int column,int val)
         else if (column==5)
 			noteLengthChange(val);
         else if (column==6)
-			barChange();
+			barChange(val);
 				else
 			passer(0);
 	}
