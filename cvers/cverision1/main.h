@@ -752,75 +752,75 @@ void camFunc()
 {
 	while(cam)
 	{
-		ms t = chrono::duration_cast<ms>(TIME::now()-tick);
-		if(timi-t.count()>=0)
-			usleep(timi-t.count());
-		else
-			usleep(t.count()-timi);
-		for(int i = 0;i<8;i++)
-		{
-			auto t = TIME::now();
-			if(!cam)
-				return;
-			if(camera()[0]==1)
-			{
-				if(cursorxyz[0]==1 & i==0)
-				{
-					thread t1(opperate,1);
-					t1.detach();
-				}
-
-				else
-				{
-					if(cursorxyz[0] != 1)
-					{
-						int mapKey = cursorxyz[0];
-						xmod().find(mapKey)->second(cursorxyz[0]);
-					}
-				}
-				if(cursorxyz[1] == 1 && i==0)
-				{
-					thread t2(opperate,2);
-					t2.detach();
-				}
- 				else
- 				{
- 					if(cursorxyz[1]!=1)
- 					{
- 						int mapKey = cursorxyz[1];
- 						ymod().find(mapKey)->second(cursorxyz[0]);
- 					}
- 				}
- 				if(cursorxyz[2] == 1 && i==0)
- 				{
- 					thread t3(opperate,3);
- 					t3.detach();
- 				}
- 				else
- 				{
- 					if(cursorxyz[2]!=1)
- 					{
- 						int mapKey = cursorxyz[2];
- 						zmod().find(mapKey)->second(cursorxyz[0]);
- 					}
-					else
-						passer(0);
- 				}
- 				if(i!=7)
- 					usleep(timi/8+(chrono::duration_cast<ms>(TIME::now()-t).count()));
- 			}
-		}
-	}
+	// 	ms t = chrono::duration_cast<ms>(TIME::now()-tick);
+	// 	if(timi-t.count()>=0)
+	// 		usleep(timi-t.count());
+	// 	else
+	// 		usleep(t.count()-timi);
+	// 	for(int i = 0;i<8;i++)
+	// 	{
+	// 		auto t = TIME::now();
+	// 		if(!cam)
+	// 			return;
+	// 		if(camera()[0]==1)
+	// 		{
+	// 			if(cursorxyz[0]==1 & i==0)
+	// 			{
+	// 				thread t1(opperate,1);
+	// 				t1.detach();
+	// 			}
+	//
+	// 			else
+	// 			{
+	// 				if(cursorxyz[0] != 1)
+	// 				{
+	// 					int mapKey = cursorxyz[0];
+	// 					xmod().find(mapKey)->second(cursorxyz[0]);
+	// 				}
+	// 			}
+	// 			if(cursorxyz[1] == 1 && i==0)
+	// 			{
+	// 				thread t2(opperate,2);
+	// 				t2.detach();
+	// 			}
+ // 				else
+ // 				{
+ // 					if(cursorxyz[1]!=1)
+ // 					{
+ // 						int mapKey = cursorxyz[1];
+ // 						ymod().find(mapKey)->second(cursorxyz[0]);
+ // 					}
+ // 				}
+ // 				if(cursorxyz[2] == 1 && i==0)
+ // 				{
+ // 					thread t3(opperate,3);
+ // 					t3.detach();
+ // 				}
+ // 				else
+ // 				{
+ // 					if(cursorxyz[2]!=1)
+ // 					{
+ // 						int mapKey = cursorxyz[2];
+ // 						zmod().find(mapKey)->second(cursorxyz[0]);
+ // 					}
+	// 				else
+	// 					passer(0);
+ // 				}
+ // 				if(i!=7)
+ // 					usleep(timi/8+(chrono::duration_cast<ms>(TIME::now()-t).count()));
+ // 			}
+	// 	}
+	// }
 }
 
 void opperate(int x)				// µµµµ
 {
-	if(x==1)
-		xmod().find(cursorxyz[0])->second(camera()[1]);
-	if(x==2)
-		ymod().find(cursorxyz[1])->second(camera()[2]);
-	if(x==3)
-		zmod().find(cursorxyz[2])->second(camera()[3]);
+	// if(x==1)
+	// 	xmod().find(cursorxyz[0])->second(camera()[1]);
+	// if(x==2)
+	// 	ymod().find(cursorxyz[1])->second(camera()[2]);
+	// if(x==3)
+	// 	zmod().find(cursorxyz[2])->second(camera()[3]);
 }
 
 void notes(int note)
