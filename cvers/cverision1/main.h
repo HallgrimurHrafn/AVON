@@ -750,8 +750,8 @@ void addScale()
 // From cam.py  @@@@ Functions!
 void camFunc()
 {
-	while(cam)
-	{
+	// while(cam)
+	// {
 	// 	ms t = chrono::duration_cast<ms>(TIME::now()-tick);
 	// 	if(timi-t.count()>=0)
 	// 		usleep(timi-t.count());
