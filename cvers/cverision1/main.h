@@ -11,9 +11,10 @@
 #include "metro.cpp" // tempo operations and status
 #include "midime.h"
 #include "trellis.h"
+#include "scopeFix.h"
 
 
-void metronome(int);
+
 
 // FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
@@ -88,7 +89,7 @@ void NOTEOFF(int column)
 	trellStatus = 1;
 }
 
-void metronome(column) // vantar info um trellis
+void metronome(int column) // vantar info um trellis
 {
 	metroLed = true;
 	for(int i =0; i<8; 1++)
@@ -256,7 +257,7 @@ void liveSet()
   ledshow(matrix);
 }
 
-void livePlay()   // ????
+void livePlay()
 {
 	if (live == 1) { // are we in livemode.
 		usleep(30000); // required to allow trellis to process information.
@@ -588,17 +589,17 @@ void channelPrep(int val)
 //////////////////////////////////////////////////////////////////////
 ////////////////// Methods that trigger UI changes! //////////////////
 //////////////////////////////////////////////////////////////////////
-
-Class MainInteractions {
-
-    AvonWidget &mrBarks;
-
-    public:
-        MainInteractions(AvonWidget &a): avonwidget(a) {
-            // Warning: outer is not fully constructed yet
-            //          don't use it in here
-            std::cout << "Inner: " << this << std::endl;
-        };
+//
+// Class MainInteractions {
+//
+//     AvonWidget &mrBarks;
+//
+//     public:
+//         MainInteractions(AvonWidget &a): avonwidget(a) {
+//             // Warning: outer is not fully constructed yet
+//             //          don't use it in here
+//             std::cout << "Inner: " << this << std::endl;
+//         };
 
 
 // no comprendo en ok
@@ -856,7 +857,7 @@ void initialize()
 	Sequencer();
 }
 
-};
+// };
 
 //////////////////////////////////////////////////////////////////////
 /////////////// End of methods that trigger UI changes! //////////////
