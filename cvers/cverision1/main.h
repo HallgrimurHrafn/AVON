@@ -700,7 +700,7 @@ void scaleChange(int val,int x)
             cout << note << endl;
         }
     }
-    elseif(x==0)
+    else if(x==0)
     {
         currentScale = (currentScale+val)%(Scales.size());
 
