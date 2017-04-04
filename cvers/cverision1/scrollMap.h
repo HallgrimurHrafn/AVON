@@ -17,13 +17,13 @@ extern void barChange();
 extern void changeScale(int val, int x);
 extern void cameraMode(int val, int x);
 
-MainInteractions mainy;
+// MainInteractions mainy;
 void fScrollMapY(int row, int column,int val)
 {
 	if (row == 0)
 	{
         if (column==0)
-            tempoChange(val,1);
+      tempoChange(val,1);
         else if (column==1)
 			channelChange(val);
         else if (column==3)
@@ -34,7 +34,7 @@ void fScrollMapY(int row, int column,int val)
 			noteLengthChange(val);
         else if (column==6)
 			barChange();
-		else
+				else
 			passer(0);
 	}
     else if (row==1)
