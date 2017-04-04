@@ -1,8 +1,8 @@
 #include "avonwidget.h"
 #include <QApplication>
-//#include "../main.h"
+#include "../main.h"
 
-//#include "../global.h"
+#include "../global.h"
 
 
 int main(int argc, char *argv[])

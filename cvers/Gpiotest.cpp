@@ -42,7 +42,7 @@ int main() {
   auto tock = TIME::now();
   timer mismunur = tock-tick;
   tvohundrudms = chrono::duration_cast<ms>(mismunur);
-  wiringPiSetupGpio ();
+  wiringPiSetupGpio();
 
   int pin = 21;
   pinMode(pin, INPUT);
