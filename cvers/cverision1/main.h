@@ -22,7 +22,7 @@ void Sequencer() {
 			{
                 timi = (15000000/myMetro.getTempo())/bar;
 				for(int j=0; j<8; j++){
-    			Scale[j] = newScale[j];
+    				Scale[j] = newScale[j];
 				}
 				column = i;
 				playColumn(column);
@@ -73,7 +73,7 @@ void NOTEON(int column, bool cd)
 void NOTEOFF(int column)
 {
 	trellStatus = 0;
-	mcGo =0, //?
+	mcGo =0; //!!!!
 	for(int i = 0; i < 8;i++)
 	{
 		for(int j = 0; j < 16; j++)
@@ -89,18 +89,14 @@ void metronome(column) // vantar info um trellis
 {
 	metroLed = true;
 	for(int i =0; i<8; 1++)
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		trellis.setLED(invTrellisTransf(i * 8 + column));
-	trellis.writeDisplay();
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		setLED(invTrellisTransf(i * 8 + column));
+	writeDisplay();
 	usleep(FLASH*timi);
 	for(int i =0; i<8; 1){
 	  if (status[channel][column][i] == 0)
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      trellis.clrLED(invTrellisTransf(i * 8 + column));
+      	clrLED(invTrellisTransf(i * 8 + column));
 	}
-  trellis.writeDisplay();
-	!!!!!!!!!!!!!!!!!!!!!!!!!!
+  	writeDisplay();
 	metroLed = false;
 }
 
@@ -124,35 +120,35 @@ int TrellisTransf(int a) // Trellis format to our format
       b = 16 * f + 8 * l + d;
 	else
       b = 16 * (f + 1) - (3 - l) * 8 + d - 4;
-  return b;
+  	return b;
 }
 
 int invTrellisTransf(int a)  // Our format to Trellis format
 {
 	int f = a / 16;
-  int d = (a % 16) % 8;
-  int l = (a % 16) / 8;
+  	int d = (a % 16) % 8;
+  	int l = (a % 16) / 8;
 	int b;
-  if (d < 4)
-	{
-      if (f < 2)
-          b = 8 * f + 4 * l + d;
-      else
-			{
-          if (f == 2)
-              b = 32 + 4 * l + d;
+  	if (d < 4)
+		{
+      	if (f < 2)
+       	   b = 8 * f + 4 * l + d;
+      	else
+		{
+  	      if (f == 2)
+	          b = 32 + 4 * l + d;
           else
               b = 40 + d + 4 * l;
-			}
+		}
 	}
-  else
+	else
 	{
       if (f % 2 == 1)
           b = 16 * (f + 1) + d - 4 * (3 - l);
       else
           b = 16 * (f + 1) + d - 4 * (3 - l) + 8;
 	}
-  return b
+  	return b
 }
 
 
@@ -164,11 +160,15 @@ void trellisEventSetup()
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	usleep(15000);
 	if (live == 1)
+	{
 		thread ls(liveSet);
 		ls.detach();
+	}
 	else
+	{
 		thread te(sequencerSet);
 		te.detach();
+	}
 }
 
 void trellisWatch()
@@ -201,26 +201,27 @@ void sequencerWatch()
 {
 	usleep(15000);  // requirement for trellis to process the change.
 	!!!!!!!!!!!!!!!!!!!!
-	if (trellis.readSwitches()) { // was a key pressed?
+	if (readSwitches()) { // was a key pressed?
 		for (int i=0; i<64; i++) { // for all keys in trellis.
 			!!!!!!!!!!!!!!!!!!!
-			if (trellis.justPressed(i)) { // was this exact key pressed?
+			if (justPressed(i)) { // was this exact key pressed?
 				int y = TrellisTransf(i);  // transform key to our format.
 				if (tStatus[channel][y%8][y/8] == 0) { // if key was off
 					tStatus[channel][y%8][y/8] = 1; // turn it on
 					!!!!!!!!!!!!!!!!!!!!
-					trellis.setLED(x); // also turn on the LED.
-				} else {
+					setLED(x); // also turn on the LED.
+				} 
+				else {
 					tStatus[channel][y%8][y/8] = 0; // turn it off
 					!!!!!!!!!!!!!!!!!!!!!!!!!
-					trellis.clrLED(x); // and turn of the LED
+					clrLED(x); // and turn of the LED
 				}
 				!!!!!!!!!!!!!!!!!!!!!!!!!
-				trellis.readSwitches(); // an attempt to improve response time.
+				readSwitches(); // an attempt to improve response time.
 			}
 		}
 		!!!!!!!!!!!!!!!!!!!!!
-		trellis.writeDisplay(); // update the LEDs on trellis.
+		writeDisplay(); // update the LEDs on trellis.
 		if (trellStatus == 1) { // are we allowed to update status.
 			for (int i=0; i<16; i++) { // setting status=tStatus for values not pointers.
 				for (int j=0; j<64; j++) {
@@ -228,10 +229,11 @@ void sequencerWatch()
 				}
 			}
 			usleep(15000); // attempt to improve response time
-			trellis.readSwitches(); // attempt to improve response time
-		} else {
+			readSwitches(); // attempt to improve response time
+		} 
+		else {
 			usleep(15000); // attempt to improve response time
-			trellis.readSwitches(); // attempt to improve response time
+			readSwitches(); // attempt to improve response time
 			sequencerWatch(); // not allowed to update status. cant wait since
 			// we could get a data hazard if multiple notes were pressed. for the price
 			// of some performance we cann rerun the function to update it. This should
@@ -265,22 +267,22 @@ void livePlay()   // ????
 	if (live == 1) { // are we in livemode.
 		usleep(30000); // required to allow trellis to process information.
 		!!!!!!!!!!!!!!!!!!!!!!!!
-		if (trellis.readSwitches())	{ // update trellis info, was a key pressed?
+		if (readSwitches())	{ // update trellis info, was a key pressed?
 			for(int i=0; i<64; i++) { // iterate through all keys
 				int y = TrellisTransf(i); // transform into our system.
 				!!!!!!!!!!!!!!!!!!!!!!!!1
-				if (trellis.justPressed(i)){ // was this key just pressed?
+				if (justPressed(i)){ // was this key just pressed?
 					midime(144+channel, scale[y/8], 100); // send out note.
 					!!!!!!!!!!!!!!!!!
-					trellis.setLED(i) // turn on led
-				} else if (trellis.justReleased(i)) { // was this key just released?
+					trellis.setLED(i); // turn on led
+				} else if (justReleased(i)) { // was this key just released?
 					midime(128+channel, scale[y/8], 0); // stop note..
 					!!!!!!!!!!!!!!!!!!!!!!!!
-					trellis.clrLED(i); // turn off led
+					clrLED(i); // turn off led
 				}
 			}
 			!!!!!!!!!!!!!!!!!!!!!!!!!
-			trellis.writeDisplay(); // update LEDS
+			writeDisplay(); // update LEDS
 		}
 	}
 }
@@ -291,12 +293,12 @@ void channelChange()
 	if (nextChannel != channel)
 	{
 		// remove all the leds.
-    clearLeds()
+    clearLeds();
 		// turning on leds for metronome if currently flashing.
     if (metroLed){
 			for(int i=0; i<8; i++)
 				!!!!!!!!!!!!!!!!!!!!!!!!!!
-				trellis.setLED(invTrellisTransf(i * 8 + column))
+				setLED(invTrellisTransf(i * 8 + column));
         }
 		// updating channel and turning on corresponding leds.
   	channel=nextChannel;
@@ -305,11 +307,11 @@ void channelChange()
 			y = TrellisTransf(x);
 			if (status[channel][y % 8][y / 8] == 1)
 				!!!!!!!!!!!!!!!
-				trellis.setLED(x)
+				setLED(x);
 		}
 		// update the board.
 		!!!!!!!!!!!!!!!!!!!!!!
-  	trellis.writeDisplay();
+  	writeDisplay();
 	}
 }
 
@@ -323,7 +325,7 @@ void ledshow(int matrix[][8])
 		{
 			for(int j = 0; j<ledsNum[i];j++)
 			!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				trellis.setLED(leds[i][j]);
+				setLED(leds[i][j]);
 		}
 		if (i>1)
 		{
@@ -337,7 +339,7 @@ void ledHelp(int x, int matrix[][8])
 {
 	int y = TrellisTransf(x);
   if (matrix[y % 8][y / 8] ==0)
-      trellis.clrLED(x); !!!!!!!!!!!!!!!!!!!!
+  		clrLED(x); !!!!!!!!!!!!!!!!!!!!
 }
 
 
@@ -345,8 +347,8 @@ void ledHelp(int x, int matrix[][8])
 void clearLeds(){
 	for(int i = 0; i<64; i++)
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		trellis.clrLED(i);
-	trellis.writeDisplay();
+		clrLED(i);
+	writeDisplay();
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
@@ -620,7 +622,7 @@ Class MainInteractions {
 
 
 // no comprendo en ok
-void tempChange(int val,int x)
+void tempoChange(int val,int x)
 {
     int BPM = myMetro.getTempo();
     if(60/float(BPM+val*x)/float(bar/4)>=0.05)
@@ -719,22 +721,21 @@ void scaleChange(int val,int x)
     }
     elseif(x==0)
     {
-        currentScale = (currentScale+val)%(((sizeof(Scales)/sizeof(*Scales))));
-        // skoða með custom?
-        cout ...
+        currentScale = (currentScale+val)%(Scales.size());
+        
     }
     if (currentScale != 3)
     {
         for(int i =0;i<8;i++)
         {
-            newScale[i] = scales[currentScale][i];
+            newScale[i] = scales[currentScale][i]+note;
         }
     }
 }
 
 void customScale(int val,int i)
 {
-    if(0<= custom[i]+val && custom[i]+val<=127)
+    if(0<= custom[i]+val+note && custom[i]+val+note<=127)
     {
         custom[i] += int(val);
         // new skali copy
@@ -742,6 +743,19 @@ void customScale(int val,int i)
 }
 
 void customSetup()
+{
+	if(currentScale>2)
+	{
+		editScale = currentScale-3;
+		nav[1] = 3;		// fer eftir röð
+		oldnav2 = navx;	// vantar meira info um oldnav
+		nav[0] = 0;
+		if(editScale>0)	
+		{
+
+		}
+	}
+}
 
 void createNewScale()
 
