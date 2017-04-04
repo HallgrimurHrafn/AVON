@@ -746,9 +746,9 @@ void addScale()
 		scales[scales.size()-1][i] = custom[i];
 	}
 }
+
+
 // From cam.py  @@@@ Functions!
-
-
 void cam()
 {
 	while(cam)
