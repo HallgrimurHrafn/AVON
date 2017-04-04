@@ -253,7 +253,7 @@ void liveSet()
   for (int i=0; i<64; i++)
      status[channel][i % 8][i / 8] = 0
 	 // Creating an empty 8x8 matrix for ledshow.
-	 int matrix[8][8] = {0};
+	int matrix[8][8] = {0};
   ledshow(matrix);
 }
 
@@ -744,7 +744,7 @@ void addScale()
 
 
 // From cam.py  @@@@ Functions!
-void cam()
+void camFunc()
 {
 	while(cam)
 	{

@@ -141,7 +141,7 @@ inline clickmap & clickMap(){
 	for(int i=0;i<8;i++){
 		for(int j=0;j<5;j++){
 			temp = to_string(i)+to_string(j);
-            cMap[temp] = passer;
+      cMap[temp] = passer;
 		}
 	}
 	cMap["00"] = changNav1;
