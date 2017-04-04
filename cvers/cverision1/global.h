@@ -30,7 +30,7 @@ extern void changNav1();
 extern void changNav2();
 extern void changNav4();
 extern void createScale();
-void passer(int){cout<<"pass"<<endl;};
+void passer(){cout<<"pass"<<endl;};
 // here are all global variables defined. This file has to be included to be able to use all global variables.
 // To start they will be split into menu and non menu, just so they can be easily found.
 // These come from main.py

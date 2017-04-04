@@ -14,7 +14,7 @@
 #include "scopeFix.h"
 #include <wiringPi.h>
 
-
+// HALLI DISABLADI GUI TIL AD REYNA AD COMPILEA MED THVI AD COMMENTA THAD UT.
 
 
 // FROM main.py @@@@ Sequencer Part.
@@ -487,7 +487,7 @@ void callbackTapPrep()
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
 	if(timeDifferenceMs> hundradms)
 	{
-  	thread TapThread(myMetro.callbackTap);
+  	thread TapThread(myMetro.callbackTap());
 	 	TapThread.detach();
 	 	tapBounce = tock;
 	}
@@ -593,7 +593,7 @@ void channelPrep(int val)
 //
 // Class MainInteractions {
 //
-//     AvonWidget &mrBarks;
+    // AvonWidget &mrBarks;
 //
 //     public:
 //         MainInteractions(AvonWidget &a): avonwidget(a) {
@@ -614,7 +614,7 @@ void tempoChange(int val,int x)
         Metro.setTempo(BPM + val*x);
         myMetro.tapOK = true;
 
-        &mrBarks.refreshTempo();
+        // &mrBarks.refreshTempo();
     }
 }
 
@@ -624,7 +624,7 @@ void liveChange()
     renderLive = true;
     trellisEventSetup();
 
-    &mrBarks.refreshMode();
+    // &mrBarks.refreshMode();
 }
 
 void cameraChange()
@@ -634,16 +634,16 @@ void cameraChange()
     else
         camON();
 
-    mrBarks->refreshChan();
+    // mrBarks->refreshChan();
 }
 
 void camON()
 {
     cam = true;
     seen = true;
-    // thread c1(vision);
-    // c1.detach();
-    thread c2(camFunc);
+    thread c1(vision);
+    c1.detach();
+    thread c2(cam);
     c2.detach();
 }
 
@@ -678,7 +678,7 @@ void noteLengthChange(int value)
         cout << length << endl;
     }
 
-    &mrBarks.refreshLength();
+    // &mrBarks.refreshLength();
 
 }
 
@@ -688,7 +688,7 @@ void barChange(int val)
     if(60/float(myMetro.getTempo())/float(x*bar/4)>=0.05)
         bar=bar*x;
 
-    mrBarks->refreshStep();
+    // mrBarks->refreshStep();
 }
 
 void changeScale(int val,int x)
