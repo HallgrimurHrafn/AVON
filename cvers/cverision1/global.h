@@ -96,7 +96,7 @@ int cursorxyz[3] = {0,0,0};			// Cursor {x,y,z}
 // int stat = 1;						// Status?
 
 int note = 60;						// deafult note
-int currentscale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
+int currentScale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
 string pass("pass");
 vector <vector<int>> scales({{12,11,9,7,5,4,2,0},
                             {12,10,8,7,5,3,2,0},

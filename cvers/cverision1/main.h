@@ -487,7 +487,7 @@ void callbackTapPrep()
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
 	if(timeDifferenceMs> hundradms)
 	{
-  	thread TapThread(myMetro.callbackTap());
+  	thread TapThread(myMetro.callbackTap);
 	 	TapThread.detach();
 	 	tapBounce = tock;
 	}
