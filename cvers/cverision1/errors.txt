@@ -1,0 +1,60 @@
+In file included from main.h:15:0,
+                 from Sequencer.cpp:1:
+/usr/local/include/wiringPi.h:188:38: error: conflicting declaration of ‘int wiringPiSetupGpio()’ with ‘C’ linkage
+ extern int  wiringPiSetupGpio   (void) ;
+                                      ^
+In file included from main.h:12:0,
+                 from Sequencer.cpp:1:
+midime.h:6:5: note: previous declaration with ‘C++’ linkage
+ int wiringPiSetupGpio(void);
+     ^
+In file included from Sequencer.cpp:1:0:
+main.h: In function ‘void callbackTapPrep()’:
+main.h:490:40: error: invalid use of non-static member function
+    thread TapThread(myMetro.callbackTap);
+                                        ^
+main.h: In function ‘void changeScale(int, int)’:
+main.h:704:49: error: request for member ‘size’ in ‘Scale’, which is of non-class type ‘int [8]’
+        currentScale = (currentScale+val)%(Scale.size());
+                                                 ^
+main.h: In function ‘void camFunc()’:
+main.h:751:57: error: cannot convert ‘std::__success_type<std::chrono::duration<long long int, std::ratio<1ll, 1000000000ll> > >::type {aka std::chrono::duration<long long int, std::ratio<1ll, 1000000000ll> >}’ to ‘double’ for argument ‘1’ to ‘double fabs(double)’
+   ms t = chrono::duration_cast<ms>(fabs(TIME::now()-tick));
+                                                         ^
+main.h:761:14: error: ‘camera’ was not declared in this scope
+    if(camera()[0]==1)
+              ^
+main.h:806:52: error: found ‘:’ in nested-name-specifier, expected ‘::’
+       usleep(timi/8+(chrono::duration_cast<ms>(TIME:now()-t).count()));
+                                                    ^
+main.h: In function ‘void opperate(int)’:
+main.h:815:44: error: ‘camera’ was not declared in this scope
+   xmod().find(cursorxyz[0])->second(camera()[1]);
+                                            ^
+main.h:817:44: error: ‘camera’ was not declared in this scope
+   ymod().find(cursorxyz[1])->second(camera()[2]);
+                                            ^
+main.h:819:44: error: ‘camera’ was not declared in this scope
+   zmod().find(cursorxyz[2])->second(camera()[3]);
+                                            ^
+main.h: In function ‘void initialize()’:
+main.h:840:6: error: redefinition of ‘void initialize()’
+ void initialize()
+      ^
+In file included from main.h:13:0,
+                 from Sequencer.cpp:1:
+trellis.h:7:6: note: ‘void initialize()’ previously defined here
+ void initialize() {
+      ^
+In file included from /usr/include/c++/4.9/thread:39:0,
+                 from main.h:5,
+                 from Sequencer.cpp:1:
+/usr/include/c++/4.9/functional: In instantiation of ‘struct std::_Bind_simple<bool()>’:
+/usr/include/c++/4.9/thread:140:47:   required from ‘std::thread::thread(_Callable&&, _Args&& ...) [with _Callable = bool&; _Args = {}]’
+main.h:644:18:   required from here
+/usr/include/c++/4.9/functional:1665:61: error: no type named ‘type’ in ‘class std::result_of<bool()>’
+       typedef typename result_of<_Callable(_Args...)>::type result_type;
+                                                             ^
+/usr/include/c++/4.9/functional:1695:9: error: no type named ‘type’ in ‘class std::result_of<bool()>’
+         _M_invoke(_Index_tuple<_Indices...>)
+         ^
