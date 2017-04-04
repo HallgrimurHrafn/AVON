@@ -36,6 +36,8 @@ int dilateSize = 7;
 cv::Mat erodeElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(erodeSize+3,erodeSize+3) );
 cv::Mat dilateElement = cv::getStructuringElement( cv::MORPH_RECT, cv::Size(dilateSize+3,dilateSize+3) );
 
+raspicam::RaspiCam_Cv Camera;
+
 vector<int> XYZ;
 int X, Y, Z; // Stores center of marker, does not update unless a new position is found.
 int detectCounter = 0;
@@ -97,8 +99,6 @@ void trackMarker(cv::Mat binaryImg, cv::Mat &frame) {
 }
 
 void initialize() {
-	raspicam::RaspiCam_Cv Camera;
-
 	Camera.set(CV_CAP_PROP_FORMAT, CV_8UC3 ); // For color
 	Camera.set(CV_CAP_PROP_FRAME_WIDTH, 320);
 	Camera.set(CV_CAP_PROP_FRAME_HEIGHT, 320);

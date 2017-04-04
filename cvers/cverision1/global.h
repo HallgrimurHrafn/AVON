@@ -51,7 +51,7 @@ int synctime = 500000;					// Time for synchronization
 
 /* Karl: changed ints to doubles */
 double FLASH = 0.9;					// Ratio time length for the metronome
-double length = 1.0;					// Ratio of time, end to begining of note
+double length = 1.0;				// Ratio of time, end to begining of note
 int bar = 8;						// 8=1/8 note, 4=1/4 note
 
 // NONMENU
@@ -59,9 +59,9 @@ Metro myMetro; // includes int getTempo(), void setTempo(int t), calcTempo(blabl
 
 auto tick = TIME::now();
 // myMetro.tapOK;					// Is the tap tempo active? formerly tapTempo
-int nextChannel = 1;					// What MIDI channel are we changing to
+int nextChannel = 1;				// What MIDI channel are we changing to
 int channel = 1;					// What is the current MIDI channel
-bool metroLed = false;					// Is the metronome lights on?
+bool metroLed = false;				// Is the metronome lights on?
 int column = 0;						// What column is playing
 int modWatch = 0;					// Are we in Mod Watch
 int trellStatus = 1;					// Status changes allowed in Trellis
@@ -98,11 +98,11 @@ int stat = 1;						// Status?
 
 int editScale = 0;					// edit scale, 1 for custom scale 1, 2 for custom 2 etc...
 int note = 60;						// deafult note
-int currentScale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
+int currentscale = 0;				// 0 major, 1 minor, 2 penta, 3-4-5 custom
 string pass("pass");
-vector <vector<int>> scales({{note+12,note+11,note+9,note+7,note+5,note+4,note+2,note},
-                            {note+12,note+10,note+8,note+7,note+5,note+3,note+2,note},
-                            {note+17,note+15,note+12,note+10,note+7,note+5,note+3,note}});		// scales.resize(scales.size()+1,vector<int>(8))
+vector <vector<int>> scales({{12,11,9,7,5,4,2,0},
+                            {12,10,8,7,5,3,2,0},
+                            {17,15,12,10,7,5,3,0}});		// scales.resize(scales.size()+1,vector<int>(8))
 int custom[8] = {60,60,60,60,60,60,60,60};
 string p = "pass";
 string cursor[5][8] ={{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},{p,p,p,p,p,p,p,p},
@@ -137,7 +137,7 @@ inline zmodMap & zmod(){
 	zMod[3] = modWheel;
 	return zMod;
 }
-/**
+
 inline clickmap & clickMap(){
 	string temp;
 	for(int i=0;i<8;i++){
@@ -153,22 +153,12 @@ inline clickmap & clickMap(){
 	return cMap;
 }
 
-// Ugly stuff to to create Led show.
-int leds[4][28]  = {};
-int leds1[4]  = {15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,
-														0,0,0,0,0,0,0,0,0,0,0,0,0};
-int leds2[12] = {10,11,14,24,25,34,38,39,29,49,52,
-										53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-int leds3[20] = {5,6,7,9,13,20,21,22,26,27,41,42,
-								43,33,34,50,51,56,57,58,0,0,0,0,0,0,0,0};
-int leds4[28] = {0,1,2,3,4,8,12,16,17,18,19,23,24,
-								25,44,45,46,47,32,33,34,60,61,62,63,51,52,53};
+// Pretty stuff to to create Led show.
+int leds[4][28]  = {{15,35,48,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, 
+					{10,11,14,24,25,34,38,39,29,49,52,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+					{5,6,7,9,13,20,21,22,26,27,41,42,43,33,34,50,51,56,57,58,0,0,0,0,0,0,0,0},
+					{0,1,2,3,4,8,12,16,17,18,19,23,24,25,44,45,46,47,32,33,34,60,61,62,63,51,52,53}};
 int ledsNum[4] = {4,12,20,28};
 
-for (int i=0;i<28;i++){ leds[0][i]=leds1[i]; }
-for (int i=0;i<28;i++){ leds[1][i]=leds2[i]; }
-for (int i=0;i<28;i++){ leds[2][i]=leds3[i]; }
-for (int i=0;i<28;i++){ leds[3][i]=leds4[i]; }
 
-**/
 #endif

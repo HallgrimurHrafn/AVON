@@ -12,18 +12,6 @@
 
 
 
-
-
-/* Karl: put some prototypes here to fix "undeclared identifier"
- * complaints. need midime().
- */
-void playColumn(int column);
-void usleep(int i);
-void NOTEON(int column, bool cd);
-void NOTEOFF(int column);
-void metronome(int column);
-
-
 // FROM main.py @@@@ Sequencer Part.
 void Sequencer() {
 	for(;;)
@@ -169,7 +157,7 @@ int invTrellisTransf(int a)  // Our format to Trellis format
 
 
 // FROM Main.py @@@@ Setting up trellis events.
-void multithread()
+void trellisEventSetup()
 {
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// GPIO.remove_event_detect(4)
@@ -188,7 +176,7 @@ void trellisWatch()
 	if (live)
 		livePlay();
 	else
-		sequencerPlay();
+		sequencerWatch();
 }
 
 void sequencerSet()
@@ -209,10 +197,49 @@ void sequencerSet()
   ledshow(matrix);
 }
 
-void sequencerPlay()  //  ????
+void sequencerWatch()
 {
-
+	usleep(15000);  // requirement for trellis to process the change.
+	!!!!!!!!!!!!!!!!!!!!
+	if (trellis.readSwitches()) { // was a key pressed?
+		for (int i=0; i<64; i++) { // for all keys in trellis.
+			!!!!!!!!!!!!!!!!!!!
+			if (trellis.justPressed(i)) { // was this exact key pressed?
+				int y = TrellisTransf(i);  // transform key to our format.
+				if (tStatus[channel][y%8][y/8] == 0) { // if key was off
+					tStatus[channel][y%8][y/8] = 1; // turn it on
+					!!!!!!!!!!!!!!!!!!!!
+					trellis.setLED(x); // also turn on the LED.
+				} else {
+					tStatus[channel][y%8][y/8] = 0; // turn it off
+					!!!!!!!!!!!!!!!!!!!!!!!!!
+					trellis.clrLED(x); // and turn of the LED
+				}
+				!!!!!!!!!!!!!!!!!!!!!!!!!
+				trellis.readSwitches(); // an attempt to improve response time.
+			}
+		}
+		!!!!!!!!!!!!!!!!!!!!!
+		trellis.writeDisplay(); // update the LEDs on trellis.
+		if (trellStatus == 1) { // are we allowed to update status.
+			for (int i=0; i<16; i++) { // setting status=tStatus for values not pointers.
+				for (int j=0; j<64; j++) {
+					status[i][j%8][j/8] = tStatus[i][j%8][j/8];
+				}
+			}
+			usleep(15000); // attempt to improve response time
+			trellis.readSwitches(); // attempt to improve response time
+		} else {
+			usleep(15000); // attempt to improve response time
+			trellis.readSwitches(); // attempt to improve response time
+			sequencerWatch(); // not allowed to update status. cant wait since
+			// we could get a data hazard if multiple notes were pressed. for the price
+			// of some performance we cann rerun the function to update it. This should
+			// prevent the data hazard and possible improve response time as well.
+		}
+	}
 }
+
 
 void liveSet()
 {
@@ -235,15 +262,36 @@ void liveSet()
 
 void livePlay()   // ????
 {
-
+	if (live == 1) { // are we in livemode.
+		usleep(30000); // required to allow trellis to process information.
+		!!!!!!!!!!!!!!!!!!!!!!!!
+		if (trellis.readSwitches())	{ // update trellis info, was a key pressed?
+			for(int i=0; i<64; i++) { // iterate through all keys
+				int y = TrellisTransf(i); // transform into our system.
+				!!!!!!!!!!!!!!!!!!!!!!!!1
+				if (trellis.justPressed(i)){ // was this key just pressed?
+					midime(144+channel, scale[y/8], 100); // send out note.
+					!!!!!!!!!!!!!!!!!
+					trellis.setLED(i) // turn on led
+				} else if (trellis.justReleased(i)) { // was this key just released?
+					midime(128+channel, scale[y/8], 0); // stop note..
+					!!!!!!!!!!!!!!!!!!!!!!!!
+					trellis.clrLED(i); // turn off led
+				}
+			}
+			!!!!!!!!!!!!!!!!!!!!!!!!!
+			trellis.writeDisplay(); // update LEDS
+		}
+	}
 }
+
 
 void channelChange()
 {
 	if (nextChannel != channel)
 	{
 		// remove all the leds.
-    clearleds()
+    clearLeds()
 		// turning on leds for metronome if currently flashing.
     if (metroLed){
 			for(int i=0; i<8; i++)
@@ -280,12 +328,12 @@ void ledshow(int matrix[][8])
 		if (i>1)
 		{
 			for(int j = 0; j<j<ledsNum[i-2];j++)
-				ledhelp(leds[i-2][j],matrix);
+				ledHelp(leds[i-2][j],matrix);
 		}
 	}
 }
 
-void ledhelp(int x, int matrix[][8])
+void ledHelp(int x, int matrix[][8])
 {
 	int y = TrellisTransf(x);
   if (matrix[y % 8][y / 8] ==0)
@@ -294,7 +342,7 @@ void ledhelp(int x, int matrix[][8])
 
 
 
-void clearleds(){
+void clearLeds(){
 	for(int i = 0; i<64; i++)
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		trellis.clrLED(i);
@@ -377,27 +425,27 @@ void Interruption()
 	pinMode(6, INPUT); // rotary 2 left
 	pinMode(12, INPUT); // rotary 2 click
 
-  pullUpDnControl(4, PUD_UP); // Trellis
-  pullUpDnControl(20, PUD_UP); // STOP
-  pullUpDnControl(21, PUD_UP); // PLAY/PAUSE
-  pullUpDnControl(16, PUD_UP); // TAP
-  pullUpDnControl(13, PUD_UP); // rotary 1 right
-  pullUpDnControl(19, PUD_UP); // rotary 1 left
-  pullUpDnControl(26, PUD_UP); // rotary 1 click
-  pullUpDnControl(5, PUD_UP); // rotary 2 right
-  pullUpDnControl(6, PUD_UP); // rotary 2 left
-  pullUpDnControl(12, PUD_UP); // rotary 2 click
+  	pullUpDnControl(4, PUD_UP); // Trellis
+  	pullUpDnControl(20, PUD_UP); // STOP
+  	pullUpDnControl(21, PUD_UP); // PLAY/PAUSE
+  	pullUpDnControl(16, PUD_UP); // TAP
+  	pullUpDnControl(13, PUD_UP); // rotary 1 right
+  	pullUpDnControl(19, PUD_UP); // rotary 1 left
+  	pullUpDnControl(26, PUD_UP); // rotary 1 click
+  	pullUpDnControl(5, PUD_UP); // rotary 2 right
+  	pullUpDnControl(6, PUD_UP); // rotary 2 left
+  	pullUpDnControl(12, PUD_UP); // rotary 2 click
 
-  wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep; // Trellis
-  wiringPiISR (20, INT_EDGE_FALLING, &stopperPrep; //STOP
-  wiringPiISR (21, INT_EDGE_FALLING, &PlayPausePrep; // PLAY/PAUSE
-  wiringPiISR (16, INT_EDGE_FALLING, &callbackTapPrep; //TAP
-  wiringPiISR (13, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 right
-  wiringPiISR (19, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 left
-  wiringPiISR (26, INT_EDGE_FALLING, &clickerPrep1); // rotary 1 click
-  wiringPiISR (5, INT_EDGE_FALLING, &rotary2Prep); // rotary 2 right
-  wiringPiISR (6, INT_EDGE_FALLING, &rotary2Prep); // rotary 2 left
-  wiringPiISR (12, INT_EDGE_FALLING, &clickerPrep2); // rotary 2 click
+  	wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep); // Trellis
+  	wiringPiISR (20, INT_EDGE_FALLING, &stopperPrep); //STOP
+  	wiringPiISR (21, INT_EDGE_FALLING, &PlayPausePrep); // PLAY/PAUSE
+  	wiringPiISR (16, INT_EDGE_FALLING, &callbackTapPrep); //TAP
+  	wiringPiISR (13, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 right
+  	wiringPiISR (19, INT_EDGE_FALLING, &rotary1Prep); // rotary 1 left
+  	wiringPiISR (26, INT_EDGE_FALLING, &clickerPrep1); // rotary 1 click
+  	wiringPiISR (5, INT_EDGE_FALLING, &rotary2Prep); // rotary 2 right
+  	wiringPiISR (6, INT_EDGE_FALLING, &rotary2Prep); // rotary 2 left
+  	wiringPiISR (12, INT_EDGE_FALLING, &clickerPrep2); // rotary 2 click
 
 	for(;;)
 	{
@@ -521,7 +569,10 @@ void moveUp()
 	oldNav[nav[1]] = 0;
 	// Update navigation depth.
 	if (nav[1] == 3)
-        nav[1] = 2;
+	{
+		createNewScale();
+  	nav[1] = 2;
+	}
 	else
 		nav[1] = 0;
 	// Get old navigation for the new depth.
@@ -571,7 +622,7 @@ Class MainInteractions {
 // no comprendo en ok
 void tempChange(int val,int x)
 {
-    int BPM = Metro.getTempo();
+    int BPM = myMetro.getTempo();
     if(60/float(BPM+val*x)/float(bar/4)>=0.05)
     {
         myMetro.tapOK = false;
@@ -585,12 +636,9 @@ void tempChange(int val,int x)
 
 void liveChange()
 {
-    if(live==1)
-        live=0;
-    else
-        live=1;
+    live = 1-live;
     renderLive = true;
-    multithread();
+    trellisEventSetup();
 
     &mrBarks.refreshMode();
 }
@@ -621,7 +669,7 @@ void camOFF()
     seen = false;
 }
 
-void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér.
+void cameraMode(int val, int xyz)		// Bragi þarf smá hjálp hér. µµµµ
 {
     if(xyz==0)
     {
@@ -653,7 +701,7 @@ void noteLengthChange(int value)
 void barChange(int val)
 {
     float x = pow(2,val);
-    if(60/float(BPM)/float(x*bar/4)>=0.05)
+    if(60/float(myMetro.getTempo())/float(x*bar/4)>=0.05)
         bar=bar*x;
 
     mrBarks->refreshStep();
@@ -699,16 +747,98 @@ void createNewScale()
 
 // From cam.py  @@@@ Functions!
 
-void vision()
 
 void cam()
 {
-    while(cam)
-    {
+	while(cam)
+	{
+		ms t = chrono::duration_cast<ms>(fabs(TIME:now()-tick));
+		if(timi-t>=0)
+			usleep(timi-t);
+		else
+			usleep(t-timi);
+		for(int i = 0;i<8;i++)
+		{
+			auto t = TIME::now();
+			if(!cam)
+				return;
+			if(camera()[0]==1)
+			{
+				if(cursorxyz[0]==1 & i==0)
+				{
+					thread t1(opperate,1);
+					t1.detach();
+				}
 
-    }
+				else
+				{
+					if(cursorxyz[0] != 1)
+					{
+						int mapKey = cursorxyz[0];
+						xmod().find(mapKey)->second(cursorxyz[0]);
+					}
+				}
+				if(cursorxyz[1] == 1 && i==0)
+				{
+					thread t2(opperate,2);
+					t2.detach();
+				}
+ 				else
+ 				{
+ 					if(cursorxyz!=1)
+ 					{
+ 						int mapKey = cursorxyz[1];
+ 						ymod().find(mapKey)->second(cursorxyz[0]);
+ 					}
+ 				}
+ 				if(cursorxyz[2] == 1 && i==0)
+ 				{
+ 					thread t3(opperate,3);
+ 					t3.detach();
+ 				}
+ 				else
+ 				{
+ 					if(cursorxyz!=1)
+ 					{
+ 						int mapKey = cursorxyz[2];
+ 						zmod().find(mapKey)->second(cursorxyz[0]);
+ 					}
+ 				}
+ 				else
+ 					passer(0);
+ 				if(i!=7)
+ 					usleep(timi/8+chrono::duration_cast<ms>(TIME:now()-t));
+ 			}
+		}
+	}
 }
 
+void opperate(int x)				// µµµµ
+{
+	if(x==1)
+		xmod().find(cursorxyz[0])->second(camera()[1]);
+	if(x==2)
+		ymod().find(cursorxyz[1])->second(camera()[2]);
+	if(x==3)
+		zmod().find(cursorxyz[2])->second(camera()[3]);
+}
+
+void notes(int note)
+{
+	midime(144+channel,note,100);
+	usleep(timi-timi*length);
+	midime(128+channel,note,0);
+}
+
+void bPitch(int val)
+{
+	midime(224+channel,0,val);
+}
+
+void modWheel(int val)
+{
+	midime(176+channel,1,val);
+}
 
 
 void initialize()
@@ -716,9 +846,9 @@ void initialize()
 	// create Bouncetime
 	auto t2 = TIME::now();
 	usleep(100000);
-  auto t1 = TIME::now();
+  	auto t1 = TIME::now();
 	timer mismunur = tock-tick;
-  hundradms = chrono::duration_cast<ms>(mismunur);
+  	hundradms = chrono::duration_cast<ms>(mismunur);
 
 	// Run Ledshow 3-4 times for starting animation
 
@@ -734,4 +864,3 @@ void initialize()
 //////////////////////////////////////////////////////////////////////
 
 #endif
-

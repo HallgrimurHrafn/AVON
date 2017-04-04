@@ -17,13 +17,13 @@ extern void barChange();
 extern void scaleChange(int val, int x);
 extern void cameraMode(int val, int x);
 
-
-void fScrollMapY(int line, int column,int val)
+MainInteractions mainy;
+void fScrollMapY(int row, int column,int val)
 {
-	if(line == 0)
+	if (row == 0)
 	{
         if (column==0)
-            tempChange(val,1);
+            tempoChange(val,1);
         else if (column==1)
 			channelChange(val);
         else if (column==3)
@@ -37,29 +37,29 @@ void fScrollMapY(int line, int column,int val)
 		else
 			passer(0);
 	}
-    else if(line==1)
+    else if (row==1)
 	{
         if (column==0)
-			tempChange(val,100);
+			tempoChange(val,100);
         else if (column==1)
-			tempChange(val,10);
+			tempoChange(val,10);
         else if (column==2)
-			tempChange(val,1);
+			tempoChange(val,1);
 		else
 			passer(0);
 	}
-    else if (line==2)
+    else if  (row==2)
 	{
         if (column<2)
 			scaleChange(val,column%1);
 		else
 			passer(0);
 	}
-    else if (line==3)
+    else if  (row==3)
 	{
 		customScale(val,7-(column)%8);
 	}
-    else if (line==4)
+    else if  (row==4)
 	{
         if (column<3)
 			cameraMode(val,column);
@@ -67,7 +67,7 @@ void fScrollMapY(int line, int column,int val)
 			passer(0);
 	}
 }
-void fScrollMapX(int line, int column,int val)
+void fScrollMapX(int (row, int column,int val)
 {
 	if(column==0)
 	{
@@ -76,13 +76,13 @@ void fScrollMapX(int line, int column,int val)
 	}
     else if(column==1)
 	{
-		if(line==2)
+		if (row==2)
 		{
 			if(val==-1)
 				nav[0]+=val;
 		}
 	}
-    else if(line==3)
+    else if (row==3)
 	{
 		if(column<7)
 			nav[0]+=val;
@@ -92,7 +92,7 @@ void fScrollMapX(int line, int column,int val)
 				nav[0]+=val;
 		}
 	}
-    else if(line==0 && column<7)
+    else if (row==0 && column<7)
 	{
 		if(column==6)
 		{
@@ -102,7 +102,7 @@ void fScrollMapX(int line, int column,int val)
 		else
             nav[0]+=val;
 	}
-    else if(column==2 && (line==1 || line==4))
+    else if(column==2 &&  (row==1 || (row==4))
 	{
 		if(val==-1)
 			nav[0]+=val;
