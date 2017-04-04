@@ -419,7 +419,7 @@ void Interruption()
   	pullUpDnControl(6, PUD_UP); // rotary 2 left
   	pullUpDnControl(12, PUD_UP); // rotary 2 click
 
-  	wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep); // Trellis
+  	wiringPiISR (4, INT_EDGE_FALLING, &trellisPrep); // s
   	wiringPiISR (20, INT_EDGE_FALLING, &stopperPrep); //STOP
   	wiringPiISR (21, INT_EDGE_FALLING, &PlayPausePrep); // PLAY/PAUSE
   	wiringPiISR (16, INT_EDGE_FALLING, &callbackTapPrep); //TAP
