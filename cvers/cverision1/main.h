@@ -317,7 +317,7 @@ void ledshow(int matrix[][8])
 		}
 		if (i>1)
 		{
-			for(int j = 0; j<j<ledsNum[i-2];j++)
+			for(int j = 0; j<ledsNum[i-2];j++)
 				ledHelp(leds[i-2][j],matrix);
 		}
 		writeDisplay();
