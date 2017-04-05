@@ -49,6 +49,7 @@ void Sequencer() {
 
 void playColumn(int column)
 {
+	cout<<"PLAYCOLUMN"<<endl;
     // Creating thread to play current column.
     thread p1(NOTEON,column,true);
     p1.detach();
@@ -63,6 +64,7 @@ void playColumn(int column)
 
 void NOTEON(int column, bool cd)
 {
+	cout<<"NOTEON"<<endl;
 	tick = TIME::now();
 	trellStatus = 0;
 	for(int i=0;i<8;i++) {
@@ -78,6 +80,7 @@ void NOTEON(int column, bool cd)
 
 void NOTEOFF(int column)
 {
+	cout<<"NOTEOFF"<<endl;
 	trellStatus = 0;
 	for(int i = 0; i < 8;i++)
 	{
@@ -93,6 +96,7 @@ void NOTEOFF(int column)
 
 void metronome(int column) // vantar info um trellis
 {
+	cout<<"metronome"<<endl;
 	metroLed = true;
 	for(int i =0; i<8; i++)
 		setLED(invTrellisTransf(i * 8 + column));
