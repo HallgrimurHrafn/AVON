@@ -32,7 +32,8 @@ void Sequencer() {
 				}
 				column = i;
 				playColumn(column);
-                while (paused == 1) {
+				usleep(timi);
+        while (paused == 1) {
 					usleep(100000);
 
 					if (stop == 1)
@@ -101,9 +102,9 @@ void metronome(int column) // vantar info um trellis
 		setLED(invTrellisTransf(i * 8 + column));}
 	usleep(FLASH*timi);
 	for(int i =0; i<8; 1){
+		cout<<"metronomeRepeat2"<<endl;
 	  if (status[channel][column][i] == 0)
-				{cout<<"metronomeRepeat2"<<endl;
-      	clrLED(invTrellisTransf(i * 8 + column));}
+      	clrLED(invTrellisTransf(i * 8 + column));
 	}
 	writeDisplay();
 	cout<<"metronomeUpdate"<<endl;
