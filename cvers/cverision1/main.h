@@ -101,7 +101,7 @@ void metronome(int column) // vantar info um trellis
 		cout<<"metronomeRepeat1"<<endl;
 		setLED(invTrellisTransf(i * 8 + column));}
 	usleep(FLASH*timi);
-	for(int i =0; i<8; 1){
+	for(int i =0; i<8; i++){
 		cout<<"metronomeRepeat2"<<endl;
 	  if (status[channel][column][i] == 0)
       	clrLED(invTrellisTransf(i * 8 + column));
