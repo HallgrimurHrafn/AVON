@@ -178,10 +178,10 @@ void trellisEventSetup()
 
 void trellisWatch()
 {
-	if (live)
+	// if (live)
 		livePlay();
-	else
-		sequencerWatch();
+	// else
+		// sequencerWatch();
 }
 
 void sequencerSet()
