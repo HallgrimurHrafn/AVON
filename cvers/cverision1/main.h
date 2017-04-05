@@ -64,7 +64,6 @@ void playColumn(int column)
 
 void NOTEON(int column, bool cd)
 {
-	cout<<"NOTEON"<<endl;
 	tick = TIME::now();
 	trellStatus = 0;
 	for(int i=0;i<8;i++) {
@@ -80,7 +79,6 @@ void NOTEON(int column, bool cd)
 
 void NOTEOFF(int column)
 {
-	cout<<"NOTEOFF"<<endl;
 	trellStatus = 0;
 	for(int i = 0; i < 8;i++)
 	{
@@ -96,17 +94,19 @@ void NOTEOFF(int column)
 
 void metronome(int column) // vantar info um trellis
 {
-	cout<<"metronome"<<endl;
+	cout<<"metronome1"<<endl;
 	metroLed = true;
-	for(int i =0; i<8; i++)
-		setLED(invTrellisTransf(i * 8 + column));
-	writeDisplay();
+	for(int i =0; i<8; i++){
+		cout<<"metronomeRepeat1"<<endl;
+		setLED(invTrellisTransf(i * 8 + column));}
 	usleep(FLASH*timi);
 	for(int i =0; i<8; 1){
 	  if (status[channel][column][i] == 0)
-      	clrLED(invTrellisTransf(i * 8 + column));
+				{cout<<"metronomeRepeat2"<<endl;
+      	clrLED(invTrellisTransf(i * 8 + column));}
 	}
 	writeDisplay();
+	cout<<"metronomeUpdate"<<endl;
 	metroLed = false;
 }
 
