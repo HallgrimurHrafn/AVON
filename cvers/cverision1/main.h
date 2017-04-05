@@ -13,6 +13,7 @@
 #include "midime.h"
 #include "trellis.h"
 #include "scopeFix.h"
+#include "changNav.h"
 
 // HALLI DISABLADI GUI TIL AD REYNA AD COMPILEA MED THVI AD COMMENTA THAD UT.
 
