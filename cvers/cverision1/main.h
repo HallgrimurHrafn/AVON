@@ -102,7 +102,7 @@ void metronome(int column) // vantar info um trellis
 	  if (status[channel][column][i] == 0)
       	clrLED(invTrellisTransf(i * 8 + column));
 	}
-  	writeDisplay();
+	writeDisplay();
 	metroLed = false;
 }
 
@@ -402,7 +402,7 @@ void Rotary(int RotaryNum, int leftPin, int rightPin){
 // FROM ALLOVER @@@@ GPIO INTERRUPT SYSTEM.
 void Interruption()
 {
-	// wiringPiSetupGpio ();
+	wiringPiSetupGpio ();
 
 	pinMode(4, INPUT); // Trellis
 	pinMode(20, INPUT); // STOP
