@@ -405,7 +405,8 @@ void Rotary(int RotaryNum, int leftPin, int rightPin){
 // FROM ALLOVER @@@@ GPIO INTERRUPT SYSTEM.
 void Interruption()
 {
-	wiringPiSetupGpio ();
+	int a = wiringPiSetupGpio ();
+	cout<<a<<endl;
 
 	pinMode(4, INPUT); // Trellis
 	pinMode(20, INPUT); // STOP
@@ -449,6 +450,7 @@ void Interruption()
 // NEW @@@@ groundwork interruptions.
 void trellisPrep()
 {
+	cout<<"pressed"<<endl;
 	auto tock = TIME::now();
 	timer timeDifference = tock-trellisBounce;
 	ms timeDifferenceMs = chrono::duration_cast<ms>(timeDifference);
