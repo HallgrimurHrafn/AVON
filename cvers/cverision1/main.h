@@ -178,10 +178,11 @@ void trellisEventSetup()
 
 void trellisWatch()
 {
-	// if (live)
+	cout<<"pressed"<<endl;
+	if (live)
 		livePlay();
-	// else
-		// sequencerWatch();
+	else
+		sequencerWatch();
 }
 
 void sequencerSet()
