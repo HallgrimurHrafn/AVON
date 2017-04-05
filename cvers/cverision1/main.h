@@ -32,7 +32,6 @@ void Sequencer() {
 				}
 				column = i;
 				playColumn(column);
-				usleep(timi*100);
         while (paused == 1) {
 					usleep(100000);
 
