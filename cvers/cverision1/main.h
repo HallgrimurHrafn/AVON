@@ -848,7 +848,6 @@ void initialize()
 {
 	// Startup trellis
 	trelliInitialize();
-	sleep(3);
 	// // create Bouncetime
 	// auto t2 = TIME::now();
 	// usleep(100000);
@@ -860,7 +859,6 @@ void initialize()
 	int empty[8][8] = {};
 	for (int i=0; i<3; i++)
 		ledshow(empty);
-		sleep(3);
 	// start a thread for the Interruption
 	thread InterruptionThread(Interruption);
 	InterruptionThread.detach();
