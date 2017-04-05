@@ -23,7 +23,7 @@ void finalise() {
 }
 
 void clrLED(int i){
-	string s = "clrLED("+to_string(i)+")\n";
+	string s = "trellis.clrLED("+to_string(i)+")\n";
 	char const* ch = s.c_str();
 	PyRun_SimpleString(ch);
 }

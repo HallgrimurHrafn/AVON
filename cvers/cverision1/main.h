@@ -329,7 +329,7 @@ void ledHelp(int x, int matrix[][8])
 {
 	int y = TrellisTransf(x);
   if (matrix[y % 8][y / 8] ==0)
-  		clrLED(x);
+		clrLED(x);
 }
 
 
