@@ -49,7 +49,6 @@ void Sequencer() {
 
 void playColumn(int column)
 {
-	cout<<"PLAYCOLUMN"<<endl;
     // Creating thread to play current column.
     thread p1(NOTEON,column,true);
     p1.detach();
@@ -68,8 +67,10 @@ void NOTEON(int column, bool cd)
 	trellStatus = 0;
 	for(int i=0;i<8;i++) {
 		for(int j=0; j<16;j++) {
-			if(status[j][column][i] == 1)
+			if(status[j][column][i] == 1){
 				midime(144+j,Scale[i],100);
+				cout<<scale[i]<<endl;
+				}
 		}
 	}
 	trellStatus = 1;
@@ -94,7 +95,6 @@ void NOTEOFF(int column)
 
 void metronome(int column) // vantar info um trellis
 {
-	cout<<"metronome1"<<endl;
 	metroLed = true;
 	for(int i =0; i<8; i++){
 		setLED(invTrellisTransf(i * 8 + column));}
