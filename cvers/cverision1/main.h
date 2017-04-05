@@ -69,7 +69,7 @@ void NOTEON(int column, bool cd)
 		for(int j=0; j<16;j++) {
 			if(status[j][column][i] == 1){
 				midime(144+j,Scale[i],100);
-				cout<<scale[i]<<endl;
+				cout<<Scale[i]<<endl;
 				}
 		}
 	}
