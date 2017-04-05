@@ -320,6 +320,8 @@ void ledshow(int matrix[][8])
 			for(int j = 0; j<j<ledsNum[i-2];j++)
 				ledHelp(leds[i-2][j],matrix);
 		}
+		writeDisplay();
+		usleep(100000);
 	}
 }
 
